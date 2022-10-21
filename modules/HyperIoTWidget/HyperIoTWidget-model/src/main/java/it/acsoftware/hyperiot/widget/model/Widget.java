@@ -84,8 +84,8 @@ public class Widget extends HyperIoTAbstractEntity implements HyperIoTProtectedE
         this.domains = domains;
     }
 
-    @Column(length = 30000)
-    @Size(max = 30000)
+    @Column(length = 200000)
+    @Size(max = 200000)
     public byte[] getImage() {
         return image;
     }
@@ -94,8 +94,8 @@ public class Widget extends HyperIoTAbstractEntity implements HyperIoTProtectedE
         this.image = image;
     }
 
-    @Column(length = 30000)
-    @Size(max = 30000)
+    @Column(length = 200000)
+    @Size(max = 200000)
     public byte[] getPreView() {
         return preView;
     }
