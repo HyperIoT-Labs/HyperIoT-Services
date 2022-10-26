@@ -16,7 +16,6 @@ import it.acsoftware.hyperiot.widget.api.WidgetSystemApi;
 import it.acsoftware.hyperiot.widget.model.Widget;
 import it.acsoftware.hyperiot.widget.model.WidgetCategory;
 import it.acsoftware.hyperiot.widget.model.WidgetDomain;
-import it.acsoftware.hyperiot.role.util.HyperIoTRoleConstants;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -149,12 +148,15 @@ public final class WidgetSystemServiceImpl extends HyperIoTBaseEntitySystemServi
         this.createWidgetIfNotExists("Realtime FFT Sine Waves", "Widget to show Fast Fourier Transform sine waves.", WidgetUtils.realtimeFftChartImg, WidgetUtils.realtimeFftChartPreView, 2, 3, "fourier-chart", "{\"data\":[]}", WidgetCategory.LINE, null, false, true);
         //this.createWidgetIfNotExists("Classic line chart", "Widget to show single or combined statistics with a line chart representation.", WidgetUtils.classicLineChartImg, WidgetUtils.classicLineChartPreView, 2, 3, "stats-chart", "{\"data\":[]}", WidgetCategory.LINE, null, false, true);
         this.createWidgetIfNotExists("Realtime Sensor value", "Widget to display sensor values.", WidgetUtils.sensorValueImg, WidgetUtils.sensorValuePreView, 1, 2, "sensor-value", "{\"data\":[]}", WidgetCategory.GAUGES, null, false, true);
-        this.createWidgetIfNotExists("Realtime data table", "This widget displays realtime values of fields in tabular format.", WidgetUtils.dataTableImg, WidgetUtils.dataTablePreView, 3, 3, "realtime-table", "{}", WidgetCategory.TABLES, null, false, true);
+        this.createWidgetIfNotExists("Realtime data table", "This widget displays realtime values of fields in tabular format.", WidgetUtils.realtimeDataTableImg, WidgetUtils.realtimeDataTablePreView, 3, 3, "realtime-table", "{}", WidgetCategory.TABLES, null, false, true);
         this.createWidgetIfNotExists("Data table", "This widget displays values of fields in tabular format.", WidgetUtils.dataTableImg, WidgetUtils.dataTablePreView, 3, 3, "offline-table", "{}", WidgetCategory.TABLES, null, true, false);
         this.createWidgetIfNotExists("Image data", "Display image based on thermal camera data array.", WidgetUtils.imageData, WidgetUtils.imageDataPreview, 2, 3, "image-data", "{}", WidgetCategory.MAP, null, false, true);
         this.createWidgetIfNotExists("Algorithm data table", "This widget displays output values of algorithms in tabular format.", WidgetUtils.algorithmDataTableImg, WidgetUtils.algorithmDataTablePreView, 3, 3, "algorithm-offline-table", "{}", WidgetCategory.TABLES, null, true, false);
         this.createWidgetIfNotExists("Event data table", "This widget displays events of project in tabular format.", WidgetUtils.eventDataTableImg, WidgetUtils.eventDataTablePreView, 3, 3, "event-offline-table", "{}", WidgetCategory.TABLES, null, true, false);
         this.createWidgetIfNotExists("Error data table", "This widget displays errors of project in tabular format.", WidgetUtils.errorDataTableImg, WidgetUtils.errorDataTablePreView, 3, 3, "error-table", "{}", WidgetCategory.TABLES, null, true, false);
+        this.createWidgetIfNotExists("ecg-trace", "Show ECG trace chart (3 channel).", WidgetUtils.ecgImg, WidgetUtils.ecgPreView, 6, 6, "ecg", "{}", WidgetCategory.LINE, null, true, true);
+        this.createWidgetIfNotExists("Bodymap", "Bodymap widget.", WidgetUtils.bodyMapImg, WidgetUtils.bodyMapPreView, 2, 6, "bodymap", "{}", WidgetCategory.LINE, null, false, true);
+        this.createWidgetIfNotExists("Time chart multistate", "Shows a time chart multistate.", WidgetUtils.timeChartMultiStateImg, WidgetUtils.timeCharMultiStatePreView, 3, 3, "time-multistate-chart", "{}", WidgetCategory.LINE, null, true, true);
     }
 
     @Override
