@@ -90,7 +90,7 @@ public class RuleParser {
             && tokenizer.ttype != StreamTokenizer.TT_EOF && tokenizer.ttype != ')') {
             StringBuilder sb = new StringBuilder();
             while (tokenizer.ttype != StreamTokenizer.TT_WORD
-                && tokenizer.ttype != StreamTokenizer.TT_NUMBER) {
+                && tokenizer.ttype != StreamTokenizer.TT_NUMBER && tokenizer.ttype != '"' && tokenizer.ttype != '\'') {
                 char ch = (char) tokenizer.ttype;
                 sb.append(ch);
                 tokenizer.nextToken();
