@@ -1845,7 +1845,7 @@ public class HyperIoTWidgetRestTest extends KarafTestSupport {
 	}
 
 	@Test
-	public void test61_saveWidgetShouldFailIfNameIfImageIsOver30000Byte() {
+	public void test61_saveWidgetShouldFailIfNameIfImageSizeIsExceeded() {
 		WidgetRestApi widgetRestApi = getOsgiService(WidgetRestApi.class);
 		// hadmin tries to save Widget with the following call saveWidget,
 		// but image's lenght is over 30000 byte.
@@ -1861,7 +1861,7 @@ public class HyperIoTWidgetRestTest extends KarafTestSupport {
 		widget.setType("image-data");
 		widget.setCols(2);
 		widget.setRows(3);
-		widget.setImage(createRandomByteArray(30001));
+		widget.setImage(createRandomByteArray(200001));
 		widget.setPreView(widgetImageDataPreview);
 		widget.setOffline(false);
 		widget.setRealTime(true);
@@ -1877,7 +1877,7 @@ public class HyperIoTWidgetRestTest extends KarafTestSupport {
 	}
 
 	@Test
-	public void test62_saveWidgetShouldWorkIfPreviewIs30000Byte() {
+	public void test62_saveWidgetShouldWorkIfPreviewSizeIsNotExceeded() {
 		WidgetRestApi widgetRestApi = getOsgiService(WidgetRestApi.class);
 		// hadmin tries to save Widget with the following call saveWidget,
 		// preview's lenght is 30000 byte.
@@ -1894,19 +1894,19 @@ public class HyperIoTWidgetRestTest extends KarafTestSupport {
 		widget.setCols(2);
 		widget.setRows(3);
 		widget.setImage(widgetImageData);
-		widget.setPreView(createRandomByteArray(30000));
+		widget.setPreView(createRandomByteArray(200000));
 		widget.setOffline(false);
 		widget.setRealTime(true);
 
 		this.impersonateUser(widgetRestApi, adminUser);
 		Response restResponse = widgetRestApi.saveWidget(widget);
 		Assert.assertEquals(200, restResponse.getStatus());
-		Assert.assertEquals(30000, ((Widget) restResponse.getEntity()).getPreView().length);
+		Assert.assertEquals(200000, ((Widget) restResponse.getEntity()).getPreView().length);
 		Assert.assertNotEquals(0 , ((Widget)restResponse.getEntity()).getId());
 	}
 
 	@Test
-	public void test63_saveWidgetShouldFailIfNameIfImageIsOver30000Byte() {
+	public void test63_saveWidgetShouldFailIfNameIfImageSizeIsExceeded() {
 		WidgetRestApi widgetRestApi = getOsgiService(WidgetRestApi.class);
 		// hadmin tries to save Widget with the following call saveWidget,
 		// but image's lenght is over 30000 byte.
@@ -1923,7 +1923,7 @@ public class HyperIoTWidgetRestTest extends KarafTestSupport {
 		widget.setCols(2);
 		widget.setRows(3);
 		widget.setImage(widgetImageData);
-		widget.setPreView(createRandomByteArray(30001));
+		widget.setPreView(createRandomByteArray(200001));
 		widget.setOffline(false);
 		widget.setRealTime(true);
 
@@ -1993,7 +1993,7 @@ public class HyperIoTWidgetRestTest extends KarafTestSupport {
 	}
 
 	@Test
-	public void test67_updateWidgetShouldFailIfImageIsOver30000Byte() {
+	public void test67_updateWidgetShouldFailIfImageSizeIsExceeded() {
 		WidgetRestApi widgetRestApi = getOsgiService(WidgetRestApi.class);
 		// hadmin tries to update Widget with the following call updateWidget,
 		// but image's lenght is over 30000 byte.
@@ -2002,7 +2002,7 @@ public class HyperIoTWidgetRestTest extends KarafTestSupport {
 		HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
 		Widget widget = createWidget(true);
 		long widgetId = widget.getId();
-		widget.setImage(createRandomByteArray(30001));
+		widget.setImage(createRandomByteArray(200001));
 		this.impersonateUser(widgetRestApi, adminUser);
 		Response restResponse = widgetRestApi.updateWidget(widget);
 		Assert.assertEquals(422, restResponse.getStatus());
@@ -2032,7 +2032,7 @@ public class HyperIoTWidgetRestTest extends KarafTestSupport {
 	}
 
 	@Test
-	public void test69_updateWidgetShouldFailIfPreviewIsOver30000Byte() {
+	public void test69_updateWidgetShouldFailIfPreviewSizeIsExceeded() {
 		WidgetRestApi widgetRestApi = getOsgiService(WidgetRestApi.class);
 		// hadmin tries to update Widget with the following call updateWidget,
 		// but preview's lenght is over 30000 byte.
@@ -2041,7 +2041,7 @@ public class HyperIoTWidgetRestTest extends KarafTestSupport {
 		HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
 		Widget widget = createWidget(true);
 		long widgetId = widget.getId();
-		widget.setPreView(createRandomByteArray(30001));
+		widget.setPreView(createRandomByteArray(200001));
 		this.impersonateUser(widgetRestApi, adminUser);
 		Response restResponse = widgetRestApi.updateWidget(widget);
 		Assert.assertEquals(422, restResponse.getStatus());
