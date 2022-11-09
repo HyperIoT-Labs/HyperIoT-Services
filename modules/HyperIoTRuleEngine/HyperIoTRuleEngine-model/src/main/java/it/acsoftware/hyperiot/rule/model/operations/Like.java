@@ -26,4 +26,8 @@ public class Like extends BinaryOperation implements RuleNode {
 		return "matches";
 	}
 
+	@Override
+	public boolean needsExpr() {
+		return true;
+	}
 }
