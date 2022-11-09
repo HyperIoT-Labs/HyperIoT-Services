@@ -106,8 +106,8 @@ public class RuleParser {
             if (availableOperations.get(i).operator().equals(val)) {
                 RuleOperation operation = availableOperations.get(i).getClass().newInstance();
                 RuleNode nr = (RuleNode) operation;
-                tokenizer.nextToken();
                 if (operation.needsExpr()) {
+                    tokenizer.nextToken();
                     nr.defineOperands(firstOperand, parseExpression(null));
                 } else {
                     RuleNode[] operands = new RuleNode[operation.numOperands()];
@@ -117,6 +117,9 @@ public class RuleParser {
                         tokenizer.nextToken();
                     } else {
                         for (int j = 1; j < operation.numOperands(); j++) {
+                            //go ahead only if operator is a string word
+                            if(tokenizer.ttype == StreamTokenizer.TT_WORD)
+                                tokenizer.nextToken();
                             operands[j] = parsePrimary(false);
                         }
                     }
