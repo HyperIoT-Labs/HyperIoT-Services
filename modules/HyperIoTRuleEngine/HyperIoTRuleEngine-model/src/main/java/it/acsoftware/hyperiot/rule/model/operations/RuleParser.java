@@ -106,8 +106,8 @@ public class RuleParser {
             if (availableOperations.get(i).operator().equals(val)) {
                 RuleOperation operation = availableOperations.get(i).getClass().newInstance();
                 RuleNode nr = (RuleNode) operation;
+                tokenizer.nextToken();
                 if (operation.needsExpr()) {
-                    tokenizer.nextToken();
                     nr.defineOperands(firstOperand, parseExpression(null));
                 } else {
                     RuleNode[] operands = new RuleNode[operation.numOperands()];
