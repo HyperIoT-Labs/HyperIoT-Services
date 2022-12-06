@@ -315,7 +315,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
 
     @Override
     public void scanHProject(long hProjectId, List<String> hPacketIds, List<String> hDeviceIds,
-                             long rowKeyLowerBound, long rowKeyUpperBound, String alarmState, OutputStream outputStream)
+                             long rowKeyLowerBound, long rowKeyUpperBound,int limit, String alarmState, OutputStream outputStream)
             throws IOException {
         try (JsonGenerator jsonGenerator = objectMapper.getFactory().createGenerator(outputStream)) {
             boolean isJsonArray = (hPacketIds.size() > 1 || hDeviceIds.size() > 1 || ((!hPacketIds.isEmpty()) && (!hDeviceIds.isEmpty()))
@@ -333,7 +333,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
                     rowKeyLowBound = Bytes.toBytes(rowKeyLowerBound);
                     rowKeyUppBound = Bytes.toBytes(rowKeyUpperBound);
                 }
-                writeJsonObject(packetId, tableName, rowKeyLowBound, rowKeyUppBound,
+                writeJsonObject(packetId, tableName, rowKeyLowBound, rowKeyUppBound, limit,
                         objectMapper, jsonGenerator);
             }
             if (hDeviceIds.isEmpty()){
@@ -369,7 +369,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
         }
     }
 
-    private void writeJsonObject(String packetId, String tableName, byte[] rowKeyLowerBound, byte[] rowKeyUpperBound,
+    private void writeJsonObject(String packetId, String tableName, byte[] rowKeyLowerBound, byte[] rowKeyUpperBound,int limit,
                                  ObjectMapper objectMapper, JsonGenerator jsonGenerator)
             throws IOException {
         long hPacketId = Long.parseLong(packetId);
@@ -379,7 +379,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
         byte[] column = getColumn(packetId);
         Map<byte[], List<byte[]>> targetColumns = getScannerColumns(packetId, columnFamily, column);
         List<Result> hBaseResults = hBaseConnectorSystemApi.scanWithCompleteResult(tableName, targetColumns,
-                rowKeyLowerBound, rowKeyUpperBound);
+                rowKeyLowerBound, rowKeyUpperBound,limit);
         // construct frontend output
         addValueToScanResults(packetId, hBaseResults, columnFamily, column, hProjectScan);
         if (!hBaseResults.isEmpty())

@@ -27,10 +27,10 @@ public class HProjectHBaseServiceImpl extends HyperIoTBaseServiceImpl implements
     @Override
     @AllowPermissions(actions = HyperIoTHProjectAction.Names.SCAN_HBASE_DATA, checkById = true, idParamIndex = 1, systemApiRef ="it.acsoftware.hyperiot.hproject.api.HProjectSystemApi")
     public void scanHProject(HyperIoTContext context, long hProjectId, List<String> hPacketIds, List<String> hDeviceIds,
-                                           long rowKeyLowerBound, long rowKeyUpperBound, String alarmState,
+                                           long rowKeyLowerBound, long rowKeyUpperBound,int limit, String alarmState,
                                            OutputStream outputStream)
             throws IOException{
-        systemService.scanHProject(hProjectId, hPacketIds, hDeviceIds, rowKeyLowerBound, rowKeyUpperBound, alarmState, outputStream);
+        systemService.scanHProject(hProjectId, hPacketIds, hDeviceIds, rowKeyLowerBound, rowKeyUpperBound,limit, alarmState, outputStream);
     }
 
     @Override
