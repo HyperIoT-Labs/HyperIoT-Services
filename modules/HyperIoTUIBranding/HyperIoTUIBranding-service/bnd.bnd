@@ -13,6 +13,7 @@ Import-Package: \
     it.acsoftware.hyperiot.base.security.annotations;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.service.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.huser.model;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.ui.branding.model,\
     it.acsoftware.hyperiot.ui.branding.repository,\
     it.acsoftware.hyperiot.ui.branding.actions,\

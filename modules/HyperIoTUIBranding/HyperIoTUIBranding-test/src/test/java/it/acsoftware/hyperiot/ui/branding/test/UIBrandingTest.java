@@ -24,44 +24,67 @@ import it.acsoftware.hyperiot.base.util.HyperIoTConstants;
 import it.acsoftware.hyperiot.osgi.util.filter.OSGiFilterBuilder;
 
 /**
- * 
  * @author Aristide Cittadino Interface component for UIBranding System Service.
- *
  */
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerSuite.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UIBrandingTest extends KarafTestSupport {
 
-	//forcing global configuration
-	@Override
-	public Option[] config() {
-		return null;
-	}
+    //forcing global configuration
+    @Override
+    public Option[] config() {
+        return null;
+    }
 
-	public HyperIoTContext impersonateUser(HyperIoTBaseRestApi restApi,HyperIoTUser user) {
-		return restApi.impersonate(user);
-	}
+    public HyperIoTContext impersonateUser(HyperIoTBaseRestApi restApi, HyperIoTUser user) {
+        return restApi.impersonate(user);
+    }
 
-	private HyperIoTAction getHyperIoTAction(String resourceName,
-			HyperIoTActionName action, long timeout) {
-		String actionFilter = OSGiFilterBuilder
-				.createFilter(HyperIoTConstants.OSGI_ACTION_RESOURCE_NAME, resourceName)
-				.and(HyperIoTConstants.OSGI_ACTION_NAME, action.getName()).getFilter();
-		return getOsgiService(HyperIoTAction.class, actionFilter, timeout);
-	}
+    private HyperIoTAction getHyperIoTAction(String resourceName,
+                                             HyperIoTActionName action, long timeout) {
+        String actionFilter = OSGiFilterBuilder
+                .createFilter(HyperIoTConstants.OSGI_ACTION_RESOURCE_NAME, resourceName)
+                .and(HyperIoTConstants.OSGI_ACTION_NAME, action.getName()).getFilter();
+        return getOsgiService(HyperIoTAction.class, actionFilter, timeout);
+    }
 
-	@Test
-	public void hyperIoTFrameworkShouldBeInstalled() throws Exception {
-		// assert on an available service
-		assertServiceAvailable(FeaturesService.class,0);
-		String features = executeCommand("feature:list -i");
-		assertContains("HyperIoTBase-features ", features);
-		assertContains("HyperIoTPermission-features ", features);
-		assertContains("HyperIoTHUser-features ", features);
-		assertContains("HyperIoTAuthentication-features ", features);
-		String datasource = executeCommand("jdbc:ds-list");
-		assertContains("hyperiot", datasource);
-	}
+    @Test
+    public void hyperIoTFrameworkShouldBeInstalled() throws Exception {
+        // assert on an available service
+        assertServiceAvailable(FeaturesService.class, 0);
+        String features = executeCommand("feature:list -i");
+        assertContains("HyperIoTBase-features ", features);
+        assertContains("HyperIoTPermission-features ", features);
+        assertContains("HyperIoTHUser-features ", features);
+        assertContains("HyperIoTAuthentication-features ", features);
+        String datasource = executeCommand("jdbc:ds-list");
+        assertContains("hyperiot", datasource);
+    }
+
+    @Test
+    public void test000_modelShouldWorkAsExpected() {
+
+    }
+
+    @Test
+    public void test001_uiBrandingShouldBeSaved() {
+
+    }
+
+    @Test
+    public void test002_useShouldAccessToTheirBrandingOnly() {
+
+    }
+
+    @Test
+    public void test003_userShouldReceiveJustNeededData() {
+
+    }
+
+    @Test
+    public void test004_assetsShouldBeErasedWhenUserIsDeleted() {
+
+    }
 
 }

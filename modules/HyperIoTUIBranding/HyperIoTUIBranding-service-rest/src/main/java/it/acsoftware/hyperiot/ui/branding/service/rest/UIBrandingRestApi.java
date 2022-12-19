@@ -14,6 +14,7 @@ import it.acsoftware.hyperiot.huser.model.HUser;
 import it.acsoftware.hyperiot.query.util.filter.HyperIoTQueryBuilder;
 import it.acsoftware.hyperiot.ui.branding.api.UIBrandingApi;
 import it.acsoftware.hyperiot.ui.branding.model.UIBranding;
+import it.acsoftware.hyperiot.ui.branding.model.UIBrandingConstants;
 import it.acsoftware.hyperiot.ui.branding.model.view.Isolated;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
@@ -37,7 +38,6 @@ import java.util.Collection;
 @Component(service = UIBrandingRestApi.class, property = {"service.exported.interfaces=it.acsoftware.hyperiot.ui.branding.service.rest.UIBrandingRestApi", "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/ui-branding", "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter", "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"}, immediate = true)
 @Path("")
 public class UIBrandingRestApi extends HyperIoTBaseEntityRestApi<UIBranding> {
-    private static final String ASSET_FOLDER = "./assets/data/uibranding";
     private UIBrandingApi entityService;
     private HUserSystemApi hUserSystemApi;
 
@@ -130,7 +130,7 @@ public class UIBrandingRestApi extends HyperIoTBaseEntityRestApi<UIBranding> {
         HUser huser = this.hUserSystemApi.find(getHyperIoTContext().getLoggedEntityId(), getHyperIoTContext());
         uiBranding.setHuser(huser);
         try {
-            String basicPath = ASSET_FOLDER + File.separator + getHyperIoTContext().getLoggedEntityId();
+            String basicPath = UIBrandingConstants.ASSET_FOLDER + File.separator + getHyperIoTContext().getLoggedEntityId();
             File basicPathFile = new File(basicPath);
             if (!basicPathFile.exists()) basicPathFile.mkdirs();
 
