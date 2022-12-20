@@ -26,15 +26,22 @@ dependencies {
 	
 	testCompile group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-api", version:project.hyperIoTVersion
 	testCompile group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+	testCompile group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-service-rest", version:project.hyperIoTVersion
+	testCompile group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-test-utils", version:project.hyperIoTVersion
 
 	testCompile group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version:project.hyperIoTVersion
 	testCompile group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-model", version:project.hyperIoTVersion
+	testCompile group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-test-utils", version:project.hyperIoTVersion
+
+	testCompile group: "it.acsoftware.hyperiot.services", name: "HyperIoTServices-api", version:project.hyperIoTVersion
+	testCompile group: "it.acsoftware.hyperiot.services", name: "HyperIoTServices-util", version:project.hyperIoTVersion
 	//Project dependencies
 	
 	testCompile project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-api")
 	//Project Dependencies
 	testCompile project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-model")
 	testCompile project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-repository")
+	testCompile project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-service-rest")
 		
 	testCompile group: "org.apache.karaf.itests", name:"common", version:project.karafVersion
 	testCompile group: "org.apache.karaf", name:"apache-karaf", version:project.karafVersion

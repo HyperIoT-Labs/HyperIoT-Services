@@ -7,6 +7,8 @@ Import-Package: \
     it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.query.util.filter;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.security.util;version='${range;[===,+)}',\
@@ -14,6 +16,8 @@ Import-Package: \
     it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.service.entity;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.huser.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.permission.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.permission.model;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.ui.branding.model,\
     it.acsoftware.hyperiot.ui.branding.repository,\
     it.acsoftware.hyperiot.ui.branding.actions,\

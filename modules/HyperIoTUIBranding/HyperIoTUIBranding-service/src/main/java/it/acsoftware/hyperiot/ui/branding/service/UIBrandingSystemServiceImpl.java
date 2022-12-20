@@ -1,18 +1,18 @@
 package it.acsoftware.hyperiot.ui.branding.service;
 
-import it.acsoftware.hyperiot.base.api.HyperIoTContext;
-import it.acsoftware.hyperiot.base.api.entity.HyperIoTQuery;
-import it.acsoftware.hyperiot.base.exception.HyperIoTRuntimeException;
+import it.acsoftware.hyperiot.base.action.util.HyperIoTActionsUtil;
+import it.acsoftware.hyperiot.base.api.HyperIoTAction;
 import it.acsoftware.hyperiot.base.service.entity.HyperIoTBaseEntitySystemServiceImpl;
-import it.acsoftware.hyperiot.query.util.filter.HyperIoTQueryBuilder;
+import it.acsoftware.hyperiot.permission.api.PermissionSystemApi;
+import it.acsoftware.hyperiot.role.util.HyperIoTRoleConstants;
 import it.acsoftware.hyperiot.ui.branding.api.UIBrandingRepository;
 import it.acsoftware.hyperiot.ui.branding.api.UIBrandingSystemApi;
 import it.acsoftware.hyperiot.ui.branding.model.UIBranding;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Aristide Cittadino compileOnly class of the UIBrandingSystemApi
@@ -26,6 +26,8 @@ public final class UIBrandingSystemServiceImpl extends HyperIoTBaseEntitySystemS
      * Injecting the UIBrandingRepository to interact with persistence layer
      */
     private UIBrandingRepository repository;
+
+    private PermissionSystemApi permissionSystemApi;
 
     /**
      * Constructor for a UIBrandingSystemServiceImpl
@@ -49,5 +51,24 @@ public final class UIBrandingSystemServiceImpl extends HyperIoTBaseEntitySystemS
     protected void setRepository(UIBrandingRepository uIBrandingRepository) {
         getLog().debug("invoking setRepository, setting: {}", uIBrandingRepository);
         this.repository = uIBrandingRepository;
+    }
+
+    @Reference
+    public void setPermissionSystemApi(PermissionSystemApi permissionSystemApi) {
+        this.permissionSystemApi = permissionSystemApi;
+    }
+
+    @Activate
+    public void onActivate() {
+        this.checkRegisteredUserRoleExists();
+    }
+
+    /**
+     * Register permissions for new users
+     */
+    private void checkRegisteredUserRoleExists() {
+        String hProjectResourceName = UIBranding.class.getName();
+        List<HyperIoTAction> actions = HyperIoTActionsUtil.getHyperIoTCrudActions(hProjectResourceName);
+        this.permissionSystemApi.checkOrCreateRoleWithPermissions(HyperIoTRoleConstants.ROLE_NAME_REGISTERED_USER, actions);
     }
 }
