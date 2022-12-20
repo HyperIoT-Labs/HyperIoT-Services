@@ -30,7 +30,6 @@ public class UIBrandingTestConfiguration implements ConfigurationFactory {
         return HyperIoTTestConfigurationBuilder.createStandardConfiguration()
                 .withCodeCoverage("it.acsoftware.hyperiot.ui.branding.*")
                 .append(customOptions)
-                .withDebug("5005", false)
                 .build();
     }
 }

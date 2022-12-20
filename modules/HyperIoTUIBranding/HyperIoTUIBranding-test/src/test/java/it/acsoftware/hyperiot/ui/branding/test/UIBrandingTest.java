@@ -1,13 +1,13 @@
 package it.acsoftware.hyperiot.ui.branding.test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.acsoftware.hyperiot.base.action.HyperIoTActionName;
 import it.acsoftware.hyperiot.base.api.HyperIoTAction;
 import it.acsoftware.hyperiot.base.api.HyperIoTContext;
 import it.acsoftware.hyperiot.base.api.HyperIoTUser;
 import it.acsoftware.hyperiot.base.api.authentication.AuthenticationApi;
+import it.acsoftware.hyperiot.base.exception.HyperIoTNoResultException;
 import it.acsoftware.hyperiot.base.service.rest.HyperIoTBaseRestApi;
 import it.acsoftware.hyperiot.base.util.HyperIoTConstants;
 import it.acsoftware.hyperiot.huser.api.HUserSystemApi;
@@ -18,15 +18,12 @@ import it.acsoftware.hyperiot.osgi.util.filter.OSGiFilterBuilder;
 import it.acsoftware.hyperiot.permission.api.PermissionSystemApi;
 import it.acsoftware.hyperiot.permission.test.util.HyperIoTPermissionTestUtil;
 import it.acsoftware.hyperiot.role.api.RoleSystemApi;
-import it.acsoftware.hyperiot.role.service.rest.RoleRestApi;
-import it.acsoftware.hyperiot.services.util.HyperIoTServicesTestConfigurationBuilder;
+import it.acsoftware.hyperiot.ui.branding.api.UIBrandingSystemApi;
 import it.acsoftware.hyperiot.ui.branding.model.UIBranding;
 import it.acsoftware.hyperiot.ui.branding.model.view.Isolated;
 import it.acsoftware.hyperiot.ui.branding.service.rest.UIBrandingRestApi;
 import org.apache.karaf.features.FeaturesService;
 import org.apache.karaf.itests.KarafTestSupport;
-import org.checkerframework.checker.guieffect.qual.UI;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -145,20 +142,35 @@ public class UIBrandingTest extends KarafTestSupport {
 
     @Test
     public void test005_assetsShouldBeErasedWhenUserIsDeleted() {
-        AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HUserRestApi hUserRestApi = getOsgiService(HUserRestApi.class);
-        RoleRestApi roleRestApi = getOsgiService(RoleRestApi.class);
-        HUser u = (HUser) authService.login("hadmin", "admin");
-        hUserRestApi.impersonate(u);
-        roleRestApi.impersonate(u);
+        HUserSystemApi hUserSystemApi = getOsgiService(HUserSystemApi.class);
+        UIBrandingSystemApi uiBrandingSystemApi = getOsgiService(UIBrandingSystemApi.class);
+
         HUser newUser = HyperIoTHUserTestUtils.registerAndActivateNewUser(hUserRestApi);
-        UIBrandingRestApi brandingRestApi = getOsgiService(UIBrandingRestApi.class);
-        brandingRestApi.impersonate(newUser);
-        brandingRestApi.updateUIBranding("nuovoBrand", "nuovoScheme", null, null);
-        hUserRestApi.deleteHUser(newUser.getId());
+        UIBranding ui = createUIBrandingObject(newUser, "", "");
+        ui = uiBrandingSystemApi.save(ui, null);
+        long userId = newUser.getId();
+        long uiBrandingId = ui.getId();
+
+        //after deleting no user and branding should exists
+        hUserSystemApi.remove(newUser.getId(), null);
+        boolean userFound = true;
+        boolean uiBrandingFound = false;
+        try {
+            hUserSystemApi.find(userId, null);
+        } catch (HyperIoTNoResultException e) {
+            userFound = false;
+        }
+        try {
+            uiBrandingSystemApi.find(uiBrandingId, null);
+        } catch (HyperIoTNoResultException e) {
+            uiBrandingFound = false;
+        }
+        Assert.assertFalse(userFound);
+        Assert.assertFalse(uiBrandingFound);
     }
 
-    @After
+    // @After
     public void afterTest() {
         HUserSystemApi hUserSystemApi = getOsgiService(HUserSystemApi.class);
         RoleSystemApi roleSystemApi = getOsgiService(RoleSystemApi.class);

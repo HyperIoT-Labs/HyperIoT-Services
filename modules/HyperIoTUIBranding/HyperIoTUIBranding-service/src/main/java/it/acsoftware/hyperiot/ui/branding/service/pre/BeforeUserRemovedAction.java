@@ -32,13 +32,13 @@ public class BeforeUserRemovedAction<T extends HyperIoTBaseEntity> implements Hy
                     brandingFolder.delete();
                 } catch (Exception e) {
                     log.error(e.getMessage(), e);
-                } finally {
-                    HyperIoTQuery q = HyperIoTQueryBuilder.newQuery().equals("huser.id", user.getId());
-                    UIBranding branding = uiBrandingSystemApi.find(q, null);
-                    if (branding != null) {
-                        uiBrandingSystemApi.remove(branding.getId(), null);
-                    }
                 }
+            }
+
+            HyperIoTQuery q = HyperIoTQueryBuilder.newQuery().equals("huser.id", user.getId());
+            UIBranding branding = uiBrandingSystemApi.find(q, null);
+            if (branding != null) {
+                uiBrandingSystemApi.remove(branding.getId(), null);
             }
         }
     }
