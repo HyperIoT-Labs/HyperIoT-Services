@@ -42,7 +42,7 @@ public class HDevice extends HyperIoTAbstractEntity
     /**
      * Device name used to login in case the device can connect to the network
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class, HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String deviceName;
 
@@ -66,31 +66,31 @@ public class HDevice extends HyperIoTAbstractEntity
     /**
      * Device brand, not required
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class, HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String brand;
     /**
      * Device model, not required
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class, HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String model;
     /**
      * Device firmware version, not required
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class, HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String firmwareVersion;
     /**
      * Device software version, not required
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class, HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String softwareVersion;
     /**
      * Device general description
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class, HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String description;
     /**

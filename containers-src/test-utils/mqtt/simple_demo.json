@@ -10,9 +10,9 @@
 	"dry-run": false
   },
   "sensors": {
-    "252/253/254": {
+    "40/43/44": {
 	    "username": "TempMonitor",
-	    "password": "Hy0!USER",
+	    "password": "TempMonitor1_",
 		"active":true,
 	 	"data":{
 	        "temperature": 17, "temperature-range": [16, 18],"temperature-outlier":85,"temperature-outlier-duration-secs":5,"temperature-outlier-every-secs":15,

@@ -39,27 +39,27 @@ public class HPacketField extends HyperIoTAbstractEntity implements GenericRecor
     /**
      * Field name, unique for each packet
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private String name;
     /**
      * Field description
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private String description;
     /**
      * Field Type, es. integer,float,...
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private HPacketFieldType type;
     /**
      * Field multiplicity single,array or matrix
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private HPacketFieldMultiplicity multiplicity;
     /**
      * Field value measurement unit
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private String unit;
     /**
      * Packet the fiels is related to
