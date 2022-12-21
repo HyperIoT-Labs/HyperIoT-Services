@@ -8,7 +8,7 @@ configurations {
 }
 
 dependencies {
-    mqtt2Kafka  'org.apache.activemq:activemq-camel:'+project.activemqVersion
+    mqtt2Kafka  'org.apache.activemq:activemq-camel:'+project.activemqCamelVersion
 	mqtt2Kafka  'it.acsoftware.hyperiot.camel.mqtt2kafka:HyperIoTMqtt2Kafka-camel-connector:'+project.version
 }
 
