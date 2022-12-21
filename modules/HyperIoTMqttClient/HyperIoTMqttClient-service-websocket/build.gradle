@@ -14,12 +14,12 @@ dependencies {
 	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-model", version: project.hyperIoTVersion
 	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-session", version: project.hyperIoTVersion
 	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-channel", version: project.hyperIoTVersion
-	compileOnly group: 'org.eclipse.jetty.websocket', name: 'websocket-servlet', version: '9.4.18.v20190429'
+	compileOnly group: 'org.eclipse.jetty.websocket', name: 'websocket-servlet', version: project.jettyWSVersion
     // Jackson dependecy
     compileOnly group:"com.fasterxml.jackson.jaxrs",name:"jackson-jaxrs-json-provider",version:project.jacksonVersion
 	compileOnly group: 'io.projectreactor', name: 'reactor-core', version: '3.2.6.RELEASE'
-	compileOnly group: "org.apache.cxf", name:"cxf-bundle-jaxrs", version:"2.7.18"
-	compileOnly group: 'org.apache.cxf.dosgi', name: 'cxf-dosgi-common', version: '2.3.0'
+	compileOnly group: "org.apache.cxf", name:"cxf-bundle-jaxrs", version: "2.7.18"
+	compileOnly group: 'org.apache.cxf.dosgi', name: 'cxf-dosgi-common', version: project.cxfDosgiVersion
 	//MQTT Paho
 	compileOnly group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: project.eclipsePahoVersion
 	//Project Dependencies

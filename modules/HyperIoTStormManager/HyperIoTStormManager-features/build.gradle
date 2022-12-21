@@ -36,7 +36,7 @@ karaf {
             description = 'All Hyperiot HyperIoTStormManager modules'
 
             feature 'hyperiot-base-basic'
-            feature 'hyperiot-storm'
+            feature 'hyperiot-storm-2.4'
             configurations 'stormManager'
 
             project.configurations
