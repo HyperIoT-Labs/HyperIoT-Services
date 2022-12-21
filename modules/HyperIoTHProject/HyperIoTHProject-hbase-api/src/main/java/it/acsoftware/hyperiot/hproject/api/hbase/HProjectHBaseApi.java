@@ -29,12 +29,13 @@ public interface HProjectHBaseApi extends HyperIoTBaseApi {
      * @param alarmState Alarm State
      * @param rowKeyLowerBound Scanning start time (i.e. an HBase row key)
      * @param rowKeyUpperBound Scanning end time (i.e. an HBase row key)
+     * @param limit limit to results
      * @param outputStream Stream on which it sends data
      * @throws IOException IOException
      * @throws HyperIoTUnauthorizedException HyperIoTUnauthorizedException
      */
     void scanHProject(HyperIoTContext context, long hProjectId, List<String> hPacketIds, List<String> hDeviceIds,
-                                    long rowKeyLowerBound, long rowKeyUpperBound, String alarmState, OutputStream outputStream)
+                                    long rowKeyLowerBound, long rowKeyUpperBound,int limit, String alarmState, OutputStream outputStream)
             throws IOException, HyperIoTUnauthorizedException;
 
     /**

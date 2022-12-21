@@ -54,7 +54,7 @@ public class AlarmTableHBaseUtil {
         Map<byte[], List<byte[]>> targetColumns = new HashMap<>();
         targetColumns.put(alarmColumnFamily, columnQualifierList);
         List<Result> hBaseResults = hBaseConnectorSystemApi.scanWithCompleteResult(tableName, targetColumns,
-                rowKeyLowerBound, rowKeyUpperBound);
+                rowKeyLowerBound, rowKeyUpperBound,0);
         // construct frontend output
         addAlarmValueToScanResults(hBaseResults, alarmColumnFamily, targetColumns.get(alarmColumnFamily), hProjectScan, hPacketDeserializer);
         if (!hBaseResults.isEmpty())
@@ -72,7 +72,7 @@ public class AlarmTableHBaseUtil {
         byte[] columnQualifier = Bytes.toBytes(hDeviceId);
         Map<byte[], List<byte[]>> targetColumns = getScannerColumnsForAlarmsTable(columnQualifier, alarmStateFilter);
         List<Result> hBaseResults = hBaseConnectorSystemApi.scanWithCompleteResult(tableName, targetColumns,
-                rowKeyLowerBound, rowKeyUpperBound);
+                rowKeyLowerBound, rowKeyUpperBound,0);
         // construct frontend output
         addAlarmValueToScanResults(hBaseResults, targetColumns.keySet(), columnQualifier, hProjectScan, hPacketDeserializer);
         if (!hBaseResults.isEmpty())

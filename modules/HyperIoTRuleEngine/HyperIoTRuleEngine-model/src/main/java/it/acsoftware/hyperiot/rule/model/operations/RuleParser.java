@@ -90,7 +90,7 @@ public class RuleParser {
             && tokenizer.ttype != StreamTokenizer.TT_EOF && tokenizer.ttype != ')') {
             StringBuilder sb = new StringBuilder();
             while (tokenizer.ttype != StreamTokenizer.TT_WORD
-                && tokenizer.ttype != StreamTokenizer.TT_NUMBER) {
+                && tokenizer.ttype != StreamTokenizer.TT_NUMBER && tokenizer.ttype != '"' && tokenizer.ttype != '\'') {
                 char ch = (char) tokenizer.ttype;
                 sb.append(ch);
                 tokenizer.nextToken();
@@ -117,6 +117,9 @@ public class RuleParser {
                         tokenizer.nextToken();
                     } else {
                         for (int j = 1; j < operation.numOperands(); j++) {
+                            //go ahead only if operator is a string word
+                            if(tokenizer.ttype == StreamTokenizer.TT_WORD)
+                                tokenizer.nextToken();
                             operands[j] = parsePrimary(false);
                         }
                     }

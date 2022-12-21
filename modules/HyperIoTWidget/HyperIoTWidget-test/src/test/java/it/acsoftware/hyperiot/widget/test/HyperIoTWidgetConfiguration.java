@@ -25,6 +25,7 @@ public class HyperIoTWidgetConfiguration implements ConfigurationFactory {
     public Option[] createConfiguration() {
         return HyperIoTServicesTestConfigurationBuilder.createStandardConfiguration()
                 .withCodeCoverage("it.acsoftware.hyperiot.widget.*")
+                .keepRuntime()
                 .build();
     }
 }

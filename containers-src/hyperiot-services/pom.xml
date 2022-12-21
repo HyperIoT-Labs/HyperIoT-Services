@@ -20,7 +20,7 @@
         
     <artifactId>hyperiot-karaf-distribution-parent</artifactId>
         
-    <version>2.2.0_karaf_4.4.0</version>
+    <version>2.2.0_karaf_4.4.1</version>
       
   </parent>
     
@@ -38,7 +38,7 @@
             
       <name>hyperiot nexus</name>
             
-      <url>https://nexus.acsoftware.it/nexus/repository/maven/</url>
+      <url>https://nexus.acsoftware.it/nexus/repository/maven-hyperiot/</url>
           
     </repository>
       
@@ -317,6 +317,22 @@
       <scope>runtime</scope>
           
     </dependency>
+
+    <dependency>
+
+      <groupId>it.acsoftware.hyperiot.ui.branding</groupId>
+
+      <artifactId>HyperIoTUIBranding-features</artifactId>
+
+      <classifier>features</classifier>
+
+      <version>${hyperiot.platform.version}</version>
+
+      <type>xml</type>
+
+      <scope>runtime</scope>
+
+    </dependency>
       
   </dependencies>
     
@@ -379,6 +395,10 @@
             <feature>hyperiot-avro</feature>
                         
             <feature>hyperiot-cloudevents</feature>
+
+            <feature>hyperiot-websocket-channel</feature>
+
+            <feature>hyperiot-uibranding</feature>
                         
             <feature>hyperiot-kit</feature>
                       

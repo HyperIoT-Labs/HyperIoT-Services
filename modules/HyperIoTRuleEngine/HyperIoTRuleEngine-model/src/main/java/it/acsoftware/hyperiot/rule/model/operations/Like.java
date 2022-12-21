@@ -25,5 +25,4 @@ public class Like extends BinaryOperation implements RuleNode {
 	public String operator() {
 		return "matches";
 	}
-
 }

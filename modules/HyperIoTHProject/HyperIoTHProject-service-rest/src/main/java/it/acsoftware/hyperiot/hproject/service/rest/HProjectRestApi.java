@@ -18,7 +18,6 @@ import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
 import it.acsoftware.hyperiot.base.model.HyperIoTValidationError;
 import it.acsoftware.hyperiot.base.security.rest.LoggedIn;
 import it.acsoftware.hyperiot.base.service.rest.HyperIoTBaseEntityRestApi;
-import it.acsoftware.hyperiot.hdevice.model.HDevice;
 import it.acsoftware.hyperiot.hpacket.model.HPacketField;
 import it.acsoftware.hyperiot.hpacket.model.HProjectExportHPacketFieldMixin;
 import it.acsoftware.hyperiot.hproject.algorithm.model.HProjectAlgorithm;
@@ -38,7 +37,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.*;
-import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -47,14 +45,14 @@ import java.util.regex.Pattern;
  * CXF
  */
 @SwaggerDefinition(basePath = "/hprojects", info = @Info(description = "HyperIoT HProject API", version = "2.0.0", title = "HyperIoT HProject", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
-    @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
+        @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
 @Api(value = "/hprojects", produces = "application/json")
 @Produces(MediaType.APPLICATION_JSON)
 @Component(service = HProjectRestApi.class, property = {
-    "service.exported.interfaces=it.acsoftware.hyperiot.hproject.service.rest.HProjectRestApi",
-    "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/hprojects",
-    "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-    "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"}, immediate = true)
+        "service.exported.interfaces=it.acsoftware.hyperiot.hproject.service.rest.HProjectRestApi",
+        "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/hprojects",
+        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
+        "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"}, immediate = true)
 @Path("")
 public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     private HProjectApi entityService;
@@ -125,11 +123,11 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/{id}", notes = "Service for finding hproject", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"),
-        @ApiResponse(code = 404, message = "Entity not found")})
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 404, message = "Entity not found")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findHProject(
-        @ApiParam(value = "id from which project object will retrieve", required = true) @PathParam("id") long id) {
+            @ApiParam(value = "id from which project object will retrieve", required = true) @PathParam("id") long id) {
         getLog().debug("In Rest Service GET /hyperiot/hprojects/{}", id);
         return this.find(id);
     }
@@ -146,11 +144,11 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects", notes = "Service for adding a new hproject entity", httpMethod = "POST", produces = "application/json", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response saveHProject(
-        @ApiParam(value = "HProject entity which must be saved ", required = true) HProject entity) {
+            @ApiParam(value = "HProject entity which must be saved ", required = true) HProject entity) {
         getLog().debug("In Rest Service POST /hyperiot/hprojects \n Body: {}", entity);
         return this.save(entity);
     }
@@ -167,8 +165,8 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "/hyperiot/hprojects/auto-register-project/challenge/{projectId}", notes = "Service for adding a new empty hproject entity for autoregister devices with gateway", httpMethod = "POST", produces = "application/json", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response createChallengeForAutoRegister(@ApiParam(value = "HProject id which must be used forgenerating the challenge ", required = true) @PathParam("projectId") long projectId) {
         getLog().debug("In Rest Service POST /hyperiot/hprojects/auto-register-project/challenge/{}", projectId);
@@ -193,11 +191,11 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/auto-register-project", notes = "Service for adding a new empty hproject entity for autoregister devices with gateway", httpMethod = "POST", produces = "application/json", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response saveAutoRegisteredHProject(
-        @ApiParam(value = "HProject entity which must be saved ", required = true) HProject entity) {
+            @ApiParam(value = "HProject entity which must be saved ", required = true) HProject entity) {
         getLog().debug("In Rest Service POST /hyperiot/hprojects/auto-register-project \n Body: {}", entity);
         try {
             X500PrivateCredential cred = this.getEntityService().createEmptyAutoRegisterProject(entity, this.getHyperIoTContext());
@@ -223,11 +221,11 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "/hyperiot/hprojects/register", notes = "Service for adding a new empty hproject entity for register devices with gateway", httpMethod = "POST", produces = "application/json", consumes = "application/json")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response autoRegisterHProject(
-        @ApiParam(value = "HProject entity which must be saved ", required = true) AutoRegisterProjectRequest registerRequest) {
+            @ApiParam(value = "HProject entity which must be saved ", required = true) AutoRegisterProjectRequest registerRequest) {
         getLog().debug("In Rest Service POST /hyperiot/hprojects/register \n Body: {}", registerRequest);
         try {
             return Response.ok(this.getEntityService().autoRegister(registerRequest.getCipherTextChallenge(), registerRequest.getProjectId(), registerRequest.getPackets())).build();
@@ -248,11 +246,11 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects", notes = "Service for updating a hproject entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
-        @ApiResponse(code = 500, message = "Internal server error")})
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Internal server error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response updateHProject(
-        @ApiParam(value = "HProject entity which must be updated ", required = true) HProject entity) {
+            @ApiParam(value = "HProject entity which must be updated ", required = true) HProject entity) {
         getLog().debug("In Rest Service PUT /hyperiot/hprojects \n Body: {}", entity);
         return this.update(entity);
     }
@@ -269,11 +267,11 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/{id}", notes = "Service for deleting a hproject entity", httpMethod = "DELETE", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"),
-        @ApiResponse(code = 404, message = "Entity not found")})
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 404, message = "Entity not found")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response deleteHProject(
-        @ApiParam(value = "The hproject id which must be deleted", required = true) @PathParam("id") long id) {
+            @ApiParam(value = "The hproject id which must be deleted", required = true) @PathParam("id") long id) {
         getLog().debug("In Rest Service DELETE /hyperiot/hprojects/{}", id);
         return this.remove(id);
     }
@@ -289,8 +287,8 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/all", notes = "Service for finding all hproject entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findAllHProject() {
         getLog().debug("In Rest Service GET /hyperiot/hprojects/");
@@ -308,8 +306,8 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/all/cards", notes = "Service for finding all hproject entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HProjectJSONView.Cards.class)
     public Response cardsView() {
         getLog().debug("In Rest Service GET /hyperiot/hprojects/");
@@ -321,14 +319,14 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/{id}/hadoopData", notes = "Delete Hadoop data of this project, i.e. data on HDFS and HBase ",
-        httpMethod = "DELETE", authorizations = @Authorization("jwt-auth"))
+            httpMethod = "DELETE", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"),
-        @ApiResponse(code = 404, message = "Project not found"),
-        @ApiResponse(code = 500, message = "Internal server error")})
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 404, message = "Project not found"),
+            @ApiResponse(code = 500, message = "Internal server error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response clearHadoopData(
-        @ApiParam(value = "id of the project", required = true) @PathParam("id") long id) throws IOException {
+            @ApiParam(value = "id of the project", required = true) @PathParam("id") long id) throws IOException {
         getLog().debug("In Rest Service DELETE /hyperiot/hprojects/{}/hadoopData", id);
         try {
             this.hProjectHadoopApi.deleteHadoopData(getHyperIoTContext(), id);
@@ -348,8 +346,8 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects", notes = "Service for finding all hproject entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findAllHProjectPaginated(@QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
         getLog().debug("In Rest Service GET /hyperiot/hprojects/");
@@ -362,11 +360,11 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/{id}/tree", notes = "Return the project tree in JSON format", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"),
-        @ApiResponse(code = 404, message = "Entity not found")})
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 404, message = "Entity not found")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response getHProjectTreeView(
-        @ApiParam(value = "id of the project", required = true) @PathParam("id") long id) {
+            @ApiParam(value = "id of the project", required = true) @PathParam("id") long id) {
         getLog().debug("In Rest Service GET /hyperiot/hprojects/{}", id);
         try {
             return Response.ok().entity(entityService.getProjectTreeViewJson(getHyperIoTContext(), id)).build();
@@ -387,11 +385,11 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/{id}/areas", notes = "Return the list of project areas", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"),
-        @ApiResponse(code = 404, message = "Entity not found")})
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 404, message = "Entity not found")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response getHProjectAreaList(
-        @ApiParam(value = "id of the project", required = true) @PathParam("id") long id) {
+            @ApiParam(value = "id of the project", required = true) @PathParam("id") long id) {
         getLog().debug("In Rest Service GET /hyperiot/hprojects/{}", id);
         try {
             return Response.ok().entity(entityService.getAreasList(getHyperIoTContext(), id)).build();
@@ -406,45 +404,48 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/{hProjectId}/hpackets/{rowKeyLowerBound}/{rowKeyUpperBound}", notes = "Service for scan HProject data", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response scanHProject(
-        @ApiParam(value = "HProject ID from retrieve HPackets in Avro format and events", required = true) @PathParam("hProjectId") long hProjectId,
-        @ApiParam(value = "HBase row key lower bound", required = true) @PathParam("rowKeyLowerBound") long rowKeyLowerBound,
-        @ApiParam(value = "HBase row key upper bound", required = true) @PathParam("rowKeyUpperBound") long rowKeyUpperBound,
-        @ApiParam(value = "HPacket list, containing comma separated ID", required = true) @QueryParam("packetIds") String packetIds,
-        @ApiParam(value = "HDevice list, containing comma separated ID", required = true) @QueryParam("deviceIds") String deviceIds,
-        @ApiParam(value = "Alarm state , contain the state of the alarm", required = true) @QueryParam("alarmState") String alarmState) {
+            @ApiParam(value = "HProject ID from retrieve HPackets in Avro format and events", required = true) @PathParam("hProjectId") long hProjectId,
+            @ApiParam(value = "HBase row key lower bound", required = true) @PathParam("rowKeyLowerBound") long rowKeyLowerBound,
+            @ApiParam(value = "HBase row key upper bound", required = true) @PathParam("rowKeyUpperBound") long rowKeyUpperBound,
+            @ApiParam(value = "Limit, maximum number of records, please use carefully", required = true) @QueryParam("maxResults") Integer maxResults,
+            @ApiParam(value = "HPacket list, containing comma separated ID", required = true) @QueryParam("packetIds") String packetIds,
+            @ApiParam(value = "HDevice list, containing comma separated ID", required = true) @QueryParam("deviceIds") String deviceIds,
+            @ApiParam(value = "Alarm state , contain the state of the alarm", required = true) @QueryParam("alarmState") String alarmState) {
         getLog().debug("In Rest Service GET hyperiot/hprojects/scanHProject/{}/{}/{}?packetIds={}&deviceIds={}&?alarmState={}",
-            hProjectId, rowKeyLowerBound, rowKeyUpperBound, packetIds, deviceIds, alarmState);
+                hProjectId, rowKeyLowerBound, rowKeyUpperBound, packetIds, deviceIds, alarmState);
+
+        final int limit = (maxResults == null) ? 0 : maxResults;
         try {
             if (rowKeyLowerBound > rowKeyUpperBound)
                 throw new IllegalArgumentException("startTime must be prior or equal to endTime");
-            if(! isIdsListQueryParamValid(packetIds, PACKET_IDS_REGEX)){
+            if (!isIdsListQueryParamValid(packetIds, PACKET_IDS_REGEX)) {
                 throw new IllegalArgumentException("wrong packetIds parameter");
             }
-            if(! isIdsListQueryParamValid(deviceIds, DEVICE_IDS_REGEX)){
+            if (!isIdsListQueryParamValid(deviceIds, DEVICE_IDS_REGEX)) {
                 throw new IllegalArgumentException("wrong deviceIds parameter");
             }
             List<String> packetIdsList = formatIdsListFromQueryParam(packetIds);
             List<String> deviceIdsList = formatIdsListFromQueryParam(deviceIds);
             StreamingOutput stream = out -> hProjectHBaseApi.scanHProject(getHyperIoTContext(), hProjectId,
-                packetIdsList, deviceIdsList, rowKeyLowerBound, rowKeyUpperBound, alarmState, out);
+                    packetIdsList, deviceIdsList, rowKeyLowerBound, rowKeyUpperBound, limit, alarmState, out);
             return Response.ok(stream).build();
         } catch (IllegalArgumentException e) {
             return handleException(e);
         }
     }
 
-    private boolean isIdsListQueryParamValid(String idsList, String regex){
-        if(idsList == null || idsList.isEmpty())
+    private boolean isIdsListQueryParamValid(String idsList, String regex) {
+        if (idsList == null || idsList.isEmpty())
             return true;
         return Pattern.matches(regex, idsList);
     }
 
-    private List<String> formatIdsListFromQueryParam(String idsList){
-        if(idsList == null || idsList.isEmpty()){
+    private List<String> formatIdsListFromQueryParam(String idsList) {
+        if (idsList == null || idsList.isEmpty()) {
             return new ArrayList<>();
         }
         return new ArrayList<>(new HashSet<>(Arrays.asList(idsList.trim().split(","))));
@@ -456,7 +457,7 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
      * @param projectId Project ID
      * @param packetIds Packet IDs
      * @param startTime Timeline start time
-     * @param endTime Timeline end time
+     * @param endTime   Timeline end time
      * @return Response object
      */
     @GET
@@ -467,8 +468,8 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
             notes = "Service for count data and get it back", httpMethod = "GET", produces = "application/json",
             authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response timelineEventCount(
             @ApiParam(value = "Project ID", required = true) @PathParam("projectId") long projectId,
@@ -476,16 +477,16 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
             @ApiParam(value = "Scanning end time", required = true) @PathParam("endTime") long endTime,
             @ApiParam(value = "HPacket list, containing comma separated ID", required = true) @QueryParam("packetIds") String packetIds,
             @ApiParam(value = "HDevice list, containing comma separated ID", required = true) @QueryParam("deviceIds") String deviceIds
-            ) {
+    ) {
         getLog().info("In Rest Service GET hyperiot/hprojects/timeline/events/count/{}/{}/{}?packetIds={}",
                 projectId, startTime, endTime, packetIds);
         try {
             if (startTime > endTime)
                 throw new IllegalArgumentException("startTime must be prior or equal to endTime");
-            if(! isIdsListQueryParamValid(packetIds, PACKET_IDS_REGEX)){
+            if (!isIdsListQueryParamValid(packetIds, PACKET_IDS_REGEX)) {
                 throw new IllegalArgumentException("wrong packetIds parameter");
             }
-            if(! isIdsListQueryParamValid(deviceIds, DEVICE_IDS_REGEX)){
+            if (!isIdsListQueryParamValid(deviceIds, DEVICE_IDS_REGEX)) {
                 throw new IllegalArgumentException("wrong deviceIds parameter");
             }
             List<String> packetIdsList = formatIdsListFromQueryParam(packetIds);
@@ -499,11 +500,11 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     /**
      * Service scans and returns data from timeline table and hpacket event table
      *
-     * @param tableName   Table name
-     * @param packetIds   Packet IDs
-     * @param step        Step, which determines output
-     * @param startTime   Timeline start time
-     * @param endTime     Timeline end time
+     * @param tableName Table name
+     * @param packetIds Packet IDs
+     * @param step      Step, which determines output
+     * @param startTime Timeline start time
+     * @param endTime   Timeline end time
      * @return Response object
      */
     @GET
@@ -511,36 +512,36 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/timeline/events/{tableName}/{step}/{startTime}/{endTime}/{timezone}",
-        notes = "Service for scan data and get it back for timeline queries", httpMethod = "GET", produces = "application/json",
-        authorizations = @Authorization("jwt-auth"))
+            notes = "Service for scan data and get it back for timeline queries", httpMethod = "GET", produces = "application/json",
+            authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response timelineScan(
-        @ApiParam(value = "Table name which count hpackets from", required = true) @PathParam("tableName") String tableName,
-        @ApiParam(value = "Scanning step", required = true) @PathParam("step") String step,
-        @ApiParam(value = "Scanning start time", required = true) @PathParam("startTime") long startTime,
-        @ApiParam(value = "Scanning end time", required = true) @PathParam("endTime") long endTime,
-        @ApiParam(value = "Timezone Timezone of client which has invoked the method, i.e. Europe/Rome", required = true) @PathParam("timezone") String timezone,
-        @ApiParam(value = "HPacket list, containing comma separated ID", required = true) @QueryParam("packetIds") String packetIds,
-        @ApiParam(value = "HDevice list, containing comma separated ID", required = true) @QueryParam("deviceIds") String deviceIds) {
+            @ApiParam(value = "Table name which count hpackets from", required = true) @PathParam("tableName") String tableName,
+            @ApiParam(value = "Scanning step", required = true) @PathParam("step") String step,
+            @ApiParam(value = "Scanning start time", required = true) @PathParam("startTime") long startTime,
+            @ApiParam(value = "Scanning end time", required = true) @PathParam("endTime") long endTime,
+            @ApiParam(value = "Timezone Timezone of client which has invoked the method, i.e. Europe/Rome", required = true) @PathParam("timezone") String timezone,
+            @ApiParam(value = "HPacket list, containing comma separated ID", required = true) @QueryParam("packetIds") String packetIds,
+            @ApiParam(value = "HDevice list, containing comma separated ID", required = true) @QueryParam("deviceIds") String deviceIds) {
         getLog().debug("In Rest Service GET hyperiot/hprojects/timeline/events/{}/{}/{}/{}?packetIds={}",
-            tableName, step, startTime, endTime, packetIds);
+                tableName, step, startTime, endTime, packetIds);
         try {
             TimelineColumnFamily convertedStep = TimelineColumnFamily.valueOf(step.toUpperCase());
             if (startTime > endTime)
                 throw new IllegalArgumentException("startTime must be prior or equal to endTime");
-            if(! isIdsListQueryParamValid(packetIds, PACKET_IDS_REGEX)){
+            if (!isIdsListQueryParamValid(packetIds, PACKET_IDS_REGEX)) {
                 throw new IllegalArgumentException("wrong packetIds parameter");
             }
-            if(! isIdsListQueryParamValid(deviceIds, DEVICE_IDS_REGEX)){
+            if (!isIdsListQueryParamValid(deviceIds, DEVICE_IDS_REGEX)) {
                 throw new IllegalArgumentException("wrong deviceIds parameter");
             }
             List<String> packetIdsList = formatIdsListFromQueryParam(packetIds);
             List<String> deviceIdsList = formatIdsListFromQueryParam(deviceIds); // remove duplicates
             return Response.ok(hProjectHBaseApi.timelineScan(this.getHyperIoTContext(), tableName, packetIdsList, deviceIdsList,
-                convertedStep, startTime, endTime, timezone)).build();
+                    convertedStep, startTime, endTime, timezone)).build();
         } catch (Exception e) {
             return handleException(e);
         }
@@ -582,9 +583,9 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
             //Mixin is added because we need to override entity's serialization logic during export's operation.
             String objectJsonRepresentation = mapper.
                     setSerializationInclusion(JsonInclude.Include.NON_NULL).
-                    addMixIn(HyperIoTAbstractEntity.class , HProjectExportInheritedFieldMixin.class).
+                    addMixIn(HyperIoTAbstractEntity.class, HProjectExportInheritedFieldMixin.class).
                     addMixIn(HProjectAlgorithm.class, HProjectExportHProjectAlgorithmMixin.class).
-                    addMixIn(HPacketField.class , HProjectExportHPacketFieldMixin.class).
+                    addMixIn(HPacketField.class, HProjectExportHPacketFieldMixin.class).
                     addMixIn(AreaDevice.class, HProjectExportAreaDeviceMixin.class).
                     addMixIn(Area.class, HProjectExportAreaMixin.class).
                     writerWithView(HProjectJSONView.Export.class).
@@ -611,17 +612,17 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
             @Multipart(value = "file") InputStream uploadedFile) {
         getLog().debug("In Rest Service POST /hyperiot/hprojects/imports");
         try {
-            if(uploadedFile.available() <= 0 ){
+            if (uploadedFile.available() <= 0) {
                 throw new HyperIoTRuntimeException("Invalid request parameter , the file is empty");
             }
             ExportProjectDTO dtoProject = deserializeProjectForImport(uploadedFile);
-            if(dtoProject == null){
+            if (dtoProject == null) {
                 throw new HyperIoTRuntimeException("Invalid request parameter , the dtoProject is null");
             }
-            if(dtoProject.getProject() == null){
+            if (dtoProject.getProject() == null) {
                 throw new HyperIoTRuntimeException("Invalid request parameter , the dtoProject hasn't associate a project");
             }
-            ImportLogReport logReport = entityService.importHProject(dtoProject,dtoProject.getProject(),this.getHyperIoTContext());
+            ImportLogReport logReport = entityService.importHProject(dtoProject, dtoProject.getProject(), this.getHyperIoTContext());
             return Response
                     .ok(logReport)
                     .build();
@@ -636,20 +637,20 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
         //Mixin is added because we need to override entity's serialization logic during import's operation.
         return mapper.
                 setSerializationInclusion(JsonInclude.Include.NON_NULL).
-                addMixIn(HyperIoTAbstractEntity.class , HProjectExportInheritedFieldMixin.class).
+                addMixIn(HyperIoTAbstractEntity.class, HProjectExportInheritedFieldMixin.class).
                 addMixIn(HProjectAlgorithm.class, HProjectExportHProjectAlgorithmMixin.class).
-                addMixIn(HPacketField.class , HProjectExportHPacketFieldMixin.class).
-                addMixIn(AreaDevice.class,HProjectExportAreaDeviceMixin.class).
+                addMixIn(HPacketField.class, HProjectExportHPacketFieldMixin.class).
+                addMixIn(AreaDevice.class, HProjectExportAreaDeviceMixin.class).
                 addMixIn(Area.class, HProjectExportAreaMixin.class).
                 readerWithView(HProjectJSONView.Export.class).
                 readValue(uploadedFile, ExportProjectDTO.class);
     }
 
-    private Response getResponseWhenImportFail(Throwable exc){
+    private Response getResponseWhenImportFail(Throwable exc) {
         ImportLogReport importFailureReport = new ImportLogReport();
         importFailureReport.setImportResult(ImportReportStatus.FAILED);
-        HyperIoTBaseError errorInformation = (HyperIoTBaseError)handleException(exc).getEntity();
-        if (! (exc instanceof HyperIoTValidationException)) {
+        HyperIoTBaseError errorInformation = (HyperIoTBaseError) handleException(exc).getEntity();
+        if (!(exc instanceof HyperIoTValidationException)) {
             if (errorInformation.getErrorMessages() != null && !errorInformation.getErrorMessages().isEmpty()) {
                 StringBuilder sb = new StringBuilder();
                 Iterator<String> it = errorInformation.getErrorMessages().iterator();
@@ -664,15 +665,15 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
             }
             getLog().debug("No error message avaiable for exception");
         }
-        if(errorInformation.getValidationErrors()!= null && ! errorInformation.getValidationErrors().isEmpty()){
-            for(HyperIoTValidationError validationError :  errorInformation.getValidationErrors()){
+        if (errorInformation.getValidationErrors() != null && !errorInformation.getValidationErrors().isEmpty()) {
+            for (HyperIoTValidationError validationError : errorInformation.getValidationErrors()) {
                 importFailureReport.addLogMessage(ImportLogLevel.ERROR,
                         String.format("Error cause : %s ,Error message : %s Error field : %s , Error value : %s",
                                 "VALIDATION ERROR",
                                 validationError.getMessage(),
                                 validationError.getField(),
                                 validationError.getInvalidValue()
-                                ));
+                        ));
             }
         }
         return Response.status(errorInformation.getStatusCode()).
@@ -682,8 +683,9 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
 
     /**
      * Service updates userOwner of HProject entity.
+     *
      * @param projectId The id of the HProject to associate the new owner with
-     * @param ownerId the id of the new owner of the HProject.
+     * @param ownerId   the id of the new owner of the HProject.
      * @return the HProject updated
      */
     @PUT
@@ -698,13 +700,13 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     public Response updateHProjectOwner(
             @ApiParam(value = "id from which hproject object will retrieve", required = true) @PathParam("projectId") long projectId,
             @ApiParam(value = "id of the new owner of the hproject", required = true) @PathParam("ownerId") long ownerId) {
-        getLog().debug("In Rest Service PUT /hyperiot/hprojects/{}/owner/{} ", projectId, ownerId );
+        getLog().debug("In Rest Service PUT /hyperiot/hprojects/{}/owner/{} ", projectId, ownerId);
         try {
             HProject project = entityService.updateHProjectOwner(this.getHyperIoTContext(), projectId, ownerId);
             return Response
                     .ok(project)
                     .build();
-        } catch (Throwable e){
+        } catch (Throwable e) {
             return this.handleException(e);
         }
     }

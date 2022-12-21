@@ -1,6 +1,5 @@
 package it.acsoftware.hyperiot.hdevice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -43,7 +42,7 @@ public class HDevice extends HyperIoTAbstractEntity
     /**
      * Device name used to login in case the device can connect to the network
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String deviceName;
 
@@ -67,31 +66,31 @@ public class HDevice extends HyperIoTAbstractEntity
     /**
      * Device brand, not required
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String brand;
     /**
      * Device model, not required
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String model;
     /**
      * Device firmware version, not required
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String firmwareVersion;
     /**
      * Device software version, not required
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String softwareVersion;
     /**
      * Device general description
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class,HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String description;
     /**
@@ -106,7 +105,7 @@ public class HDevice extends HyperIoTAbstractEntity
     /**
      * List of HPacket related to this device
      */
-    @JsonView({HyperIoTJSONView.Internal.class, HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Internal.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private List<HPacket> packets;
 
@@ -117,21 +116,21 @@ public class HDevice extends HyperIoTAbstractEntity
     @AvroIgnore
     private boolean admin;
 
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private boolean loginWithSSLCert;
 
-    @JsonView({HyperIoTJSONView.Internal.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Internal.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private byte[] pubKey;
 
     //Not saved , returned to the user at the moment of the creation
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String x509Cert;
 
     //Not saved , returned to the user at the moment of the creation
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HProjectJSONView.Export.class})
     @AvroIgnore
     private String x509CertKey;
 
@@ -145,7 +144,7 @@ public class HDevice extends HyperIoTAbstractEntity
     @NotNullOnPersist
     @NotEmpty
     @NoMalitiusCode
-    @Size( max = 255)
+    @Size(max = 255)
     @Pattern(regexp = "^[A-Za-z0-9]+$")
     public String getDeviceName() {
         return deviceName;
@@ -213,7 +212,7 @@ public class HDevice extends HyperIoTAbstractEntity
      * @return the device model
      */
     @NoMalitiusCode
-    @Size( max = 255)
+    @Size(max = 255)
     public String getModel() {
         return model;
     }
@@ -229,7 +228,7 @@ public class HDevice extends HyperIoTAbstractEntity
      * @return the firmware version
      */
     @NoMalitiusCode
-    @Size( max = 255)
+    @Size(max = 255)
     public String getFirmwareVersion() {
         return firmwareVersion;
     }
@@ -245,7 +244,7 @@ public class HDevice extends HyperIoTAbstractEntity
      * @return the software version
      */
     @NoMalitiusCode
-    @Size( max = 255)
+    @Size(max = 255)
     public String getSoftwareVersion() {
         return softwareVersion;
     }
@@ -261,8 +260,8 @@ public class HDevice extends HyperIoTAbstractEntity
      * @return the device description
      */
     @NoMalitiusCode
-    @Column( length = 3000)
-    @Size( max = 3000)
+    @Column(length = 3000)
+    @Size(max = 3000)
     public String getDescription() {
         return description;
     }
@@ -293,7 +292,7 @@ public class HDevice extends HyperIoTAbstractEntity
     /**
      * @return HPacket list
      */
-    @OneToMany(mappedBy = "device", cascade = {CascadeType.REMOVE,CascadeType.PERSIST}, targetEntity = HPacket.class, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "device", cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, targetEntity = HPacket.class, fetch = FetchType.EAGER)
     @JsonIgnore
     public List<HPacket> getPackets() {
         return packets;

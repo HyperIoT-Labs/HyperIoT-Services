@@ -40,23 +40,23 @@ public class HPacket extends HyperIoTAbstractEntity
     /**
      * Packet name, used to identify it
      */
-    @JsonView({HyperIoTJSONView.Public.class, HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private String name;
     /**
      * Packet type, indicates if it is input,output or both
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private HPacketType type;
 
     /**
      * Transmission format es. json,xml,csv
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private HPacketFormat format;
     /**
      * Type of serialization, es. none or avro
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private HPacketSerialization serialization;
 
     /**
@@ -69,13 +69,13 @@ public class HPacket extends HyperIoTAbstractEntity
     /**
      * Packet version
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private String version;
 
     /**
      * Packet fields
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private List<HPacketField> fields;
 
     /**
@@ -93,32 +93,32 @@ public class HPacket extends HyperIoTAbstractEntity
     /**
      * Packet timestamp field
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private String timestampField;
 
     /**
      * Packet timestamp format
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private String timestampFormat;
 
     /**
      * true if packet is sent with unix timestamp
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private boolean unixTimestamp;
 
     /**
      * true if packet has seconds format in timestamp value not milliseconds
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private boolean unixTimestampFormatSeconds;
 
 
     /**
      * Packet traffic plan: it indicates how many bytes per day are sent for its
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
     private HPacketTrafficPlan trafficPlan;
 
     /**

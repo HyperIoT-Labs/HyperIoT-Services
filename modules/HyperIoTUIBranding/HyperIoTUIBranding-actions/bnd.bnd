@@ -1,0 +1,8 @@
+Bundle-Activator: it.acsoftware.hyperiot.ui.branding.actions.UIBrandingActionsBundleActivator
+Import-Package: \
+    org.slf4j.*,\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.ui.branding.model;version='${range;[===,+)}'
+    Export-Package: it.acsoftware.hyperiot.ui.branding.actions
