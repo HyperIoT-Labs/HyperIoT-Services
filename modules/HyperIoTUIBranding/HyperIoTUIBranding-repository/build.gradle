@@ -1,0 +1,44 @@
+
+dependencies {
+	//OSGi Basic Imports
+	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	compileOnly group: "org.osgi", name: "osgi.cmpn", version: project.osgiCompendiumVersion
+	//SLF4J
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
+	//Validation
+    compileOnly group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
+	//Hibernate
+	compileOnly group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+	compileOnly group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion	
+	compileOnly group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
+	compileOnly group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version: project.apacheAriesJpaVersion
+	compileOnly group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+	//HyperIoTBase Dependencies
+	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-repository", version:project.hyperIoTVersion
+	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	//Importing for transitive dep and bnd macro
+	compileOnly group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+    compileOnly group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-model", version:project.hyperIoTVersion
+	//Project dependencies
+	compileOnly project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-api")
+	compileOnly project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-model")
+}
+
+task buildHIT(type: GradleBuild) {
+	tasks = [ 'clean','build','install' ]
+}
+
+task publishHIT(type: GradleBuild) {
+		tasks = [ 'clean','build','install','publish' ]
+}
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }
+ 

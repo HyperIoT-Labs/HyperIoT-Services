@@ -86,6 +86,27 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
     }
 
     /**
+     * Service finds an existing HDevice with extended view details (packet list added to the response)
+     *
+     * @param id id from which HDevice object will retrieved
+     * @return HDevice if found
+     */
+    @GET
+    @Path("/{id}/extended")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/hdevices/{id}/extended", notes = "Service for finding hdevice", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 404, message = "Entity not found")})
+    @JsonView(HyperIoTJSONView.Extended.class)
+    public Response findHDeviceExtended(
+            @ApiParam(value = "id from which hdevice object will retrieve", required = true) @PathParam("id") long id) {
+        getLog().debug("In Rest Service GET /hyperiot/hdevices/{}/extended" , id);
+        return this.find(id);
+    }
+
+    /**
      * Service saves a new HDevice
      *
      * @param entity HDevice object to store in database

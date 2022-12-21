@@ -395,6 +395,22 @@
       <scope>runtime</scope>
           
     </dependency>
+
+    <dependency>
+
+      <groupId>it.acsoftware.hyperiot.ui.branding</groupId>
+
+      <artifactId>HyperIoTUIBranding-features</artifactId>
+
+      <classifier>features</classifier>
+
+      <version>${hyperiot.platform.version}</version>
+
+      <type>xml</type>
+
+      <scope>runtime</scope>
+
+    </dependency>
       
   </dependencies>
     
@@ -457,6 +473,8 @@
             <feature>hyperiot-stormmanager</feature>
                         
             <feature>hyperiot-kit</feature>
+
+            <feature>hyperiot-uibranding</feature>
                       
           </bootFeatures>
                   
