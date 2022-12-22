@@ -35,10 +35,14 @@ public class BeforeUserRemovedAction<T extends HyperIoTBaseEntity> implements Hy
                 }
             }
 
-            HyperIoTQuery q = HyperIoTQueryBuilder.newQuery().equals("huser.id", user.getId());
-            UIBranding branding = uiBrandingSystemApi.find(q, null);
-            if (branding != null) {
-                uiBrandingSystemApi.remove(branding.getId(), null);
+            try {
+                HyperIoTQuery q = HyperIoTQueryBuilder.newQuery().equals("huser.id", user.getId());
+                UIBranding branding = uiBrandingSystemApi.find(q, null);
+                if (branding != null) {
+                    uiBrandingSystemApi.remove(branding.getId(), null);
+                }
+            } catch (Exception e){
+                log.warn("No branding found for user, not removing it!");
             }
         }
     }
