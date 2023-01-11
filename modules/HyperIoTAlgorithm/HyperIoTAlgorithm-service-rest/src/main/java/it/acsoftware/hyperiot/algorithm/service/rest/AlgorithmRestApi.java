@@ -6,10 +6,7 @@ import io.swagger.annotations.*;
 import io.swagger.annotations.ApiKeyAuthDefinition.ApiKeyLocation;
 import it.acsoftware.hyperiot.algorithm.api.AlgorithmApi;
 import it.acsoftware.hyperiot.algorithm.api.AlgorithmUtil;
-import it.acsoftware.hyperiot.algorithm.model.Algorithm;
-import it.acsoftware.hyperiot.algorithm.model.AlgorithmConfig;
-import it.acsoftware.hyperiot.algorithm.model.AlgorithmFieldType;
-import it.acsoftware.hyperiot.algorithm.model.AlgorithmIOField;
+import it.acsoftware.hyperiot.algorithm.model.*;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
 import it.acsoftware.hyperiot.base.exception.HyperIoTRuntimeException;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
@@ -23,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 
 /**
@@ -196,17 +194,19 @@ public class AlgorithmRestApi extends HyperIoTBaseEntityRestApi<Algorithm> {
      * @return list of all available algorithm
      */
     @GET
-    @Path("/all")
+    @Path("/{algorithmType}/all")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/algorithms/all", notes = "Service for finding all algorithm entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/algorithms/{algorithmType}/all", notes = "Service for finding all algorithm entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
-    public Response findAllAlgorithm() {
-        getLog().debug("In Rest Service GET /hyperiot/algorithms/");
-        return this.findAll();
+    public Response findAllAlgorithm(@ApiParam(value = "The algorithm type ", required = true) @PathParam(value = "algorithmType") String algorithmType) {
+        getLog().debug("In Rest Service GET /hyperiot/algorithms/algorithmType/all");
+        HashMap<String, Object> filter = new HashMap<>();
+        filter.put("type", algorithmType);
+        return this.findAll(filter);
     }
 
     /**
@@ -215,16 +215,19 @@ public class AlgorithmRestApi extends HyperIoTBaseEntityRestApi<Algorithm> {
      * @return list of all available algorithm
      */
     @GET
+    @Path("/{algorithmType}")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/algorithms", notes = "Service for finding all algorithm entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/{type}/algorithms", notes = "Service for finding all algorithm entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
-    public Response findAllAlgorithmPaginated(@QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
-        getLog().debug("In Rest Service GET /hyperiot/algorithms/");
-        return this.findAll(delta, page);
+    public Response findAllAlgorithmPaginated(@ApiParam(value = "The algorithm type ", required = true) @PathParam(value = "algorithmType") String algorithmType, @QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
+        getLog().debug("In Rest Service GET /hyperiot/algorithms/{algorithmType}");
+        HashMap<String, Object> filter = new HashMap<>();
+        filter.put("type", algorithmType);
+        return this.findAll(delta, page, filter);
     }
 
     @POST

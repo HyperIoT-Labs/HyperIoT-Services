@@ -190,7 +190,7 @@ public class HyperIoTAlgorithmWithDefaultPermissionRestTest extends KarafTestSup
         Assert.assertNotEquals(0, algorithm.getId());
 
         this.impersonateUser(algorithmRestApi, huser);
-        Response restResponse = algorithmRestApi.findAllAlgorithm();
+        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
         Assert.assertEquals(200, restResponse.getStatus());
         List<Algorithm> algorithmList = restResponse.readEntity(new GenericType<List<Algorithm>>() {
         });
@@ -225,7 +225,7 @@ public class HyperIoTAlgorithmWithDefaultPermissionRestTest extends KarafTestSup
         }
         Assert.assertEquals(defaultDelta, algorithms.size());
         this.impersonateUser(algorithmRestApi, huser);
-        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(defaultDelta, defaultPage);
+        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),defaultDelta, defaultPage);
         HyperIoTPaginableResult<Algorithm> listAlgorithms = restResponse
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -423,6 +423,7 @@ public class HyperIoTAlgorithmWithDefaultPermissionRestTest extends KarafTestSup
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("Algorithm defined by huser: " + adminUser.getUsername());
         algorithm.setMainClassname(algorithmResourceName);
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -512,7 +513,7 @@ public class HyperIoTAlgorithmWithDefaultPermissionRestTest extends KarafTestSup
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithm();
+        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
         List<Algorithm> listAlgorithm = restResponse.readEntity(new GenericType<List<Algorithm>>() {
         });
         if (!listAlgorithm.isEmpty()) {

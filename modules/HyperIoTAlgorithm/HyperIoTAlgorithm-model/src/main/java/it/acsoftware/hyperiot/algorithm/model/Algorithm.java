@@ -14,10 +14,8 @@ import it.acsoftware.hyperiot.base.validation.ValidClassname;
 import org.hibernate.validator.constraints.Length;
 
 /**
- *
  * @author Aristide Cittadino Model class for Algorithm of HyperIoT platform. This
- *         class is used to map Algorithm with the database.
- *
+ * class is used to map Algorithm with the database.
  */
 
 @Entity
@@ -40,17 +38,20 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
     @JsonView(HyperIoTJSONView.Public.class)
     private String baseConfig;
     /**
-     * Name of Spark job jar file
+     * Name of Spark job file
      */
     @JsonView(HyperIoTJSONView.Public.class)
     private String algorithmFileName;
 
     /**
-     * Jar path
+     * Source file path
      */
     @JsonView(HyperIoTJSONView.Public.class)
     private String algorithmFilePath;
 
+    /**
+     * Algorithm Type
+     */
     @Enumerated
     @JsonView(HyperIoTJSONView.Public.class)
     private AlgorithmType type;
@@ -63,6 +64,7 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
 
     /**
      * Get name of algorithm
+     *
      * @return name of algorithm
      */
     @NoMalitiusCode
@@ -75,6 +77,7 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
 
     /**
      * Set name of algorithm
+     *
      * @param name name of algorithm
      */
     public void setName(String name) {
@@ -83,6 +86,7 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
 
     /**
      * Get description of algorithm
+     *
      * @return description of algorithm
      */
     @NoMalitiusCode
@@ -94,6 +98,7 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
 
     /**
      * Set description of algorithm
+     *
      * @param description description of algorithm
      */
     public void setDescription(String description) {
@@ -102,6 +107,7 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
 
     /**
      * Get base configuration of algorithm
+     *
      * @return base configuration of algorithm
      */
     @NoMalitiusCode
@@ -114,6 +120,7 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
 
     /**
      * Set base configuration of algorithm
+     *
      * @param baseConfig base configuration of algorithm
      */
     public void setBaseConfig(String baseConfig) {
@@ -122,6 +129,7 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
 
     /**
      * Get name of Spark job jar file
+     *
      * @return name of Spark job jar file
      */
     @NoMalitiusCode
@@ -132,6 +140,7 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
 
     /**
      * Set name of Spark job jar file
+     *
      * @param jarName name of Spark job jar file
      */
     public void setAlgorithmFileName(String jarName) {
@@ -148,8 +157,18 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
         this.algorithmFilePath = jarPath;
     }
 
+    @NotNullOnPersist
+    public AlgorithmType getType() {
+        return type;
+    }
+
+    public void setType(AlgorithmType type) {
+        this.type = type;
+    }
+
     /**
      * Return name of class containing Spark job main method
+     *
      * @return name of class containing Spark job main method
      */
     @NoMalitiusCode
@@ -160,6 +179,7 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
 
     /**
      * Set name of class containing Spark job main method
+     *
      * @param mainClassname name of class containing Spark job main method
      */
     public void setMainClassname(String mainClassname) {
