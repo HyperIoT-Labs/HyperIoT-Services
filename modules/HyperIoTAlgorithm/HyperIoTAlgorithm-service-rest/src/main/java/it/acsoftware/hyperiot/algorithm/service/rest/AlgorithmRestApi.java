@@ -205,7 +205,7 @@ public class AlgorithmRestApi extends HyperIoTBaseEntityRestApi<Algorithm> {
     public Response findAllAlgorithm(@ApiParam(value = "The algorithm type ", required = true) @PathParam(value = "algorithmType") String algorithmType) {
         getLog().debug("In Rest Service GET /hyperiot/algorithms/algorithmType/all");
         HashMap<String, Object> filter = new HashMap<>();
-        filter.put("type", AlgorithmType.valueOf(algorithmType));
+        filter.put("type", AlgorithmType.valueOf(algorithmType.toUpperCase()));
         return this.findAll(filter);
     }
 
@@ -215,7 +215,7 @@ public class AlgorithmRestApi extends HyperIoTBaseEntityRestApi<Algorithm> {
      * @return list of all available algorithm
      */
     @GET
-    @Path("/{algorithmType}")
+    @Path("/type/{algorithmType}")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
     @ApiOperation(value = "/hyperiot/{type}/algorithms", notes = "Service for finding all algorithm entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
@@ -226,7 +226,7 @@ public class AlgorithmRestApi extends HyperIoTBaseEntityRestApi<Algorithm> {
     public Response findAllAlgorithmPaginated(@ApiParam(value = "The algorithm type ", required = true) @PathParam(value = "algorithmType") String algorithmType, @QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
         getLog().debug("In Rest Service GET /hyperiot/algorithms/{algorithmType}");
         HashMap<String, Object> filter = new HashMap<>();
-        filter.put("type", AlgorithmType.valueOf(algorithmType));
+        filter.put("type", AlgorithmType.valueOf(algorithmType.toUpperCase()));
         return this.findAll(delta, page, filter);
     }
 

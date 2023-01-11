@@ -232,7 +232,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         Assert.assertNotEquals(0, algorithm2.getId());
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
                 .get()
-                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/all"))
+                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/statistics/all"))
                 .withAuthorizationAsHyperIoTAdmin()
                 .withContentTypeHeader("application/json")
                 .build();
@@ -279,7 +279,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         Assert.assertNotEquals(0, algorithm2.getId());
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
                 .get()
-                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms"))
+                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/type/statistics"))
                 .withAuthorizationAsHyperIoTAdmin()
                 .withContentTypeHeader("application/json")
                 .withParameter("delta",String.valueOf(defaultDelta))
@@ -618,8 +618,9 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         algorithmExpectedProperties.add("name");
         algorithmExpectedProperties.add("description");
         algorithmExpectedProperties.add("baseConfig");
-        algorithmExpectedProperties.add("jarName");
-        algorithmExpectedProperties.add("jarPath");
+        algorithmExpectedProperties.add("algorithmFileName");
+        algorithmExpectedProperties.add("algorithmFilePath");
+        algorithmExpectedProperties.add("type");
         algorithmExpectedProperties.add("mainClassname");
         return algorithmExpectedProperties;
     }

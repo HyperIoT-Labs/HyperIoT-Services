@@ -122,6 +122,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("Algorithm defined by huser: " + adminUser.getUsername());
         algorithm.setMainClassname(algorithmResourceName);
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -396,6 +397,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
         Algorithm algorithm = new Algorithm();
         algorithm.setName(null);
+        algorithm.setType(AlgorithmType.STATISTICS);
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
@@ -425,6 +427,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         Algorithm algorithm = new Algorithm();
         algorithm.setName("");
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -452,6 +455,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         Algorithm algorithm = new Algorithm();
         algorithm.setName("javascript:");
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -479,6 +483,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         Algorithm algorithm = new Algorithm();
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("vbscript:");
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -506,6 +511,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         Algorithm algorithm = new Algorithm();
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription(testMaxLength(maxLengthDescription));
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -535,6 +541,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig(null);
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -562,6 +569,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig("");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -588,6 +596,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig("vbscript:");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -613,6 +622,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig("{}");
         algorithm.setAlgorithmFileName("javascript:");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -621,7 +631,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
         Assert.assertEquals(1, ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().size());
         Assert.assertFalse(((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getMessage().isEmpty());
-        Assert.assertEquals("algorithm-jarname", ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getField());
+        Assert.assertEquals("algorithm-algorithmfilename", ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getField());
         Assert.assertEquals(algorithm.getAlgorithmFileName(), ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getInvalidValue());
     }
 
@@ -640,6 +650,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig("{}");
         algorithm.setMainClassname("javascript:");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -668,6 +679,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig("{}");
         algorithm.setMainClassname("invalid main class name");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -902,7 +914,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
         Assert.assertEquals(1, ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().size());
         Assert.assertFalse(((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getMessage().isEmpty());
-        Assert.assertEquals("algorithm-jarname", ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getField());
+        Assert.assertEquals("algorithm-algorithmfilename", ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getField());
         Assert.assertEquals(algorithm.getAlgorithmFileName(), ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getInvalidValue());
     }
 
@@ -2839,6 +2851,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm2.setDescription("defined by huser " + adminUser.getUsername());
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm2.setBaseConfig("{}");
+        algorithm2.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm2);
@@ -2909,6 +2922,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -2959,6 +2973,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setDescription(createStringFieldWithSpecifiedLenght(2999));
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
