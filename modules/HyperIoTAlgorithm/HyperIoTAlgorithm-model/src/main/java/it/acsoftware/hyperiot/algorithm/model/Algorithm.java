@@ -52,7 +52,6 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
     /**
      * Algorithm Type
      */
-    @Enumerated
     @JsonView(HyperIoTJSONView.Public.class)
     private AlgorithmType type;
 
@@ -158,6 +157,7 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
     }
 
     @NotNullOnPersist
+    @Enumerated(EnumType.STRING)
     public AlgorithmType getType() {
         return type;
     }
