@@ -15,6 +15,6 @@ import java.io.File;
  */
 public interface AlgorithmRepository extends HyperIoTBaseRepository<Algorithm> {
 
-    Algorithm updateJar(Algorithm algorithm, String mainClassname, File jar);
+    Algorithm updateAlgorithmFile(Algorithm algorithm, String mainClassname, File algorithmFile);
 
 }

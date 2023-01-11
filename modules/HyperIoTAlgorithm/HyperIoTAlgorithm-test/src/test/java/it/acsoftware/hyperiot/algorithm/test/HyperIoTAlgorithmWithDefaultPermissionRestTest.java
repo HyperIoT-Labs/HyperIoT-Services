@@ -14,18 +14,14 @@ import it.acsoftware.hyperiot.huser.service.rest.HUserRestApi;
 import it.acsoftware.hyperiot.permission.api.PermissionSystemApi;
 import it.acsoftware.hyperiot.permission.model.Permission;
 import it.acsoftware.hyperiot.role.model.Role;
-import it.acsoftware.hyperiot.services.util.HyperIoTServicesTestConfigurationBuilder;
 import it.acsoftware.hyperiot.services.util.HyperIoTServicesTestUtil;
-import org.apache.karaf.features.FeaturesService;
 import org.apache.karaf.itests.KarafTestSupport;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
-import org.ops4j.pax.exam.spi.reactors.PerSuite;
 import org.ops4j.pax.exam.spi.reactors.PerSuite;
 
 import javax.ws.rs.core.GenericType;
@@ -361,9 +357,9 @@ public class HyperIoTAlgorithmWithDefaultPermissionRestTest extends KarafTestSup
 
     // Algorithm action update_jar: 512 not assigned in default permission
     @Test
-    public void test014_updateJarWithDefaultPermissionShouldFail() {
+    public void test014_updateAlgorithmFileWithDefaultPermissionShouldFail() {
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
-        // huser, with default permission, tries to update jar file field with the following call updateJar
+        // huser, with default permission, tries to update jar file field with the following call updateAlgorithmFile
         // huser to update jar file needs the "update_jar algorithm" permission
         // response status code '403' HyperIoTUnauthorizedException
         HUser huser = huserWithDefaultPermissionInHyperIoTFramework(true);
@@ -372,11 +368,11 @@ public class HyperIoTAlgorithmWithDefaultPermissionRestTest extends KarafTestSup
 
         Algorithm algorithm = createAlgorithm();
         Assert.assertNotEquals(0, algorithm.getId());
-        Assert.assertNull(algorithm.getJarName());
+        Assert.assertNull(algorithm.getAlgorithmFileName());
         File algorithmFile = new File(jarPath + jarName);
 
         this.impersonateUser(algorithmRestApi, huser);
-        Response restResponse = algorithmRestApi.updateJar(algorithm.getId(), algorithmResourceName, algorithmFile);
+        Response restResponse = algorithmRestApi.updateAlgorithmFile(algorithm.getId(), algorithmResourceName, algorithmFile);
         Assert.assertEquals(403, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());

@@ -1,9 +1,6 @@
 package it.acsoftware.hyperiot.algorithm.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -46,13 +43,17 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
      * Name of Spark job jar file
      */
     @JsonView(HyperIoTJSONView.Public.class)
-    private String jarName;
+    private String algorithmFileName;
 
     /**
      * Jar path
      */
     @JsonView(HyperIoTJSONView.Public.class)
-    private String jarPath;
+    private String algorithmFilePath;
+
+    @Enumerated
+    @JsonView(HyperIoTJSONView.Public.class)
+    private AlgorithmType type;
 
     /**
      * Name of class containing Spark job main method
@@ -125,26 +126,26 @@ public class Algorithm extends HyperIoTAbstractEntity implements HyperIoTProtect
      */
     @NoMalitiusCode
     @Length(max = 500)
-    public String getJarName() {
-        return jarName;
+    public String getAlgorithmFileName() {
+        return algorithmFileName;
     }
 
     /**
      * Set name of Spark job jar file
      * @param jarName name of Spark job jar file
      */
-    public void setJarName(String jarName) {
-        this.jarName = jarName;
+    public void setAlgorithmFileName(String jarName) {
+        this.algorithmFileName = jarName;
     }
 
     @NoMalitiusCode
     @Length(max = 1000)
-    public String getJarPath() {
-        return jarPath;
+    public String getAlgorithmFilePath() {
+        return algorithmFilePath;
     }
 
-    public void setJarPath(String jarPath) {
-        this.jarPath = jarPath;
+    public void setAlgorithmFilePath(String jarPath) {
+        this.algorithmFilePath = jarPath;
     }
 
     /**

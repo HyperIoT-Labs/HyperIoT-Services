@@ -52,10 +52,10 @@ public class AlgorithmPostRemoveAction<T extends HyperIoTBaseEntity> implements 
 
     private void removeAlgorithmJarFromHDFS(Algorithm algorithm) {
         try {
-            LOGGER.debug("Removing jar from HDFS {}", algorithm.getJarName());
-            if(algorithm.getJarName() != null && !algorithm.getJarName().isEmpty())
-                hadoopManagerSystemApi.deleteFile(algorithm.getJarName());
-            LOGGER.debug("Jar {} removed ", algorithm.getJarName());
+            LOGGER.debug("Removing jar from HDFS {}", algorithm.getAlgorithmFileName());
+            if(algorithm.getAlgorithmFileName() != null && !algorithm.getAlgorithmFileName().isEmpty())
+                hadoopManagerSystemApi.deleteFile(algorithm.getAlgorithmFileName());
+            LOGGER.debug("Jar {} removed ", algorithm.getAlgorithmFileName());
         } catch (Throwable e) {
             throw new HyperIoTRuntimeException(e);
         }

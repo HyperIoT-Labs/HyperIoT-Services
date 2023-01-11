@@ -13,3 +13,5 @@ enroute.zip
 /build/
 /modules/build/
 /containers-src/compose/data/
+/containers-src/test-utils/mqtt/simple_demo_cumulocity.json
+/containers-src/test-utils/mqtt/simple_demo_cumulocity.json.save
