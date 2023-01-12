@@ -44,13 +44,13 @@ public interface AlgorithmSystemApi extends HyperIoTBaseEntitySystemApi<Algorith
     Algorithm updateBaseConfig(long algorithmId, AlgorithmConfig baseConfig);
 
     /**
-     * It updates jar of Algorithm
+     * It updates algorithmFile of Algorithm
      * @param algorithmId Algorithm ID
      * @param mainClassname Class containing main method
-     * @param jar Jar file
+     * @param algorithmFile Jar file
      * @return Updated algorithm
      */
-    Algorithm updateJar(long algorithmId, String mainClassname, File jar);
+    Algorithm updateAlgorithmFile(long algorithmId, String mainClassname, File algorithmFile);
 
     /**
      * It update IO field of Algorithm with given ID

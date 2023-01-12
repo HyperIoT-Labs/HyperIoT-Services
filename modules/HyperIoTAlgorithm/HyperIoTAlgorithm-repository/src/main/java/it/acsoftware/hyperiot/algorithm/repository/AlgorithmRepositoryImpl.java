@@ -55,10 +55,10 @@ public class AlgorithmRepositoryImpl extends HyperIoTBaseRepositoryImpl<Algorith
     }
 
     @Override
-    public Algorithm updateJar(Algorithm algorithm, String mainClassname, File jar) {
+    public Algorithm updateAlgorithmFile(Algorithm algorithm, String mainClassname, File jar) {
         return this.jpa.txExpr(TransactionType.Required, entityManager -> {
             //used to remove oldJar
-            String oldJarPath = algorithm.getJarPath();
+            String oldJarPath = algorithm.getAlgorithmFilePath();
             String jarName = algorithm.getName().trim().replace(" ", "_").toLowerCase() + ".jar";
             String jarBasePath = algorithmUtil.getJarBasePath() + "/" + jarName;
             //removing only if old name is different from new name
@@ -72,8 +72,8 @@ public class AlgorithmRepositoryImpl extends HyperIoTBaseRepositoryImpl<Algorith
                 getLog().error(e1.getMessage(), e1);
                 throw new HyperIoTRuntimeException("No such file, must not be null");
             }
-            algorithm.setJarName(jarName);
-            algorithm.setJarPath(jarBasePath);
+            algorithm.setAlgorithmFileName(jarName);
+            algorithm.setAlgorithmFilePath(jarBasePath);
             algorithm.setMainClassname(mainClassname);
             Algorithm updated = entityManager.merge(algorithm);
             entityManager.flush();

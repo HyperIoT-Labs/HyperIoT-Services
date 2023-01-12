@@ -122,6 +122,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("Algorithm defined by huser: " + adminUser.getUsername());
         algorithm.setMainClassname(algorithmResourceName);
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -281,7 +282,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithm();
+        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
         Assert.assertEquals(200, restResponse.getStatus());
         List<Algorithm> algorithmList = restResponse.readEntity(new GenericType<List<Algorithm>>() {
         });
@@ -302,7 +303,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         Assert.assertNotEquals(0, algorithm.getId());
 
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithm();
+        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
         Assert.assertEquals(200, restResponse.getStatus());
         List<Algorithm> algorithmList = restResponse.readEntity(new GenericType<List<Algorithm>>() {
         });
@@ -328,7 +329,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         Algorithm algorithm = createAlgorithm();
         Assert.assertNotEquals(0, algorithm.getId());
         this.impersonateUser(algorithmRestApi, null);
-        Response restResponse = algorithmRestApi.findAllAlgorithm();
+        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
         Assert.assertEquals(403, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
@@ -396,6 +397,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
         Algorithm algorithm = new Algorithm();
         algorithm.setName(null);
+        algorithm.setType(AlgorithmType.STATISTICS);
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
@@ -425,6 +427,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         Algorithm algorithm = new Algorithm();
         algorithm.setName("");
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -452,6 +455,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         Algorithm algorithm = new Algorithm();
         algorithm.setName("javascript:");
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -479,6 +483,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         Algorithm algorithm = new Algorithm();
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("vbscript:");
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -506,6 +511,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         Algorithm algorithm = new Algorithm();
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription(testMaxLength(maxLengthDescription));
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -535,6 +541,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig(null);
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -562,6 +569,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig("");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -588,6 +596,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig("vbscript:");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -612,7 +621,8 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig("{}");
-        algorithm.setJarName("javascript:");
+        algorithm.setAlgorithmFileName("javascript:");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -621,8 +631,8 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
         Assert.assertEquals(1, ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().size());
         Assert.assertFalse(((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getMessage().isEmpty());
-        Assert.assertEquals("algorithm-jarname", ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getField());
-        Assert.assertEquals(algorithm.getJarName(), ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getInvalidValue());
+        Assert.assertEquals("algorithm-algorithmfilename", ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getField());
+        Assert.assertEquals(algorithm.getAlgorithmFileName(), ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getInvalidValue());
     }
 
 
@@ -640,6 +650,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig("{}");
         algorithm.setMainClassname("javascript:");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -668,6 +679,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         algorithm.setBaseConfig("{}");
         algorithm.setMainClassname("invalid main class name");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -893,7 +905,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
         Algorithm algorithm = createAlgorithm();
         Assert.assertNotEquals(0, algorithm.getId());
-        algorithm.setJarName("javascript:");
+        algorithm.setAlgorithmFileName("javascript:");
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.updateAlgorithm(algorithm);
@@ -902,8 +914,8 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
         Assert.assertEquals(1, ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().size());
         Assert.assertFalse(((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getMessage().isEmpty());
-        Assert.assertEquals("algorithm-jarname", ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getField());
-        Assert.assertEquals(algorithm.getJarName(), ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getInvalidValue());
+        Assert.assertEquals("algorithm-algorithmfilename", ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getField());
+        Assert.assertEquals(algorithm.getAlgorithmFileName(), ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(0).getInvalidValue());
     }
 
 
@@ -2386,43 +2398,43 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
 
     @Test
-    public void test087_updateJarShouldWork() {
+    public void test087_updateAlgorithmFileShouldWork() {
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
-        // hadmin update jar file field with the following call updateJar
+        // hadmin update jar file field with the following call updateAlgorithmFile
         // response status code '200'
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         Algorithm algorithm = createAlgorithm();
         Assert.assertNotEquals(0, algorithm.getId());
-        Assert.assertNull(algorithm.getJarName());
+        Assert.assertNull(algorithm.getAlgorithmFileName());
         File algorithmFile = new File(jarPath + jarName);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi
-                .updateJar(algorithm.getId(), algorithmResourceName, algorithmFile);
+                .updateAlgorithmFile(algorithm.getId(), algorithmResourceName, algorithmFile);
         Assert.assertEquals(200, restResponse.getStatus());
         Assert.assertEquals(algorithm.getEntityVersion() + 1,
                 ((Algorithm) restResponse.getEntity()).getEntityVersion());
         String jarFullPath = "hdfs://namenode:8020/spark/jobs/";
         String expectedJarName = algorithm.getName().replaceAll(" ", "_").toLowerCase() + ".jar";
         Assert.assertEquals(expectedJarName,
-                ((Algorithm) restResponse.getEntity()).getJarName());
+                ((Algorithm) restResponse.getEntity()).getAlgorithmFileName());
     }
 
 
     @Test
-    public void test088_updateJarShouldFailIfNotLogged() {
+    public void test088_updateAlgorithmFileShouldFailIfNotLogged() {
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
-        // the following call tries to update jar file with the following call updateJar,
+        // the following call tries to update jar file with the following call updateAlgorithmFile,
         // but huser is not logged
         // response status code '403' HyperIoTUnauthorizedException
         Algorithm algorithm = createAlgorithm();
         Assert.assertNotEquals(0, algorithm.getId());
-        Assert.assertNull(algorithm.getJarName());
+        Assert.assertNull(algorithm.getAlgorithmFileName());
         File algorithmFile = new File(jarPath + jarName);
 
         this.impersonateUser(algorithmRestApi, null);
-        Response restResponse = algorithmRestApi.updateJar(algorithm.getId(), algorithmResourceName, algorithmFile);
+        Response restResponse = algorithmRestApi.updateAlgorithmFile(algorithm.getId(), algorithmResourceName, algorithmFile);
         Assert.assertEquals(403, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
@@ -2430,9 +2442,9 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
 
     @Test
-    public void test089_updateJarShouldFailIfAlgorithmNotFound() {
+    public void test089_updateAlgorithmFileShouldFailIfAlgorithmNotFound() {
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
-        // hadmin tries to update jar file field with the following call updateJar,
+        // hadmin tries to update jar file field with the following call updateAlgorithmFile,
         // but algorithm not found
         // response status code '404' HyperIoTEntityNotFound
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
@@ -2440,7 +2452,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         File algorithmFile = new File(jarPath + jarName);
 
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.updateJar(0, algorithmResourceName, algorithmFile);
+        Response restResponse = algorithmRestApi.updateAlgorithmFile(0, algorithmResourceName, algorithmFile);
         Assert.assertEquals(404, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTEntityNotFound",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
@@ -2448,20 +2460,20 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
 
     @Test
-    public void test090_updateJarShouldFailIfFileNotExists() {
+    public void test090_updateAlgorithmFileShouldFailIfFileNotExists() {
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
-        // hadmin tries to update jar file field with the following call updateJar,
+        // hadmin tries to update jar file field with the following call updateAlgorithmFile,
         // but file not exists
         // response status code '500' HyperIoTRuntimeException
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         Algorithm algorithm = createAlgorithm();
         Assert.assertNotEquals(0, algorithm.getId());
-        Assert.assertNull(algorithm.getJarName());
+        Assert.assertNull(algorithm.getAlgorithmFileName());
         File algorithmFile = new File(jarPath + "test.jar");
 
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.updateJar(algorithm.getId(), algorithmResourceName, algorithmFile);
+        Response restResponse = algorithmRestApi.updateAlgorithmFile(algorithm.getId(), algorithmResourceName, algorithmFile);
         Assert.assertEquals(500, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTRuntimeException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
@@ -2471,20 +2483,20 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
 
     @Test
-    public void test091_updateJarShouldFailIfFileOrDirectoryNotExists() {
+    public void test091_updateAlgorithmFileShouldFailIfFileOrDirectoryNotExists() {
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
-        // hadmin tries to update jar file field with the following call updateJar,
+        // hadmin tries to update jar file field with the following call updateAlgorithmFile,
         // but directory not exists
         // response status code '500' HyperIoTRuntimeException
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         Algorithm algorithm = createAlgorithm();
         Assert.assertNotEquals(0, algorithm.getId());
-        Assert.assertNull(algorithm.getJarName());
+        Assert.assertNull(algorithm.getAlgorithmFileName());
         File algorithmFile = new File("/bad_path/" + jarName);
 
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.updateJar(algorithm.getId(), algorithmResourceName, algorithmFile);
+        Response restResponse = algorithmRestApi.updateAlgorithmFile(algorithm.getId(), algorithmResourceName, algorithmFile);
         Assert.assertEquals(500, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTRuntimeException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
@@ -2494,19 +2506,19 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
 
     @Test
-    public void test092_updateJarShouldFailIfDirectoryNotExists() {
+    public void test092_updateAlgorithmFileShouldFailIfDirectoryNotExists() {
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
-        // hadmin tries to update jar file field with the following call updateJar,
+        // hadmin tries to update jar file field with the following call updateAlgorithmFile,
         // but directory not exists
         // response status code '500' HyperIoTRuntimeException
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         Algorithm algorithm = createAlgorithm();
         Assert.assertNotEquals(0, algorithm.getId());
-        Assert.assertNull(algorithm.getJarName());
+        Assert.assertNull(algorithm.getAlgorithmFileName());
 
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.updateJar(algorithm.getId(), algorithmResourceName, null);
+        Response restResponse = algorithmRestApi.updateAlgorithmFile(algorithm.getId(), algorithmResourceName, null);
         Assert.assertEquals(500, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTRuntimeException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
@@ -2516,20 +2528,20 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
 
     @Test
-    public void test093_updateJarShouldFailIfFileNotSupported() {
+    public void test093_updateAlgorithmFileShouldFailIfFileNotSupported() {
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
-        // hadmin tries to update jar file field with the following call updateJar,
+        // hadmin tries to update jar file field with the following call updateAlgorithmFile,
         // but if file isn't supported
         // response status code '500' HyperIoTRuntimeException
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         Algorithm algorithm = createAlgorithm();
         Assert.assertNotEquals(0, algorithm.getId());
-        Assert.assertNull(algorithm.getJarName());
+        Assert.assertNull(algorithm.getAlgorithmFileName());
         File algorithmFile = new File(jarPath + "karaf-keystore");
 
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.updateJar(algorithm.getId(), algorithmResourceName, algorithmFile);
+        Response restResponse = algorithmRestApi.updateAlgorithmFile(algorithm.getId(), algorithmResourceName, algorithmFile);
         Assert.assertEquals(500, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTRuntimeException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
@@ -2555,7 +2567,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         }
         Assert.assertEquals(defaultDelta, algorithms.size());
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(delta, page);
+        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),delta, page);
         HyperIoTPaginableResult<Algorithm> listAlgorithms = restResponse
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -2570,7 +2582,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
         //checks with page = 1
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponsePage1 = algorithmRestApi.findAllAlgorithmPaginated(delta, 1);
+        Response restResponsePage1 = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),delta, 1);
         HyperIoTPaginableResult<Algorithm> listAlgorithmsPage1 = restResponsePage1
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -2603,7 +2615,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         }
         Assert.assertEquals(defaultDelta, algorithms.size());
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(delta, page);
+        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),delta, page);
         HyperIoTPaginableResult<Algorithm> listAlgorithms = restResponse
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -2637,7 +2649,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         }
         Assert.assertEquals(numbEntities, algorithms.size());
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(delta, page);
+        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),delta, page);
         HyperIoTPaginableResult<Algorithm> listAlgorithms = restResponse
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -2671,7 +2683,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         }
         Assert.assertEquals(numbEntities, algorithms.size());
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(delta, page);
+        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),delta, page);
         HyperIoTPaginableResult<Algorithm> listAlgorithms = restResponse
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -2686,7 +2698,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
         //checks with page = 1
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponsePage1 = algorithmRestApi.findAllAlgorithmPaginated(delta, 1);
+        Response restResponsePage1 = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),delta, 1);
         HyperIoTPaginableResult<Algorithm> listAlgorithmsPage1 = restResponsePage1
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -2720,7 +2732,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         }
         Assert.assertEquals(numbEntities, algorithms.size());
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(delta, page);
+        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),delta, page);
         HyperIoTPaginableResult<Algorithm> listAlgorithms = restResponse
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -2735,7 +2747,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
 
         //checks with page = 2
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponsePage2 = algorithmRestApi.findAllAlgorithmPaginated(delta, 2);
+        Response restResponsePage2 = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(), delta, 2);
         HyperIoTPaginableResult<Algorithm> listAlgorithmsPage2 = restResponsePage2
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -2769,7 +2781,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         }
         Assert.assertEquals(numbEntities, algorithms.size());
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(delta, page);
+        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),delta, page);
         HyperIoTPaginableResult<Algorithm> listAlgorithms = restResponse
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -2791,7 +2803,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         // but HUser is not logged
         // response status code '403' HyperIoTUnauthorizedException
         this.impersonateUser(algorithmRestApi, null);
-        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(defaultDelta, defaultPage);
+        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),defaultDelta, defaultPage);
         Assert.assertEquals(403, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
@@ -2807,7 +2819,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(defaultDelta, defaultPage);
+        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),defaultDelta, defaultPage);
         HyperIoTPaginableResult<Algorithm> listAlgorithms = restResponse
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -2839,6 +2851,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm2.setDescription("defined by huser " + adminUser.getUsername());
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm2.setBaseConfig("{}");
+        algorithm2.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm2);
@@ -2909,6 +2922,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setDescription("defined by huser " + adminUser.getUsername());
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -2959,6 +2973,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setDescription(createStringFieldWithSpecifiedLenght(2999));
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
+        algorithm.setType(AlgorithmType.STATISTICS);
 
         this.impersonateUser(algorithmRestApi, adminUser);
         Response restResponse = algorithmRestApi.saveAlgorithm(algorithm);
@@ -3010,6 +3025,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("Algorithm defined by huser: " + adminUser.getUsername());
         algorithm.setMainClassname(algorithmResourceName);
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -3106,7 +3122,7 @@ public class HyperIoTAlgorithmRestTest extends KarafTestSupport {
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithm();
+        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
         List<Algorithm> listAlgorithm = restResponse.readEntity(new GenericType<List<Algorithm>>() {
         });
         if (!listAlgorithm.isEmpty()) {

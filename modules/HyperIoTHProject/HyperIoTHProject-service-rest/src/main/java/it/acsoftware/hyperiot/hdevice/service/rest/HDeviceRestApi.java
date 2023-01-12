@@ -51,7 +51,7 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
      */
     @Override
     protected HyperIoTBaseEntityApi<HDevice> getEntityService() {
-        getLog().debug( "invoking getEntityService, returning: {}" , this.entityService);
+        getLog().debug("invoking getEntityService, returning: {}", this.entityService);
         return entityService;
     }
 
@@ -60,7 +60,7 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
      */
     @Reference(service = HDeviceApi.class)
     protected void setEntityService(HDeviceApi entityService) {
-        getLog().debug("invoking setEntityService, setting: {}" , this.entityService);
+        getLog().debug("invoking setEntityService, setting: {}", this.entityService);
         this.entityService = entityService;
     }
 
@@ -81,7 +81,7 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findHDevice(
             @ApiParam(value = "id from which hdevice object will retrieve", required = true) @PathParam("id") long id) {
-        getLog().debug("In Rest Service GET /hyperiot/hdevices/{}" , id);
+        getLog().debug("In Rest Service GET /hyperiot/hdevices/{}", id);
         return this.find(id);
     }
 
@@ -102,7 +102,7 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
     @JsonView(HyperIoTJSONView.Extended.class)
     public Response findHDeviceExtended(
             @ApiParam(value = "id from which hdevice object will retrieve", required = true) @PathParam("id") long id) {
-        getLog().debug("In Rest Service GET /hyperiot/hdevices/{}/extended" , id);
+        getLog().debug("In Rest Service GET /hyperiot/hdevices/{}/extended", id);
         return this.find(id);
     }
 
@@ -123,7 +123,7 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response saveHDevice(
             @ApiParam(value = "HDevice entity which must be saved ", required = true) HDevice entity) {
-        getLog().debug("In Rest Service POST /hyperiot/hdevices \n Body: {}" , entity);
+        getLog().debug("In Rest Service POST /hyperiot/hdevices \n Body: {}", entity);
         entity.setAdmin(false);
         return this.save(entity);
     }
@@ -144,42 +144,41 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response updateHDevice(
             @ApiParam(value = "HDevice entity which must be updated ", required = true) HDevice entity) {
-        getLog().debug("In Rest Service PUT /hyperiot/hdevices \n Body: {}" , entity);
+        getLog().debug("In Rest Service PUT /hyperiot/hdevices \n Body: {}", entity);
         entity.setAdmin(false);
         return this.update(entity);
     }
 
-	/**
-	 *
-	 * @param deviceId device Id
-	 * @param oldPassword old password
-	 * @param newPassword new password
-	 * @param passwordConfirm password confirm
-	 * @return Response
-	 */
-	@PUT
-	@Path("/password")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes("application/x-www-form-urlencoded")
-	@LoggedIn
-	@ApiOperation(value = "/hyperiot/hdevices/password", notes = "Service for updating a hdevice entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successful operation"),
-			@ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
-			@ApiResponse(code = 500, message = "Invalid ID supplied") })
-	@JsonView(HyperIoTJSONView.Public.class)
-	public Response updateHDevicePassword(
-			@ApiParam(value = "HDevice id which must be updated ", required = true) @FormParam("deviceId") long deviceId,
-			@ApiParam(value = "Old HDevice Password", required = true) @FormParam("oldPassword") String oldPassword,
-			@ApiParam(value = "New HDevice Password", required = true) @FormParam("newPassword") String newPassword,
-			@ApiParam(value = "New HDevice Password confirm", required = true) @FormParam("passwordConfirm") String passwordConfirm) {
-		getLog().debug("In Rest Service PUT /hyperiot/hdevices/password \n Body: {}", deviceId);
-		try {
-			return Response.ok(this.entityService.changePassword(this.getHyperIoTContext(), deviceId, oldPassword,
-					newPassword, passwordConfirm)).build();
-		} catch (Throwable t) {
-			return this.handleException(t);
-		}
-	}
+    /**
+     * @param deviceId        device Id
+     * @param oldPassword     old password
+     * @param newPassword     new password
+     * @param passwordConfirm password confirm
+     * @return Response
+     */
+    @PUT
+    @Path("/password")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes("application/x-www-form-urlencoded")
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/hdevices/password", notes = "Service for updating a hdevice entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Invalid ID supplied")})
+    @JsonView(HyperIoTJSONView.Public.class)
+    public Response updateHDevicePassword(
+            @ApiParam(value = "HDevice id which must be updated ", required = true) @FormParam("deviceId") long deviceId,
+            @ApiParam(value = "Old HDevice Password", required = true) @FormParam("oldPassword") String oldPassword,
+            @ApiParam(value = "New HDevice Password", required = true) @FormParam("newPassword") String newPassword,
+            @ApiParam(value = "New HDevice Password confirm", required = true) @FormParam("passwordConfirm") String passwordConfirm) {
+        getLog().debug("In Rest Service PUT /hyperiot/hdevices/password \n Body: {}", deviceId);
+        try {
+            return Response.ok(this.entityService.changePassword(this.getHyperIoTContext(), deviceId, oldPassword,
+                    newPassword, passwordConfirm)).build();
+        } catch (Throwable t) {
+            return this.handleException(t);
+        }
+    }
 
     /**
      * Service deletes a HDevice
@@ -198,7 +197,7 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response deleteHDevice(
             @ApiParam(value = "The hdevice id which must be deleted", required = true) @PathParam("id") long id) {
-        getLog().debug("In Rest Service DELETE /hyperiot/hdevices/{}" , id);
+        getLog().debug("In Rest Service DELETE /hyperiot/hdevices/{}", id);
         return this.remove(id);
     }
 
@@ -220,9 +219,28 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
         getLog().debug("In Rest Service GET /hyperiot/hdevices/");
         try {
             return Response.ok(this.entityService.getProjectDevicesList(getHyperIoTContext(), projectId)).build();
-        } catch (Throwable e){
+        } catch (Throwable e) {
             return handleException(e);
         }
+    }
+
+    /**
+     * Service finds all available HDevice
+     *
+     * @return list of all available HDevice for the given project id
+     */
+    @GET
+    @Path("/all/{projectId}/extended")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/all/{projectId}/extended", notes = "Service for finding all hdevice entities for a given project id", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 500, message = "Internal error")})
+    @JsonView(HyperIoTJSONView.Extended.class)
+    public Response findAllHDeviceByProjectIdExtended(@ApiParam(value = "The project id to get list of devices from", required = true) @PathParam("projectId") long projectId) {
+        getLog().debug("In Rest Service GET /hyperiot/hdevices/");
+        return this.findAllHDeviceByProjectId(projectId);
     }
 
     /**
@@ -244,27 +262,28 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
         return this.findAll();
     }
 
-	/**
-	 * Service finds all available HDevice
-	 *
-	 * @return list of all available HDevice
-	 */
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@LoggedIn
-	@ApiOperation(value = "/hyperiot/hdevices", notes = "Service for finding all hdevice entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successful operation"),
-			@ApiResponse(code = 403, message = "Not authorized"),
-			@ApiResponse(code = 500, message = "Internal error") })
-	@JsonView(HyperIoTJSONView.Public.class)
-	public Response findAllHDevicePaginated(@QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
-		getLog().debug("In Rest Service GET /hyperiot/hdevices/");
-		return this.findAll(delta, page);
-	}
+    /**
+     * Service finds all available HDevice
+     *
+     * @return list of all available HDevice
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/hdevices", notes = "Service for finding all hdevice entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 500, message = "Internal error")})
+    @JsonView(HyperIoTJSONView.Public.class)
+    public Response findAllHDevicePaginated(@QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
+        getLog().debug("In Rest Service GET /hyperiot/hdevices/");
+        return this.findAll(delta, page);
+    }
 
 
     /**
      * Reset HDevice password request
+     *
      * @param hDeviceId
      * @return User saved
      */
@@ -292,7 +311,7 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
     /**
      * Reset HDevicePassword password
      *
-     * @param hDeviceId  device
+     * @param hDeviceId         device
      * @param passwordResetCode
      * @param newPassword
      * @param passwordConfirm
@@ -312,10 +331,10 @@ public class HDeviceRestApi extends HyperIoTBaseEntityRestApi<HDevice> {
             @FormParam("hdeviceId") long hDeviceId,
             @FormParam("passwordResetCode") String passwordResetCode,
             @FormParam("newPassword") String newPassword,
-            @FormParam("passwordConfirm") String passwordConfirm ) {
+            @FormParam("passwordConfirm") String passwordConfirm) {
         getLog().debug("In Rest Service PUT /hyperiot/hdevices/resetPassword  . HDeviceId : {} ", hDeviceId);
         try {
-            this.entityService.resetHDevicePassword(this.getHyperIoTContext(),  hDeviceId,  passwordResetCode, newPassword, passwordConfirm);
+            this.entityService.resetHDevicePassword(this.getHyperIoTContext(), hDeviceId, passwordResetCode, newPassword, passwordConfirm);
             return Response.ok().build();
         } catch (Throwable t) {
             return this.handleException(t);

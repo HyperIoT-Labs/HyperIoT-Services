@@ -1831,6 +1831,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("Algorithm defined by huser: " + adminUser.getUsername());
         algorithm.setMainClassname(algorithmResourceName);
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -2340,7 +2341,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         // Remove all Algorithms created in every tests
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponseAlgorithms = algorithmRestApi.findAllAlgorithm();
+        Response restResponseAlgorithms = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
         List<Algorithm> listAlgorithm = restResponseAlgorithms.readEntity(new GenericType<List<Algorithm>>() {
         });
         if (!listAlgorithm.isEmpty()) {

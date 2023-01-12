@@ -56,7 +56,7 @@
             
       <name>hyperiot nexus</name>
             
-      <url>https://nexus.acsoftware.it/nexus/repository/maven-hyperiot/</url>
+      <url>https://nexus.acsoftware.it/nexus/repository/maven/</url>
           
     </repository>
       

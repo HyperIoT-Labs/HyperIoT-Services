@@ -12,7 +12,7 @@ public class HyperIoTAlgorithmConfiguration implements ConfigurationFactory {
 
     //jar file
     static final String jarName = "algorithm_test001.jar";
-    static final String jarPath = "../../../src/main/resources/";
+    static final String jarPath = "resources/";
 
     static final int defaultDelta = 10;
     static final int defaultPage = 1;

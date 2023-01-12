@@ -877,13 +877,13 @@ public class HyperIoTHProjectAlgorithmWithDefaultPermissionRestTest extends Kara
         HProjectAlgorithm hProjectAlgorithm = createHProjectAlgorithm(project);
         Assert.assertNotEquals(0, hProjectAlgorithm.getId());
         Assert.assertNotNull(hProjectAlgorithm.getProject());
-        Assert.assertNotEquals(0,hProjectAlgorithm.getProject().getId());
+        Assert.assertNotEquals(0, hProjectAlgorithm.getProject().getId());
         impersonateUser(hProjectAlgorithmRestService, huser);
         forceAlgorithmTableCreation(hProjectAlgorithm);
-        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(),hProjectAlgorithm.getId());
+        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(), hProjectAlgorithm.getId());
         Assert.assertEquals(200, restResponse.getStatus());
         Assert.assertNotNull(restResponse.getEntity());
-        Assert.assertTrue(((HProjectAlgorithmHBaseResult)restResponse.getEntity()).getRows().isEmpty());
+        Assert.assertTrue(((HProjectAlgorithmHBaseResult) restResponse.getEntity()).getRows().isEmpty());
     }
 
     @Test
@@ -897,15 +897,15 @@ public class HyperIoTHProjectAlgorithmWithDefaultPermissionRestTest extends Kara
         HProjectAlgorithm hProjectAlgorithm = createHProjectAlgorithm(project);
         Assert.assertNotEquals(0, hProjectAlgorithm.getId());
         Assert.assertNotNull(hProjectAlgorithm.getProject());
-        Assert.assertNotEquals(0,hProjectAlgorithm.getProject().getId());
+        Assert.assertNotEquals(0, hProjectAlgorithm.getProject().getId());
         forceAlgorithmTableCreation(hProjectAlgorithm);
         HUser huser2 = huserWithDefaultPermissionInHyperIoTFramework(true);
-        Assert.assertNotEquals(project.getUser().getId(),huser2.getId());
-        Assert.assertFalse(userIsInHProjectSharingUserList(project,huser2));
+        Assert.assertNotEquals(project.getUser().getId(), huser2.getId());
+        Assert.assertFalse(userIsInHProjectSharingUserList(project, huser2));
         impersonateUser(hProjectAlgorithmRestService, huser2);
-        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(),hProjectAlgorithm.getId());
+        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(), hProjectAlgorithm.getId());
         Assert.assertEquals(403, restResponse.getStatus());
-        Assert.assertEquals(((HyperIoTBaseError)restResponse.getEntity()).getType(), hyperIoTException + "HyperIoTUnauthorizedException");
+        Assert.assertEquals(((HyperIoTBaseError) restResponse.getEntity()).getType(), hyperIoTException + "HyperIoTUnauthorizedException");
     }
 
     @Test
@@ -919,17 +919,17 @@ public class HyperIoTHProjectAlgorithmWithDefaultPermissionRestTest extends Kara
         HProjectAlgorithm hProjectAlgorithm = createHProjectAlgorithm(project);
         Assert.assertNotEquals(0, hProjectAlgorithm.getId());
         Assert.assertNotNull(hProjectAlgorithm.getProject());
-        Assert.assertNotEquals(0,hProjectAlgorithm.getProject().getId());
+        Assert.assertNotEquals(0, hProjectAlgorithm.getProject().getId());
         forceAlgorithmTableCreation(hProjectAlgorithm);
         HUser huser2 = huserWithDefaultPermissionInHyperIoTFramework(true);
-        createSharedEntity(project,huser,huser2);
-        Assert.assertNotEquals(project.getUser().getId(),huser2.getId());
-        Assert.assertTrue(userIsInHProjectSharingUserList(project,huser2));
+        createSharedEntity(project, huser, huser2);
+        Assert.assertNotEquals(project.getUser().getId(), huser2.getId());
+        Assert.assertTrue(userIsInHProjectSharingUserList(project, huser2));
         impersonateUser(hProjectAlgorithmRestService, huser2);
-        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(),hProjectAlgorithm.getId());
+        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(), hProjectAlgorithm.getId());
         Assert.assertEquals(200, restResponse.getStatus());
         Assert.assertNotNull(restResponse.getEntity());
-        Assert.assertTrue(((HProjectAlgorithmHBaseResult)restResponse.getEntity()).getRows().isEmpty());
+        Assert.assertTrue(((HProjectAlgorithmHBaseResult) restResponse.getEntity()).getRows().isEmpty());
     }
 
 
@@ -941,21 +941,21 @@ public class HyperIoTHProjectAlgorithmWithDefaultPermissionRestTest extends Kara
      *
      */
 
-    private void forceAlgorithmTableCreation(HProjectAlgorithm hProjectAlgorithm){
+    private void forceAlgorithmTableCreation(HProjectAlgorithm hProjectAlgorithm) {
         HBaseConnectorSystemApi hBaseConnectorSystemApi = getOsgiService(HBaseConnectorSystemApi.class);
-        String algorithmTable= String.format("algorithm_%s",hProjectAlgorithm.getAlgorithm().getId());
-        try{
+        String algorithmTable = String.format("algorithm_%s", hProjectAlgorithm.getAlgorithm().getId());
+        try {
             List<String> columnFamilies = new ArrayList<>();
             columnFamilies.add("value");
-            hBaseConnectorSystemApi.createTable(algorithmTable,columnFamilies);
+            hBaseConnectorSystemApi.createTable(algorithmTable, columnFamilies);
             hBaseConnectorSystemApi.tableExists(algorithmTable);
         } catch (IOException e) {
             e.printStackTrace();
         }
         boolean tableExist = false;
-        try{
+        try {
             tableExist = hBaseConnectorSystemApi.tableExists(algorithmTable);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         Assert.assertTrue(tableExist);
@@ -1010,6 +1010,7 @@ public class HyperIoTHProjectAlgorithmWithDefaultPermissionRestTest extends Kara
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("Algorithm defined by huser: " + adminUser.getUsername());
         algorithm.setMainClassname(algorithmResourceName);
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -1488,7 +1489,7 @@ public class HyperIoTHProjectAlgorithmWithDefaultPermissionRestTest extends Kara
         // Remove all Algorithms created in every tests
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponseAlgorithms = algorithmRestApi.findAllAlgorithm();
+        Response restResponseAlgorithms = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
         List<Algorithm> listAlgorithm = restResponseAlgorithms.readEntity(new GenericType<List<Algorithm>>() {
         });
         if (!listAlgorithm.isEmpty()) {

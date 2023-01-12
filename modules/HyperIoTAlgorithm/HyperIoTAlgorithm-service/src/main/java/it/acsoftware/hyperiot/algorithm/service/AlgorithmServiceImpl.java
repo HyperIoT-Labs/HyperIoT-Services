@@ -106,9 +106,9 @@ public final class AlgorithmServiceImpl extends HyperIoTBaseEntityServiceImpl<Al
 
 	@Override
 	@AllowPermissions(actions = AlgorithmAction.Names.UPDATE_JAR, checkById = true, idParamIndex = 1)
-	public Algorithm updateJar(HyperIoTContext context, long algorithmId, String mainClassname, File jar) {
+	public Algorithm updateAlgorithmFile(HyperIoTContext context, long algorithmId, String mainClassname, File algorithmFile) {
 		getLog().debug( "invoking updateJar, on algorithm: {}" , algorithmId);
-		return systemService.updateJar(algorithmId, mainClassname, jar);
+		return systemService.updateAlgorithmFile(algorithmId, mainClassname, algorithmFile);
 	}
 
 	@Override
