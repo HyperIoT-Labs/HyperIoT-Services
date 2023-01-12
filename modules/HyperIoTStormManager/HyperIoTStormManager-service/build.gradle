@@ -34,12 +34,12 @@ dependencies {
 	compileOnly group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-api", version:project.hyperIoTPlatformVersion
 	compileOnly group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version:project.hyperIoTPlatformVersion
     //Storm
-    compileOnly group: "org.apache.storm", name: "storm-kafka-client", version: project.stormCoreVersion
-    compileOnly group: "org.apache.storm", name: "storm-hdfs", version: project.stormCoreVersion
-    compileOnly group: "org.apache.storm", name: "storm-hbase", version: project.stormCoreVersion
-    compileOnly group: "org.apache.storm", name: "flux-core", version: project.stormCoreVersion
-    compileOnly group: "org.apache.storm", name: "flux-wrappers", version: project.stormCoreVersion
-    compileOnly group: "org.apache.storm", name: "storm-core", version: project.stormCoreVersion
+    compileOnly group: "org.apache.storm", name: "storm-kafka-client", version: project.storm24CoreVersion
+    compileOnly group: "org.apache.storm", name: "storm-hdfs", version: project.storm24CoreVersion
+    compileOnly group: "org.apache.storm", name: "storm-hbase", version: project.storm24CoreVersion
+    compileOnly group: "org.apache.storm", name: "flux-core", version: project.storm24CoreVersion
+    compileOnly group: "org.apache.storm", name: "flux-wrappers", version: project.storm24CoreVersion
+    compileOnly group: "org.apache.storm", name: "storm-core", version: project.storm24CoreVersion
     // Jackson
     compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:project.jacksonVersion
 

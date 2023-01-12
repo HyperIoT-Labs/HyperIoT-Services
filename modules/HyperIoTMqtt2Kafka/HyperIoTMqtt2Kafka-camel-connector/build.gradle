@@ -15,7 +15,7 @@ dependencies {
 
     compileOnly group: 'org.apache.camel',name:'camel-core',version:project.apacheCamelVersion
     compileOnly group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
-    compileOnly group: 'org.apache.activemq', name: 'activemq-camel', version: project.activemqVersion
+    compileOnly group: 'org.apache.activemq', name: 'activemq-camel', version: project.activemqCamelVersion
 
 }
 

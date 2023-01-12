@@ -123,6 +123,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("Algorithm defined by huser: " + adminUser.getUsername());
         algorithm.setMainClassname(algorithmResourceName);
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
@@ -231,7 +232,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         Assert.assertNotEquals(0, algorithm2.getId());
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
                 .get()
-                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/all"))
+                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/type/statistics/all"))
                 .withAuthorizationAsHyperIoTAdmin()
                 .withContentTypeHeader("application/json")
                 .build();
@@ -278,7 +279,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         Assert.assertNotEquals(0, algorithm2.getId());
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
                 .get()
-                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms"))
+                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/type/statistics"))
                 .withAuthorizationAsHyperIoTAdmin()
                 .withContentTypeHeader("application/json")
                 .withParameter("delta",String.valueOf(defaultDelta))
@@ -617,8 +618,9 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         algorithmExpectedProperties.add("name");
         algorithmExpectedProperties.add("description");
         algorithmExpectedProperties.add("baseConfig");
-        algorithmExpectedProperties.add("jarName");
-        algorithmExpectedProperties.add("jarPath");
+        algorithmExpectedProperties.add("algorithmFileName");
+        algorithmExpectedProperties.add("algorithmFilePath");
+        algorithmExpectedProperties.add("type");
         algorithmExpectedProperties.add("mainClassname");
         return algorithmExpectedProperties;
     }
@@ -643,6 +645,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         algorithm.setName("algorithm " + UUID.randomUUID().toString().replaceAll("-", ""));
         algorithm.setDescription("Algorithm defined by huser: " + adminUser.getUsername());
         algorithm.setMainClassname(algorithmResourceName);
+        algorithm.setType(AlgorithmType.STATISTICS);
         // set baseConfig with the default value: {"input":[],"output":[]}
         algorithm.setBaseConfig("{}");
 
@@ -730,7 +733,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithm();
+        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
         List<Algorithm> listAlgorithm = restResponse.readEntity(new GenericType<List<Algorithm>>() {
         });
         if (!listAlgorithm.isEmpty()) {

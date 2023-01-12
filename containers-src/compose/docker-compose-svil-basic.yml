@@ -60,7 +60,7 @@ services:
       - hyperiot
 
   nimbus:
-    image: nexus.acsoftware.it:18079/hyperiot/storm:2.2.1-1
+    image: nexus.acsoftware.it:18079/hyperiot/storm:2.2.2-1
     command: storm nimbus
     container_name: nimbus
     hostname: storm.hyperiot.com
@@ -72,28 +72,28 @@ services:
     ports:
       - 6627:6627
     volumes:
-      - ../hyperiot-storm/storm_extlib:/apache-storm-2.3.0/extlib/
+      - ../hyperiot-storm/storm_extlib:/apache-storm-2.4.0/extlib/
       - ./data/storm/logs/workers-artifacts/:/logs/workers-artifacts
     environment:
       ZOOKEEPER_SERVERS: "'zookeeper-1.hyperiot.com'"
       NIMBUS_SEEDS: "'storm.hyperiot.com'"
       SUPERVISOR_SLOTS_PORTS: "6700,6701,6702,6703"
   supervisor:
-    image: nexus.acsoftware.it:18079/hyperiot/storm:2.2.1-1
+    image: nexus.acsoftware.it:18079/hyperiot/storm:2.2.2-1
     command: storm supervisor
     container_name: supervisor
     restart: always
     networks:
       - hyperiot
     volumes:
-      - ../hyperiot-storm/storm_extlib:/apache-storm-2.3.0/extlib/
+      - ../hyperiot-storm/storm_extlib:/apache-storm-2.4.0/extlib/
       - ./data/storm/logs/workers-artifacts/:/logs/workers-artifacts
     environment:
       ZOOKEEPER_SERVERS: "'zookeeper-1.hyperiot.com'"
       NIMBUS_SEEDS: "'storm.hyperiot.com'"
       SUPERVISOR_SLOTS_PORTS: "6700,6701,6702,6703"
   storm-ui:
-    image: nexus.acsoftware.it:18079/hyperiot/storm:2.2.1-1
+    image: nexus.acsoftware.it:18079/hyperiot/storm:2.2.2-1
     command: storm ui
     container_name: storm_ui
     ports:
@@ -102,7 +102,7 @@ services:
     networks:
        - hyperiot
     volumes:
-      - ../hyperiot-storm/storm_extlib:/apache-storm-2.3.0/extlib/
+      - ../hyperiot-storm/storm_extlib:/apache-storm-2.4.0/extlib/
       - ./data/storm/logs/workers-artifacts/:/logs/workers-artifacts
     environment:
       ZOOKEEPER_SERVERS: "'zookeeper-1.hyperiot.com'"

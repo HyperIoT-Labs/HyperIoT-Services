@@ -74,7 +74,7 @@ public class AlgorithmUtilImpl implements AlgorithmUtil {
 
     @Override
     public String getJarFullPath(Algorithm a) {
-        return hadoopManagerUtil.getDefaultFS() + a.getJarPath();
+        return hadoopManagerUtil.getDefaultFS() + a.getAlgorithmFilePath();
     }
 
     @Reference

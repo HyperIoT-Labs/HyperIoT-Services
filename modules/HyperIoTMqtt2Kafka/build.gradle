@@ -61,3 +61,4 @@ task publishHIT {
 	dependsOn gradle.includedBuilds*.task(':publishHIT')
 }
 
+project.ext.activemqCamelVersion="5.16.5"

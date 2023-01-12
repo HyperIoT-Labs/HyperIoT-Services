@@ -34,7 +34,6 @@ import java.util.Collection;
  */
 @SwaggerDefinition(basePath = "/ui-branding", info = @Info(description = "HyperIoT UIBranding API", version = "2.0.0", title = "hyperiot UIBranding", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {@ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
 @Api(value = "/ui-branding", produces = "application/json")
-@Produces(MediaType.APPLICATION_JSON)
 @Component(service = UIBrandingRestApi.class, property = {"service.exported.interfaces=it.acsoftware.hyperiot.ui.branding.service.rest.UIBrandingRestApi", "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/ui-branding", "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter", "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"}, immediate = true)
 @Path("")
 public class UIBrandingRestApi extends HyperIoTBaseEntityRestApi<UIBranding> {
@@ -108,10 +107,10 @@ public class UIBrandingRestApi extends HyperIoTBaseEntityRestApi<UIBranding> {
     @ApiOperation(value = "/hyperiot/uibrandings", notes = "Service for updating a uibranding entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"), @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"), @ApiResponse(code = 500, message = "Invalid ID supplied")})
     @JsonView(Isolated.class)
-    public Response updateUIBranding(@ApiParam("name the user want to visualize") @Multipart(value = "name") String name,
-                                     @ApiParam("chosen color scheme") @Multipart(value = "colorScheme") String colorScheme,
-                                     @ApiParam("logo image ") @Multipart(value = "logo", type = "image/*") Attachment logoFile,
-                                     @ApiParam("favicon image") @Multipart(value = "favicon", type = "image/*") Attachment faviconFile) {
+    public Response updateUIBranding(@ApiParam(value = "name the user want to visualize", name = "name", type = "String") @Multipart(value = "name") String name,
+                                     @ApiParam(value = "chosen color scheme", name = "colorScheme", type = "String") @Multipart(value = "colorScheme") String colorScheme,
+                                     @ApiParam(value = "logo image ", name = "logoFile", type = "String") @Multipart(value = "logo", type = "image/*") Attachment logoFile,
+                                     @ApiParam(value = "favicon image", name = "faviconFile", type = "String") @Multipart(value = "favicon", type = "image/*") Attachment faviconFile) {
         getLog().debug("In Rest Service PUT /hyperiot/uibrandings \n Body: {}", name + " - " + colorScheme);
         boolean isNew = false;
         UIBranding currentBranding = findUIBranding();

@@ -21,12 +21,12 @@ dependencies {
 
     compileOnly "org.apache.avro:avro:1.8.2"
     //Storm
-    compileOnly group: "org.apache.storm", name: "storm-kafka-client", version: project.stormCoreVersion
-    compileOnly group: "org.apache.storm", name: "storm-hdfs", version: project.stormCoreVersion
-    compileOnly group: "org.apache.storm", name: "storm-hbase", version: project.stormCoreVersion
-    compileOnly group: "org.apache.storm", name: "flux-core", version: project.stormCoreVersion
-    compileOnly group: "org.apache.storm", name: "flux-wrappers", version: project.stormCoreVersion
-    compileOnly group: "org.apache.storm", name: "storm-core", version: project.stormCoreVersion
+    compileOnly group: "org.apache.storm", name: "storm-kafka-client", version: project.storm24CoreVersion
+    compileOnly group: "org.apache.storm", name: "storm-hdfs", version: project.storm24CoreVersion
+    compileOnly group: "org.apache.storm", name: "storm-hbase", version: project.storm24CoreVersion
+    compileOnly group: "org.apache.storm", name: "flux-core", version: project.storm24CoreVersion
+    compileOnly group: "org.apache.storm", name: "flux-wrappers", version: project.storm24CoreVersion
+    compileOnly group: "org.apache.storm", name: "storm-core", version: project.storm24CoreVersion
     // HyperIoT Dependencies imported for the fat jar in storm, not used inside OSGi container
     // in stormExtLib
     compileOnly group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version:project.hyperIoTPlatformVersion

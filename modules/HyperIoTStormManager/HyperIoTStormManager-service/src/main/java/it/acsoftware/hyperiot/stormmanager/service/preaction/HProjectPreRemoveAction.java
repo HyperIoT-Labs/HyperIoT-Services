@@ -1,6 +1,7 @@
 package it.acsoftware.hyperiot.stormmanager.service.preaction;
 
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTPreRemoveAction;
+import it.acsoftware.hyperiot.base.util.HyperIoTUtil;
 import it.acsoftware.hyperiot.hproject.model.HProject;
 import it.acsoftware.hyperiot.stormmanager.api.StormManagerSystemApi;
 import it.acsoftware.hyperiot.stormmanager.model.TopologyInfo;
@@ -27,7 +28,8 @@ public class HProjectPreRemoveAction implements HyperIoTPreRemoveAction<HProject
     @Override
     public void execute(HProject project) {
         try {
-            if(this.stormManagerSystemApi.getTopologyStatus(project.getId()).getStatus().equalsIgnoreCase(TopologyInfo.TOPOLOGY_STATUS_ACTIVE)) {
+            //avoiding to make call in test mode just to speed up tests
+            if(!HyperIoTUtil.isInTestMode() && this.stormManagerSystemApi.getTopologyStatus(project.getId()).getStatus().equalsIgnoreCase(TopologyInfo.TOPOLOGY_STATUS_ACTIVE)) {
                 this.stormManagerSystemApi.killTopology(this.stormManagerSystemApi.getTopologyName(project.getId()));
             }
         } catch (Throwable t) {

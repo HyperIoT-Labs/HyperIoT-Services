@@ -164,7 +164,7 @@ public final class AlgorithmSystemServiceImpl extends HyperIoTBaseEntitySystemSe
 	}
 
 	@Override
-	public Algorithm updateJar(long algorithmId, String mainClassname, File jar) {
+	public Algorithm updateAlgorithmFile(long algorithmId, String mainClassname, File algorithmFile) {
 		Algorithm algorithm;
 		try {
 			algorithm = repository.find(algorithmId, null);
@@ -173,7 +173,7 @@ public final class AlgorithmSystemServiceImpl extends HyperIoTBaseEntitySystemSe
 		}
 		algorithm.setMainClassname(mainClassname);
 		validate(algorithm);
-		return repository.updateJar(algorithm, mainClassname, jar);
+		return repository.updateAlgorithmFile(algorithm, mainClassname, algorithmFile);
 	}
 
 	@Override
