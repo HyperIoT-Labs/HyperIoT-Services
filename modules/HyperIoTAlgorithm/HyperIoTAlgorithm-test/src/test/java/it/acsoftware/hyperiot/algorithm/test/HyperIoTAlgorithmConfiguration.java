@@ -24,7 +24,6 @@ public class HyperIoTAlgorithmConfiguration implements ConfigurationFactory {
     public Option[] createConfiguration() {
         return HyperIoTServicesTestConfigurationBuilder.createStandardConfiguration()
                 .withCodeCoverage("it.acsoftware.hyperiot.algorithm.*")
-                .withDebug("5005",false)
                 .build();
     }
 }
