@@ -232,7 +232,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         Assert.assertNotEquals(0, algorithm2.getId());
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
                 .get()
-                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/statistics/all"))
+                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/type/statistics/all"))
                 .withAuthorizationAsHyperIoTAdmin()
                 .withContentTypeHeader("application/json")
                 .build();

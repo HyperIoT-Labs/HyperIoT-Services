@@ -194,7 +194,7 @@ public class AlgorithmRestApi extends HyperIoTBaseEntityRestApi<Algorithm> {
      * @return list of all available algorithm
      */
     @GET
-    @Path("/{algorithmType}/all")
+    @Path("/type/{algorithmType}/all")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
     @ApiOperation(value = "/hyperiot/algorithms/{algorithmType}/all", notes = "Service for finding all algorithm entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
