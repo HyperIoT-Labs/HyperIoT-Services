@@ -48,6 +48,8 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.NoResultException;
 import java.io.IOException;
@@ -67,7 +69,7 @@ import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
 
 @Component(service = HProjectHBaseSystemApi.class, immediate = true)
 public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImpl implements HProjectHBaseSystemApi {
-
+    private Logger log = LoggerFactory.getLogger(HProjectHBaseSystemServiceImpl.class);
     private HPacketDeserializer hPacketDeserializer;
 
     private HDeviceRepository hDeviceRepository;
@@ -129,9 +131,15 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
                 // error
                 HashMap<String, Object> error = objectMapper.readValue(new String(result.getValue(columnFamily, column),
                         StandardCharsets.UTF_8), HashMap.class);
-                Object packet = objectMapper.readValue(new String(result.getValue(columnFamily,
-                        Bytes.toBytes(RECEIVED_PACKET_COLUMN)), StandardCharsets.UTF_8), Object.class);
-                error.put(PACKET_COLUMN, objectMapper.writeValueAsString(packet));
+                String packetAsString = new String(result.getValue(columnFamily,
+                        Bytes.toBytes(RECEIVED_PACKET_COLUMN)), StandardCharsets.UTF_8);
+                try {
+                    Object packet = objectMapper.readValue(packetAsString, Object.class);
+                    error.put(PACKET_COLUMN, objectMapper.writeValueAsString(packet));
+                } catch (Exception e) {
+                    log.warn("Error while trying to read data as JSON, returning a string", e.getMessage());
+                    error.put(PACKET_COLUMN, packetAsString);
+                }
                 hProjectScan.addValue(error, result.rawCells()[0].getTimestamp());
             }
         } else {
@@ -146,10 +154,10 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
             throws Throwable {
         HPacketCount hBaseConnectorHPacketCount = new HPacketCount();
         hBaseConnectorHPacketCount.setHPacketId(Long.parseLong(hPacketId));
-        byte[] rowKeyLowerBound ;
-        byte[] rowKeyUpperBound ;
-        if( hPacketId.equals(HProjectHBaseConstants.EVENT_IDENTIFIER)){
-            rowKeyLowerBound = serializeTimeStampFieldAsString(startTime,false);
+        byte[] rowKeyLowerBound;
+        byte[] rowKeyUpperBound;
+        if (hPacketId.equals(HProjectHBaseConstants.EVENT_IDENTIFIER)) {
+            rowKeyLowerBound = serializeTimeStampFieldAsString(startTime, false);
             rowKeyUpperBound = serializeTimeStampFieldAsString(endTime, true);
         } else {
             rowKeyLowerBound = Bytes.toBytes(startTime);
@@ -172,9 +180,9 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
         byte[] rowKeyUpperBound = Bytes.toBytes(endTime);
         //Count alarm related to the device and not include alarm state in the query.
         byte[] alarmUpColumnFamily = Bytes.toBytes(HProjectHBaseConstants.ALARM_TABLE_UP_COLUMN_FAMILY);
-        byte[] alarmDownColumnFamily = Bytes.toBytes( HProjectHBaseConstants.ALARM_TABLE_DOWN_COLUMN_FAMILY);
+        byte[] alarmDownColumnFamily = Bytes.toBytes(HProjectHBaseConstants.ALARM_TABLE_DOWN_COLUMN_FAMILY);
         byte[] alarmHandledColumnFamily = Bytes.toBytes(HProjectHBaseConstants.ALARM_TABLE_HANDLED_COLUMN_FAMILY);
-        byte [] alarmTableQualifier = Bytes.toBytes(deviceId);
+        byte[] alarmTableQualifier = Bytes.toBytes(deviceId);
         Map<byte[], List<byte[]>> targetColumns = new HashMap<>();
         targetColumns.put(alarmUpColumnFamily, new ArrayList<>());
         targetColumns.get(alarmUpColumnFamily).add(alarmTableQualifier);
@@ -193,20 +201,21 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
 
     /**
      * Extract rows from HBase
-     * @param events Output which will be returned to the caller
-     * @param iterator Iterator on HBase table scanner
+     *
+     * @param events            Output which will be returned to the caller
+     * @param iterator          Iterator on HBase table scanner
      * @param startRowKeyPrefix First possible row key
-     * @param endRowKeyPrefix Last possible row key
-     * @param step Timeline step
-     * @param startBoundColumn First possible column
-     * @param endBoundColumn Last possible column
+     * @param endRowKeyPrefix   Last possible row key
+     * @param step              Timeline step
+     * @param startBoundColumn  First possible column
+     * @param endBoundColumn    Last possible column
      * @throws ParseException ParseException
      */
     private void extractRowsFromHBase(TreeMap<Long, Long> events, Iterator<Result> iterator,
                                       byte[] startRowKeyPrefix, byte[] endRowKeyPrefix,
                                       TimelineColumnFamily step,
                                       byte[] startBoundColumn, byte[] endBoundColumn) throws Exception {
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Result result = iterator.next();
             Map<byte[], byte[]> columnMap = getColumnMap(result, startRowKeyPrefix, endRowKeyPrefix, step,
                     startBoundColumn, endBoundColumn, iterator);
@@ -222,15 +231,14 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
         Map<byte[], byte[]> columnMap;
         String rowString = Bytes.toString(result.getRow());
         byte[] columnFamily = Bytes.toBytes(granularity.getName());
-        if(rowString.equals(Bytes.toString(startRowKeyPrefix))) {
+        if (rowString.equals(Bytes.toString(startRowKeyPrefix))) {
             // Check on the first value: if its row key is equal to received start time
             // and some of its columns are before that, exclude them
             columnMap = Bytes.toString(startRowKeyPrefix).equals(Bytes.toString(endRowKeyPrefix)) ?
                     result.getFamilyMap(columnFamily).subMap(startBoundColumn,
                             true, endBoundColumn, false) :
                     result.getFamilyMap(columnFamily).tailMap(startBoundColumn);
-        }
-        else {
+        } else {
             // Check on the last value and received end time:
             //  - it is not the last value => get all columns;
             //  - it is the last value and its row key is not equal to end time => get all columns
@@ -238,7 +246,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
             //    can be after end time, exclude them
             //  - it is not the last value and its row key is equal to end time => it can't be exist,
             //    because row key contains all value between start and end times (both of them included)
-            columnMap = iterator.hasNext() || !rowString.equals(Bytes.toString(endRowKeyPrefix))?
+            columnMap = iterator.hasNext() || !rowString.equals(Bytes.toString(endRowKeyPrefix)) ?
                     result.getFamilyMap(columnFamily) :
                     result.getFamilyMap(columnFamily).headMap(endBoundColumn, false);
         }
@@ -248,12 +256,12 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
     private String getRowKeyPrefix(String hPacketId) {
         if (rowKeyPrefixes.containsKey(hPacketId))
             return rowKeyPrefixes.get(hPacketId);
-        return ModelType.HPACKET.getSimpleName() + HProjectHBaseConstants.MODEL_IDENTIFIER_SEPARATOR  + hPacketId;
+        return ModelType.HPACKET.getSimpleName() + HProjectHBaseConstants.MODEL_IDENTIFIER_SEPARATOR + hPacketId;
     }
 
-    private String getRowKeyPrefixForAlarmEntryInTimelineTable(String deviceId){
+    private String getRowKeyPrefixForAlarmEntryInTimelineTable(String deviceId) {
         //TODO Alarm prefix can be defined as a constant in HProjectHBaseConstants class.
-        return "Alarm" + HProjectHBaseConstants.MODEL_IDENTIFIER_SEPARATOR + deviceId ;
+        return "Alarm" + HProjectHBaseConstants.MODEL_IDENTIFIER_SEPARATOR + deviceId;
     }
 
     private String getTableNamePrefix(String hPacketId) {
@@ -332,37 +340,37 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
 
     @Override
     public void scanHProject(long hProjectId, List<String> hPacketIds, List<String> hDeviceIds,
-                             long rowKeyLowerBound, long rowKeyUpperBound,int limit, String alarmState, OutputStream outputStream)
+                             long rowKeyLowerBound, long rowKeyUpperBound, int limit, String alarmState, OutputStream outputStream)
             throws IOException {
         try (JsonGenerator jsonGenerator = objectMapper.getFactory().createGenerator(outputStream)) {
             boolean isJsonArray = (hPacketIds.size() > 1 || hDeviceIds.size() > 1 || ((!hPacketIds.isEmpty()) && (!hDeviceIds.isEmpty()))
-            || (AlarmState.isValidName(alarmState) && !hPacketIds.isEmpty()) );
+                    || (AlarmState.isValidName(alarmState) && !hPacketIds.isEmpty()));
             if (isJsonArray)
                 jsonGenerator.writeStartArray();
             for (String packetId : hPacketIds) {
                 String tableName = getTableNamePrefix(packetId) + hProjectId;
-                byte[] rowKeyLowBound  ;
-                byte[] rowKeyUppBound  ;
-                if( packetId.equals(HProjectHBaseConstants.EVENT_IDENTIFIER)){
+                byte[] rowKeyLowBound;
+                byte[] rowKeyUppBound;
+                if (packetId.equals(HProjectHBaseConstants.EVENT_IDENTIFIER)) {
                     rowKeyLowBound = serializeTimeStampFieldAsString(rowKeyLowerBound, false);
                     rowKeyUppBound = serializeTimeStampFieldAsString(rowKeyUpperBound, true);
-                } else{
+                } else {
                     rowKeyLowBound = Bytes.toBytes(rowKeyLowerBound);
                     rowKeyUppBound = Bytes.toBytes(rowKeyUpperBound);
                 }
                 writeJsonObject(packetId, tableName, rowKeyLowBound, rowKeyUppBound, limit,
                         objectMapper, jsonGenerator);
             }
-            if (hDeviceIds.isEmpty()){
-                if( alarmState != null && ! alarmState.isEmpty()){
+            if (hDeviceIds.isEmpty()) {
+                if (alarmState != null && !alarmState.isEmpty()) {
                     AlarmState alarmStateFilter = AlarmState.fromString(alarmState);
-                    String tableName =  HProjectHBaseConstants.ALARM_TABLE_NAME_PREFIX + hProjectId;
+                    String tableName = HProjectHBaseConstants.ALARM_TABLE_NAME_PREFIX + hProjectId;
                     byte[] rowKeyLowBound = Bytes.toBytes(rowKeyLowerBound);
-                    byte[] rowKeyUppBound  = Bytes.toBytes(rowKeyUpperBound);
+                    byte[] rowKeyUppBound = Bytes.toBytes(rowKeyUpperBound);
                     Collection<HDevice> projectDevices = this.hDeviceRepository.getProjectDevicesList(hProjectId);
-                    if(projectDevices !=  null && ! projectDevices.isEmpty()){
+                    if (projectDevices != null && !projectDevices.isEmpty()) {
                         List<Long> deviceIds = new ArrayList<>();
-                        for(HDevice device : projectDevices ){
+                        for (HDevice device : projectDevices) {
                             deviceIds.add(device.getId());
                         }
                         HProjectScan hProjectScan = AlarmTableHBaseUtil.retrieveAllAlarmByAlarmState(hBaseConnectorSystemApi,
@@ -386,7 +394,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
         }
     }
 
-    private void writeJsonObject(String packetId, String tableName, byte[] rowKeyLowerBound, byte[] rowKeyUpperBound,int limit,
+    private void writeJsonObject(String packetId, String tableName, byte[] rowKeyLowerBound, byte[] rowKeyUpperBound, int limit,
                                  ObjectMapper objectMapper, JsonGenerator jsonGenerator)
             throws IOException {
         long hPacketId = Long.parseLong(packetId);
@@ -396,7 +404,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
         byte[] column = getColumn(packetId);
         Map<byte[], List<byte[]>> targetColumns = getScannerColumns(packetId, columnFamily, column);
         List<Result> hBaseResults = hBaseConnectorSystemApi.scanWithCompleteResult(tableName, targetColumns,
-                rowKeyLowerBound, rowKeyUpperBound,limit);
+                rowKeyLowerBound, rowKeyUpperBound, limit);
         // construct frontend output
         addValueToScanResults(packetId, hBaseResults, columnFamily, column, hProjectScan);
         if (!hBaseResults.isEmpty())
@@ -404,10 +412,10 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
         objectMapper.writeValue(jsonGenerator, hProjectScan);
     }
 
-    private byte[] serializeTimeStampFieldAsString(long timestamp, boolean upperBound){
+    private byte[] serializeTimeStampFieldAsString(long timestamp, boolean upperBound) {
         if (upperBound) {
             //To include upper bound result.
-            timestamp = timestamp +1 ;
+            timestamp = timestamp + 1;
             return Bytes.toBytes(String.valueOf(timestamp));
         }
         return Bytes.toBytes(String.valueOf(timestamp));
@@ -426,7 +434,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
         formats.put(TimelineColumnFamily.HOUR, () -> new SimpleDateFormat("yyyy_MM_dd_HH"));
         formats.put(TimelineColumnFamily.MINUTE, () -> new SimpleDateFormat("yyyy_MM_dd_HH_mm"));
         formats.put(TimelineColumnFamily.SECOND, () -> new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss"));
-        formats.put(TimelineColumnFamily.MILLISECOND,() ->  new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS"));
+        formats.put(TimelineColumnFamily.MILLISECOND, () -> new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS"));
     }
 
     private void setRowKeyPrefixes() {
@@ -455,12 +463,12 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
 
     @Override
     public List<HPacketCount> timelineEventCount(long projectId, List<String> packetIds, List<String> deviceIds, long startTime, long endTime) throws Throwable {
-        List<HPacketCount> countList= new ArrayList<>();
-        for(String hPacketId : packetIds) {
+        List<HPacketCount> countList = new ArrayList<>();
+        for (String hPacketId : packetIds) {
             String tableName = getTableNamePrefix(hPacketId) + projectId;
             countOnHBase(countList, tableName, hPacketId, startTime, endTime);
         }
-        for(String hDeviceId : deviceIds){
+        for (String hDeviceId : deviceIds) {
             String projectAlarmTableName = HProjectHBaseConstants.ALARM_TABLE_NAME_PREFIX + projectId;
             countAlarmOnHBase(countList, projectAlarmTableName, hDeviceId, startTime, endTime);
         }
@@ -477,12 +485,12 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
                 TimelineColumnFamily.HOUR : step;   // to handle timezone in the right way, collapse step to hour if it is of type year, month or day
 
         List<TimelineElement> timelineElementList = new ArrayList<>();
-        for(String hPacketId : packetIds)
+        for (String hPacketId : packetIds)
             hBaseTraversing(tableName, events, getRowKeyPrefix(hPacketId), step, startTime, endTime);
-        for(String hDeviceId : deviceIds){
+        for (String hDeviceId : deviceIds) {
             hBaseTraversing(tableName, events, getRowKeyPrefixForAlarmEntryInTimelineTable(hDeviceId), step, startTime, endTime);
         }
-        for(Long timestamp : events.keySet())
+        for (Long timestamp : events.keySet())
             timelineElementList.add(new TimelineElement(timestamp, events.get(timestamp)));
 
         return timelineElementList;
@@ -490,7 +498,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
 
     @Override
     public HProjectAlgorithmHBaseResult getAlgorithmOutputs(long projectId, long hProjectAlgorithmId)
-        throws IOException {
+            throws IOException {
         final String HBASE_TABLE_PREFIX = "algorithm";
         final String HBASE_OUTPUT_COLUMN_FAMILY = "value";
         final String SEPARATOR = "_";
@@ -509,7 +517,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
 
         // get output of algorithm
         HProjectAlgorithmConfig config =
-            objectMapper.readValue(hProjectAlgorithm.getConfig(), HProjectAlgorithmConfig.class);
+                objectMapper.readValue(hProjectAlgorithm.getConfig(), HProjectAlgorithmConfig.class);
         List<AlgorithmIOField> outputList = config.getOutput();
 
         for (AlgorithmIOField output : outputList)
@@ -522,14 +530,14 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
 
         // Get reversed timestamp lower bound from now ...
         byte[] rowKeyLowerBound = (projectId + SEPARATOR + hProjectAlgorithm.getName() + SEPARATOR
-            + (Long.MAX_VALUE - Instant.now().getEpochSecond())).getBytes();
+                + (Long.MAX_VALUE - Instant.now().getEpochSecond())).getBytes();
         // ... and get reversed timestamp upper bound from the first day of the current year
         byte[] rowKeyUpperBound = (projectId + SEPARATOR + hProjectAlgorithm.getName() + SEPARATOR
-            + (Long.MAX_VALUE - LocalDateTime.now().with(firstDayOfYear()).toInstant(ZoneOffset.UTC).getEpochSecond()))
-            .getBytes();
+                + (Long.MAX_VALUE - LocalDateTime.now().with(firstDayOfYear()).toInstant(ZoneOffset.UTC).getEpochSecond()))
+                .getBytes();
         HProjectAlgorithmHBaseResult result = new HProjectAlgorithmHBaseResult();
         result.setRowsFromOriginalMap(hBaseConnectorSystemApi
-            .scan(tableName, columnMap, rowKeyLowerBound, rowKeyUpperBound, 1));
+                .scan(tableName, columnMap, rowKeyLowerBound, rowKeyUpperBound, 1));
         return result;
     }
 
@@ -554,7 +562,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
     }
 
     @Reference
-    public void sethDeviceRepository(HDeviceRepository hDeviceRepository){
+    public void sethDeviceRepository(HDeviceRepository hDeviceRepository) {
         this.hDeviceRepository = hDeviceRepository;
     }
 
