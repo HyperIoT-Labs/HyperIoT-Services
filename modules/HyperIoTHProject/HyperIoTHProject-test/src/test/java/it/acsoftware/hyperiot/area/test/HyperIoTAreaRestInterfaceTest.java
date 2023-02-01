@@ -637,6 +637,7 @@ public class HyperIoTAreaRestInterfaceTest extends KarafTestSupport {
         areaPaginatedExpectedProperties.add("entityModifyDate");
         areaPaginatedExpectedProperties.add("description");
         areaPaginatedExpectedProperties.add("imagePath");
+        areaPaginatedExpectedProperties.add("areaViewType");
         areaPaginatedExpectedProperties.add("name");
         areaPaginatedExpectedProperties.add("mapInfo");
         return areaPaginatedExpectedProperties;
@@ -648,6 +649,7 @@ public class HyperIoTAreaRestInterfaceTest extends KarafTestSupport {
         areaExpectedProperties.addAll(hyperIoTAbstractEntityProperties());
         areaExpectedProperties.add("description");
         areaExpectedProperties.add("imagePath");
+        areaExpectedProperties.add("areaViewType");
         areaExpectedProperties.add("name");
         areaExpectedProperties.add("mapInfo");
         areaExpectedProperties.add("innerArea");
@@ -660,6 +662,7 @@ public class HyperIoTAreaRestInterfaceTest extends KarafTestSupport {
         areaExpectedProperties.addAll(hyperIoTAbstractEntityProperties());
         areaExpectedProperties.add("description");
         areaExpectedProperties.add("imagePath");
+        areaExpectedProperties.add("areaViewType");
         areaExpectedProperties.add("name");
         areaExpectedProperties.add("mapInfo");
         return areaExpectedProperties;

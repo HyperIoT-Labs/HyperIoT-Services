@@ -634,6 +634,7 @@ public class HyperIoTAreaWithDefaultPermissionRestTest extends KarafTestSupport 
                         "\"name\":\"" + area.getName()+"\"," +
                         "\"description\":\"" + area.getDescription() + "\"," +
                         "\"imagePath\":null," +
+                        "\"areaViewType\":null," +
                         "\"mapInfo\":null," +
                         "\"innerArea\":[" +
                             "{\"id\":" + parentArea.getId() + "," +
@@ -645,6 +646,7 @@ public class HyperIoTAreaWithDefaultPermissionRestTest extends KarafTestSupport 
                             "\"name\":\"" + parentArea.getName() + "\"," +
                             "\"description\":\"" + parentArea.getDescription() + "\"," +
                             "\"imagePath\":null," +
+                             "\"areaViewType\":null," +
                             "\"mapInfo\":null," +
                             "\"innerArea\":[]}" +
                         "]}"

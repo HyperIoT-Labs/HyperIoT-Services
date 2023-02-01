@@ -21,12 +21,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.acsoftware.hyperiot.base.api.HyperIoTOwnedChildResource;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntity;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTProtectedEntity;
 import it.acsoftware.hyperiot.base.model.HyperIoTAbstractEntity;
-import it.acsoftware.hyperiot.base.model.HyperIoTInnerEntityJSONSerializer;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
 import it.acsoftware.hyperiot.base.validation.NoMalitiusCode;
 import it.acsoftware.hyperiot.base.validation.NotNullOnPersist;
@@ -53,13 +51,13 @@ public class Area extends HyperIoTAbstractEntity
     /**
      * Area name
      */
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Extended.class,HyperIoTJSONView.Public.class,HyperIoTJSONView.Compact.class})
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Extended.class, HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class})
     private String name;
 
     /**
      * Area description
      */
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Extended.class,HyperIoTJSONView.Public.class,HyperIoTJSONView.Compact.class})
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Extended.class, HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class})
     private String description;
 
     /**
@@ -72,22 +70,25 @@ public class Area extends HyperIoTAbstractEntity
      */
     @JsonIgnore
     private Collection<AreaDevice> areaDevices;
-    @JsonView({HyperIoTJSONView.Extended.class,HyperIoTJSONView.Public.class,HyperIoTJSONView.Compact.class})
+    @JsonView({HyperIoTJSONView.Extended.class, HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class})
     private String imagePath;
 
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Extended.class,HyperIoTJSONView.Public.class,HyperIoTJSONView.Compact.class})
+    @JsonView({HyperIoTJSONView.Extended.class, HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class})
+    private AreaViewType areaViewType;
+
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Extended.class, HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class})
     private AreaMapInfo mapInfo;
 
     /**
      * Parent area
      */
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Extended.class,HyperIoTJSONView.Public.class,HyperIoTJSONView.Compact.class})
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Extended.class, HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class})
     private Area parentArea;
 
     /**
      * Inner areas
      */
-    @JsonView({HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private Set<Area> innerArea;
 
     /**
@@ -96,7 +97,7 @@ public class Area extends HyperIoTAbstractEntity
     @NotNullOnPersist
     @NotEmpty
     @NoMalitiusCode
-    @Size( max = 255)
+    @Size(max = 255)
     public String getName() {
         return name;
     }
@@ -113,7 +114,7 @@ public class Area extends HyperIoTAbstractEntity
      */
     @NoMalitiusCode
     @Column(length = 3000)
-    @Size( max = 3000)
+    @Size(max = 3000)
     public String getDescription() {
         return description;
     }
@@ -152,7 +153,7 @@ public class Area extends HyperIoTAbstractEntity
     /**
      * @return Area Devices
      */
-    @OneToMany(targetEntity = AreaDevice.class, mappedBy = "area", cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+    @OneToMany(targetEntity = AreaDevice.class, mappedBy = "area", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     public Collection<AreaDevice> getAreaDevices() {
         return areaDevices;
     }
@@ -166,24 +167,36 @@ public class Area extends HyperIoTAbstractEntity
 
     /**
      * Gets image path of this area map.
+     *
      * @return the area image path
      */
     @NoMalitiusCode
-    @Size( max = 255)
+    @Size(max = 255)
     public String getImagePath() {
         return imagePath;
     }
 
     /**
      * Sets image path of this area map.
+     *
      * @param imagePath Area image path.
      */
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
 
+    @Enumerated(EnumType.STRING)
+    public AreaViewType getAreaViewType() {
+        return areaViewType;
+    }
+
+    public void setAreaViewType(AreaViewType areaViewType) {
+        this.areaViewType = areaViewType;
+    }
+
     /**
      * Gets area map info (eg. coordinates, icon and other map-related data)
+     *
      * @return map info
      */
     public AreaMapInfo getMapInfo() {
@@ -192,6 +205,7 @@ public class Area extends HyperIoTAbstractEntity
 
     /**
      * Sets area map info
+     *
      * @param mapInfo The AreaMapInfo object containing all map-related data
      */
     public void setMapInfo(AreaMapInfo mapInfo) {
@@ -218,7 +232,7 @@ public class Area extends HyperIoTAbstractEntity
     /**
      * @return
      */
-    @OneToMany(mappedBy = "parentArea" )
+    @OneToMany(mappedBy = "parentArea")
     public Set<Area> getInnerArea() {
         return innerArea;
     }

@@ -207,7 +207,7 @@ public class HyperIoTAlgorithmWithDefaultPermissionRestTest extends KarafTestSup
         Assert.assertNotEquals(0, algorithm.getId());
 
         this.impersonateUser(algorithmRestApi, huser);
-        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
+        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS);
         Assert.assertEquals(200, restResponse.getStatus());
         List<Algorithm> algorithmList = restResponse.readEntity(new GenericType<List<Algorithm>>() {
         });
@@ -242,7 +242,7 @@ public class HyperIoTAlgorithmWithDefaultPermissionRestTest extends KarafTestSup
         }
         Assert.assertEquals(defaultDelta, algorithms.size());
         this.impersonateUser(algorithmRestApi, huser);
-        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS.name(),defaultDelta, defaultPage);
+        Response restResponse = algorithmRestApi.findAllAlgorithmPaginated(AlgorithmType.STATISTICS,defaultDelta, defaultPage);
         HyperIoTPaginableResult<Algorithm> listAlgorithms = restResponse
                 .readEntity(new GenericType<HyperIoTPaginableResult<Algorithm>>() {
                 });
@@ -530,7 +530,7 @@ public class HyperIoTAlgorithmWithDefaultPermissionRestTest extends KarafTestSup
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
+        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS);
         List<Algorithm> listAlgorithm = restResponse.readEntity(new GenericType<List<Algorithm>>() {
         });
         if (!listAlgorithm.isEmpty()) {

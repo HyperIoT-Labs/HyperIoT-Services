@@ -219,10 +219,10 @@ public class AlgorithmRestApi extends HyperIoTBaseEntityRestApi<Algorithm> {
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
-    public Response findAllAlgorithm(@ApiParam(value = "The algorithm type ", required = true) @PathParam(value = "algorithmType") String algorithmType) {
+    public Response findAllAlgorithm(@ApiParam(value = "The algorithm type ", required = true) @PathParam(value = "algorithmType") AlgorithmType algorithmType) {
         getLog().debug("In Rest Service GET /hyperiot/algorithms/algorithmType/all");
         HashMap<String, Object> filter = new HashMap<>();
-        filter.put("type", AlgorithmType.valueOf(algorithmType.toUpperCase()));
+        filter.put("type", algorithmType);
         return this.findAll(filter);
     }
 
@@ -240,10 +240,10 @@ public class AlgorithmRestApi extends HyperIoTBaseEntityRestApi<Algorithm> {
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
-    public Response findAllAlgorithmPaginated(@ApiParam(value = "The algorithm type ", required = true) @PathParam(value = "algorithmType") String algorithmType, @QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
+    public Response findAllAlgorithmPaginated(@ApiParam(value = "The algorithm type ", required = true) @PathParam(value = "algorithmType") AlgorithmType algorithmType, @QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
         getLog().debug("In Rest Service GET /hyperiot/algorithms/{algorithmType}");
         HashMap<String, Object> filter = new HashMap<>();
-        filter.put("type", AlgorithmType.valueOf(algorithmType.toUpperCase()));
+        filter.put("type", algorithmType);
         return this.findAll(delta, page, filter);
     }
 

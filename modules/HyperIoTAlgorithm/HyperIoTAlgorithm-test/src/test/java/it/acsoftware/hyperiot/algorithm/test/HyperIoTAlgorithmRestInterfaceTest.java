@@ -249,7 +249,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         Assert.assertNotEquals(0, algorithm2.getId());
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
                 .get()
-                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/type/statistics/all"))
+                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/type/STATISTICS/all"))
                 .withAuthorizationAsHyperIoTAdmin()
                 .withContentTypeHeader("application/json")
                 .build();
@@ -296,7 +296,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         Assert.assertNotEquals(0, algorithm2.getId());
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
                 .get()
-                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/type/statistics"))
+                .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/algorithms/type/STATISTICS"))
                 .withAuthorizationAsHyperIoTAdmin()
                 .withContentTypeHeader("application/json")
                 .withParameter("delta",String.valueOf(defaultDelta))
@@ -750,7 +750,7 @@ public class HyperIoTAlgorithmRestInterfaceTest extends KarafTestSupport {
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
+        Response restResponse = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS);
         List<Algorithm> listAlgorithm = restResponse.readEntity(new GenericType<List<Algorithm>>() {
         });
         if (!listAlgorithm.isEmpty()) {
