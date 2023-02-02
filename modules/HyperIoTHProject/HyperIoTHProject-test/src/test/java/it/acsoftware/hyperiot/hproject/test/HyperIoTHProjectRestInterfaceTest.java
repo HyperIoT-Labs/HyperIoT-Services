@@ -432,6 +432,7 @@ public class HyperIoTHProjectRestInterfaceTest extends KarafTestSupport {
         areaExpectedProperties.add("name");
         areaExpectedProperties.add("description");
         areaExpectedProperties.add("imagePath");
+        areaExpectedProperties.add("areaViewType");
         areaExpectedProperties.add("mapInfo");
         return areaExpectedProperties;
 
