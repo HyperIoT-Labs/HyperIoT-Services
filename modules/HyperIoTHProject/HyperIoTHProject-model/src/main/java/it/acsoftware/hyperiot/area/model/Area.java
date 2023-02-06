@@ -70,8 +70,12 @@ public class Area extends HyperIoTAbstractEntity
      */
     @JsonIgnore
     private Collection<AreaDevice> areaDevices;
-    @JsonView({HyperIoTJSONView.Extended.class, HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class})
+    @JsonIgnore
     private String imagePath;
+
+    //JSON string used by frontend to configure area
+    @JsonView({HyperIoTJSONView.Extended.class, HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class})
+    private String areaConfiguration;
 
     @JsonView({HyperIoTJSONView.Extended.class, HyperIoTJSONView.Public.class, HyperIoTJSONView.Compact.class})
     private AreaViewType areaViewType;
@@ -183,6 +187,16 @@ public class Area extends HyperIoTAbstractEntity
      */
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    @NoMalitiusCode
+    @Column(columnDefinition = "TEXT default null")
+    public String getAreaConfiguration() {
+        return areaConfiguration;
+    }
+
+    public void setAreaConfiguration(String areaConfiguration) {
+        this.areaConfiguration = areaConfiguration;
     }
 
     @Enumerated(EnumType.STRING)

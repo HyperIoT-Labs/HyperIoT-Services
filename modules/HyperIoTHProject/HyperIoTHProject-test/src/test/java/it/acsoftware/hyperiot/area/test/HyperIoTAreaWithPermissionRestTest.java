@@ -2346,7 +2346,7 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                 "\"tagIds\":null," +
                                 "\"name\":\"" + area.getName() + "\"," +
                                 "\"description\":\"" + area.getDescription() + "\"," +
-                                "\"imagePath\":null," +
+                                "\"areaConfiguration\":null," +
                                 "\"areaViewType\":null," +
                                 "\"mapInfo\":null," +
                                 "\"innerArea\":[" +
@@ -2358,7 +2358,7 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                 "\"tagIds\":null," +
                                 "\"name\":\"" + parentArea.getName() + "\"," +
                                 "\"description\":\"" + parentArea.getDescription() + "\"," +
-                                "\"imagePath\":null," +
+                                "\"areaConfiguration\":null," +
                                 "\"areaViewType\":null," +
                                 "\"mapInfo\":null," +
                                 "\"innerArea\":[]}" +
@@ -2401,7 +2401,7 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                 "\"tagIds\":null," +
                                 "\"name\":\"" + area.getName() + "\"," +
                                 "\"description\":\"" + area.getDescription() + "\"," +
-                                "\"imagePath\":null," +
+                                "\"areaConfiguration\":null," +
                                 "\"areaViewType\":null," +
                                 "\"mapInfo\":null," +
                                 "\"innerArea\":[]}"
@@ -2518,7 +2518,7 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                     "\"tagIds\":null," +
                                     "\"name\":\"" + area1.getName() + "\"," +
                                     "\"description\":\"" + area1.getDescription() + "\"," +
-                                    "\"imagePath\":null," +
+                                    "\"areaConfiguration\":null," +
                                     "\"areaViewType\":null," +
                                     "\"mapInfo\":null," +
                                     "\"innerArea\":["
@@ -2539,6 +2539,7 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                     "\"name\":\"" + parentArea1.getName() + "\"," +
                                     "\"description\":\"" + parentArea1.getDescription() + "\"," +
                                     "\"imagePath\":null," +
+                                    "\"areaConfiguration\":null," +
                                     "\"areaViewType\":null," +
                                     "\"mapInfo\":null," +
                                     "\"innerArea\":[]}," +
@@ -2550,7 +2551,7 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                     "\"tagIds\":null," +
                                     "\"name\":\"" + parentArea2.getName() + "\"," +
                                     "\"description\":\"" + parentArea2.getDescription() + "\"," +
-                                    "\"imagePath\":null," +
+                                    "\"areaConfiguration\":null," +
                                     "\"areaViewType\":null," +
                                     "\"mapInfo\":null," +
                                     "\"innerArea\":[]}" +
@@ -2571,7 +2572,7 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                     "\"tagIds\":null," +
                                     "\"name\":\"" + parentArea2.getName() + "\"," +
                                     "\"description\":\"" + parentArea2.getDescription() + "\"," +
-                                    "\"imagePath\":null," +
+                                    "\"areaConfiguration\":null," +
                                     "\"areaViewType\":null," +
                                     "\"mapInfo\":null," +
                                     "\"innerArea\":[]}," +
@@ -2583,7 +2584,7 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                     "\"tagIds\":null," +
                                     "\"name\":\"" + parentArea1.getName() + "\"," +
                                     "\"description\":\"" + parentArea1.getDescription() + "\"," +
-                                    "\"imagePath\":null," +
+                                    "\"areaConfiguration\":null," +
                                     "\"areaViewType\":null," +
                                     "\"mapInfo\":null," +
                                     "\"innerArea\":[]}" +
@@ -2645,7 +2646,7 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                 "\"tagIds\":null," +
                                 "\"name\":\"" + area1.getName() + "\"," +
                                 "\"description\":\"" + area1.getDescription() + "\"," +
-                                "\"imagePath\":null," +
+                                "\"areaConfiguration\":null," +
                                 "\"areaViewType\":null," +
                                 "\"mapInfo\":null," +
                                 "\"innerArea\":[" +
@@ -2657,7 +2658,7 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                 "\"tagIds\":null," +
                                 "\"name\":\"" + parentArea1.getName() + "\"," +
                                 "\"description\":\"" + parentArea1.getDescription() + "\"," +
-                                "\"imagePath\":null," +
+                                "\"areaConfiguration\":null," +
                                 "\"areaViewType\":null," +
                                 "\"mapInfo\":null," +
                                 "\"innerArea\":[]}" +

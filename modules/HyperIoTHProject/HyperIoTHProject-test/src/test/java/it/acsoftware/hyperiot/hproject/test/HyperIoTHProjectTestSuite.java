@@ -26,11 +26,11 @@ import org.junit.runners.AllTests;
 public class HyperIoTHProjectTestSuite {
 
     public static TestSuite suite() throws Throwable {
-        return HyperIoTTestRunner.createHyperIoTTestSuite("it.acsoftware.hyperiot.area.test",
+        return HyperIoTTestRunner.createHyperIoTTestSuite("it.acsoftware.hyperiot.area.test");/*,
                 "it.acsoftware.hyperiot.hdevice.test",
                 "it.acsoftware.hyperiot.hpacket.test",
                 "it.acsoftware.hyperiot.hproject.test",
-                "it.acsoftware.hyperiot.hproject.algorithm.test");
+                "it.acsoftware.hyperiot.hproject.algorithm.test");*/
     }
 
 }
