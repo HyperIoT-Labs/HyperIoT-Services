@@ -18,6 +18,7 @@ package it.acsoftware.hyperiot.area.test;
 
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.area.model.AreaDevice;
+import it.acsoftware.hyperiot.area.model.AreaViewType;
 import it.acsoftware.hyperiot.area.service.rest.AreaRestApi;
 import it.acsoftware.hyperiot.base.api.HyperIoTUser;
 import it.acsoftware.hyperiot.base.api.authentication.AuthenticationApi;
@@ -1797,7 +1798,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
                                 "\"name\":\"" + area.getName() + "\"," +
                                 "\"description\":\"" + area.getDescription() + "\"," +
                                 "\"areaConfiguration\":null," +
-                                "\"areaViewType\":null," +
+                                "\"areaViewType\":\"IMAGE\"," +
                                 "\"mapInfo\":null," +
                                 "\"innerArea\":[" +
                                 "{\"id\":" + parentArea.getId() + "," +
@@ -1809,7 +1810,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
                                 "\"name\":\"" + parentArea.getName() + "\"," +
                                 "\"description\":\"" + parentArea.getDescription() + "\"," +
                                 "\"areaConfiguration\":null," +
-                                "\"areaViewType\":null," +
+                                "\"areaViewType\":\"IMAGE\"," +
                                 "\"mapInfo\":null," +
                                 "\"innerArea\":[]}" +
                                 "]}"
@@ -1852,7 +1853,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
                                 "\"name\":\"" + area.getName() + "\"," +
                                 "\"description\":\"" + area.getDescription() + "\"," +
                                 "\"areaConfiguration\":null," +
-                                "\"areaViewType\":null," +
+                                "\"areaViewType\":\"IMAGE\"," +
                                 "\"mapInfo\":null," +
                                 "\"innerArea\":[]}"
                 )
@@ -2031,7 +2032,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
 
         this.impersonateUser(areaRestApi, adminUser);
         Response restResponseImage = areaRestApi.setAreaImage(area.getId(), jpgAttachment);
-        Assert.assertEquals(500, restResponseImage.getStatus());
+        Assert.assertEquals(422, restResponseImage.getStatus());
         Assert.assertEquals("java.io.IOException",
                 ((HyperIoTBaseError) restResponseImage.getEntity()).getType());
         Assert.assertEquals(1,
@@ -2067,7 +2068,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
 
         this.impersonateUser(areaRestApi, adminUser);
         Response restResponseImage = areaRestApi.setAreaImage(area.getId(), jpgAttachment);
-        Assert.assertEquals(500, restResponseImage.getStatus());
+        Assert.assertEquals(422, restResponseImage.getStatus());
         Assert.assertEquals("java.io.IOException",
                 ((HyperIoTBaseError) restResponseImage.getEntity()).getType());
         Assert.assertEquals(1,
@@ -2929,7 +2930,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
                                     "\"name\":\"" + area1.getName() + "\"," +
                                     "\"description\":\"" + area1.getDescription() + "\"," +
                                     "\"areaConfiguration\":null," +
-                                    "\"areaViewType\":null," +
+                                    "\"areaViewType\":\"IMAGE\"," +
                                     "\"mapInfo\":null," +
                                     "\"innerArea\":["
                     )
@@ -2949,7 +2950,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
                                     "\"name\":\"" + parentArea1.getName() + "\"," +
                                     "\"description\":\"" + parentArea1.getDescription() + "\"," +
                                     "\"areaConfiguration\":null," +
-                                    "\"areaViewType\":null," +
+                                    "\"areaViewType\":\"IMAGE\"," +
                                     "\"mapInfo\":null," +
                                     "\"innerArea\":[]}," +
                                     "{\"id\":" + parentArea2.getId() + "," +
@@ -2961,7 +2962,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
                                     "\"name\":\"" + parentArea2.getName() + "\"," +
                                     "\"description\":\"" + parentArea2.getDescription() + "\"," +
                                     "\"areaConfiguration\":null," +
-                                    "\"areaViewType\":null," +
+                                    "\"areaViewType\":\"IMAGE\"," +
                                     "\"mapInfo\":null," +
                                     "\"innerArea\":[]}" +
                                     "]}"
@@ -2982,7 +2983,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
                                     "\"name\":\"" + parentArea2.getName() + "\"," +
                                     "\"description\":\"" + parentArea2.getDescription() + "\"," +
                                     "\"areaConfiguration\":null," +
-                                    "\"areaViewType\":null," +
+                                    "\"areaViewType\":\"IMAGE\"," +
                                     "\"mapInfo\":null," +
                                     "\"innerArea\":[]}," +
                                     "{\"id\":" + parentArea1.getId() + "," +
@@ -2994,7 +2995,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
                                     "\"name\":\"" + parentArea1.getName() + "\"," +
                                     "\"description\":\"" + parentArea1.getDescription() + "\"," +
                                     "\"areaConfiguration\":null," +
-                                    "\"areaViewType\":null," +
+                                    "\"areaViewType\":\"IMAGE\"," +
                                     "\"mapInfo\":null," +
                                     "\"innerArea\":[]}" +
                                     "]}"
@@ -3555,6 +3556,7 @@ public class HyperIoTAreaRestTest extends KarafTestSupport {
         area.setName("Area " + UUID.randomUUID());
         area.setDescription("Area of user: " + hproject.getUser().getUsername());
         area.setProject(hproject);
+        area.setAreaViewType(AreaViewType.IMAGE);
         this.impersonateUser(areaRestApi, adminUser);
         Response restResponseArea = areaRestApi.saveArea(area);
         Assert.assertEquals(200, restResponseArea.getStatus());

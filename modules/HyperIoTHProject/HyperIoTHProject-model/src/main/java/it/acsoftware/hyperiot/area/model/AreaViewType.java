@@ -17,9 +17,26 @@
 
 package it.acsoftware.hyperiot.area.model;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public enum AreaViewType {
     MAP,
-    BIM_XKT,
-    BIM_IFC,
-    IMAGE
+    BIM_XKT("xkt"),
+    BIM_IFC("ifc"),
+    IMAGE("jpg", "jpeg", "svg", "webp");
+
+    private List<String> supportedFileExentsions;
+
+    AreaViewType(String... supportedFileExensions) {
+        if (supportedFileExensions != null && supportedFileExensions.length > 0)
+            this.supportedFileExentsions = Arrays.asList(supportedFileExensions);
+        else
+            this.supportedFileExentsions = Collections.emptyList();
+    }
+
+    public List<String> getSupportedFileExentsions() {
+        return this.supportedFileExentsions;
+    }
 }
