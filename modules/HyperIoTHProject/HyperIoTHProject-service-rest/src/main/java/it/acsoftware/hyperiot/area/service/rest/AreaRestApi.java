@@ -35,6 +35,8 @@ import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -57,6 +59,7 @@ import java.util.Arrays;
         "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"}, immediate = true)
 @Path("")
 public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
+    private static Logger log = LoggerFactory.getLogger(AreaRestApi.class);
     private AreaApi entityService;
 
     // Area Config keys
@@ -88,7 +91,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     @Path("/module/status")
     @ApiOperation(value = "/module/status", notes = "Simple service for checking module status", httpMethod = "GET")
     public Response checkModuleWorking() {
-        getLog().debug( "In Rest Service GET /hyperiot/area/module/status");
+        getLog().debug("In Rest Service GET /hyperiot/area/module/status");
         return Response.ok("Area Module works!").build();
     }
 
@@ -96,7 +99,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     @Path("/config")
     @ApiOperation(value = "/config", notes = "Get Area service config (eg. max allowed file size for uploads).", httpMethod = "GET")
     public Response getConfig() {
-        getLog().debug( "In Rest Service GET /hyperiot/area/config");
+        getLog().debug("In Rest Service GET /hyperiot/area/config");
         return Response.ok(String.format("{ \"maxFileSize\": %d }", assetsFileMaxLength)).build();
     }
 
@@ -105,7 +108,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
      */
     @Override
     protected HyperIoTBaseEntityApi<Area> getEntityService() {
-        getLog().debug( "invoking getEntityService, returning: {}", this.entityService);
+        getLog().debug("invoking getEntityService, returning: {}", this.entityService);
         return entityService;
     }
 
@@ -114,7 +117,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
      */
     @Reference(service = AreaApi.class)
     protected void setEntityService(AreaApi entityService) {
-        getLog().debug( "invoking setEntityService, setting: {}", this.entityService);
+        getLog().debug("invoking setEntityService, setting: {}", this.entityService);
         this.entityService = entityService;
     }
 
@@ -135,7 +138,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findArea(
             @ApiParam(value = "id from which area object will retrieve", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/areas/{}", id);
+        getLog().debug("In Rest Service GET /hyperiot/areas/{}", id);
         return this.find(id);
     }
 
@@ -156,7 +159,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     @JsonView(HyperIoTJSONView.Extended.class)
     public Response findInnerAreas(
             @ApiParam(value = "id of parent area", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/areas/{}/tree", id);
+        getLog().debug("In Rest Service GET /hyperiot/areas/{}/tree", id);
         try {
             Area area = this.entityService.getAll(this.getHyperIoTContext(), id);
             ObjectMapper mapper = new ObjectMapper();
@@ -177,7 +180,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             @ApiResponse(code = 404, message = "Entity not found")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response getAreaDeviceDeepList(@ApiParam(value = "id of the area", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/areas/{}/tree/devices", id);
+        getLog().debug("In Rest Service GET /hyperiot/areas/{}/tree/devices", id);
         try {
             return Response.ok().entity(entityService.getAreaDevicesDeepList(getHyperIoTContext(), id, false)).build();
         } catch (Throwable e) {
@@ -195,7 +198,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             @ApiResponse(code = 404, message = "Entity not found")})
     @JsonView(HyperIoTJSONView.Compact.class)
     public Response getAreaDeviceDeepListFromRoot(@ApiParam(value = "id of the area", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/areas/{}/tree/devices/all", id);
+        getLog().debug("In Rest Service GET /hyperiot/areas/{}/tree/devices/all", id);
         try {
             return Response.ok().entity(entityService.getAreaDevicesDeepList(getHyperIoTContext(), id, true)).build();
         } catch (Throwable e) {
@@ -220,7 +223,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     @JsonView(HyperIoTJSONView.Compact.class)
     public Response getAreaPath(
             @ApiParam(value = "id of area", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/areas/{}/path", id);
+        getLog().debug("In Rest Service GET /hyperiot/areas/{}/path", id);
         try {
             return Response.ok(this.entityService.getAreaPath(this.getHyperIoTContext(), id)).build();
         } catch (Throwable t) {
@@ -244,7 +247,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response saveArea(@ApiParam(value = "Area entity which must be saved ", required = true) Area entity) {
-        getLog().debug( "In Rest Service POST /hyperiot/areas \n Body:{}", entity);
+        getLog().debug("In Rest Service POST /hyperiot/areas \n Body:{}", entity);
         return this.save(entity);
     }
 
@@ -263,7 +266,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             @ApiResponse(code = 500, message = "Invalid ID supplied")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response updateArea(@ApiParam(value = "Area entity which must be updated ", required = true) Area entity) {
-        getLog().debug( "In Rest Service PUT /hyperiot/areas \n Body: {}", entity);
+        getLog().debug("In Rest Service PUT /hyperiot/areas \n Body: {}", entity);
         return this.update(entity);
     }
 
@@ -283,8 +286,8 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             @ApiResponse(code = 404, message = "Entity not found")})
     public Response deleteArea(
             @ApiParam(value = "The area id which must be deleted", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service DELETE /hyperiot/areas/{}", id);
-        try{
+        getLog().debug("In Rest Service DELETE /hyperiot/areas/{}", id);
+        try {
             this.entityService.removeAll(this.getHyperIoTContext(), id);
             return Response.ok().build();
         } catch (Throwable t) {
@@ -295,7 +298,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     /**
      * Set area background image
      *
-     * @param id Area id
+     * @param id        Area id
      * @param imageFile Image file
      * @return success or error response
      */
@@ -304,7 +307,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/areas/{id}/image", notes = "Service for setting the area background image", httpMethod = "POST", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/areas/{id}/image", notes = "Service for setting the area background image", httpMethod = "POST",consumes = "multipart/form-data", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
@@ -313,7 +316,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response setAreaImage(@ApiParam(value = "The area id", required = true) @PathParam("id") long id,
                                  @Multipart(value = "image_file") Attachment imageFile) {
-        getLog().debug( "In Rest Service POST /hyperiot/areas/{}/image", id);
+        getLog().debug("In Rest Service POST /hyperiot/areas/{}/image", id);
         Area area = null;
         try {
             area = this.entityService.find(id, this.getHyperIoTContext());
@@ -331,18 +334,22 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
                 for (String name : contentDispositionHeader) {
                     if ((name.trim().startsWith("filename"))) {
                         String[] tmp = name.split("=");
-                        fileName = tmp[1].trim().replaceAll("\"","");
+                        fileName = tmp[1].trim().replaceAll("\"", "");
                     }
                 }
                 String fileExtension = "";
                 if (fileName.indexOf(".") > 0) {
                     fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
                 }
-                if (fileExtension.equals("jpg") || fileExtension.equals("png") || fileExtension.equals("svg") || fileExtension.equals("webp")) {
+                if (area.getAreaViewType() != null && area.getAreaViewType().getSupportedFileExentsions().contains(fileExtension)) {
                     // copy file to assets folder
                     File assetsFolder = new File(assetsFolderPath);
-                    if (!assetsFolder.exists()){
+                    if (!assetsFolder.exists()) {
                         assetsFolder.mkdirs();
+                    }
+                    String oldImagePath = null;
+                    if (area.getImagePath() != null && !area.getImagePath().isEmpty()) {
+                        oldImagePath = area.getImagePath();
                     }
                     File assetsAreaFile = new File(assetsFolder.getAbsolutePath(), String.valueOf(id).concat("_img.").concat(fileExtension));
                     imageFile.transferTo(assetsAreaFile);
@@ -354,9 +361,19 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
                     }
                     // update area image path
                     area.setImagePath(assetsAreaFile.getPath());
+                    if (!area.getImagePath().equals(oldImagePath)) {
+                        //removing old Image
+                        try {
+                            File f = new File(oldImagePath);
+                            if (f.exists())
+                                f.delete();
+                        } catch (Exception e) {
+                            log.error(e.getMessage(), e);
+                        }
+                    }
                 } else {
                     HyperIoTBaseError response = HyperIoTBaseError.generateHyperIoTError(new IOException(), Arrays.asList("File type not supported."),
-                            HyperIoTErrorConstants.INTERNAL_ERROR);
+                            HyperIoTErrorConstants.VALIDATION_ERROR);
                     return Response.status(response.getStatusCode()).entity(response).build();
                 }
             } catch (IOException e) {
@@ -386,7 +403,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             @ApiResponse(code = 500, message = "Internal error")
     })
     public Response getAreaImage(@ApiParam(value = "The area id", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/areas/{}/image", id);
+        getLog().debug("In Rest Service GET /hyperiot/areas/{}/image", id);
         Area area = null;
         try {
             area = this.entityService.find(id, this.getHyperIoTContext());
@@ -400,7 +417,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             return Response.status(response.getStatusCode()).entity(response).build();
         }
         return Response.ok(assetsAreaFile, MediaType.APPLICATION_OCTET_STREAM)
-                .header("Content-Disposition", "attachment; filename=\"" + assetsAreaFile.getName() + "\"" )
+                .header("Content-Disposition", "attachment; filename=\"" + assetsAreaFile.getName() + "\"")
                 .build();
     }
 
@@ -422,7 +439,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     })
     @JsonView(HyperIoTJSONView.Public.class)
     public Response unsetAreaImage(@ApiParam(value = "The area id", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service DELETE /hyperiot/areas/{}/image", id);
+        getLog().debug("In Rest Service DELETE /hyperiot/areas/{}/image", id);
         Area area = null;
         try {
             area = this.entityService.find(id, this.getHyperIoTContext());
@@ -452,7 +469,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findAllArea() {
-        getLog().debug( "In Rest Service GET /hyperiot/areas/");
+        getLog().debug("In Rest Service GET /hyperiot/areas/");
         return this.findAll();
     }
 
@@ -470,7 +487,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Compact.class)
     public Response findAllAreaPaginated(@QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
-        getLog().debug( "In Rest Service GET /hyperiot/areas/");
+        getLog().debug("In Rest Service GET /hyperiot/areas/");
         return this.findAll(delta, page);
     }
 
@@ -490,7 +507,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             @ApiResponse(code = 404, message = "Entity not found")})
     @JsonView(HyperIoTJSONView.Compact.class)
     public Response getAreaDeviceList(@ApiParam(value = "id of the area", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/areas/{}/devices", id);
+        getLog().debug("In Rest Service GET /hyperiot/areas/{}/devices", id);
         try {
             return Response.ok().entity(entityService.getAreaDevicesList(getHyperIoTContext(), id)).build();
         } catch (Throwable e) {
@@ -501,7 +518,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     /**
      * Adds or updates an area device
      *
-     * @param id Area id
+     * @param id         Area id
      * @param areaDevice The area device
      * @return
      */
@@ -517,7 +534,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response addAreaDevice(@ApiParam(value = "id of the area", required = true) @PathParam("id") long id,
                                   @ApiParam(value = "the area device", required = true) AreaDevice areaDevice) {
-        getLog().debug( "In Rest Service PUT /hyperiot/areas/{}/devices {}", new Object[]{id, areaDevice});
+        getLog().debug("In Rest Service PUT /hyperiot/areas/{}/devices {}", new Object[]{id, areaDevice});
         try {
             entityService.saveAreaDevice(getHyperIoTContext(), id, areaDevice);
             return Response.ok().entity(areaDevice).build();
@@ -542,7 +559,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
             @ApiResponse(code = 404, message = "Entity not found")})
     @JsonView(HyperIoTJSONView.Compact.class)
     public Response getAreaDevice(@ApiParam(value = "id of the area device", required = true) @PathParam("areaDeviceId") long areaDeviceId) {
-        getLog().debug( "In Rest Service GET /hyperiot/areas/devices/{}" , areaDeviceId);
+        getLog().debug("In Rest Service GET /hyperiot/areas/devices/{}", areaDeviceId);
         try {
             return Response.ok().entity(entityService.getAreaDevice(getHyperIoTContext(), areaDeviceId)).build();
         } catch (Throwable e) {
@@ -553,7 +570,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     /**
      * Deletes an area device
      *
-     * @param id Area id
+     * @param id           Area id
      * @param areaDeviceId the AreaDevice id
      * @return
      */
@@ -568,7 +585,7 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     @JsonView(HyperIoTJSONView.Compact.class)
     public Response removeAreaDevice(@ApiParam(value = "id of the area", required = true) @PathParam("id") long id,
                                      @ApiParam(value = "id of the area device", required = true) @PathParam("areaDeviceId") long areaDeviceId) {
-        getLog().debug( "In Rest Service DELETE /hyperiot/areas/{}/devices/{}" , new Object[]{id, areaDeviceId});
+        getLog().debug("In Rest Service DELETE /hyperiot/areas/{}/devices/{}", new Object[]{id, areaDeviceId});
         try {
             entityService.removeAreaDevice(getHyperIoTContext(), id, areaDeviceId);
             return Response.ok().build();

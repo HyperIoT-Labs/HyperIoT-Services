@@ -431,7 +431,8 @@ public class HyperIoTHProjectRestInterfaceTest extends KarafTestSupport {
         areaExpectedProperties.addAll(hyperIoTAbstractEntityProperties());
         areaExpectedProperties.add("name");
         areaExpectedProperties.add("description");
-        areaExpectedProperties.add("imagePath");
+        areaExpectedProperties.add("areaViewType");
+        areaExpectedProperties.add("areaConfiguration");
         areaExpectedProperties.add("mapInfo");
         return areaExpectedProperties;
 

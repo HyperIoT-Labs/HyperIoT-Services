@@ -18,6 +18,7 @@ package it.acsoftware.hyperiot.area.test;
 
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.area.model.AreaDevice;
+import it.acsoftware.hyperiot.area.model.AreaViewType;
 import it.acsoftware.hyperiot.area.service.rest.AreaRestApi;
 import it.acsoftware.hyperiot.base.api.authentication.AuthenticationApi;
 import it.acsoftware.hyperiot.base.api.HyperIoTUser;
@@ -38,6 +39,7 @@ import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition;
 import org.apache.karaf.features.FeaturesService;
 import org.apache.karaf.itests.KarafTestSupport;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -633,7 +635,8 @@ public class HyperIoTAreaWithDefaultPermissionRestTest extends KarafTestSupport 
                         "\"tagIds\":null," +
                         "\"name\":\"" + area.getName()+"\"," +
                         "\"description\":\"" + area.getDescription() + "\"," +
-                        "\"imagePath\":null," +
+                        "\"areaConfiguration\":null," +
+                        "\"areaViewType\":\"IMAGE\"," +
                         "\"mapInfo\":null," +
                         "\"innerArea\":[" +
                             "{\"id\":" + parentArea.getId() + "," +
@@ -644,7 +647,8 @@ public class HyperIoTAreaWithDefaultPermissionRestTest extends KarafTestSupport 
                             "\"tagIds\":null," +
                             "\"name\":\"" + parentArea.getName() + "\"," +
                             "\"description\":\"" + parentArea.getDescription() + "\"," +
-                            "\"imagePath\":null," +
+                            "\"areaConfiguration\":null," +
+                            "\"areaViewType\":\"IMAGE\"," +
                             "\"mapInfo\":null," +
                             "\"innerArea\":[]}" +
                         "]}"
@@ -686,6 +690,7 @@ public class HyperIoTAreaWithDefaultPermissionRestTest extends KarafTestSupport 
         area.setName("Area " + UUID.randomUUID());
         area.setDescription("Area of user: " + ownerHUser.getUsername());
         area.setProject(hproject);
+        area.setAreaViewType(AreaViewType.IMAGE);
         this.impersonateUser(areaRestApi, ownerHUser);
         Response restResponseArea = areaRestApi.saveArea(area);
         Assert.assertEquals(200, restResponseArea.getStatus());

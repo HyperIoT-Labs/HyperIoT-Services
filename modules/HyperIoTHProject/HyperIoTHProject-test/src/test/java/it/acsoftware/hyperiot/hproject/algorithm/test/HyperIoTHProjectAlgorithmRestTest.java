@@ -2358,7 +2358,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         // Remove all Algorithms created in every tests
         AlgorithmRestApi algorithmRestApi = getOsgiService(AlgorithmRestApi.class);
         this.impersonateUser(algorithmRestApi, adminUser);
-        Response restResponseAlgorithms = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS.name());
+        Response restResponseAlgorithms = algorithmRestApi.findAllAlgorithm(AlgorithmType.STATISTICS);
         List<Algorithm> listAlgorithm = restResponseAlgorithms.readEntity(new GenericType<List<Algorithm>>() {
         });
         if (!listAlgorithm.isEmpty()) {
