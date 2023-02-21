@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTServices-features">
+  <feature name="hyperiot-services" version="${project.version}" description="All  HyperIoT HyperIoTServices modules">
+    <feature>hyperiot-base-basic</feature>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.services/HyperIoTServices-api/${project.version}</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.services/HyperIoTServices-service/${project.version}</bundle>
+  </feature>
+  <feature name="hyperiot-services-test" version="${project.version}" description="All  HyperIoT HyperIoTServices modules">
+    <feature>hyperiot-base-basic</feature>
+    <bundle start-level="84">mvn:it.acsoftware.hyperiot.services/HyperIoTServices-api/${project.version}</bundle>
+    <bundle start-level="84">mvn:it.acsoftware.hyperiot.services/HyperIoTServices-service/${project.version}</bundle>
+    <bundle start-level="84">mvn:it.acsoftware.hyperiot.services/HyperIoTServices-util/${project.version}</bundle>
+  </feature>
+</features>
