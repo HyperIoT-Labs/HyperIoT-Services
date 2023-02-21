@@ -1,39 +1,30 @@
-
-
 dependencies {
-	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-	compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
-	//Swagger
-	compileOnly group: "org.apache.cxf" ,name: "cxf-rt-rs-service-description-swagger",version: project.cxfVersion
-	//Hibernate
-	compileOnly group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
-	compileOnly group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
-	compileOnly group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
-	//Validation
-	compileOnly group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
-	compileOnly group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
-	//Jackson
-	compileOnly group:"com.fasterxml.jackson.module",name:"jackson-module-jaxb-annotations",version:project.jacksonVersion
-	//HyperIoTBase Dependencies
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-validation", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version:project.hyperIoTPlatformVersion
+    //OSGi Basic Imports
+    compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+    compileOnly group: "org.osgi", name: "osgi.cmpn", version: project.osgiCompendiumVersion
+    //Swagger
+    compileOnly group: "org.apache.cxf", name: "cxf-rt-rs-service-description-swagger", version: project.cxfVersion
+    //Hibernate
+    compileOnly group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+    compileOnly group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+    compileOnly group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api", version: project.hibernateJpaApiVersion
+    //Validation
+    compileOnly group: "javax.validation", name: "validation-api", version: project.javaxValidationVersion
+    compileOnly group: "org.hibernate", name: "hibernate-validator", version: project.hibernateValidatorVersion
+    //Jackson
+    compileOnly group: "com.fasterxml.jackson.module", name: "jackson-module-jaxb-annotations", version: project.jacksonVersion
+    //HyperIoTBase Dependencies
+    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version: project.hyperIoTVersion
+    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version: project.hyperIoTVersion
+    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-validation", version: project.hyperIoTVersion
+    compileOnly group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version: project.hyperIoTPlatformVersion
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
-
-task publishHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install','publish' ]
-}
 
 publishing {
-        publications {
-            hyperiot(MavenPublication) {
-            	from components.java
-        	}
+    publications {
+        hyperiot(MavenPublication) {
+            from components.java
+        }
     }
- }
+}

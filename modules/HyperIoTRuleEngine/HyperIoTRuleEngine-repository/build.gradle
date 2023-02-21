@@ -27,13 +27,7 @@ dependencies {
 	compileOnly project(":modules:HyperIoTRuleEngine:HyperIoTRuleEngine-model")
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-		tasks = ['publish']
-}
 
 publishing {
     	publications {

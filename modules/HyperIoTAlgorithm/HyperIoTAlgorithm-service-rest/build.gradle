@@ -25,13 +25,7 @@ dependencies {
 	compileOnly project(":modules:HyperIoTAlgorithm:HyperIoTAlgorithm-api")
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install','publish' ]
-}
 
 publishing {
     	publications {

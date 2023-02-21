@@ -23,13 +23,7 @@ dependencies {
 	compileOnly group: 'org.apache.storm', name: 'storm-core', version: project.stormCoreVersion
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-		tasks = ['publish']
-}
 
 
 publishing {

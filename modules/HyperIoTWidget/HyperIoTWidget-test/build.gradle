@@ -45,15 +45,6 @@ dependencies {
     testCompile group: "org.ops4j.pax.exam", name: "pax-exam", version: project.paxExamVersion
 }
 
-
-task buildHIT(type: GradleBuild) {
-    tasks = [ 'clean','testClasses','install' ]
-}
-
-task publishHIT(type: GradleBuild) {
-    tasks = ['publish']
-}
-
 jar {
     from sourceSets.test.java
     //excluding custom configuration SPI ,so it can be defined in the destination project

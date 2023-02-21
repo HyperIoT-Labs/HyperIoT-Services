@@ -185,12 +185,7 @@ dependencies {
     testCompile group: "org.ops4j.pax.exam", name: "pax-exam",version: project.paxExamVersion
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','compileTestJava','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-}
 
 task extractTests(type: Copy) {
 	from ( configurations.testCopy.collect { it.isDirectory() ? it : zipTree(it) } ){

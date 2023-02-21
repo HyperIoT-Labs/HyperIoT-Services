@@ -36,13 +36,7 @@ dependencies {
     compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-job")
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-	tasks = ['publish']
-}
 
 jar {
     manifest {

@@ -26,7 +26,7 @@ allprojects {
         mavenCentral()
     }
 
-    apply plugin: 'maven'
+    
     apply plugin: 'biz.aQute.bnd.builder'
     apply plugin: 'maven-publish'
 
@@ -47,10 +47,4 @@ allprojects {
         }
     }
 }
-task buildHIT {
-    dependsOn gradle.includedBuilds*.task(':buildHIT')
-}
 
-task publishHIT {
-    dependsOn gradle.includedBuilds*.task(':publishHIT')
-}

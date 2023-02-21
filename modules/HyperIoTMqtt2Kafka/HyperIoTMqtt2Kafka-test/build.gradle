@@ -42,13 +42,7 @@ dependencies {
 }
 
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','testClasses','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-	tasks = ['publish']
-}
 
 jar {
 	from sourceSets.test.java

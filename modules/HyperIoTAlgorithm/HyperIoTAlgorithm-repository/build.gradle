@@ -24,13 +24,7 @@ dependencies {
 	compileOnly group: "it.acsoftware.hyperiot.hadoopmanager", name: "HyperIoTHadoopManager-api", version:project.hyperIoTVersion
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-		tasks = [ 'clean','build','install','publish' ]
-}
 
 publishing {
     	publications {
