@@ -12,7 +12,7 @@ dependencies {
 	testCompile group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
 	//Jax RS
 	testCompile group: "javax.ws.rs", name: "javax.ws.rs-api",version:project.jaxWsRsApiVersion
-	compileOnly group: "org.apache.cxf" ,name: "cxf-rt-rs-service-description-swagger",version: project.cxfVersion
+	implementation group: "org.apache.cxf" ,name: "cxf-rt-rs-service-description-swagger",version: project.cxfVersion
 	testCompile group: "org.webjars" ,name:"swagger-ui",version: project.swaggerUIVersion
 	//JPA
 	testCompile group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
@@ -35,10 +35,10 @@ dependencies {
 	testCompile group: "it.acsoftware.hyperiot.authentication", name: "HyperIoTAuthentication-service-rest", version:project.hyperIoTVersion
 
 	//WebSocket
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-api", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-model", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-session", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-channel", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-api", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-model", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-session", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-channel", version: project.hyperIoTVersion
 
 	testCompile group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-api", version:project.hyperIoTVersion
 	testCompile group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion

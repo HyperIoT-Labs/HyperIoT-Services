@@ -98,6 +98,7 @@ dependencies {
 
 
 jar {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 	from sourceSets.test.java
 	//excluding custom configuration SPI ,so it can be defined in the destination project
 	exclude('META-INF/services/org.ops4j.pax.exam.ConfigurationFactory')

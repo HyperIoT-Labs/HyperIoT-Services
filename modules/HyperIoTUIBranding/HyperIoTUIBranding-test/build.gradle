@@ -2,11 +2,11 @@
 dependencies {
 	
 	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-	compileOnly group: "org.osgi", name: "osgi.cmpn", version: project.osgiCompendiumVersion
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name: "osgi.cmpn", version: project.osgiCompendiumVersion
 	//Jax RS
 	testCompile group: "javax.ws.rs", name: "javax.ws.rs-api",version:project.jaxWsRsApiVersion
-	compileOnly group: "org.apache.cxf" ,name: "cxf-rt-rs-service-description-swagger",version: project.cxfVersion
+	implementation group: "org.apache.cxf" ,name: "cxf-rt-rs-service-description-swagger",version: project.cxfVersion
 	testCompile group: "org.webjars" ,name:"swagger-ui",version: project.swaggerUIVersion
 	//Validation
 	testCompile group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion

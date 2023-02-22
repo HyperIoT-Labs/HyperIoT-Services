@@ -1,16 +1,16 @@
 dependencies {
 	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
 	//HyperIoTBase Dependencies
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
 	//Avro
-	compileOnly group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+	implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
 	//HProjectAlgorithm added to export.
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-job-model")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-job-model")
 
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-model")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-model")
 }
 
 

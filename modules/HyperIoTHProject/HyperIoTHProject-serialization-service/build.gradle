@@ -1,39 +1,46 @@
+configurations {
+	includeInJar {
+		canBeConsumed(false)
+		canBeResolved(true)
+	}
+}
+
 dependencies {
 	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-	compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
 	// HyperIoTBase dependencies
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
 
-    compileOnly group: "com.fasterxml.jackson.dataformat",name: "jackson-dataformat-csv",version: project.jacksonVersion
-    compileOnly group: "com.fasterxml.jackson.dataformat",name: "jackson-dataformat-xml",version: project.jacksonVersion
-    compileOnly group: "com.fasterxml.jackson.dataformat",name: "jackson-dataformat-properties",version: project.jacksonVersion
+    implementation group: "com.fasterxml.jackson.dataformat",name: "jackson-dataformat-csv",version: project.jacksonVersion
+    implementation group: "com.fasterxml.jackson.dataformat",name: "jackson-dataformat-xml",version: project.jacksonVersion
+    implementation group: "com.fasterxml.jackson.dataformat",name: "jackson-dataformat-properties",version: project.jacksonVersion
 
     // Project dependencies
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-model")
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-serialization-api")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-model")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-serialization-api")
 	// Avro
-	compileOnly group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+	implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
 	// Kryo serializer
-	compile group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.24.0'
+	implementation group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.24.0'
+	includeInJar group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.24.0'
 	// Slf4j
-	compileOnly group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
 	// Kafka client
-	compile group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
-
+	implementation group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
+	includeInJar group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
 }
 
 jar {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 	manifest {
 		attributes('dsannotations': '*')
 	}
 	zip64 true
-	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	from { configurations.includeInJar.collect { it.isDirectory() ? it : zipTree(it) } }
 }
-
-
 
 publishing {
     	publications {

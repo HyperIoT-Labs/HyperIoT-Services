@@ -3,43 +3,43 @@
 
 dependencies {
 	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-	compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
     //Hibernate
-    compileOnly group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
-    compileOnly group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+    implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
     //Jackson
-    compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
-    compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: project.jacksonVersion
     //HyperIoTBase Dependencies
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-api", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-model", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-session", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-channel", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version:project.hyperIoTPlatformVersion
-    compileOnly group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-model", version:project.hyperIoTPlatformVersion
-    compileOnly group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-api", version:project.hyperIoTPlatformVersion
-    compileOnly group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-deserialization-api", version:project.hyperIoTPlatformVersion
-    compileOnly group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-deserialization-model", version:project.hyperIoTPlatformVersion
-    compileOnly group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-deserialization-service", version:project.hyperIoTPlatformVersion
-    compileOnly group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-serialization-api", version:project.hyperIoTPlatformVersion
-    compileOnly group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-serialization-service", version:project.hyperIoTPlatformVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-api", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-model", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-session", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-channel", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-model", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-api", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-deserialization-api", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-deserialization-model", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-deserialization-service", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-serialization-api", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-serialization-service", version:project.hyperIoTPlatformVersion
     // Avro
-    compileOnly group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+    implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
     //MQTT Paho
-	compileOnly group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: project.eclipsePahoVersion
+	implementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: project.eclipsePahoVersion
 	// slf4j
-	compileOnly group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
 	//Project Dependencies
-	compileOnly project(":modules:HyperIoTMqttClient:HyperIoTMqttClient-api")
-	compileOnly project(":modules:HyperIoTMqttClient:HyperIoTMqttClient-util")
-    compileOnly project(":modules:HyperIoTMqttClient:HyperIoTMqttClient-model")
+	implementation project(":modules:HyperIoTMqttClient:HyperIoTMqttClient-api")
+	implementation project(":modules:HyperIoTMqttClient:HyperIoTMqttClient-util")
+    implementation project(":modules:HyperIoTMqttClient:HyperIoTMqttClient-model")
 
 
 }

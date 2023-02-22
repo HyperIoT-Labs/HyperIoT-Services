@@ -1,21 +1,21 @@
 
 dependencies {
 	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-    compileOnly group: "org.osgi", name: "org.osgi.framework", version: project.osgiFrameworkVersion
-	compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+    implementation group: "org.osgi", name: "org.osgi.framework", version: project.osgiFrameworkVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
 	//SLF4J
-    compileOnly group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
 
-    compileOnly group: 'it.acsoftware.hyperiot.base',name:'HyperIoTBase-api',version:project.hyperIoTVersion
-    compileOnly group: 'it.acsoftware.hyperiot.base',name:'HyperIoTBase-util',version:project.hyperIoTVersion
-    compileOnly group: 'it.acsoftware.hyperiot.kafka.connector',name:'HyperIoTKafkaConnector-api',version:project.hyperIoTVersion
-    compileOnly group: 'it.acsoftware.hyperiot.kafka.connector',name:'HyperIoTKafkaConnector-model',version:project.hyperIoTVersion
-    compileOnly group:'it.acsoftware.hyperiot.base', name:'HyperIoTBase-util',version:project.hyperIoTVersion
+    implementation group: 'it.acsoftware.hyperiot.base',name:'HyperIoTBase-api',version:project.hyperIoTVersion
+    implementation group: 'it.acsoftware.hyperiot.base',name:'HyperIoTBase-util',version:project.hyperIoTVersion
+    implementation group: 'it.acsoftware.hyperiot.kafka.connector',name:'HyperIoTKafkaConnector-api',version:project.hyperIoTVersion
+    implementation group: 'it.acsoftware.hyperiot.kafka.connector',name:'HyperIoTKafkaConnector-model',version:project.hyperIoTVersion
+    implementation group:'it.acsoftware.hyperiot.base', name:'HyperIoTBase-util',version:project.hyperIoTVersion
 
-    compileOnly group: 'org.apache.camel',name:'camel-core',version:project.apacheCamelVersion
-    compileOnly group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
-    compileOnly group: 'org.apache.activemq', name: 'activemq-camel', version: project.activemqCamelVersion
+    implementation group: 'org.apache.camel',name:'camel-core',version:project.apacheCamelVersion
+    implementation group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
+    implementation group: 'org.apache.activemq', name: 'activemq-camel', version: project.activemqCamelVersion
 
 }
 
@@ -23,8 +23,6 @@ jar {
 	manifest {
 		attributes('dsannotations': '*')
 	}
-    zip64 true
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 
