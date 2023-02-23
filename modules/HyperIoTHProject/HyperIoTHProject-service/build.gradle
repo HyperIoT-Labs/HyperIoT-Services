@@ -34,7 +34,7 @@ dependencies {
 	implementation group: "it.acsoftware.hyperiot.mail", name: "HyperIoTMail-util", version:project.hyperIoTVersion
 
     implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
-
+	implementation group: 'org.bouncycastle', name: 'bcmail-jdk15on', version: project.bouncyCastleVersion
     //Project Dependencies
     implementation project(":modules:HyperIoTHProject:HyperIoTHProject-actions")
     implementation project(":modules:HyperIoTHProject:HyperIoTHProject-api")
