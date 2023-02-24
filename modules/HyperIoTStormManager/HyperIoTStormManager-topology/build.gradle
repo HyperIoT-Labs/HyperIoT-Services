@@ -83,7 +83,7 @@ javadoc {
 }
 
 configurations {
-    archives.extendsFrom(testCompile)
+    archives.extendsFrom(testImplementation)
 }
 
 jar {

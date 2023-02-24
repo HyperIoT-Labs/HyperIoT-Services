@@ -28,7 +28,7 @@ allprojects {
     apply plugin: 'maven-publish'
 
     configurations {
-        testCompile.extendsFrom implementation
+        testImplementation.extendsFrom implementation
     }
 
     publishing {

@@ -5,51 +5,52 @@ dependencies {
 	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
 	implementation group: "org.osgi", name: "osgi.cmpn", version: project.osgiCompendiumVersion
 	//Jax RS
-	testCompile group: "javax.ws.rs", name: "javax.ws.rs-api",version:project.jaxWsRsApiVersion
+	testImplementation group: "javax.ws.rs", name: "javax.ws.rs-api",version:project.jaxWsRsApiVersion
 	implementation group: "org.apache.cxf" ,name: "cxf-rt-rs-service-description-swagger",version: project.cxfVersion
-	testCompile group: "org.webjars" ,name:"swagger-ui",version: project.swaggerUIVersion
+	testImplementation group: "org.webjars" ,name:"swagger-ui",version: project.swaggerUIVersion
 	//Validation
-	testCompile group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
-	testCompile group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
+	testImplementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+	testImplementation group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
+	testImplementation group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
 	//Project Base dependencies
-	testCompile group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service-rest", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test-containers", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service-rest", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test-containers", version:project.hyperIoTVersion
 	
-	testCompile group: "it.acsoftware.hyperiot.authentication", name: "HyperIoTAuthentication-service", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.authentication", name: "HyperIoTAuthentication-service-rest", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.authentication", name: "HyperIoTAuthentication-service", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.authentication", name: "HyperIoTAuthentication-service-rest", version:project.hyperIoTVersion
 	
-	testCompile group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-api", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-service-rest", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-test-utils", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-api", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-service-rest", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-test-utils", version:project.hyperIoTVersion
 
-	testCompile group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-model", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-test-utils", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-model", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-test-utils", version:project.hyperIoTVersion
 
-	testCompile group: "it.acsoftware.hyperiot.services", name: "HyperIoTServices-api", version:project.hyperIoTVersion
-	testCompile group: "it.acsoftware.hyperiot.services", name: "HyperIoTServices-util", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.services", name: "HyperIoTServices-api", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.services", name: "HyperIoTServices-util", version:project.hyperIoTVersion
 	//Project dependencies
 	
-	testCompile project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-api")
+	testImplementation project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-api")
 	//Project Dependencies
-	testCompile project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-model")
-	testCompile project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-repository")
-	testCompile project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-service-rest")
+	testImplementation project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-model")
+	testImplementation project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-repository")
+	testImplementation project(":modules:HyperIoTUIBranding:HyperIoTUIBranding-service-rest")
 		
-	testCompile group: "org.apache.karaf.itests", name:"common", version:project.karafVersion
-	testCompile group: "org.apache.karaf", name:"apache-karaf", version:project.karafVersion
+	testImplementation group: "org.apache.karaf.itests", name:"common", version:project.karafVersion
+	testImplementation group: "org.apache.karaf", name:"apache-karaf", version:project.karafVersion
 	
-	testCompile group: "org.apache.karaf.shell", name:"org.apache.karaf.shell.core", version:project.karafVersion
-    testCompile group: "org.ops4j.pax.exam", name: "pax-exam-container-karaf",version: project.paxExamVersion
-    testCompile group: "org.ops4j.pax.exam", name: "pax-exam-junit4",version: project.paxExamVersion
-    testCompile group: "org.ops4j.pax.exam", name: "pax-exam",version: project.paxExamVersion
+	testImplementation group: "org.apache.karaf.shell", name:"org.apache.karaf.shell.core", version:project.karafVersion
+    testImplementation group: "org.ops4j.pax.exam", name: "pax-exam-container-karaf",version: project.paxExamVersion
+    testImplementation group: "org.ops4j.pax.exam", name: "pax-exam-junit4",version: project.paxExamVersion
+    testImplementation group: "org.ops4j.pax.exam", name: "pax-exam",version: project.paxExamVersion
  	
     
 }

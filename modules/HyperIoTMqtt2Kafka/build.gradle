@@ -23,11 +23,6 @@ allprojects {
    
 	apply plugin: 'biz.aQute.bnd.builder'
 	apply plugin: 'maven-publish'
-	
-   configurations {
-	    testCompile.extendsFrom implementation
-	}
-	
 
 	publishing {
 		repositories {

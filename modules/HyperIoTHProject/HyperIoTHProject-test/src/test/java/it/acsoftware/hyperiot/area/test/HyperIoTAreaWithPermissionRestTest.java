@@ -2539,7 +2539,6 @@ public class HyperIoTAreaWithPermissionRestTest extends KarafTestSupport {
                                     "\"tagIds\":null," +
                                     "\"name\":\"" + parentArea1.getName() + "\"," +
                                     "\"description\":\"" + parentArea1.getDescription() + "\"," +
-                                    "\"imagePath\":null," +
                                     "\"areaConfiguration\":null," +
                                     "\"areaViewType\":\"IMAGE\"," +
                                     "\"mapInfo\":null," +

@@ -39,7 +39,7 @@ public class HyperIoTServicesTestSuite {
                 "it.acsoftware.hyperiot.hdevice.test",
                 "it.acsoftware.hyperiot.hpacket.test",
                 "it.acsoftware.hyperiot.hproject.test",
-                //"it.acsoftware.hyperiot.stormmanager.test",
+                "it.acsoftware.hyperiot.stormmanager.test",
                 "it.acsoftware.hyperiot.mqtt.client.test",
                 "it.acsoftware.hyperiot.kit.test"
         );
