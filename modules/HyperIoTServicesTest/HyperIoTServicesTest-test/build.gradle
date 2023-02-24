@@ -18,6 +18,7 @@ dependencies {
 	testImplementation group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
 	testImplementation group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version:project.apacheAriesJpaVersion
 	//Validation
+	testImplementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
 	testImplementation group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
 	testImplementation group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
 	//Project Base dependencies
