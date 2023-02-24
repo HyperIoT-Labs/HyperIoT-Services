@@ -6,6 +6,7 @@ dependencies {
 	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
 	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
 	//Persistence
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
 	implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
 	//JPA Dependencies
 	implementation group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
