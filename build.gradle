@@ -27,7 +27,7 @@ task newRelease() {
     }
 
     ext.updateDistributionPom = { distributionPath ->
-        def parser = new XmlParser()
+        def parser = new groovy.xml.XmlParser()
         def pomXmlFile = new File(distributionPath);
         def pomXmlStr = pomXmlFile.getText('UTF-8')
         def pomXml = parser.parseText(pomXmlStr)
