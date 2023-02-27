@@ -9,7 +9,7 @@
     <feature>hyperiot-kafkaconnector-basic</feature>
     <feature>hyperiot-mqttauthentication</feature>
     <feature>hyperiot-mqtt-authorization</feature>
-    <bundle>mvn:org.apache.activemq/activemq-camel/5.17.3</bundle>
+    <bundle>mvn:org.apache.activemq/activemq-camel/5.16.3</bundle>
     <bundle>mvn:it.acsoftware.hyperiot.camel.mqtt2kafka/HyperIoTMqtt2Kafka-camel-connector/2.2.4</bundle>
   </feature>
 </features>
