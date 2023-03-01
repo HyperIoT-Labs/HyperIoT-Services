@@ -200,6 +200,7 @@ public class Area extends HyperIoTAbstractEntity
     }
 
     @Enumerated(EnumType.STRING)
+    @NotNullOnPersist
     public AreaViewType getAreaViewType() {
         return areaViewType;
     }
