@@ -343,10 +343,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
                              long rowKeyLowerBound, long rowKeyUpperBound, int limit, String alarmState, OutputStream outputStream)
             throws IOException {
         try (JsonGenerator jsonGenerator = objectMapper.getFactory().createGenerator(outputStream)) {
-            boolean isJsonArray = (hPacketIds.size() > 1 || hDeviceIds.size() > 1 || ((!hPacketIds.isEmpty()) && (!hDeviceIds.isEmpty()))
-                    || (AlarmState.isValidName(alarmState) && !hPacketIds.isEmpty()));
-            if (isJsonArray)
-                jsonGenerator.writeStartArray();
+            jsonGenerator.writeStartArray();
             for (String packetId : hPacketIds) {
                 String tableName = getTableNamePrefix(packetId) + hProjectId;
                 byte[] rowKeyLowBound;
@@ -388,8 +385,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
                     objectMapper.writeValue(jsonGenerator, hProjectScan);
                 }
             }
-            if (isJsonArray)
-                jsonGenerator.writeEndArray();
+            jsonGenerator.writeEndArray();
             jsonGenerator.flush();
         }
     }
