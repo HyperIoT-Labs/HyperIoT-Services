@@ -1,7 +1,8 @@
 Export-Package: it.acsoftware.hyperiot.services.service.rest
 Import-Package: \
+    it.acsoftware.hyperiot.services.util,\
     it.acsoftware.hyperiot.services.api,\
-        it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.service.rest;version='${range;[===,+)}',\

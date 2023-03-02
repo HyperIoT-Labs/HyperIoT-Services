@@ -3,12 +3,12 @@
     <feature name="hyperiot-services" version="2.2.4" description="All hyperIoT Modules">
     <feature>hyperiot-base</feature>
     <feature>hyperiot-services-basic</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.services.service.rest/hyperIoT-service-rest/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.services/HyperIoTServices-service-rest/${project.version}</bundle>
   </feature>
     <feature name="hyperiot-services-basic" version="${project.version}" description="All hyperIoT Modules with NO rest services ">
     <feature>hyperiot-base-basic</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.services.actions/hyperIoT-actions/${project.version}</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.services.api/hyperIoT-api/${project.version}</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.services.service/hyperIoT-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.services/HyperIoTServices-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.services/HyperIoTServices-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.services/HyperIoTServices-util/${project.version}</bundle>
   </feature>
 </features>

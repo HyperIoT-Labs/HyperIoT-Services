@@ -49,7 +49,7 @@ public class ServicesRestApi extends HyperIoTBaseRestApi {
     }
 
     @GET
-    @Path("/versions")
+    @Path("/version")
     @ApiOperation(value = "/version", notes = "Returns current HyperIoT Services version", httpMethod = "GET")
     public Response getHyperIoTServicesVersions() {
         getLog().debug("In Rest Service GET /hyperiot/services/versions");
