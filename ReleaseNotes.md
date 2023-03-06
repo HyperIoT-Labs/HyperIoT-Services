@@ -5,4 +5,6 @@
 - Removing useless gradle task publishHIT and buildHIT
 - Bug: Fixed require image view type on area persist
 - Bug: Fixed returning single value json and not array when scanning for hpacket and results contains just one packet or device
+- Bug: Added png format to area image
+- Update: Added default area view type - IMAGE
 - Update: Added /hyperiot/services/version end point which return current services version
