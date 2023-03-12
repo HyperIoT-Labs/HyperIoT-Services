@@ -10,3 +10,4 @@
 - Update: Added /hyperiot/services/version end point which return current services version
 - Update: Adding new column family HBase in order to support file streaming and store them inside HBase
 - Update: Exposing packet attachments download from rest services
+- Update: Disabling user registration from property
