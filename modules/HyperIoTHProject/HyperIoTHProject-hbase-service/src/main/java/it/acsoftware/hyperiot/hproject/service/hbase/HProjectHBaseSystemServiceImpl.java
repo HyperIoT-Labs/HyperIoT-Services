@@ -408,6 +408,20 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
         objectMapper.writeValue(jsonGenerator, hProjectScan);
     }
 
+    public byte[] getHPacketAttachment(long hProjectId, long packetId, long fieldId, long rowKeyLowerBound, long rowKeyUpperBound) throws IOException {
+        // specify column families and columns on which perform scan
+        String tableName = getTableNamePrefix(String.valueOf(packetId)) + hProjectId;
+        byte[] columnFamily = Bytes.toBytes(HProjectHBaseConstants.HPACKET_ATTACHMENTS_COLUMN_FAMILY);
+        byte[] column = Bytes.toBytes(fieldId);
+        Map<byte[], List<byte[]>> targetColumns = getScannerColumns(String.valueOf(packetId), columnFamily, column);
+        List<Result> hBaseResult = hBaseConnectorSystemApi.scanWithCompleteResult(tableName, targetColumns,
+                Bytes.toBytes(rowKeyLowerBound), Bytes.toBytes(rowKeyUpperBound), 1);
+        if (!hBaseResult.isEmpty()) {
+            return hBaseResult.get(0).getValue(columnFamily, column);
+        }
+        return new byte[]{};
+    }
+
     private byte[] serializeTimeStampFieldAsString(long timestamp, boolean upperBound) {
         if (upperBound) {
             //To include upper bound result.

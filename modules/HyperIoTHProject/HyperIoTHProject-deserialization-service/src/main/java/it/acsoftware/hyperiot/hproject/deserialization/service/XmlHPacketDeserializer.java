@@ -19,12 +19,10 @@ package it.acsoftware.hyperiot.hproject.deserialization.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import it.acsoftware.hyperiot.hdevice.model.HDevice;
 import it.acsoftware.hyperiot.hpacket.model.HPacket;
 import it.acsoftware.hyperiot.hproject.deserialization.api.HPacketDeserializer;
 import it.acsoftware.hyperiot.hproject.deserialization.model.HPacketInfo;
 import it.acsoftware.hyperiot.hproject.deserialization.service.util.HPacketDeserializerUtil;
-import it.acsoftware.hyperiot.hproject.model.HProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +35,8 @@ public class XmlHPacketDeserializer implements HPacketDeserializer {
 
     private static final Logger log = LoggerFactory.getLogger(XmlHPacketDeserializer.class);
 
-    private XmlHPacketDeserializer() {}
+    private XmlHPacketDeserializer() {
+    }
 
     public static synchronized XmlHPacketDeserializer getInstance() {
         if (instance == null)
@@ -48,7 +47,8 @@ public class XmlHPacketDeserializer implements HPacketDeserializer {
     @Override
     public HPacket deserialize(byte[] rawHPacket, HPacketInfo hPacketInfo) throws IOException {
         HashMap<String, Object> message;
-        TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {};
+        TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
+        };
         // example input XML packet
         /*
         <?xml version="1.0" encoding="UTF-8"?>
@@ -74,12 +74,7 @@ public class XmlHPacketDeserializer implements HPacketDeserializer {
         message = xmlMapper.readValue(rawHPacket, typeRef);
         log.debug("XML Data : {}", message);
         // create and return the HPacket
-        long projectId = hPacketInfo.getHProjectId();
-        HProject project = HPacketDeserializerUtil.createHProject(projectId);
-        long deviceId = hPacketInfo.getHDeviceId();
-        HDevice device = HPacketDeserializerUtil.createHDevice(deviceId, project);
-        long packetId = hPacketInfo.getHPacketId();
-        return HPacketDeserializerUtil.createHPacket(packetId, device, hPacketInfo, message);
+        return HPacketDeserializerUtil.createHPacket(hPacketInfo, message);
     }
 
 }
