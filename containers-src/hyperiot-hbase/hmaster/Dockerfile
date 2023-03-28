@@ -1,5 +1,5 @@
 #FROM hyperiot/hbase-base\
-FROM nexus.acsoftware.it:18079/hyperiot/hbase-base:1.0.6
+FROM nexus.acsoftware.it:18079/hyperiot/hbase-base:1.0.7
 
 #HBase log dir
 ENV HBASE_LOG_DIR=$HBASE_HOME/logs
