@@ -1,4 +1,4 @@
-FROM nexus.acsoftware.it:18079/hyperiot/hbase-base:1.0.5
+FROM nexus.acsoftware.it:18079/hyperiot/hbase-base:1.0.6
 
 #HBase log dir
 ENV HBASE_LOG_DIR=$HBASE_HOME/logs
