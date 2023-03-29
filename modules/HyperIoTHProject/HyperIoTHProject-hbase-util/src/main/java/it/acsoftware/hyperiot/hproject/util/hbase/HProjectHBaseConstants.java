@@ -48,6 +48,8 @@ public final class HProjectHBaseConstants {
     public static final String HOUR_COLUMN_FAMILY = TimelineColumnFamily.HOUR.getName();
     public static final String HPACKET_COLUMN_FAMILY = "hpacket";
 
+    public static final String HPACKET_ATTACHMENTS_COLUMN_FAMILY = "attachments";
+
     public static final String HDEVICE_COLUMN_FAMILY = "hdevice";
     public static final String RULE_COLUMN_FAMILY = "rule";
     public static final String MILLISECOND_COLUMN_FAMILY = TimelineColumnFamily.MILLISECOND.getName();

@@ -1,11 +1,11 @@
 
 dependencies {
 	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-	compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
     //Jackson
-    compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
-    compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: project.jacksonVersion
 }
 
 jar {
@@ -14,13 +14,7 @@ jar {
 	}
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install','publish' ]
-}
 
 publishing {
     	publications {

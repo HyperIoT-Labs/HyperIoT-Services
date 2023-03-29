@@ -1,17 +1,17 @@
 dependencies {
 	//OSGi Basic Imports
-    compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-    compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+    implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+    implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
 	// HyperIoT base dependencies
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
 	// Project dependencies
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-job-api")
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-job-model")
-	compileOnly group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version:project.hyperIoTPlatformVersion
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-job-api")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-job-model")
+	implementation group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version:project.hyperIoTPlatformVersion
 	// Jackson dependecy
-	compileOnly group:"com.fasterxml.jackson.jaxrs",name:"jackson-jaxrs-json-provider",version:project.jacksonVersion
-    compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: project.jacksonVersion
-    compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
+	implementation group:"com.fasterxml.jackson.jaxrs",name:"jackson-jaxrs-json-provider",version:project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
 }
 
 jar {
@@ -20,13 +20,7 @@ jar {
 	}
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install','publish' ]
-}
 
 publishing {
 	publications {

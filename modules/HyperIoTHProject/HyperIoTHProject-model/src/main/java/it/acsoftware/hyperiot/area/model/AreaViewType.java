@@ -25,7 +25,7 @@ public enum AreaViewType {
     MAP,
     BIM_XKT("xkt"),
     BIM_IFC("ifc"),
-    IMAGE("jpg", "jpeg", "svg", "webp");
+    IMAGE("jpg", "jpeg", "svg", "webp","png");
 
     private List<String> supportedFileExentsions;
 

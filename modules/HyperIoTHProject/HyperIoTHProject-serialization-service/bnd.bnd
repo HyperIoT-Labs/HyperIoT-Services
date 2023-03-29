@@ -15,4 +15,5 @@ Import-Package: \
 Export-Package: \
     it.acsoftware.hyperiot.hproject.serialization.service,\
     it.acsoftware.hyperiot.hproject.serialization.service.builder
+-fixupmessages "Classes found in the wrong directory"; restrict:=error; is:=warning
 

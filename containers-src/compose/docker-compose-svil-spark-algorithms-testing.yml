@@ -6,45 +6,15 @@ networks:
     driver: bridge
 
 services:
-
-  postgresql:
+  zookeeper:
     extends:
      file: docker-compose-svil-basic.yml
-     service: postgresql
+     service: zookeeper
 
   namenode:
     extends:
      file: docker-compose-svil-basic.yml
      service: namenode
-
-  resourcemanager:
-    extends:
-     file: docker-compose-svil-basic.yml
-     service: resourcemanager
-    depends_on:
-      - "namenode"
-    links:
-      - "namenode"
-
-  historyserver:
-    extends:
-     file: docker-compose-svil-basic.yml
-     service: historyserver
-    depends_on:
-      - "namenode"
-    links:
-      - "namenode"
-
-  nodemanager:
-    extends:
-     file: docker-compose-svil-basic.yml
-     service: nodemanager
-    depends_on:
-      - "namenode"
-      - "resourcemanager"
-    links:
-      - "namenode"
-      - "resourcemanager"
 
   datanode1:
     extends:
@@ -73,13 +43,33 @@ services:
     links:
       - "namenode"
 
-  hive-server:
+  hbase-master:
     extends:
      file: docker-compose-svil-basic.yml
-     service: hive-server
+     service: hbase-master
 
-  hive-metastore:
+  hbase-region:
     extends:
      file: docker-compose-svil-basic.yml
-     service: hive-metastore
+     service: hbase-region
+    depends_on:
+      - hbase-master
+
+  spark-master:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: spark-master
+    depends_on:
+      - "namenode"
+    links:
+      - "namenode"
+      
+  spark-worker-1:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: spark-worker-1
+    depends_on:
+      - "spark-master"
+    links:
+      - "spark-master"
 

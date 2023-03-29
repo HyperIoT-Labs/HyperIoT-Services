@@ -1,72 +1,63 @@
-
-
 dependencies {
-	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-	compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+    //OSGi Basic Imports
+    implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+    implementation group: "org.osgi", name: "osgi.cmpn", version: project.osgiCompendiumVersion
 
-	//Persistence
-	compileOnly group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
-	compileOnly group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
-	//JPA Dependencies
-	compileOnly group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
-	compileOnly group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version: project.apacheAriesJpaVersion
-	compileOnly group: "org.apache.cxf" ,name: "cxf-rt-rs-security-jose-jaxrs",version: project.cxfVersion
-	//Validation
-	compileOnly group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
-	compileOnly group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
+    //Persistence
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+    implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api", version: project.hibernateJpaApiVersion
+    //JPA Dependencies
+    implementation group: "javax.transaction", name: "javax.transaction-api", version: project.javaxTransactionVersion
+    implementation group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version: project.apacheAriesJpaVersion
+    implementation group: "org.apache.cxf", name: "cxf-rt-rs-security-jose-jaxrs", version: project.cxfVersion
+    //Validation
+    implementation group: "javax.validation", name: "validation-api", version: project.javaxValidationVersion
+    implementation group: "org.hibernate", name: "hibernate-validator", version: project.hibernateValidatorVersion
 
-	// Avro
-	compileOnly group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+    // Avro
+    implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
 
-	//Jackson
-	compileOnly group:"com.fasterxml.jackson.module",name:"jackson-module-jaxb-annotations",version:project.jacksonVersion
-	compileOnly group:"com.fasterxml.jackson.core", name: "jackson-core", version:project.jacksonVersion
-	compileOnly group:"com.fasterxml.jackson.core", name: "jackson-databind", version:project.jacksonVersion
+    //Jackson
+    implementation group: "com.fasterxml.jackson.module", name: "jackson-module-jaxb-annotations", version: project.jacksonVersion
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-core", version: project.jacksonVersion
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: project.jacksonVersion
 
-	//HyperIoTBase Dependencies
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-api", version:project.hyperIoTPlatformVersion
-    compileOnly group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version:project.hyperIoTPlatformVersion
-	compileOnly group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-service", version:project.hyperIoTPlatformVersion
-	compileOnly group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+    //HyperIoTBase Dependencies
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-api", version: project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version: project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-service", version: project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version: project.hyperIoTVersion
 
-	compileOnly group: "it.acsoftware.hyperiot.hproject", name:"HyperIoTHProject-api", version:project.hyperIoTPlatformVersion
-	compileOnly group: "it.acsoftware.hyperiot.hproject", name:"HyperIoTHProject-model", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-api", version: project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-model", version: project.hyperIoTPlatformVersion
 
-	//Project Dependencies
-	compileOnly project(":modules:HyperIoTAlarm:HyperIoTAlarm-api")
+    //Project Dependencies
+    implementation project(":modules:HyperIoTAlarm:HyperIoTAlarm-api")
 
-	compileOnly project(":modules:HyperIoTAlarm:HyperIoTAlarm-model")
-	compileOnly project(":modules:HyperIoTAlarm:HyperIoTAlarm-repository")
+    implementation project(":modules:HyperIoTAlarm:HyperIoTAlarm-model")
+    implementation project(":modules:HyperIoTAlarm:HyperIoTAlarm-repository")
 
 }
 
 jar {
-	manifest {
-		attributes('dsannotations': '*')
-	}
+    manifest {
+        attributes('dsannotations': '*')
+    }
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
-
-task publishHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install','publish' ]
-}
 
 publishing {
-    	publications {
-        	hyperiot(MavenPublication) {
-            	from components.java
-        	}
+    publications {
+        hyperiot(MavenPublication) {
+            from components.java
+        }
     }
- }
+}

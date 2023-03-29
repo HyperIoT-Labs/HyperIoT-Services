@@ -1,63 +1,40 @@
-
 allprojects {
     group 'it.acsoftware.hyperiot.alarm'
-	version project.hyperIoTPlatformVersion
-    repositories{
-      mavenCentral()
-      mavenLocal{
-		  content {
-			  // Used only for test and development phase.
-			  includeGroupByRegex "it\\.acsoftware.*"
-		  }
-	  }
-      maven {
-         url "https://plugins.gradle.org/m2/"
-      }
+    version project.hyperIoTPlatformVersion
+    repositories {
+        mavenCentral()
+        mavenLocal {
+            content {
+                // Used only for test and development phase.
+                includeGroupByRegex "it\\.acsoftware.*"
+            }
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
 
-   maven {
-	   name = 'ACSoftwareRepository'
-         url = project.acsMavenRepository
-      }
-	}
+        maven {
+            name = 'ACSoftwareRepository'
+            url = project.acsMavenRepository
+        }
+    }
 
-    apply plugin: 'maven'
-	apply plugin: 'biz.aQute.bnd.builder'
-	apply plugin: 'maven-publish'
+    apply plugin: 'biz.aQute.bnd.builder'
+    apply plugin: 'maven-publish'
 
-   configurations {
-	    testCompile.extendsFrom compileOnly
-	}
-
-
-	publishing {
-		repositories {
-			maven {
-				credentials {
-					username project.publishRepoUsername
-					password project.publishRepoPassword
-				}
-				name = 'ACSoftwareRepository'
-				url = project.publishRepoUrl
-			}
-		}
- 	}
-
-    //this task will be executed even on test module
- 	task testAndBuildHIT(type: GradleBuild) {
-		tasks = [ 'clean','build','install' ]
-	}
-
-	//this task will be executed even on test module
- 	task testAndPublishHIT(type: GradleBuild) {
-		tasks = [ 'clean','build','install','publish' ]
-	}
+    publishing {
+        repositories {
+            maven {
+                credentials {
+                    username project.publishRepoUsername
+                    password project.publishRepoPassword
+                }
+                name = 'ACSoftwareRepository'
+                url = project.publishRepoUrl
+            }
+        }
+    }
 }
 
-task buildHIT {
-	dependsOn gradle.includedBuilds*.task(':buildHIT')
-}
 
-task publishHIT {
-	dependsOn gradle.includedBuilds*.task(':publishHIT')
-}
 

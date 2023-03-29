@@ -16,5 +16,5 @@
 # limitations under the License.
 #
 #
-
+hbase thrift start 2>&1 &
 exec /opt/hbase-$HBASE_VERSION/bin/hbase master start

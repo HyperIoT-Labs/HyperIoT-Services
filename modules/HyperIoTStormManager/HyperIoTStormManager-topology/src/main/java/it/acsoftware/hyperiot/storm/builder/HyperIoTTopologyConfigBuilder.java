@@ -70,9 +70,9 @@ public class HyperIoTTopologyConfigBuilder {
         //creting configuration from hdevices and packets
         defineTopologyConfigParts(topologyConfigParts, hProject);
         //creating yaml configuration
-        String topologyYaml = createTopologyYaml(topologyConfig.name,hProject,topologyConfigParts.packetConfig.toString());
+        String topologyYaml = createTopologyYaml(topologyConfig.name, hProject, topologyConfigParts.packetConfig.toString());
         //creating properties
-        String topologyProperties = createTopologyProperties(projectId,topologyConfigParts.properties.toString());
+        String topologyProperties = createTopologyProperties(projectId, topologyConfigParts.properties.toString());
 
         // add generated configs
         topologyConfig.properties = topologyProperties;
@@ -80,24 +80,8 @@ public class HyperIoTTopologyConfigBuilder {
         return topologyConfig;
     }
 
-    private static String getTopologyOnHeapMemory() {
-        return "64";
-    }
-
-    /**
-     * @param hProject
-     * @return
-     */
-    private static String getTopologyXms(HProject hProject) {
-        return "32m";
-    }
-
-    /**
-     * @param hProject
-     * @return
-     */
-    private static String getTopologyXmx(HProject hProject) {
-        return "128m";
+    private static String getTopologyOnHeapMemory(HProject hProject) {
+        return HyperIoTTopologyPerformanceConfig.fromHProject(hProject).getResourcesOnHeapMemory();
     }
 
     /**
@@ -105,7 +89,7 @@ public class HyperIoTTopologyConfigBuilder {
      * @return
      */
     private static String getTopologyMaxHeapSize(HProject hProject) {
-        return "128";
+        return HyperIoTTopologyPerformanceConfig.fromHProject(hProject).getTopologyWorkerMaxHeapSize();
     }
 
     /**
@@ -113,7 +97,7 @@ public class HyperIoTTopologyConfigBuilder {
      * @return
      */
     private static String getTopologyLogWriterXmx(HProject hProject) {
-        return "32m";
+        return HyperIoTTopologyPerformanceConfig.fromHProject(hProject).getLogWriterXmx();
     }
 
     /**
@@ -121,7 +105,7 @@ public class HyperIoTTopologyConfigBuilder {
      * @return
      */
     private static String getTopologyLogWriterXms(HProject hProject) {
-        return "32m";
+        return HyperIoTTopologyPerformanceConfig.fromHProject(hProject).getLogWriterXms();
     }
 
     /**
@@ -129,24 +113,23 @@ public class HyperIoTTopologyConfigBuilder {
      * @return
      */
     private static int getTopologyWorkers(HProject hProject) {
-        return 1;
+        return HyperIoTTopologyPerformanceConfig.fromHProject(hProject).getTopologyWorkers();
     }
 
     /**
-     *
      * @param projectId
      * @param topologyConfigProperties
      * @return
      * @throws IOException
      */
-    private static String createTopologyProperties(long projectId,String topologyConfigProperties) throws IOException {
+    private static String createTopologyProperties(long projectId, String topologyConfigProperties) throws IOException {
         // generate topology.properties
         String topologyProperties = readBundleResource("topology.properties");
         topologyProperties = topologyProperties.replace("%packets%", topologyConfigProperties);
         topologyProperties = topologyProperties.replace("%drools-enrichment%",
-            getDroolsCode(projectId, RuleType.ENRICHMENT));
+                getDroolsCode(projectId, RuleType.ENRICHMENT));
         topologyProperties = topologyProperties.replace("%drools-event%",
-            getDroolsCode(projectId, RuleType.EVENT));
+                getDroolsCode(projectId, RuleType.EVENT));
         topologyProperties = topologyProperties.replace("%drools-alarm-event%",
                 getDroolsCode(projectId, RuleType.ALARM_EVENT));
         topologyProperties = topologyProperties.replace("%kafka-bootstrap-servers%", (String) HyperIoTUtil.getHyperIoTProperty("it.acsoftware.hyperiot.stormmanager.topology.kafka.bootstrap.servers"));
@@ -182,30 +165,23 @@ public class HyperIoTTopologyConfigBuilder {
                 (String) HyperIoTUtil.getHyperIoTProperty("it.acsoftware.hyperiot.storm.maxDelayKafkaSpoutDLQ.seconds"));
 
 
-
-
-
-
         return topologyProperties;
     }
 
     /**
-     *
      * @param topologyName
      * @param hProject
      * @param packetsConfig
      * @return
      * @throws IOException
      */
-    private static String createTopologyYaml(String topologyName,HProject hProject,String packetsConfig) throws IOException {
+    private static String createTopologyYaml(String topologyName, HProject hProject, String packetsConfig) throws IOException {
         long projectId = hProject.getId();
         int numWorkers = getTopologyWorkers(hProject);
         String logWriterXms = getTopologyLogWriterXms(hProject);
         String logWriterXmx = getTopologyLogWriterXmx(hProject);
         String topologyMaxHeapSize = getTopologyMaxHeapSize(hProject);
-        String topologyXmx = getTopologyXmx(hProject);
-        String topologyXms = getTopologyXms(hProject);
-        String topologyOnHeapMemory = getTopologyOnHeapMemory();
+        String topologyOnHeapMemory = getTopologyOnHeapMemory(hProject);
 
         // generate topology.yaml
         String topologyYaml = readBundleResource("topology.yaml");
@@ -215,13 +191,11 @@ public class HyperIoTTopologyConfigBuilder {
         topologyYaml = topologyYaml.replace("%topology_onheap_memory%", topologyOnHeapMemory);
         topologyYaml = topologyYaml.replace("%topology_logw_xmx%", logWriterXmx);
         topologyYaml = topologyYaml.replace("%topology_logw_xms%", logWriterXms);
-        topologyYaml = topologyYaml.replace("%topologyXms%", topologyXms);
-        topologyYaml = topologyYaml.replace("%topologyXmx%", topologyXmx);
         topologyYaml = topologyYaml.replace(
-            "%hproject-id%", "\"" + projectId + "\"");
+                "%hproject-id%", "\"" + projectId + "\"");
         List<Long> eventRuleIds = getEventRuleIds(projectId);
         topologyYaml = topologyYaml.replace(
-            "%event-rule-ids%", "\"" + Arrays.toString(eventRuleIds.toArray()) + "\"");
+                "%event-rule-ids%", "\"" + Arrays.toString(eventRuleIds.toArray()) + "\"");
         List<Long> alarmEventRuleIds = getAlarmEventRuleIds(projectId);
         topologyYaml = topologyYaml.replace(
                 "%alarm-event-rule-ids%", "\"" + Arrays.toString(alarmEventRuleIds.toArray()) + "\"");
@@ -244,7 +218,6 @@ public class HyperIoTTopologyConfigBuilder {
     }
 
     /**
-     *
      * @param topologyConfigParts
      * @param hProject
      */
@@ -306,7 +279,7 @@ public class HyperIoTTopologyConfigBuilder {
             }
             // apply templates
             topologyConfig.packetConfig
-                .append(packetConfigTemplate.replaceAll("%pid%", String.valueOf(p.getId())));
+                    .append(packetConfigTemplate.replaceAll("%pid%", String.valueOf(p.getId())));
         });
         return topologyConfig;
     }
@@ -318,23 +291,22 @@ public class HyperIoTTopologyConfigBuilder {
     private static List<Long> getEventRuleIds(long projectId) {
         RuleEngineSystemApi ruleEngineSystemApi = (RuleEngineSystemApi) HyperIoTUtil.getService(RuleEngineSystemApi.class);
         if (ruleEngineSystemApi != null) {
-            Collection<Rule> rules = ruleEngineSystemApi.findAllRuleByProjectIdAndRuleType(projectId,RuleType.EVENT);
+            Collection<Rule> rules = ruleEngineSystemApi.findAllRuleByProjectIdAndRuleType(projectId, RuleType.EVENT);
             return rules.stream().map(rule -> rule.getId()).collect(Collectors.toList());
         }
         throw new HyperIoTRuntimeException("No HyperIoT Rule Engine Api Found");
     }
 
     /**
-     *
      * @param projectId HProject's id
      * @return the id of the alarm event's entity related to the project.
      * (AlarmEvent is related to a Rule entity, and Rule entity is related to the HProject.
      * Rule's entity relative to AlarmEvent is characterized by the ALARM_EVENT RuleType attribute)
      */
-    private static List<Long> getAlarmEventRuleIds(long projectId){
+    private static List<Long> getAlarmEventRuleIds(long projectId) {
         RuleEngineSystemApi ruleEngineSystemApi = (RuleEngineSystemApi) HyperIoTUtil.getService(RuleEngineSystemApi.class);
         if (ruleEngineSystemApi != null) {
-            Collection<Rule> rules = ruleEngineSystemApi.findAllRuleByProjectIdAndRuleType(projectId,RuleType.ALARM_EVENT);
+            Collection<Rule> rules = ruleEngineSystemApi.findAllRuleByProjectIdAndRuleType(projectId, RuleType.ALARM_EVENT);
             return rules.stream().map(rule -> rule.getId()).collect(Collectors.toList());
         }
         throw new HyperIoTRuntimeException("No HyperIoT Rule Engine Api Found");
@@ -342,26 +314,27 @@ public class HyperIoTTopologyConfigBuilder {
 
     /**
      * Utility method to valorize the alarm.event.rule.map property of topology.yaml file.
+     *
      * @param alarmEventRuleIds alarmEvents id related to rule related to the project for which we submit the topology.
      * @return a String representation of a Map where :
-     *  1)Map key : is the id of the alarm.
-     *  2)Map value : is the list of rule's id that characterized AlarmEvent related to Alarm.
+     * 1)Map key : is the id of the alarm.
+     * 2)Map value : is the list of rule's id that characterized AlarmEvent related to Alarm.
      */
-    private static String getAlarmEventRuleMapConfig(List<Long> alarmEventRuleIds){
+    private static String getAlarmEventRuleMapConfig(List<Long> alarmEventRuleIds) {
         Collection<AlarmEvent> alarmEventList = getAlarmEventListByRulesId(alarmEventRuleIds);
         Map<String, Set<String>> alarmRulesMap = new HashMap<>();
         for (AlarmEvent alarmEvent : alarmEventList) {
-                String alarmId = String.valueOf(alarmEvent.getAlarm().getId()) ;
-                String ruleId = String.valueOf(alarmEvent.getEvent().getId()) ;
-                if (alarmRulesMap.containsKey(alarmId)) {
-                    Set<String> alarmRulesList = alarmRulesMap.get(alarmId);
-                    alarmRulesList.add(ruleId);
-                } else {
-                    Set<String> alarmRulesList = new HashSet<>();
-                    alarmRulesList.add(ruleId);
-                    alarmRulesMap.put(alarmId, alarmRulesList);
-                }
+            String alarmId = String.valueOf(alarmEvent.getAlarm().getId());
+            String ruleId = String.valueOf(alarmEvent.getEvent().getId());
+            if (alarmRulesMap.containsKey(alarmId)) {
+                Set<String> alarmRulesList = alarmRulesMap.get(alarmId);
+                alarmRulesList.add(ruleId);
+            } else {
+                Set<String> alarmRulesList = new HashSet<>();
+                alarmRulesList.add(ruleId);
+                alarmRulesMap.put(alarmId, alarmRulesList);
             }
+        }
         try {
             //Serialize data for storm configuration.
             ObjectMapper mapper = new ObjectMapper();
@@ -372,9 +345,9 @@ public class HyperIoTTopologyConfigBuilder {
         }
     }
 
-    private static Collection<AlarmEvent> getAlarmEventListByRulesId(List<Long> alarmEventRuleIds){
+    private static Collection<AlarmEvent> getAlarmEventListByRulesId(List<Long> alarmEventRuleIds) {
         AlarmEventSystemApi alarmEventSystemApi = (AlarmEventSystemApi) HyperIoTUtil.getService(AlarmEventSystemApi.class);
-        if(alarmEventSystemApi != null) {
+        if (alarmEventSystemApi != null) {
             if (alarmEventRuleIds != null && !alarmEventRuleIds.isEmpty()) {
                 HyperIoTQuery byRuleIds = HyperIoTQueryBuilder.newQuery();
                 boolean isFirstCondition = true;
@@ -402,7 +375,7 @@ public class HyperIoTTopologyConfigBuilder {
     private static String readBundleResource(String path) throws IOException {
         URL url = FrameworkUtil.getBundle(StormManager.class).getResource(path);
         BufferedReader br = new BufferedReader(
-            new InputStreamReader(url.openConnection().getInputStream()));
+                new InputStreamReader(url.openConnection().getInputStream()));
         StringBuilder buffer = new StringBuilder();
         while (br.ready()) {
             buffer.append(br.readLine()).append("\n");
@@ -421,7 +394,7 @@ public class HyperIoTTopologyConfigBuilder {
         RuleEngineSystemApi ruleEngineSystemApi = (RuleEngineSystemApi) HyperIoTUtil.getService(RuleEngineSystemApi.class);
         if (ruleEngineSystemApi != null) {
             String[] droolsLines = ruleEngineSystemApi.getDroolsForProject(projectId, ruleType)
-                .split("\n");
+                    .split("\n");
             int lines = droolsLines.length;
             for (String l : droolsLines) {
                 droolsCode.append(l);

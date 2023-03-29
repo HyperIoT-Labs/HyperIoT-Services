@@ -1,22 +1,22 @@
 dependencies {
 	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-	compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
 	// HyperIoTBase dependencies
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
 	// Jackson
-	compileOnly group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: project.jacksonVersion
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: project.jacksonVersion
 	// Project dependencies
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-deserialization-api")
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-deserialization-model")
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-model")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-deserialization-api")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-deserialization-model")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-model")
 	// Avro
-	compileOnly group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+	implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
 	// Slf4j
-	compileOnly group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
 }
 
 jar {
@@ -25,13 +25,7 @@ jar {
 	}
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install','publish' ]
-}
 
 publishing {
     	publications {

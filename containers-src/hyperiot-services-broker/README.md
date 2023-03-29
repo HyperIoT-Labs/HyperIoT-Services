@@ -4,8 +4,8 @@ Custom docker image with Karaf-HyperIoT microservices and Storm binaries require
 
 ## Building
 ```
-mvn clean package
-docker build . -f Dockerfile-activemq-mqtt -t nexus.acsoftware.it:18079/hyperiot/karaf-activemq-mqtt:5.16.3-1.3.1-3  --build-arg KARAF_MICROSERVICES_VERSION=1.3.1
+mvn clean package -Dkaraf.version=4.4.3 -Dhyperiot.version=2.2.4 -Dhyperiot.platform.version=2.2.4
+docker build . -f Dockerfile-activemq-mqtt -t nexus.acsoftware.it:18079/hyperiot/karaf-activemq-mqtt:5.17.3-2.2.4-1  --build-arg KARAF_MICROSERVICES_VERSION=2.2.4 --load
 ```
 
 ### Multi platform build

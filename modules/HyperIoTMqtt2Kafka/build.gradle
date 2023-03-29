@@ -20,14 +20,9 @@ allprojects {
       }
 	}
 
-   apply plugin: 'maven'
+   
 	apply plugin: 'biz.aQute.bnd.builder'
 	apply plugin: 'maven-publish'
-	
-   configurations {
-	    testCompile.extendsFrom compileOnly
-	}
-	
 
 	publishing {
 		repositories {
@@ -42,23 +37,9 @@ allprojects {
 		}
  	}
 
-    //this task will be executed even on test module
- 	task testAndBuildHIT(type: GradleBuild) {
-		tasks = [ 'clean','build','install' ]
-	}
-	
-	//this task will be executed even on test module
- 	task testAndPublishHIT(type: GradleBuild) {
-		tasks = [ 'clean','build','install','publish' ]
-	}
+    
 }
 
-task buildHIT {
-	dependsOn gradle.includedBuilds*.task(':buildHIT')
-}
 
-task publishHIT {
-	dependsOn gradle.includedBuilds*.task(':publishHIT')
-}
 
 project.ext.activemqCamelVersion="5.16.5"

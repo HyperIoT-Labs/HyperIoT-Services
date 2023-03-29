@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTAlgorithm-features">
+  <feature name="hyperiot-algorithm" version="${project.version}" description="All  HyperIoT HyperIoTAlgorithm modules">
+    <feature>hyperiot-base</feature>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-api/${project.version}</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-model/${project.version}</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-actions/${project.version}</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-service/${project.version}</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-repository/${project.version}</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-util/${project.version}</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-service-rest/${project.version}</bundle>
+  </feature>
+  <feature name="hyperiot-algorithm-basic" version="${project.version}" description="All  HyperIoT HyperIoTAlgorithm modules with NO rest services">
+    <feature>hyperiot-base-basic</feature>
+    <bundle>mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-model/${project.version}</bundle>
+  </feature>
+</features>

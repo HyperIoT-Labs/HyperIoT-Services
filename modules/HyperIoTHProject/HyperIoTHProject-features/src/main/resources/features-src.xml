@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTHProject-features">
+  <feature name="hyperiot-hproject" version="${project.version}" description="All  Hyperiot HyperIoTHProject modules">
+    <feature>hyperiot-base</feature>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-actions/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-api/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-service/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-model/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-repository/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-deserialization-api/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-deserialization-model/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-deserialization-service/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-serialization-api/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-serialization-service/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-actions/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-api/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-model/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-repository/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-service-rest/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-service/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-util/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-hbase-api/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-hbase-model/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-hbase-service/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-hbase-util/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-hadoop-api/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-hadoop-service/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-hadoop-util/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-service-rest/${project.version}</bundle>
+    <bundle start-level="82">mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-service-websocket/${project.version}</bundle>
+  </feature>
+  <feature name="hyperiot-hproject-basic" version="${project.version}" description="All  Hyperiot HyperIoTHProject modules with NO rest services">
+    <feature>hyperiot-base-basic</feature>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-actions/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-model/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-repository/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-deserialization-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-deserialization-model/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-deserialization-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-serialization-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-serialization-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-actions/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-model/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-repository/${project.version}</bundle>
+  </feature>
+</features>

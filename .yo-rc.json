@@ -33,7 +33,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.mqtt.authorization.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/mqtt/authorization//service/rest",
         "testPackagePath": "/src/main/java/it/acsoftware/hyperiot/mqtt/authorization//test",
-        "order": 80
+        "order": 80,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTHProject": {
         "applicationTypeEntity": true,
@@ -71,7 +73,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.hproject.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/hproject//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/hproject//test",
-        "order": 20
+        "order": 20,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTRuleEngine": {
         "applicationTypeEntity": true,
@@ -109,7 +113,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.rule.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/rule//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/rule//test",
-        "order": 30
+        "order": 30,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTDashboard": {
         "applicationTypeEntity": true,
@@ -147,7 +153,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.dashboard.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/dashboard//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/dashboard//test",
-        "order": 31
+        "order": 31,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTMqttClient": {
         "projectGlobalName": "HyperIoT",
@@ -188,7 +196,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.mqtt.client.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/mqtt/client//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/mqtt/client//test",
-        "order": 90
+        "order": 90,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTMqttAuthentication": {
         "projectGlobalName": "HyperIoT",
@@ -229,7 +239,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.mqtt.authentication.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/mqtt/authentication//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/mqtt/authentication//test",
-        "order": 70
+        "order": 70,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTWidget": {
         "projectGlobalName": "HyperIoT",
@@ -270,7 +282,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.widget.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/widget//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/widget//test",
-        "order": 13
+        "order": 13,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTAlgorithm": {
         "projectGlobalName": "HyperIoT",
@@ -311,7 +325,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.algorithm.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/algorithm//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/algorithm//test",
-        "order": 11
+        "order": 11,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTStormManager": {
         "applicationTypeEntity": false,
@@ -348,7 +364,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.stormmanager.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/stormmanager//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/stormmanager//test",
-        "order": 120
+        "order": 120,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTAlarm": {
         "projectGradleName": "hyperIoT",
@@ -390,7 +408,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.alarm.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/alarm//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/alarm//test",
-        "order": 110
+        "order": 110,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTMqtt2Kafka": {
         "projectGradleName": "hyperIoT",
@@ -432,7 +452,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.camel.mqtt2kafka.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/camel/mqtt2kafka//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/camel/mqtt2kafka//test",
-        "order": 130
+        "order": 130,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTServices": {
         "projectGradleName": "hyperIoT",
@@ -474,7 +496,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.services.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/services//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/services//test",
-        "order": 5
+        "order": 5,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTServicesTest": {
         "projectGradleName": "hyperIoT",
@@ -516,7 +540,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.services.test.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/services/test//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/services/test//test",
-        "order": 140
+        "order": 140,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTKit": {
         "projectGradleName": "hyperIoT",
@@ -558,7 +584,9 @@
         "serviceRestPackage": "it.acsoftware.hyperiot.kit.service.rest",
         "serviceRestPackagePath": "/src/main/java/it/acsoftware/hyperiot/kit//service/rest",
         "testPackagePath": "/src/test/java/it/acsoftware/hyperiot/kit//test",
-        "order": 139
+        "order": 139,
+        "publishModule": true,
+        "publishRepoHasCredentials": true
       },
       "HyperIoTUIBranding": {
         "projectGradleName": "hyperIoT",
@@ -607,7 +635,7 @@
     "globalProjectName": "HyperIoT",
     "generateWithPrefix": true,
     "defaultModuleVersion": "1.3.5",
-    "hyperIoTVersion": "2.2.3",
+    "hyperIoTVersion": "2.2.4",
     "publishRepo": true,
     "publishRepoName": "ACSoftwareRepository",
     "publishRepoUrl": "https://nexus.acsoftware.it/nexus/repository/maven-hyperiot/",

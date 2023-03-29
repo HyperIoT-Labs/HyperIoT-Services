@@ -87,5 +87,17 @@ public interface HProjectHBaseSystemApi extends HyperIoTBaseSystemApi {
      */
     HProjectAlgorithmHBaseResult getAlgorithmOutputs(long projectId, long hProjectAlgorithmId) throws IOException;
 
+    /**
+     * Returns specific hpacket attachment
+     * @param hProjectId
+     * @param packetId
+     * @param fieldId
+     * @param rowKeyLowerBound
+     * @param rowKeyUpperBound
+     * @return
+     * @throws IOException
+     */
+    byte[] getHPacketAttachment(long hProjectId,long packetId, long fieldId,  long rowKeyLowerBound, long rowKeyUpperBound) throws IOException;
+
 
 }

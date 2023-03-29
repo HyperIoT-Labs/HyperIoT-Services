@@ -48,24 +48,18 @@ public class HProjectPostActionThreadPool {
      * @param hProjectId HProject ID
      */
     private void asynchronousPostRemoveAction(long hProjectId) {
-        String avroTableName = HProjectHBaseConstants.HPROJECT_TABLE_NAME_PREFIX + hProjectId;
-        String timelineTableName = HProjectHBaseConstants.TIMELINE_TABLE_NAME_PREFIX + hProjectId;
-        String errorTableName = HProjectHBaseConstants.ERROR_TABLE_NAME_PREFIX + hProjectId;
-        String avroEventTableName = HProjectHBaseConstants.EVENT_TABLE_NAME_PREFIX + hProjectId;
-        String alarmTableName = HProjectHBaseConstants.ALARM_TABLE_NAME_PREFIX + hProjectId;
-        String eventRuleStateTableName = HProjectHBaseConstants.EVENT_RULE_STATE_TABLE_NAME_PREFIX + hProjectId;
-        disableHBaseTable(avroTableName);
-        disableHBaseTable(timelineTableName);
-        disableHBaseTable(errorTableName);
-        disableHBaseTable(avroEventTableName);
-        disableHBaseTable(alarmTableName);
-        disableHBaseTable(eventRuleStateTableName);
-        dropHBaseTable(avroTableName);
-        dropHBaseTable(timelineTableName);
-        dropHBaseTable(errorTableName);
-        dropHBaseTable(avroEventTableName);
-        dropHBaseTable(alarmTableName);
-        dropHBaseTable(eventRuleStateTableName);
+        disableHBaseTable(getHPacketTableName(hProjectId));
+        disableHBaseTable(getTimelineTableName(hProjectId));
+        disableHBaseTable(getErrorTableName(hProjectId));
+        disableHBaseTable(getEventTableName(hProjectId));
+        disableHBaseTable(getAlarmTableName(hProjectId));
+        disableHBaseTable(getEventRuleTableName(hProjectId));
+        dropHBaseTable(getHPacketTableName(hProjectId));
+        dropHBaseTable(getTimelineTableName(hProjectId));
+        dropHBaseTable(getErrorTableName(hProjectId));
+        dropHBaseTable(getEventTableName(hProjectId));
+        dropHBaseTable(getAlarmTableName(hProjectId));
+        dropHBaseTable(getEventRuleTableName(hProjectId));
     }
 
     private void disableHBaseTable(String tableName) {
@@ -98,31 +92,41 @@ public class HProjectPostActionThreadPool {
      * @param hProjectId HProject ID
      */
     private void asynchronousPostSaveAction(long hProjectId) {
-        String avroTableName = HProjectHBaseConstants.HPROJECT_TABLE_NAME_PREFIX + hProjectId;
-        String timelineTableName = HProjectHBaseConstants.TIMELINE_TABLE_NAME_PREFIX + hProjectId;
-        String errorTableName = HProjectHBaseConstants.ERROR_TABLE_NAME_PREFIX + hProjectId;
-        String avroEventTableName = HProjectHBaseConstants.EVENT_TABLE_NAME_PREFIX + hProjectId;
-        String alarmTableName = HProjectHBaseConstants.ALARM_TABLE_NAME_PREFIX + hProjectId;
-        String eventRuleStateTableName = HProjectHBaseConstants.EVENT_RULE_STATE_TABLE_NAME_PREFIX + hProjectId;
-        List<String> avroColumnFamilies = new ArrayList<>();
-        avroColumnFamilies.add(HProjectHBaseConstants.HPACKET_COLUMN_FAMILY);
-        List<String> eventColumnFamilies = new ArrayList<>();
-        eventColumnFamilies.add(HProjectHBaseConstants.EVENT_COLUMN_FAMILY);
-        List<String> timelineColumnFamilies = getTimelineColumnFamilies();
-        List<String> tableErrorColumnFamilies = new ArrayList<>();
-        tableErrorColumnFamilies.add(HProjectHBaseConstants.ERROR_COLUMN_FAMILY);
-        List<String> alarmColumnFamilies = new ArrayList<>();
-        alarmColumnFamilies.add(HProjectHBaseConstants.ALARM_TABLE_UP_COLUMN_FAMILY);
-        alarmColumnFamilies.add(HProjectHBaseConstants.ALARM_TABLE_DOWN_COLUMN_FAMILY);
-        alarmColumnFamilies.add(HProjectHBaseConstants.ALARM_TABLE_HANDLED_COLUMN_FAMILY);
-        List<String> eventRuleStateFamilies = new ArrayList<>();
-        eventRuleStateFamilies.add(HProjectHBaseConstants.RULE_COLUMN_FAMILY);
-        createHBaseTable(avroTableName, avroColumnFamilies);
-        createHBaseTable(timelineTableName, timelineColumnFamilies);
-        createHBaseTable(errorTableName, tableErrorColumnFamilies);
-        createHBaseTable(avroEventTableName, eventColumnFamilies);
-        createHBaseTable(alarmTableName, alarmColumnFamilies);
-        createHBaseTable(eventRuleStateTableName, eventRuleStateFamilies);
+        try {
+            this.createHPacketTable(hProjectId);
+        } catch (Exception e) {
+            LOGGER.error(TABLE_CREATION_ERROR_MESSAGE, e);
+        }
+
+        try {
+            this.createTimelineTable(hProjectId);
+        } catch (Exception e) {
+            LOGGER.error(TABLE_CREATION_ERROR_MESSAGE, e);
+        }
+
+        try {
+            this.createErrorTable(hProjectId);
+        } catch (Exception e) {
+            LOGGER.error(TABLE_CREATION_ERROR_MESSAGE, e);
+        }
+
+        try {
+            this.createEventTable(hProjectId);
+        } catch (Exception e) {
+            LOGGER.error(TABLE_CREATION_ERROR_MESSAGE, e);
+        }
+
+        try {
+            this.createAlarmTable(hProjectId);
+        } catch (Exception e) {
+            LOGGER.error(TABLE_CREATION_ERROR_MESSAGE, e);
+        }
+
+        try {
+            this.createEventRuleTable(hProjectId);
+        } catch (Exception e) {
+            LOGGER.error(TABLE_CREATION_ERROR_MESSAGE, e);
+        }
     }
 
     private void createHBaseTable(String tableName, List<String> columnFamilies) {
@@ -140,47 +144,76 @@ public class HProjectPostActionThreadPool {
      * @param hProjectId HProject ID
      */
     private void asynchronousPostUpdateAction(long hProjectId) {
-        String avroTableName = HProjectHBaseConstants.HPROJECT_TABLE_NAME_PREFIX + hProjectId;
-        String timelineTableName = HProjectHBaseConstants.TIMELINE_TABLE_NAME_PREFIX + hProjectId;
-        String errorTableName = HProjectHBaseConstants.ERROR_TABLE_NAME_PREFIX + hProjectId;
-        String avroEventTableName = HProjectHBaseConstants.EVENT_TABLE_NAME_PREFIX + hProjectId;
-        String alarmTableName = HProjectHBaseConstants.ALARM_TABLE_NAME_PREFIX + hProjectId;
-        String eventRuleStateTableName = HProjectHBaseConstants.EVENT_RULE_STATE_TABLE_NAME_PREFIX + hProjectId;
         try {
-            createTables(avroTableName, timelineTableName, errorTableName, avroEventTableName,
-                    alarmTableName, eventRuleStateTableName);
+            createTables(hProjectId);
             LOGGER.debug("Post update actions of HProject with id {} executed", hProjectId);
         } catch (IOException e) {
             LOGGER.error(TABLE_CREATION_ERROR_MESSAGE, e);
         }
     }
 
-    private void createTables(String avroTableName, String timelineTableName, String errorTableName,
-                              String avroEventTableName, String alarmTableName, String eventRuleStateTableName)
-            throws IOException {
+    private String getHPacketTableName(long hProjectId) {
+        return HProjectHBaseConstants.HPROJECT_TABLE_NAME_PREFIX + hProjectId;
+    }
+
+    private void createHPacketTable(long hProjectId) throws IOException {
+        String avroTableName = getHPacketTableName(hProjectId);
         if (!hBaseConnectorSystemService.tableExists(avroTableName)) {
             LOGGER.debug(CREATING_TABLE_MESSAGE, avroTableName);
             List<String> avroColumnFamilies = new ArrayList<>();
             avroColumnFamilies.add(HProjectHBaseConstants.HPACKET_COLUMN_FAMILY);
+            avroColumnFamilies.add(HProjectHBaseConstants.HPACKET_ATTACHMENTS_COLUMN_FAMILY);
             hBaseConnectorSystemService.createTable(avroTableName, avroColumnFamilies);
         }
+    }
+
+    private String getTimelineTableName(long hProjectId) {
+        return HProjectHBaseConstants.TIMELINE_TABLE_NAME_PREFIX + hProjectId;
+    }
+
+    private void createTimelineTable(long hProjectId) throws IOException {
+        String timelineTableName = getTimelineTableName(hProjectId);
         if (!hBaseConnectorSystemService.tableExists(timelineTableName)) {
             LOGGER.debug(CREATING_TABLE_MESSAGE, timelineTableName);
             List<String> timelineColumnFamilies = getTimelineColumnFamilies();
             hBaseConnectorSystemService.createTable(timelineTableName, timelineColumnFamilies);
         }
+    }
+
+    private String getErrorTableName(long hProjectId) {
+        return HProjectHBaseConstants.ERROR_TABLE_NAME_PREFIX + hProjectId;
+    }
+
+    private void createErrorTable(long hProjectId) throws IOException {
+        String errorTableName = getErrorTableName(hProjectId);
         if (!hBaseConnectorSystemService.tableExists(errorTableName)) {
             LOGGER.debug(CREATING_TABLE_MESSAGE, errorTableName);
             List<String> tableErrorColumnFamilies = new ArrayList<>();
             tableErrorColumnFamilies.add(HProjectHBaseConstants.ERROR_COLUMN_FAMILY);
             hBaseConnectorSystemService.createTable(errorTableName, tableErrorColumnFamilies);
         }
+    }
+
+    private String getEventTableName(long hProjectId) {
+        return HProjectHBaseConstants.EVENT_TABLE_NAME_PREFIX + hProjectId;
+    }
+
+    private void createEventTable(long hProjectId) throws IOException {
+        String avroEventTableName = getEventTableName(hProjectId);
         if (!hBaseConnectorSystemService.tableExists(avroEventTableName)) {
             LOGGER.debug(CREATING_TABLE_MESSAGE, avroEventTableName);
             List<String> eventColumnFamilies = new ArrayList<>();
             eventColumnFamilies.add(HProjectHBaseConstants.EVENT_COLUMN_FAMILY);
             hBaseConnectorSystemService.createTable(avroEventTableName, eventColumnFamilies);
         }
+    }
+
+    private String getAlarmTableName(long hProjectId) {
+        return HProjectHBaseConstants.ALARM_TABLE_NAME_PREFIX + hProjectId;
+    }
+
+    private void createAlarmTable(long hProjectId) throws IOException {
+        String alarmTableName = getAlarmTableName(hProjectId);
         if (!hBaseConnectorSystemService.tableExists(alarmTableName)) {
             LOGGER.debug(CREATING_TABLE_MESSAGE, alarmTableName);
             List<String> alarmColumnFamilies = new ArrayList<>();
@@ -189,12 +222,30 @@ public class HProjectPostActionThreadPool {
             alarmColumnFamilies.add(HProjectHBaseConstants.ALARM_TABLE_HANDLED_COLUMN_FAMILY);
             hBaseConnectorSystemService.createTable(alarmTableName, alarmColumnFamilies);
         }
-        if(! hBaseConnectorSystemService.tableExists(eventRuleStateTableName)){
+    }
+
+    private String getEventRuleTableName(long hProjectId) {
+        return HProjectHBaseConstants.EVENT_RULE_STATE_TABLE_NAME_PREFIX + hProjectId;
+    }
+
+    private void createEventRuleTable(long hProjectId) throws IOException {
+        String eventRuleStateTableName = getEventRuleTableName(hProjectId);
+        if (!hBaseConnectorSystemService.tableExists(eventRuleStateTableName)) {
             LOGGER.debug(CREATING_TABLE_MESSAGE, eventRuleStateTableName);
             List<String> eventRuleStateColumnFamilies = new ArrayList<>();
             eventRuleStateColumnFamilies.add(HProjectHBaseConstants.RULE_COLUMN_FAMILY);
             hBaseConnectorSystemService.createTable(eventRuleStateTableName, eventRuleStateColumnFamilies);
         }
+    }
+
+    private void createTables(long hProjectId)
+            throws IOException {
+        this.createHPacketTable(hProjectId);
+        this.createTimelineTable(hProjectId);
+        this.createErrorTable(hProjectId);
+        this.createEventTable(hProjectId);
+        this.createAlarmTable(hProjectId);
+        this.createEventRuleTable(hProjectId);
     }
 
     private List<String> getTimelineColumnFamilies() {

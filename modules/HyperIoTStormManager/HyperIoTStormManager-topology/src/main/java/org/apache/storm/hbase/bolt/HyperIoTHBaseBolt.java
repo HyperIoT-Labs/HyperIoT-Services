@@ -37,7 +37,7 @@ import java.util.List;
  * For the moment the strategy is to use a DLQ to store message for a certain period of time and retry
  * the operation after hbase is online.
  */
-public class HyperIoTHBaseBolt extends HBaseBolt{
+public class HyperIoTHBaseBolt extends HBaseBolt {
 
     private static final Logger LOG = LoggerFactory.getLogger(HyperIoTHBaseBolt.class);
 

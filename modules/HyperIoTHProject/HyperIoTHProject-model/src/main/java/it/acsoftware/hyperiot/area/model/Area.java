@@ -95,6 +95,11 @@ public class Area extends HyperIoTAbstractEntity
     @JsonView({HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private Set<Area> innerArea;
 
+    public Area() {
+        //default view type is image
+        this.areaViewType = AreaViewType.IMAGE;
+    }
+
     /**
      * @return Area name
      */
@@ -200,6 +205,7 @@ public class Area extends HyperIoTAbstractEntity
     }
 
     @Enumerated(EnumType.STRING)
+    @NotNullOnPersist
     public AreaViewType getAreaViewType() {
         return areaViewType;
     }

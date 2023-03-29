@@ -455,6 +455,32 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
         }
     }
 
+    @GET
+    @Path("/{hProjectId}/hpacket/{hPacketId}/attachments/{fieldId}/{rowKeyLowerBound}/{rowKeyUpperBound}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/hprojects/{hProjectId}/hpacket/{hPacketId}/attachments/{fieldId}/{timestamp}", notes = "Service for retrieving HProject attachments", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Internal error")})
+    @JsonView(HyperIoTJSONView.Public.class)
+    public Response scanHProject(
+            @ApiParam(value = "HProject ID from retrieve HPackets in Avro format and events", required = true) @PathParam("hProjectId") long hProjectId,
+            @ApiParam(value = "HPacket ID", required = true) @PathParam("hPacketId") long hPacketId,
+            @ApiParam(value = "Attachment field id", required = true) @PathParam("fieldId") long fieldId,
+            @ApiParam(value = "Attachment Timestamp identifier", required = true) @PathParam("rowKeyLowerBound") long rowKeyLowerBound,
+            @ApiParam(value = "Attachment Timestamp identifier", required = true) @PathParam("rowKeyUpperBound") long rowKeyUpperBound) {
+
+        getLog().debug("In Rest Service GET hyperiot/hprojects/{}/hpacket/{}/attachments/{}/{}/{}",
+                hProjectId, hPacketId, fieldId, rowKeyLowerBound, rowKeyUpperBound);
+        try {
+            byte[] attachment = this.hProjectHBaseApi.getHPacketAttachment(getHyperIoTContext(), hProjectId, hPacketId, fieldId, rowKeyLowerBound, rowKeyUpperBound);
+            return Response.ok(attachment).build();
+        } catch (Exception e) {
+            return handleException(e);
+        }
+    }
+
     private boolean isIdsListQueryParamValid(String idsList, String regex) {
         if (idsList == null || idsList.isEmpty())
             return true;

@@ -17,23 +17,29 @@
 
 package it.acsoftware.hyperiot.storm.hbase.mapper;
 
+import it.acsoftware.hyperiot.storm.runtime.bolt.SelectionBolt;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.storm.hbase.bolt.mapper.HBaseMapper;
 import org.apache.storm.hbase.common.ColumnList;
 import org.apache.storm.tuple.Tuple;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static it.acsoftware.hyperiot.storm.util.StormConstants.AVRO_HPACKET_FIELD;
-import static it.acsoftware.hyperiot.storm.util.StormConstants.HPACKET_ID_FIELD;
+import java.util.Map;
+
+import static it.acsoftware.hyperiot.storm.util.StormConstants.*;
 import static org.apache.storm.hbase.common.Utils.toBytes;
 
 @SuppressWarnings("unused")
 public class AvroHBaseMapper implements HBaseMapper {
-
+    private static final Logger log =
+            LoggerFactory.getILoggerFactory().getLogger(AvroHBaseMapper.class.getName());
     // HBase Avro bolt had to receive a tuple with two fields:
     // - rowKeyField, which is set in topology.yaml config method, refers to HBase row key
     // - packet value is HPacket instance in Avro format
     private String rowKeyField;
     private byte[] columnFamily;
+    private byte[] attachmentsColumnFamily;
 
     @Override
     public byte[] rowKey(Tuple tuple) {
@@ -45,13 +51,19 @@ public class AvroHBaseMapper implements HBaseMapper {
     public ColumnList columns(Tuple tuple) {
         long hPacketId = (long) tuple.getValueByField(HPACKET_ID_FIELD);
         String avroHPacket = (String) tuple.getValueByField(AVRO_HPACKET_FIELD);
+        Map<Long, byte[]> attachments = (Map) tuple.getValueByField(AVRO_HPACKET_ATTACHMENTS);
         ColumnList cols = new ColumnList();
         cols.addColumn(this.columnFamily, Bytes.toBytes(hPacketId), toBytes(avroHPacket));
+        attachments.keySet().forEach(fieldId -> {
+            log.debug("Adding ATTACHMENT to HPacket");
+            cols.addColumn(this.attachmentsColumnFamily, Bytes.toBytes(fieldId.longValue()), attachments.get(fieldId));
+        });
         return cols;
     }
 
     /**
      * This is a config method, it is called in topology.yaml file and set HBase column family
+     *
      * @param columnFamily HBase column family
      * @return AvroHBaseMapper
      */
@@ -61,8 +73,20 @@ public class AvroHBaseMapper implements HBaseMapper {
     }
 
     /**
+     * This is a config method, it is called in topology.yaml file and set HBase attachments column family
+     *
+     * @param attachmentsColumnFamily HBase column family
+     * @return AvroHBaseMapper
+     */
+    public AvroHBaseMapper withAttachmentsColumnFamily(String attachmentsColumnFamily) {
+        this.attachmentsColumnFamily = attachmentsColumnFamily.getBytes();
+        return this;
+    }
+
+    /**
      * This is a config method, it is called in topology.yaml file and set tuple field containing
      * HBase row key
+     *
      * @param rowKeyField Tuple field containing HBase row key
      * @return AvroHBaseMapper
      */

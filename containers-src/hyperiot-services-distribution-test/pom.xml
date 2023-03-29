@@ -20,7 +20,7 @@
         
     <artifactId>hyperiot-karaf-distribution-parent</artifactId>
         
-    <version>2.2.3_karaf_4.4.2</version>
+    <version>2.2.4_karaf_4.4.3</version>
       
   </parent>
     
@@ -438,6 +438,8 @@
                         
             <feature>hyperiot-core-test</feature>
                         
+            <feature>hyperiot-services</feature>
+			
             <feature>hyperiot-services-test</feature>
                         
             <feature>hyperiot-jobscheduler</feature>

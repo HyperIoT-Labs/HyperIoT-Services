@@ -42,20 +42,21 @@ public class HProjectHBaseServiceImpl extends HyperIoTBaseServiceImpl implements
     private HProjectHBaseSystemApi systemService;
 
     @Override
-    @AllowPermissions(actions = HyperIoTHProjectAction.Names.SCAN_HBASE_DATA, checkById = true, idParamIndex = 1, systemApiRef ="it.acsoftware.hyperiot.hproject.api.HProjectSystemApi")
+    @AllowPermissions(actions = HyperIoTHProjectAction.Names.SCAN_HBASE_DATA, checkById = true, idParamIndex = 1, systemApiRef = "it.acsoftware.hyperiot.hproject.api.HProjectSystemApi")
     public void scanHProject(HyperIoTContext context, long hProjectId, List<String> hPacketIds, List<String> hDeviceIds,
-                                           long rowKeyLowerBound, long rowKeyUpperBound,int limit, String alarmState,
-                                           OutputStream outputStream)
-            throws IOException{
-        systemService.scanHProject(hProjectId, hPacketIds, hDeviceIds, rowKeyLowerBound, rowKeyUpperBound,limit, alarmState, outputStream);
+                             long rowKeyLowerBound, long rowKeyUpperBound, int limit, String alarmState,
+                             OutputStream outputStream)
+            throws IOException {
+        systemService.scanHProject(hProjectId, hPacketIds, hDeviceIds, rowKeyLowerBound, rowKeyUpperBound, limit, alarmState, outputStream);
     }
 
     @Override
-    @AllowPermissions(actions = HyperIoTHProjectAction.Names.SCAN_HBASE_DATA, checkById = true, idParamIndex = 1, systemApiRef ="it.acsoftware.hyperiot.hproject.api.HProjectSystemApi")
+    @AllowPermissions(actions = HyperIoTHProjectAction.Names.SCAN_HBASE_DATA, checkById = true, idParamIndex = 1, systemApiRef = "it.acsoftware.hyperiot.hproject.api.HProjectSystemApi")
     public List<HPacketCount> timelineEventCount(HyperIoTContext context, long projectId,
                                                  List<String> packetIds, List<String> deviceIds, long startTime, long endTime) throws Throwable {
         return systemService.timelineEventCount(projectId, packetIds, deviceIds, startTime, endTime);
     }
+
     /*
        TODO
            To secure this service we must update the signature of the method to include the hprojectId relative to this packet.
@@ -64,20 +65,25 @@ public class HProjectHBaseServiceImpl extends HyperIoTBaseServiceImpl implements
     @Override
     @AllowGenericPermissions(actions = HyperIoTHProjectAction.Names.SCAN_HBASE_DATA, resourceName = "it.acsoftware.hyperiot.hproject.model.HProject")
     public List<TimelineElement> timelineScan(HyperIoTContext context, String tableName,
-                                              List<String> packetIds, List<String> deviceIds, TimelineColumnFamily step,long startTime,
+                                              List<String> packetIds, List<String> deviceIds, TimelineColumnFamily step, long startTime,
                                               long endTime, String timezone)
             throws Exception {
         return systemService.timelineScan(tableName, packetIds, deviceIds, step, startTime, endTime, timezone);
     }
 
     @Override
-    @AllowPermissions(actions = HyperIoTHProjectAction.Names.SCAN_HBASE_DATA, checkById = true, idParamIndex = 1, systemApiRef ="it.acsoftware.hyperiot.hproject.api.HProjectSystemApi")
+    @AllowPermissions(actions = HyperIoTHProjectAction.Names.SCAN_HBASE_DATA, checkById = true, idParamIndex = 1, systemApiRef = "it.acsoftware.hyperiot.hproject.api.HProjectSystemApi")
     public HProjectAlgorithmHBaseResult getAlgorithmOutputs(HyperIoTContext hyperIoTContext, long projectId,
                                                             long hProjectAlgorithmId)
-        throws IOException {
-        getLog().debug( "invoking getAlgorithmOutputs, on project: {} and hProjectAlgorithm {}" ,
-            projectId, hProjectAlgorithmId);
+            throws IOException {
+        getLog().debug("invoking getAlgorithmOutputs, on project: {} and hProjectAlgorithm {}",
+                projectId, hProjectAlgorithmId);
         return systemService.getAlgorithmOutputs(projectId, hProjectAlgorithmId);
+    }
+
+    @AllowPermissions(actions = HyperIoTHProjectAction.Names.SCAN_HBASE_DATA, checkById = true, idParamIndex = 1, systemApiRef = "it.acsoftware.hyperiot.hproject.api.HProjectSystemApi")
+    public byte[] getHPacketAttachment(HyperIoTContext context, long hProjectId, long packetId, long fieldId,long rowKeyLowerBound, long rowKeyUpperBound) throws IOException {
+        return systemService.getHPacketAttachment(hProjectId, packetId, fieldId, rowKeyLowerBound, rowKeyUpperBound);
     }
 
     /**
