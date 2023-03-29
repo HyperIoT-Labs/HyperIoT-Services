@@ -256,7 +256,7 @@ services:
       - "50022:50020"   # ipc port
       
   hbase-master:
-    image: nexus.acsoftware.it:18079/hyperiot/hbase-hmaster:1.0.6
+    image: nexus.acsoftware.it:18079/hyperiot/hbase-hmaster:1.0.7
     networks:
       hyperiot:
         aliases:
@@ -274,7 +274,7 @@ services:
       - "9090:9090"
 
   hbase-region:
-    image: nexus.acsoftware.it:18079/hyperiot/hbase-regionserver:1.0.6
+    image: nexus.acsoftware.it:18079/hyperiot/hbase-regionserver:1.0.7
     networks:
       hyperiot:
         aliases:
