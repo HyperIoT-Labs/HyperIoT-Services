@@ -28,8 +28,9 @@ public enum WidgetCategory {
     RADAR(4, "radar-chart", "icon-hyt_chartRadar"),
     GAUGES(5, "gauges", "icon-hyt_chartGauge"),
     MAP(6, "map", "icon-hyt_map"),
-    ACTION(7, "action","icon-hyt_action"),
-    TABLES(8, "tables", "icon-hyt_tableBig");
+    ACTION(7, "action", "icon-hyt_action"),
+    TABLES(8, "tables", "icon-hyt_tableBig"),
+    HISTOGRAM(9, "histogram", "icon-hyt_tableBig");
 
     private int id;
     private String name;

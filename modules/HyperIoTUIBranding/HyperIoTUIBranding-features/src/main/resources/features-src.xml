@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTUIBranding-features">
+  <feature name="hyperiot-uibranding" version="${project.version}" description="All  HyperIoT HyperIoTUIBranding modules">
+    <feature>hyperiot-base</feature>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-actions/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-model/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-repository/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-service-rest/${project.version}</bundle>
+  </feature>
+  <feature name="hyperiot-uibranding-basic" version="${project.version}" description="All  HyperIoT HyperIoTUIBranding modules with NO rest services">
+    <feature>hyperiot-base-basic</feature>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-actions/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-model/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-repository/${project.version}</bundle>
+  </feature>
+</features>

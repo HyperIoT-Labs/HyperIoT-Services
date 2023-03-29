@@ -1,18 +1,18 @@
 dependencies {
 	//OSGi Basic Imports
-    compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-    compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+    implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+    implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
     //Jackson
-    compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
     //HyperIoTBase Dependencies
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.jobscheduler", name: "HyperIoTJobScheduler-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.jobscheduler", name: "HyperIoTJobScheduler-api", version:project.hyperIoTVersion
 	//Add for Export HyperIoTAlgorithm-model
-	compileOnly group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version:project.hyperIoTPlatformVersion
+	implementation group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version:project.hyperIoTPlatformVersion
 	// Project dependencies
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-job-model")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-job-model")
 }
 
 jar {
@@ -21,13 +21,7 @@ jar {
 	}
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install','publish' ]
-}
 
 publishing {
     	publications {

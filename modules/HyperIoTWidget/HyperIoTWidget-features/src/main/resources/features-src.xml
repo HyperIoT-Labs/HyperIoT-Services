@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTWidget-features">
+  <feature name="hyperiot-widget" version="${project.version}" description="All  HyperIoT HyperIoTWidget modules">
+    <feature>hyperiot-base</feature>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-api/${project.version}</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-service/${project.version}</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-actions/${project.version}</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-model/${project.version}</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-repository/${project.version}</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-service-rest/${project.version}</bundle>
+  </feature>
+  <feature name="hyperiot-widget-basic" version="${project.version}" description="All  HyperIoT HyperIoTWidget modules with NO rest services">
+    <feature>hyperiot-base-basic</feature>
+    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-actions/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-model/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-repository/${project.version}</bundle>
+  </feature>
+</features>

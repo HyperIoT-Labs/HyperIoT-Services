@@ -20,14 +20,9 @@ allprojects {
       }
     }
 
-   apply plugin: 'maven'
+   
    apply plugin: 'biz.aQute.bnd.builder'
    apply plugin: 'maven-publish'
-
-   configurations {
-	    testCompile.extendsFrom compileOnly
-	}
-
 
 	publishing {
         repositories {
@@ -42,10 +37,4 @@ allprojects {
         }
 	}
 }
-task buildHIT {
-	dependsOn gradle.includedBuilds*.task(':buildHIT')
-}
 
-task publishHIT {
-	dependsOn gradle.includedBuilds*.task(':publishHIT')
-}

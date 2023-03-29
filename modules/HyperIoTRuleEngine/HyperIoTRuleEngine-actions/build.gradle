@@ -3,15 +3,15 @@
 
 dependencies {
 	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: "6.0.0"
-	compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	implementation group: "org.osgi", name: "osgi.core", version: "6.0.0"
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
 	//Project Dependencies
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version: project.hyperIoTVersion
 
-	compileOnly group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
 
-	compileOnly project(":modules:HyperIoTRuleEngine:HyperIoTRuleEngine-model")
+	implementation project(":modules:HyperIoTRuleEngine:HyperIoTRuleEngine-model")
 	
 }
 
@@ -21,13 +21,7 @@ jar {
 	}
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-	tasks = ['publish']
-}
 
 publishing {
     	publications {

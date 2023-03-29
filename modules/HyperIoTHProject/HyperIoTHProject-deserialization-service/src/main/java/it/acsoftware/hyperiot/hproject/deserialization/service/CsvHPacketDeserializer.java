@@ -17,12 +17,10 @@
 
 package it.acsoftware.hyperiot.hproject.deserialization.service;
 
-import it.acsoftware.hyperiot.hdevice.model.HDevice;
 import it.acsoftware.hyperiot.hpacket.model.HPacket;
 import it.acsoftware.hyperiot.hproject.deserialization.api.HPacketDeserializer;
 import it.acsoftware.hyperiot.hproject.deserialization.model.HPacketInfo;
 import it.acsoftware.hyperiot.hproject.deserialization.service.util.HPacketDeserializerUtil;
-import it.acsoftware.hyperiot.hproject.model.HProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +35,8 @@ public class CsvHPacketDeserializer implements HPacketDeserializer {
 
     private static final Logger log = LoggerFactory.getLogger(CsvHPacketDeserializer.class);
 
-    private CsvHPacketDeserializer() { }
+    private CsvHPacketDeserializer() {
+    }
 
     public static synchronized CsvHPacketDeserializer getInstance() {
         if (instance == null)
@@ -70,13 +69,7 @@ public class CsvHPacketDeserializer implements HPacketDeserializer {
             }
         }
         log.debug("CSV Data : {}", message);
-        // create and return the HPacket
-        long projectId = hPacketInfo.getHProjectId();
-        HProject project = HPacketDeserializerUtil.createHProject(projectId);
-        long deviceId = hPacketInfo.getHDeviceId();
-        HDevice device = HPacketDeserializerUtil.createHDevice(deviceId, project);
-        long packetId = hPacketInfo.getHPacketId();
-        return HPacketDeserializerUtil.createHPacket(packetId, device, hPacketInfo, message);
+        return HPacketDeserializerUtil.createHPacket(hPacketInfo, message);
     }
 
 }

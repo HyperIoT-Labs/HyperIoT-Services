@@ -70,7 +70,7 @@ public final class WidgetSystemServiceImpl extends HyperIoTBaseEntitySystemServi
      * Return the current repository
      */
     protected WidgetRepository getRepository() {
-        getLog().debug( "invoking getRepository, returning: {}", this.repository);
+        getLog().debug("invoking getRepository, returning: {}", this.repository);
         return repository;
     }
 
@@ -87,7 +87,7 @@ public final class WidgetSystemServiceImpl extends HyperIoTBaseEntitySystemServi
      */
     @Reference
     protected void setRepository(WidgetRepository widgetRepository) {
-        getLog().debug( "invoking setRepository, setting: {}", widgetRepository);
+        getLog().debug("invoking setRepository, setting: {}", widgetRepository);
         this.repository = widgetRepository;
     }
 
@@ -112,8 +112,8 @@ public final class WidgetSystemServiceImpl extends HyperIoTBaseEntitySystemServi
         HashMap<String, Object> params = new HashMap<>();
         params.put("name", name);
         try {
-            HyperIoTQuery findByName = HyperIoTQueryBuilder.newQuery().equals("name",name);
-            return this.find(findByName,null);
+            HyperIoTQuery findByName = HyperIoTQueryBuilder.newQuery().equals("name", name);
+            return this.find(findByName, null);
         } catch (NoResultException e) {
             return null;
         }
@@ -159,26 +159,23 @@ public final class WidgetSystemServiceImpl extends HyperIoTBaseEntitySystemServi
     }
 
     private void createBasicWidgets() {
-        this.createWidgetIfNotExists("Realtime Events log LIST", "This widget shows real time event stream data.", WidgetUtils.eventsLogImg, WidgetUtils.eventsLogPreView, 2, 2, "events-log", "{}", WidgetCategory.TABLES, null, false, true);
-        //this.createWidgetIfNotExists("Classic pie chart", "Widget to show statistics data with pie chart representation.", WidgetUtils.classicPieChartImg, WidgetUtils.classicPieChartPreView, 2, 3, "stats-chart", "{\"data\":[]}", WidgetCategory.PIE, null, false, true);
-        this.createWidgetIfNotExists("Realtime line chart", "Widget to show single or combined realtime statistics with a line chart representation.", WidgetUtils.realtimeLineChartImg, WidgetUtils.realtimeLineChartPreView, 2, 3, "time-chart", "{\"data\":[]}", WidgetCategory.LINE, null, false, true);
-        this.createWidgetIfNotExists("Realtime FFT Sine Waves", "Widget to show Fast Fourier Transform sine waves.", WidgetUtils.realtimeFftChartImg, WidgetUtils.realtimeFftChartPreView, 2, 3, "fourier-chart", "{\"data\":[]}", WidgetCategory.LINE, null, false, true);
-        //this.createWidgetIfNotExists("Classic line chart", "Widget to show single or combined statistics with a line chart representation.", WidgetUtils.classicLineChartImg, WidgetUtils.classicLineChartPreView, 2, 3, "stats-chart", "{\"data\":[]}", WidgetCategory.LINE, null, false, true);
-        this.createWidgetIfNotExists("Realtime Sensor value", "Widget to display sensor values.", WidgetUtils.sensorValueImg, WidgetUtils.sensorValuePreView, 1, 2, "sensor-value", "{\"data\":[]}", WidgetCategory.GAUGES, null, false, true);
-        this.createWidgetIfNotExists("Realtime data table", "This widget displays realtime values of fields in tabular format.", WidgetUtils.realtimeDataTableImg, WidgetUtils.realtimeDataTablePreView, 3, 3, "realtime-table", "{}", WidgetCategory.TABLES, null, false, true);
-        this.createWidgetIfNotExists("Data table", "This widget displays values of fields in tabular format.", WidgetUtils.dataTableImg, WidgetUtils.dataTablePreView, 3, 3, "offline-table", "{}", WidgetCategory.TABLES, null, true, false);
-        this.createWidgetIfNotExists("Image data", "Display image based on thermal camera data array.", WidgetUtils.imageData, WidgetUtils.imageDataPreview, 2, 3, "image-data", "{}", WidgetCategory.MAP, null, false, true);
-        this.createWidgetIfNotExists("Algorithm data table", "This widget displays output values of algorithms in tabular format.", WidgetUtils.algorithmDataTableImg, WidgetUtils.algorithmDataTablePreView, 3, 3, "algorithm-offline-table", "{}", WidgetCategory.TABLES, null, true, false);
-        this.createWidgetIfNotExists("Event data table", "This widget displays events of project in tabular format.", WidgetUtils.eventDataTableImg, WidgetUtils.eventDataTablePreView, 3, 3, "event-offline-table", "{}", WidgetCategory.TABLES, null, true, false);
-        this.createWidgetIfNotExists("Error data table", "This widget displays errors of project in tabular format.", WidgetUtils.errorDataTableImg, WidgetUtils.errorDataTablePreView, 3, 3, "error-table", "{}", WidgetCategory.TABLES, null, true, false);
-        this.createWidgetIfNotExists("ecg-trace", "Show ECG trace chart (3 channel).", WidgetUtils.ecgImg, WidgetUtils.ecgPreView, 6, 6, "ecg", "{}", WidgetCategory.LINE, null, true, true);
-        this.createWidgetIfNotExists("Bodymap", "Bodymap widget.", WidgetUtils.bodyMapImg, WidgetUtils.bodyMapPreView, 2, 6, "bodymap", "{}", WidgetCategory.LINE, null, false, true);
-        this.createWidgetIfNotExists("Time chart multistate", "Shows a time chart multistate.", WidgetUtils.timeChartMultiStateImg, WidgetUtils.timeCharMultiStatePreView, 3, 3, "time-multistate-chart", "{}", WidgetCategory.LINE, null, true, true);
+        this.createWidgetIfNotExists("Raw data logger", "Shows real time raw data.", WidgetUtils.eventsLogImg, WidgetUtils.eventsLogPreView, 4, 4, "events-log", "{}", WidgetCategory.TABLES, null, false, true);
+        this.createWidgetIfNotExists("Line chart", "Widget to show single or combined realtime data with a line chart representation.", WidgetUtils.realtimeLineChartImg, WidgetUtils.realtimeLineChartPreView, 2, 3, "time-chart", "{\"data\":[]}", WidgetCategory.LINE, null, true, true);
+        this.createWidgetIfNotExists("Single value logger", "Widget to display single values.", WidgetUtils.sensorValueImg, WidgetUtils.sensorValuePreView, 1, 2, "sensor-value", "{\"data\":[]}", WidgetCategory.GAUGES, null, false, true);
+        this.createWidgetIfNotExists("Data table", "This widget displays values of fields in tabular format.", WidgetUtils.dataTableImg, WidgetUtils.dataTablePreView, 3, 3, "offline-table", "{}", WidgetCategory.TABLES, null, true, true);
+        this.createWidgetIfNotExists("Thermal Image Viewer", "Display image based on thermal camera data array.", WidgetUtils.imageData, WidgetUtils.imageDataPreview, 2, 3, "image-data", "{}", WidgetCategory.MAP, null, false, true);
+        this.createWidgetIfNotExists("Statistics", "This widget displays output values of statistics in tabular format.", WidgetUtils.algorithmDataTableImg, WidgetUtils.algorithmDataTablePreView, 3, 3, "algorithm-offline-table", "{}", WidgetCategory.TABLES, null, true, false);
+        this.createWidgetIfNotExists("Events table", "This widget displays projects events in tabular format.", WidgetUtils.eventDataTableImg, WidgetUtils.eventDataTablePreView, 3, 3, "event-offline-table", "{}", WidgetCategory.TABLES, null, true, false);
+        this.createWidgetIfNotExists("Errors table", "This widget displays projects errors in tabular format.", WidgetUtils.errorDataTableImg, WidgetUtils.errorDataTablePreView, 3, 3, "error-table", "{}", WidgetCategory.TABLES, null, true, false);
+        this.createWidgetIfNotExists("ECG trace", "Show ECG trace chart", WidgetUtils.ecgImg, WidgetUtils.ecgPreView, 6, 6, "ecg", "{}", WidgetCategory.LINE, null, true, true);
+        this.createWidgetIfNotExists("Body Map", "Bodymap widget.", WidgetUtils.bodyMapImg, WidgetUtils.bodyMapPreView, 2, 6, "bodymap", "{}", WidgetCategory.LINE, null, false, true);
+        this.createWidgetIfNotExists("Gauge", "Widget to display values in a gauge chart.", WidgetUtils.gaugeImg, WidgetUtils.gaugePreView, 2, 3, "gauge", "{}", WidgetCategory.GAUGES, null, false, true);
+        this.createWidgetIfNotExists("Histogram Chart", "Widget to display values in a histogram chart.", WidgetUtils.histogramImg, WidgetUtils.histogramPreView, 2, 3, "histogram", "{}", WidgetCategory.HISTOGRAM, null, false, true);
     }
 
     @Override
     public Collection<Widget> getWidgetsByCategory(WidgetCategory widgetCategory, String type) {
-        return repository.getWidgetsByCategory(widgetCategory,type);
+        return repository.getWidgetsByCategory(widgetCategory, type);
     }
 
 }

@@ -28,6 +28,7 @@ Export-Package: \
     it.acsoftware.hyperiot.rule.model.actions.events,\
     it.acsoftware.hyperiot.rule.model.operations
 DynamicImport-Package: *
+-fixupmessages "Classes found in the wrong directory"; restrict:=error; is:=warning
 
 
 

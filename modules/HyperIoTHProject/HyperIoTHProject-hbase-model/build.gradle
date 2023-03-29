@@ -1,49 +1,41 @@
 
 dependencies {
 	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-	compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
-    compileOnly group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+    implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
     //HyperIoTBase Dependencies
-    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-validation", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-validation", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
     //Jackson
-    compileOnly group:"com.fasterxml.jackson.module",name:"jackson-module-jaxb-annotations",version:project.jacksonVersion
+    implementation group:"com.fasterxml.jackson.module",name:"jackson-module-jaxb-annotations",version:project.jacksonVersion
 
     // Avro
-    compileOnly group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+    implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
 
     // Cloud events
-    compileOnly group: 'io.cloudevents', name: 'cloudevents-api', version: project.cloudEventsVersion
-    compileOnly group: 'io.cloudevents', name: 'cloudevents-core', version: project.cloudEventsVersion
-    compileOnly group: 'io.cloudevents', name: 'cloudevents-json-jackson', version: project.cloudEventsVersion
+    implementation group: 'io.cloudevents', name: 'cloudevents-api', version: project.cloudEventsVersion
+    implementation group: 'io.cloudevents', name: 'cloudevents-core', version: project.cloudEventsVersion
+    implementation group: 'io.cloudevents', name: 'cloudevents-json-jackson', version: project.cloudEventsVersion
 
     // Project Dependencies
-    compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-model")
-    compileOnly group: "it.acsoftware.hyperiot.hbase.connector", name: "HyperIoTHBaseConnector-model", version:project.hyperIoTVersion
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-model")
+    implementation group: "it.acsoftware.hyperiot.hbase.connector", name: "HyperIoTHBaseConnector-model", version:project.hyperIoTVersion
 }
 
 jar {
 	manifest {
 		attributes('dsannotations': '*')
 	}
-    zip64 true
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install','publish' ]
-}
 
 publishing {
     	publications {

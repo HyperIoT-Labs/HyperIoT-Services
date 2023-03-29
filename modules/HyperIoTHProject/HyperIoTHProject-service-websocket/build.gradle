@@ -1,31 +1,31 @@
 dependencies {
 	//OSGi Basic Imports
-	compileOnly group: "org.osgi", name: "osgi.core", version: project.osgiVersion
-	compileOnly group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
     // Jackson dependecy
-    compileOnly group:"com.fasterxml.jackson.jaxrs",name:"jackson-jaxrs-json-provider",version:project.jacksonVersion
+    implementation group:"com.fasterxml.jackson.jaxrs",name:"jackson-jaxrs-json-provider",version:project.jacksonVersion
 	// WebSocket service external deps (KafkaWebSocketSession)
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
-    compileOnly group: "it.acsoftware.hyperiot.kafka.connector", name: "HyperIoTKafkaConnector-api", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.kafka.connector", name: "HyperIoTKafkaConnector-service-websocket", version:project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-api", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-model", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-session", version: project.hyperIoTVersion
-	compileOnly group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-channel", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.kafka.connector", name: "HyperIoTKafkaConnector-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.kafka.connector", name: "HyperIoTKafkaConnector-service-websocket", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-api", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-model", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-session", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-channel", version: project.hyperIoTVersion
 
-	compileOnly group: 'org.eclipse.jetty.websocket', name: 'websocket-servlet', version: project.jettyWSVersion
-	compileOnly group: 'io.projectreactor', name: 'reactor-core', version: '3.2.6.RELEASE'
-	compileOnly group: 'io.projectreactor.kafka', name: 'reactor-kafka', version: '1.1.0.RELEASE'
+	implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-servlet', version: project.jettyWSVersion
+	implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.2.6.RELEASE'
+	implementation group: 'io.projectreactor.kafka', name: 'reactor-kafka', version: '1.1.0.RELEASE'
 
-	compileOnly group: "org.apache.cxf", name:"cxf-bundle-jaxrs", version:"2.7.18"
+	implementation group: "org.apache.cxf", name:"cxf-bundle-jaxrs", version:"2.7.18"
 	// Avro
-	compileOnly group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+	implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
 
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-api")
-	compileOnly project(":modules:HyperIoTHProject:HyperIoTHProject-model")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-api")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-model")
 }
 
 jar {
@@ -34,13 +34,7 @@ jar {
 	}
 }
 
-task buildHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install' ]
-}
 
-task publishHIT(type: GradleBuild) {
-	tasks = [ 'clean','build','install','publish' ]
-}
 
 publishing {
     	publications {

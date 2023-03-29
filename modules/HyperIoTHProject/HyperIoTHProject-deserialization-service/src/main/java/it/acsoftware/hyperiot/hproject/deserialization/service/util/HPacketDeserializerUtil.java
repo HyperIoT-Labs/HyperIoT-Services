@@ -239,6 +239,15 @@ public final class HPacketDeserializerUtil {
         return device;
     }
 
+    public static HPacket createHPacket(HPacketInfo hPacketInfo, HashMap<String, Object> message){
+        long projectId = hPacketInfo.getHProjectId();
+        HProject project = HPacketDeserializerUtil.createHProject(projectId);
+        long deviceId = hPacketInfo.getHDeviceId();
+        HDevice device = HPacketDeserializerUtil.createHDevice(deviceId, project);
+        long packetId = hPacketInfo.getHPacketId();
+        return HPacketDeserializerUtil.createHPacket(packetId, device, hPacketInfo, message);
+    }
+
     /**
      * Creates HPacket instance starting from HPacketInfo,Device and packetId
      *

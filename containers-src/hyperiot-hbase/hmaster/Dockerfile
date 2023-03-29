@@ -1,5 +1,5 @@
 #FROM hyperiot/hbase-base\
-FROM nexus.acsoftware.it:18079/hyperiot/hbase-base:1.0.5
+FROM nexus.acsoftware.it:18079/hyperiot/hbase-base:1.0.7
 
 #HBase log dir
 ENV HBASE_LOG_DIR=$HBASE_HOME/logs
@@ -17,6 +17,6 @@ COPY run.sh /run.sh
 
 RUN chmod +x /run.sh
 
-EXPOSE 16000 16010
+EXPOSE 16000 16010 9090
 
 CMD ["/run.sh"]

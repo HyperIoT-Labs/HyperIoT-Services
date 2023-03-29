@@ -343,10 +343,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
                              long rowKeyLowerBound, long rowKeyUpperBound, int limit, String alarmState, OutputStream outputStream)
             throws IOException {
         try (JsonGenerator jsonGenerator = objectMapper.getFactory().createGenerator(outputStream)) {
-            boolean isJsonArray = (hPacketIds.size() > 1 || hDeviceIds.size() > 1 || ((!hPacketIds.isEmpty()) && (!hDeviceIds.isEmpty()))
-                    || (AlarmState.isValidName(alarmState) && !hPacketIds.isEmpty()));
-            if (isJsonArray)
-                jsonGenerator.writeStartArray();
+            jsonGenerator.writeStartArray();
             for (String packetId : hPacketIds) {
                 String tableName = getTableNamePrefix(packetId) + hProjectId;
                 byte[] rowKeyLowBound;
@@ -388,8 +385,7 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
                     objectMapper.writeValue(jsonGenerator, hProjectScan);
                 }
             }
-            if (isJsonArray)
-                jsonGenerator.writeEndArray();
+            jsonGenerator.writeEndArray();
             jsonGenerator.flush();
         }
     }
@@ -410,6 +406,20 @@ public class HProjectHBaseSystemServiceImpl extends HyperIoTBaseSystemServiceImp
         if (!hBaseResults.isEmpty())
             hProjectScan.setRowKeyUpperBound(Bytes.toLong(hBaseResults.get(hBaseResults.size() - 1).getRow()));
         objectMapper.writeValue(jsonGenerator, hProjectScan);
+    }
+
+    public byte[] getHPacketAttachment(long hProjectId, long packetId, long fieldId, long rowKeyLowerBound, long rowKeyUpperBound) throws IOException {
+        // specify column families and columns on which perform scan
+        String tableName = getTableNamePrefix(String.valueOf(packetId)) + hProjectId;
+        byte[] columnFamily = Bytes.toBytes(HProjectHBaseConstants.HPACKET_ATTACHMENTS_COLUMN_FAMILY);
+        byte[] column = Bytes.toBytes(fieldId);
+        Map<byte[], List<byte[]>> targetColumns = getScannerColumns(String.valueOf(packetId), columnFamily, column);
+        List<Result> hBaseResult = hBaseConnectorSystemApi.scanWithCompleteResult(tableName, targetColumns,
+                Bytes.toBytes(rowKeyLowerBound), Bytes.toBytes(rowKeyUpperBound), 1);
+        if (!hBaseResult.isEmpty()) {
+            return hBaseResult.get(0).getValue(columnFamily, column);
+        }
+        return new byte[]{};
     }
 
     private byte[] serializeTimeStampFieldAsString(long timestamp, boolean upperBound) {

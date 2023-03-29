@@ -16,35 +16,6 @@ services:
      file: docker-compose-svil-basic.yml
      service: namenode
 
-  resourcemanager:
-    extends:
-     file: docker-compose-svil-basic.yml
-     service: resourcemanager
-    depends_on:
-      - "namenode"
-    links:
-      - "namenode"
-
-  historyserver:
-    extends:
-     file: docker-compose-svil-basic.yml
-     service: historyserver
-    depends_on:
-      - "namenode"
-    links:
-      - "namenode"
-
-  nodemanager:
-    extends:
-     file: docker-compose-svil-basic.yml
-     service: nodemanager
-    depends_on:
-      - "namenode"
-      - "resourcemanager"
-    links:
-      - "namenode"
-      - "resourcemanager"
-
   datanode1:
     extends:
      file: docker-compose-svil-basic.yml

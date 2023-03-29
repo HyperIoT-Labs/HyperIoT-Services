@@ -24,6 +24,8 @@ public final class StormConstants {
     }
 
     public static final String AVRO_HPACKET_FIELD = "avroHPacket";
+
+    public static final String AVRO_HPACKET_ATTACHMENTS = "avroHPacketAttachments";
     public static final String AVRO_HPROJECT_STREAM_ID_PREFIX = "hproject_%s";
     public static final String DAY_STREAM_ID = "day";
     public static final String DESERIALIZATION_BOLT_ID = "bolt-deserialization";
@@ -46,6 +48,8 @@ public final class StormConstants {
     public static final String HBASE_BOLT_CONF = "hbase.conf";
 
     public static final String HBASE_COLUMN_FAMILY_HPACKET = "hpacket";
+
+    public static final String HBASE_COLUMN_FAMILY_HPACKET_ATTACHMENTS = "attachments";
 
     public static final String HBASE_ALARM_TABLE_COLUMN_FAMILY_UP = "UP";
 
