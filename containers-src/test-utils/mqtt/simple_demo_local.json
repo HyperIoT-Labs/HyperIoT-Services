@@ -10,7 +10,7 @@
 	"dry-run": false
   },
   "sensors": {
-    "40/43/44": {
+    "109/127/128": {
 	    "username": "Device1",
 	    "password": "Device1_",
 		"active":true,

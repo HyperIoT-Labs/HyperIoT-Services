@@ -40,8 +40,12 @@ dependencies {
     implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
 
     // HBase dependency
-    implementation group: "it.acsoftware.hyperiot.hbase.connector", name: "HyperIoTHBaseConnector-hbaseBundles", version:project.hyperIoTVersion
+    implementation group: 'org.apache.hbase', name: 'hbase-client', version: project.hbaseVersion
+    implementation group: 'org.apache.hbase', name: 'hbase-protocol', version: project.hbaseVersion
+    implementation group: 'org.apache.hbase', name: 'hbase-server', version: project.hbaseVersion
+    implementation group: 'org.apache.hbase', name: 'hbase-mapreduce', version: project.hbaseVersion
     implementation group: "com.google.protobuf", name: "protobuf-java", version: project.googleProtobufVersion
+    implementation group: "it.acsoftware.hyperiot.hbase.connector", name: "HyperIoTHBaseConnector-hbaseBundles-2.5.3", version:project.hyperIoTVersion
 
     //Project Dependencies
     implementation project(":modules:HyperIoTHProject:HyperIoTHProject-actions")
