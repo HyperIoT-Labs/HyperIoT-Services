@@ -1,4 +1,4 @@
-FROM nexus.acsoftware.it:18079/hyperiot/hadoop-base:1.0.5
+FROM nexus.acsoftware.it:18079/hyperiot/hadoop-base:1.0.6
 MAINTAINER Ivan Ermilov <ivan.s.ermilov@gmail.com>
 
 HEALTHCHECK CMD curl -f http://localhost:50075/ || exit 1
@@ -22,6 +22,6 @@ ENV HADOOP_LOGFILE=hadoop-$HADOOP_IDENT_STRING-datanode.log
 ADD run.sh /run.sh
 RUN chmod a+x /run.sh
 
-EXPOSE 50075
+EXPOSE 9866 9865 9864 9867
 
 CMD ["/run.sh"]

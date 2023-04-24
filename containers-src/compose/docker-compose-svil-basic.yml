@@ -189,7 +189,7 @@ services:
       - API_URL=http://karaf-microservices.hyperiot.com:8181
 
   namenode:
-    image: nexus.acsoftware.it:18079/hyperiot/hadoop-namenode:1.0.5
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-namenode:1.0.6
     container_name: namenode
     hostname: namenode
     networks:
@@ -203,11 +203,14 @@ services:
     env_file:
       - ../hyperiot-hadoop/hadoop.env
     ports:
-      - "50070:50070"
+      - "50100:50100"
+      - "50105:50105"
+      - "9870:9870"
+      - "9871:9871"
       - "8020:8020"
 
   datanode1:
-    image: nexus.acsoftware.it:18079/hyperiot/hadoop-datanode:1.0.5
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-datanode:1.0.6
     container_name: datanode1
     hostname: datanode1
     networks:
@@ -219,11 +222,12 @@ services:
     env_file:
       - ../hyperiot-hadoop/hadoop.env
     ports:
-      - "50075:50075"   # HTTP port
-      - "50010:50010"   # port for data transfer
-      - "50020:50020"   # ipc port
+      - "9864:9864"   # HTTP port
+      - "9865:9865"   # HTTPS port
+      - "9866:9866"   # port for data transfer
+      - "9867:9867"   # ipc port
   datanode2:
-    image: nexus.acsoftware.it:18079/hyperiot/hadoop-datanode:1.0.5
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-datanode:1.0.6
     container_name: datanode2
     hostname: datanode2
     networks:
@@ -235,11 +239,12 @@ services:
     env_file:
       - ../hyperiot-hadoop/hadoop.env
     ports:
-      - "50076:50075"   # HTTP port
-      - "50011:50010"   # port for data transfer
-      - "50021:50020"   # ipc port
+      - "9874:9864"   # HTTP port
+      - "9875:9865"   # HTTPS port
+      - "9876:9866"   # port for data transfer
+      - "9877:9867"   # ipc port
   datanode3:
-    image: nexus.acsoftware.it:18079/hyperiot/hadoop-datanode:1.0.5
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-datanode:1.0.6
     container_name: datanode3
     hostname: datanode3
     networks:
@@ -251,9 +256,10 @@ services:
     env_file:
       - ../hyperiot-hadoop/hadoop.env
     ports:
-      - "50077:50075"   # HTTP port
-      - "50012:50010"   # port for data transfer
-      - "50022:50020"   # ipc port
+      - "9884:9864"   # HTTP port
+      - "9885:9865"   # HTTPS port
+      - "9886:9866"   # port for data transfer
+      - "9887:9867"   # ipc port
       
   hbase-master:
     image: nexus.acsoftware.it:18079/hyperiot/hbase-hmaster:1.0.8
@@ -267,7 +273,7 @@ services:
     env_file:
       - ../hyperiot-hbase/hbase-distributed-local.env
     environment:
-      SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 datanode2:50076 datanode3:50077 zookeeper-1.hyperiot.com:2181"
+      SERVICE_PRECONDITION: "namenode:9870 datanode1:9864 datanode2:9874 datanode3:9884 zookeeper-1.hyperiot.com:2181"
     ports:
       - "16000:16000"
       - "16010:16010"
@@ -286,7 +292,7 @@ services:
       - ../hyperiot-hbase/hbase-distributed-local.env
     environment:
       HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver.hyperiot.com
-      SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 datanode2:50076 datanode3:50077 zookeeper-1.hyperiot.com:2181 hbase-test.hyperiot.cloud:16010"
+      SERVICE_PRECONDITION: "namenode:9870 datanode1:9864 datanode2:9874 datanode3:9884 zookeeper-1.hyperiot.com:2181 hbase-test.hyperiot.cloud:16010"
     ports:
       - "16020:16020"
       - "16030:16030"
