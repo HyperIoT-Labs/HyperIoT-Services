@@ -4,6 +4,5 @@
     <feature>hyperiot-base-basic</feature>
     <bundle start-level="86">mvn:it.acsoftware.hyperiot.mqtt.authentication/HyperIoTMqttAuthentication-api/2.3.0</bundle>
     <bundle start-level="86">mvn:it.acsoftware.hyperiot.mqtt.authentication/HyperIoTMqttAuthentication-service/2.3.0</bundle>
-    <bundle start-level="86">mvn:it.acsoftware.hyperiot.hbase.connector/HyperIoTHBaseConnector-hbaseBundles/2.3.0</bundle>
   </feature>
 </features>
