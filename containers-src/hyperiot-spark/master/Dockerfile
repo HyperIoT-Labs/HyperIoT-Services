@@ -1,4 +1,4 @@
-FROM nexus.acsoftware.it:18079/hyperiot/spark-base:1.0.7
+FROM nexus.acsoftware.it:18079/hyperiot/spark-base:1.0.8
 
 COPY master.sh /
 
