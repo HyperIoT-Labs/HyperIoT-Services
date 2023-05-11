@@ -267,7 +267,7 @@ public final class HProjectSystemServiceImpl extends HyperIoTBaseEntitySystemSer
             for (HDevice pHDevice : projectToExport.getDevices()) {
                 for (HPacket dPacket : pHDevice.getPackets()) {
                     List<HPacketField> dPacketField = hPacketFieldSystemService.getHPacketRootField(dPacket.getId());
-                    dPacket.setFields(dPacketField);
+                    dPacket.setFields(new HashSet<>(dPacketField));
                 }
             }
             projectToExport.setAreas(areaSystemService.getRootProjectArea(projectToExport.getId()));
@@ -496,7 +496,7 @@ public final class HProjectSystemServiceImpl extends HyperIoTBaseEntitySystemSer
                                     packetFieldStructure.add(currentNode);
                                 }
                             }
-                            packet.setFields(packetFieldStructure);
+                            packet.setFields(new HashSet<>(packetFieldStructure));
                         }
                     }
                 }

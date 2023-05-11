@@ -93,8 +93,8 @@ public class HPacket extends HyperIoTAbstractEntity
     /**
      * Packet fields
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
-    private List<HPacketField> fields;
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
+    private Set<HPacketField> fields;
 
     /**
      * runtime copy of fields
@@ -242,11 +242,12 @@ public class HPacket extends HyperIoTAbstractEntity
     /**
      * Get packet's fields.
      *
-     * @return packet all root fields,because inner fields are cointained inside each Root field
+     * @return packet fields
      */
-    @OneToMany(targetEntity = HPacketField.class, mappedBy = "packet", fetch = FetchType.EAGER, orphanRemoval = true)
+
+    @OneToMany(targetEntity = HPacketField.class, cascade = {REMOVE, REFRESH, PERSIST}, mappedBy = "packet", fetch = FetchType.EAGER, orphanRemoval = true)
     @Where(clause = "parentField_id IS NULL")
-    public List<HPacketField> getFields() {
+    public Set<HPacketField> getFields() {
         return fields;
     }
 
@@ -255,7 +256,7 @@ public class HPacket extends HyperIoTAbstractEntity
      *
      * @param fields HPacket field list
      */
-    public void setFields(List<HPacketField> fields) {
+    public void setFields(Set<HPacketField> fields) {
         this.fields = fields;
     }
 
@@ -395,7 +396,7 @@ public class HPacket extends HyperIoTAbstractEntity
     @Transient
     @JsonIgnore
     public void defineFields(List<HPacketField> fields) {
-        this.setFields(fields);
+        this.setFields(new HashSet<>(fields));
         this.reloadFields(true);
     }
 
@@ -673,9 +674,9 @@ public class HPacket extends HyperIoTAbstractEntity
                 HashMap<Utf8, Object> incomingFields = null;
                 //noinspection unchecked: it's Avro Map type
                 incomingFields = (HashMap<Utf8, Object>) v;
-                for(Utf8 key : incomingFields.keySet())
+                for (Utf8 key : incomingFields.keySet())
                     addField(this, packetFields, (HPacketField) incomingFields.get(key), key.toString());
-                setFields(new ArrayList<>(packetFields));
+                setFields(new HashSet<>(packetFields));
                 break;
             case 7:
                 valid = (boolean) v;
