@@ -39,8 +39,8 @@ Import-Package: \
     javax.validation;version='${range;[====,+)}',\
     org.apache.aries*,\
     org.apache.avro*;version='${range;[===,+)}',\
-    org.apache.hadoop.hbase.client;version='${range;[===,+)}',\
-    org.apache.hadoop.hbase.util;version='${range;[===,+)}',\
+    org.apache.hadoop.hbase.client,\
+    org.apache.hadoop.hbase.util,\
     org.hibernate.proxy;version='${range;[=,+)}',\
     org.hibernate.validator;version='${range;[=,+)}',\
     org.quartz;version='${range;[===,+)}',\

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="hyperIoT-features">
-    <feature name="hyperiot-services" version="2.2.4" description="All hyperIoT Modules">
+    <feature name="hyperiot-services" version="${project.version}" description="All hyperIoT Modules">
     <feature>hyperiot-base</feature>
     <feature>hyperiot-services-basic</feature>
     <bundle>mvn:it.acsoftware.hyperiot.services/HyperIoTServices-service-rest/${project.version}</bundle>
