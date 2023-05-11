@@ -35,6 +35,7 @@ import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.util.Utf8;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -241,9 +242,10 @@ public class HPacket extends HyperIoTAbstractEntity
     /**
      * Get packet's fields.
      *
-     * @return packet fields
+     * @return packet all root fields,because inner fields are cointained inside each Root field
      */
-    @OneToMany(targetEntity = HPacketField.class, cascade = {REMOVE, REFRESH,PERSIST}, mappedBy = "packet", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(targetEntity = HPacketField.class, mappedBy = "packet", fetch = FetchType.EAGER, orphanRemoval = true)
+    @Where(clause = "parentField_id IS NULL")
     public List<HPacketField> getFields() {
         return fields;
     }

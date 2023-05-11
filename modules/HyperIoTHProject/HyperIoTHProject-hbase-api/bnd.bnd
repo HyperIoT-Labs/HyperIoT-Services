@@ -12,7 +12,7 @@ Import-Package: \
     it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}' ,\
     it.acsoftware.hyperiot.hproject.algorithm.model;version='${range;[===,+)}' ,\
     it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
-    org.apache.hadoop.hbase.client;version='${range;[===,+)}',\
+    org.apache.hadoop.hbase.client,\
     it.acsoftware.hyperiot.hproject.model.hbase;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.hproject.model.hbase.timeline;version='${range;[===,+)}'
 Export-Package: \

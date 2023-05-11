@@ -1,8 +1,8 @@
-FROM nexus.acsoftware.it:18079/hyperiot/hadoop-base:1.0.5
+FROM nexus.acsoftware.it:18079/hyperiot/hadoop-base:1.0.6
 
 MAINTAINER Ivan Ermilov <ivan.s.ermilov@gmail.com>
 
-HEALTHCHECK CMD curl -f http://localhost:50070/ || exit 1
+HEALTHCHECK CMD curl -f http://localhost:9870/ || exit 1
 
 ENV HDFS_CONF_dfs_namenode_name_dir=file:///hadoop/dfs/name
 RUN mkdir -p /hadoop/dfs/name
@@ -25,6 +25,6 @@ ADD run.sh /run.sh
 ADD avro-tools-1.7.7.jar /avro-tools-1.7.7.jar
 RUN chmod a+x /run.sh
 
-EXPOSE 50070
+EXPOSE 50100 50105 9870 9871 8020
 
 CMD ["/run.sh"]

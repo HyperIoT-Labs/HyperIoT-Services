@@ -1,9 +1,9 @@
-FROM openjdk:8
+FROM openjdk:11
 MAINTAINER Aristide Cittadino
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends net-tools curl netcat
 
-ENV HBASE_VERSION 1.4.9
+ENV HBASE_VERSION 2.5.3
 ENV HBASE_URL https://archive.apache.org/dist/hbase/$HBASE_VERSION/hbase-$HBASE_VERSION-bin.tar.gz
 RUN set -x \
     && curl -fSL "$HBASE_URL" -o /tmp/hbase.tar.gz \

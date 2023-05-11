@@ -7,8 +7,7 @@ Version 1.1.0 introduces healthchecks for the containers.
 # Hadoop Docker
 
 ## Supported Hadoop Versions
-* 2.7.1 with OpenJDK 7
-* 2.7.1 with OpenJDK 8
+* 3.3.5 with OpenJDK 11
 
 ## Build
 

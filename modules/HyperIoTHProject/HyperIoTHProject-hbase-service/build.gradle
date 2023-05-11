@@ -42,9 +42,9 @@ dependencies {
 
     // Quartz dependency
     implementation group: 'org.quartz-scheduler', name: 'quartz', version: project.quartzVersion
-
     // HBase dependency
-    implementation group: "it.acsoftware.hyperiot.hbase.connector", name: "HyperIoTHBaseConnector-hbaseBundles", version:project.hyperIoTVersion
+    implementation group: 'org.apache.hbase', name: 'hbase-client', version: project.hbaseVersion
+    // HBase dependency
     implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
     implementation group: "com.google.protobuf", name: "protobuf-java", version: project.googleProtobufVersion
 
