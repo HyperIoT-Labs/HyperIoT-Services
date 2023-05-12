@@ -101,27 +101,4 @@ public class HPacketFieldRepositoryImpl extends HyperIoTBaseRepositoryImpl<HPack
             return entityManager.createQuery(query).setParameter("packetId",packetId).getResultList();
         });
     }
-
-    @Override
-    public void remove(long id){
-        this.getJpa().tx(TransactionType.Required, (entityManager) -> {
-            /*
-            We need to invoke invokePreAction, invokePostAction and manageAssets in this
-            method because we can't call remove method of parent's class.
-            On the relationship between HPacket and HPacketField there is orphan removal attribute.
-            If we delete packetfield's reference in packet entity the remove operation is implicity
-            processed by hibernate so if we call parent's remove method system tell us that the entity
-            doesn't exists. So to be coherent with parent's remove operation we call the above mentioned
-            method in this class.
-             */
-            HPacketField packetField = this.find(id, null);
-            HyperIoTUtil.invokePreActions(packetField, HyperIoTPreRemoveAction.class);
-            HPacket packet = packetField.getPacket();
-            packet.getFields().removeIf(field -> field.equals(packetField));
-            hPacketRepository.update(packet);
-            //Make this enum protected in the framework module AssetManagementOperation
-            this.manageAssets(packetField, HyperIoTBaseRepositoryImpl.AssetManagementOperation.DELETE);
-            HyperIoTUtil.invokePostActions(packetField, HyperIoTPostRemoveAction.class);
-        });
-    }
 }

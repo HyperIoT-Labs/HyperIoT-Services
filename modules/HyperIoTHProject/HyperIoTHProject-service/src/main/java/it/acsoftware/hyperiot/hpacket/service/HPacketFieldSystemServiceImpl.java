@@ -97,16 +97,6 @@ public final class HPacketFieldSystemServiceImpl extends HyperIoTBaseEntitySyste
     }
 
     @Override
-    public void removeHPacketField(long fieldId) {
-        try {
-            repository.find(fieldId, null);
-        } catch (NoResultException e) {
-            throw new HyperIoTEntityNotFound();
-        }
-        this.repository.remove(fieldId);
-    }
-
-    @Override
     public List<HPacketField> getHPacketRootField(long packetId) {
         return repository.getHPacketRootField(packetId);
     }

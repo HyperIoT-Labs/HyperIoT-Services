@@ -28,11 +28,9 @@ import it.acsoftware.hyperiot.base.exception.HyperIoTUnauthorizedException;
 import it.acsoftware.hyperiot.base.security.annotations.AllowGenericPermissions;
 import it.acsoftware.hyperiot.base.security.annotations.AllowPermissions;
 import it.acsoftware.hyperiot.base.security.util.HyperIoTSecurityUtil;
-import it.acsoftware.hyperiot.base.service.entity.HyperIoTBaseEntityServiceImpl;
 import it.acsoftware.hyperiot.base.service.entity.HyperIoTOwnedChildBaseEntityServiceImpl;
 import it.acsoftware.hyperiot.hdevice.actions.HyperIoTHDeviceAction;
 import it.acsoftware.hyperiot.hdevice.api.HDeviceSystemApi;
-import it.acsoftware.hyperiot.hdevice.model.HDevice;
 import it.acsoftware.hyperiot.hpacket.api.HPacketApi;
 import it.acsoftware.hyperiot.hpacket.api.HPacketFieldSystemApi;
 import it.acsoftware.hyperiot.hpacket.api.HPacketSystemApi;
@@ -48,7 +46,6 @@ import org.osgi.service.component.annotations.Reference;
 import javax.persistence.NoResultException;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * @author Aristide Cittadino Implementation class of HPacketApi interface.
@@ -87,7 +84,7 @@ public final class HPacketServiceImpl extends HyperIoTOwnedChildBaseEntityServic
      * @return The current HPacketSystemApi
      */
     protected HPacketSystemApi getSystemService() {
-        getLog().debug( "invoking getSystemService, returning: {}" , this.systemService);
+        getLog().debug("invoking getSystemService, returning: {}", this.systemService);
         return systemService;
     }
 
@@ -96,7 +93,7 @@ public final class HPacketServiceImpl extends HyperIoTOwnedChildBaseEntityServic
      */
     @Reference
     protected void setSystemService(HPacketSystemApi hPacketSystemService) {
-        getLog().debug( "invoking setSystemService, setting: {}" , systemService);
+        getLog().debug("invoking setSystemService, setting: {}", systemService);
         this.systemService = hPacketSystemService;
     }
 
@@ -139,21 +136,21 @@ public final class HPacketServiceImpl extends HyperIoTOwnedChildBaseEntityServic
     @Override
     @AllowPermissions(actions = HyperIoTHDeviceAction.Names.PACKETS_MANAGEMENT, checkById = true, idParamIndex = 1, systemApiRef = "it.acsoftware.hyperiot.hdevice.api.HDeviceSystemApi")
     public Collection<HPacket> getPacketsList(HyperIoTContext context, long deviceId) {
-        getLog().debug( "invoking getPacketsList, on device: {}" , deviceId);
+        getLog().debug("invoking getPacketsList, on device: {}", deviceId);
         return systemService.getPacketsList(deviceId);
     }
 
     @Override
     @AllowGenericPermissions(actions = HyperIoTHDeviceAction.Names.PACKETS_MANAGEMENT, resourceName = "it.acsoftware.hyperiot.hdevice.model.HDevice")
     public Collection<HPacket> getProjectPacketsList(HyperIoTContext context, long projectId) {
-        getLog().debug( "invoking getProjectPacketsList, on project: {}" , projectId);
+        getLog().debug("invoking getProjectPacketsList, on project: {}", projectId);
         try {
             hprojectService.find(projectId, null);
         } catch (NoResultException e) {
             throw new HyperIoTEntityNotFound();
         }
-        HyperIoTQuery byProjectIdFilter = HyperIoTQueryBuilder.newQuery().equals("device.project.id",projectId);
-        return super.findAll(byProjectIdFilter,context);
+        HyperIoTQuery byProjectIdFilter = HyperIoTQueryBuilder.newQuery().equals("device.project.id", projectId);
+        return super.findAll(byProjectIdFilter, context);
     }
 
     @Override
@@ -177,12 +174,12 @@ public final class HPacketServiceImpl extends HyperIoTOwnedChildBaseEntityServic
             }
             filter = filter.and(orTypesFilter);
         }
-        return super.findAll(filter,context);
+        return super.findAll(filter, context);
     }
 
     @Override
     public Collection<HPacket> getProjectPacketsTree(HyperIoTContext context, long projectId) {
-        getLog().debug( "invoking getProjectPacketsTree, on project: {}" , projectId);
+        getLog().debug("invoking getProjectPacketsTree, on project: {}", projectId);
         HProject project = hprojectService.find(projectId, context);
         if (project == null)
             throw new HyperIoTEntityNotFound();
@@ -223,22 +220,25 @@ public final class HPacketServiceImpl extends HyperIoTOwnedChildBaseEntityServic
     }
 
     /**
-     *
      * @param packetId
      * @return
      */
     @Override
     @AllowPermissions(actions = HyperIoTCrudAction.Names.FINDALL, checkById = true, idParamIndex = 1)
-    public Collection<HPacketField> getHPacketFieldsTree(HyperIoTContext context,long packetId) {
-        getLog().debug( "invoking getHPacketFieldsTree, on packet: {}" , packetId);
+    public Collection<HPacketField> getHPacketFieldsTree(HyperIoTContext context, long packetId) {
+        getLog().debug("invoking getHPacketFieldsTree, on packet: {}", packetId);
         return this.hpacketFieldSystemService.getHPacketFieldsTree(packetId);
     }
 
     @Override
     @AllowPermissions(actions = HyperIoTCrudAction.Names.REMOVE, checkById = true, idParamIndex = 2, systemApiRef = "it.acsoftware.hyperiot.hpacket.api.HPacketSystemApi")
-    public void removeHPacketField(HyperIoTContext context, long fieldId, long packetId) {
-        getLog().debug( "invoking removeHPacketField, on field: {}" , fieldId);
-        this.hpacketFieldSystemService.removeHPacketField(fieldId);
+    public void removeHPacketField(HyperIoTContext context, long fieldId,long packetId) {
+        getLog().debug("invoking removeHPacketField, on field: {}", fieldId);
+        //removing field from its hierarchy
+        HPacket packet = this.systemService.find(packetId,context);
+        HPacketField field = this.hpacketFieldSystemService.find(fieldId, context);
+        packet.removeField(field);
+        this.systemService.update(packet, context);
     }
 
     @Override
@@ -247,7 +247,7 @@ public final class HPacketServiceImpl extends HyperIoTOwnedChildBaseEntityServic
         try {
             HPacketField packetField = hpacketFieldSystemService.find(hpacketFieldId, context);
             return packetField.getPacket();
-        }catch (NoResultException exception){
+        } catch (NoResultException exception) {
             throw new HyperIoTEntityNotFound();
         }
     }

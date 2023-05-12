@@ -210,7 +210,7 @@ public class HPacketField extends HyperIoTAbstractEntity implements GenericRecor
     }
 
     // Eager because it needs inner fields info immediately
-    @OneToMany(mappedBy = "parentField", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "parentField", fetch = FetchType.EAGER, cascade = {CascadeType.ALL},orphanRemoval = true)
     public Set<HPacketField> getInnerFields() {
         return innerFields;
     }

@@ -37,7 +37,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.*;
-import java.util.logging.Level;
 
 /**
  * @author Aristide Cittadino HPacket rest service class. Registered with DOSGi
@@ -68,7 +67,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     @ApiOperation(value = "/module/status", notes = "Simple service for checking module status", httpMethod = "GET")
     @JsonView(HyperIoTJSONView.Public.class)
     public Response checkModuleWorking() {
-        getLog().debug( "In Rest Service GET /hyperiot/hpacket/module/status");
+        getLog().debug("In Rest Service GET /hyperiot/hpacket/module/status");
         return Response.ok("HPacket Module works!").build();
     }
 
@@ -77,7 +76,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
      */
     @Override
     protected HPacketApi getEntityService() {
-        getLog().debug( "invoking getEntityService, returning: {}", this.entityService);
+        getLog().debug("invoking getEntityService, returning: {}", this.entityService);
         return entityService;
     }
 
@@ -86,13 +85,13 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
      */
     @Reference(service = HPacketApi.class)
     protected void setEntityService(HPacketApi entityService) {
-        getLog().debug( "invoking setEntityService, setting: {}", this.entityService);
+        getLog().debug("invoking setEntityService, setting: {}", this.entityService);
         this.entityService = entityService;
     }
 
 
     protected HDeviceApi gethDeviceApi() {
-        getLog().debug( "invoking gethDeviceApi, returning: {}", this.hDeviceApi);
+        getLog().debug("invoking gethDeviceApi, returning: {}", this.hDeviceApi);
         return hDeviceApi;
     }
 
@@ -101,7 +100,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
      */
     @Reference(service = HDeviceApi.class)
     protected void sethDeviceApi(HDeviceApi hDeviceApi) {
-        getLog().debug( "invoking sethDeviceApi, setting: {}", this.hDeviceApi);
+        getLog().debug("invoking sethDeviceApi, setting: {}", this.hDeviceApi);
         this.hDeviceApi = hDeviceApi;
     }
 
@@ -122,7 +121,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findHPacket(
             @ApiParam(value = "id from which hpacket object will retrieve", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/hpackets/{}", id);
+        getLog().debug("In Rest Service GET /hyperiot/hpackets/{}", id);
         return this.find(id);
     }
 
@@ -143,14 +142,14 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response saveHPacket(
             @ApiParam(value = "HPacket entity which must be saved ", required = true) HPacket entity) {
-        getLog().debug( "In Rest Service POST /hyperiot/hpackets \n Body: {}", entity);
+        getLog().debug("In Rest Service POST /hyperiot/hpackets \n Body: {}", entity);
         HDevice device;
         try {
-            if(entity.getDevice() == null){
+            if (entity.getDevice() == null) {
                 throw new HyperIoTEntityNotFound();
             }
-            device = this.hDeviceApi.find(entity.getDevice().getId(),this.getHyperIoTContext());
-        } catch (Throwable t){
+            device = this.hDeviceApi.find(entity.getDevice().getId(), this.getHyperIoTContext());
+        } catch (Throwable t) {
             return this.handleException(t);
         }
         entity.setDevice(device);
@@ -173,17 +172,17 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response updateHPacket(
             @ApiParam(value = "HPacket entity which must be updated ", required = true) HPacket entity) {
-        getLog().debug( "In Rest Service PUT /hyperiot/hpackets \n Body: {}", entity);
+        getLog().debug("In Rest Service PUT /hyperiot/hpackets \n Body: {}", entity);
         HDevice device;
         try {
-            if(entity.getDevice() == null){
+            if (entity.getDevice() == null) {
                 throw new HyperIoTEntityNotFound();
             }
-            device = this.hDeviceApi.find(entity.getDevice().getId(),this.getHyperIoTContext());
+            device = this.hDeviceApi.find(entity.getDevice().getId(), this.getHyperIoTContext());
             entity.setDevice(device);
-            HPacket dbPacket = this.entityService.find(entity.getId(),this.getHyperIoTContext());
+            HPacket dbPacket = this.entityService.find(entity.getId(), this.getHyperIoTContext());
             entity.setFields(dbPacket.getFields());
-        } catch (Throwable t){
+        } catch (Throwable t) {
             return this.handleException(t);
         }
         return this.update(entity);
@@ -206,7 +205,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response deleteHPacket(
             @ApiParam(value = "The hpacket id which must be deleted", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service DELETE /hyperiot/hpackets/" + id);
+        getLog().debug("In Rest Service DELETE /hyperiot/hpackets/" + id);
         return this.remove(id);
     }
 
@@ -225,7 +224,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findAllHPacket() {
-        getLog().debug( "In Rest Service GET /hyperiot/hpackets/");
+        getLog().debug("In Rest Service GET /hyperiot/hpackets/");
         return this.findAll();
     }
 
@@ -244,7 +243,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findAllHPacketByProjectId(@ApiParam(value = "The project id", required = true) @PathParam("id") long projectId) {
-        getLog().debug( "In Rest Service GET /hyperiot/hpackets/all/{}", projectId);
+        getLog().debug("In Rest Service GET /hyperiot/hpackets/all/{}", projectId);
         try {
             return Response.ok()
                     .entity(this.entityService.getProjectPacketsList(getHyperIoTContext(), projectId))
@@ -265,12 +264,12 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hpackets/all/{id}/types", notes = "Service for finding all hpacket entities of a project with specific packet types passed as comma separated list", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
-        @ApiResponse(code = 403, message = "Not authorized"),
-        @ApiResponse(code = 500, message = "Internal error")})
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findAllHPacketByProjectIdAndType(@ApiParam(value = "The project id", required = true) @PathParam("id") long projectId,
                                                      @ApiParam(value = "Packet type", required = false) @QueryParam("types") String commaSeparatedListTypes) {
-        getLog().debug( "In Rest Service GET /hyperiot/hpackets/all/{}/{}", new Object[]{projectId, commaSeparatedListTypes});
+        getLog().debug("In Rest Service GET /hyperiot/hpackets/all/{}/{}", new Object[]{projectId, commaSeparatedListTypes});
         try {
             List<HPacketType> types = new ArrayList<>();
             if (commaSeparatedListTypes != null && commaSeparatedListTypes.length() > 0) {
@@ -285,8 +284,8 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
                 });
             }
             return Response.ok()
-                .entity(this.entityService.getProjectPacketsListByType(getHyperIoTContext(), projectId, types))
-                .build();
+                    .entity(this.entityService.getProjectPacketsListByType(getHyperIoTContext(), projectId, types))
+                    .build();
         } catch (Throwable t) {
             return this.handleException(t);
         }
@@ -306,7 +305,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findAllHPacketPaginated(@QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
-        getLog().debug( "In Rest Service GET /hyperiot/hpackets/");
+        getLog().debug("In Rest Service GET /hyperiot/hpackets/");
         return this.findAll(delta, page);
     }
 
@@ -328,7 +327,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response getHDevicePacketList(
             @ApiParam(value = "id of the device", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/hpackets/devices/{id}/{}", id);
+        getLog().debug("In Rest Service GET /hyperiot/hpackets/devices/{id}/{}", id);
         try {
             return Response.ok()
                     .entity(entityService.getPacketsList(getHyperIoTContext(), id))
@@ -357,7 +356,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     public Response addHPacketField(
             @ApiParam(value = "The hpacket which must be updated", required = true) @PathParam("id") long packetId,
             @ApiParam(value = "The hpacket field which must be added", required = true) HPacketField field) {
-        getLog().debug( "In Rest Service POST /hyperiot/hpackets/{}/fields", packetId);
+        getLog().debug("In Rest Service POST /hyperiot/hpackets/{}/fields", packetId);
         HPacket packet;
         try {
             packet = this.getEntityService().find(packetId, this.getHyperIoTContext());
@@ -372,7 +371,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     /**
      * Service deletes a HPacket
      *
-     * @param fieldId  field id to remove
+     * @param fieldId field id to remove
      * @return 200 OK if it has been deleted
      */
     @DELETE
@@ -386,10 +385,10 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response deleteHPacketField(
             @ApiParam(value = "The hpacket field id which must be deleted", required = true) @PathParam("fieldId") long fieldId) {
-        getLog().debug( "In Rest Service DELETE /hyperiot/hpackets/fields/{}", fieldId);
+        getLog().debug("In Rest Service DELETE /hyperiot/hpackets/fields/{}", fieldId);
         try {
-            HPacket packet = this.entityService.findHPacketByHpacketFieldId(this.getHyperIoTContext(),fieldId);
-            this.getEntityService().removeHPacketField(this.getHyperIoTContext(), fieldId,packet.getId());
+            HPacket packet = this.entityService.findHPacketByHpacketFieldId(getHyperIoTContext(), fieldId);
+            this.getEntityService().removeHPacketField(this.getHyperIoTContext(), fieldId, packet.getId());
             return Response.ok().build();
         } catch (Throwable t) {
             return this.handleException(t);
@@ -416,7 +415,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     public Response updateHPacketField(
             @ApiParam(value = "The hpacket id which must be updated", required = true) @PathParam("id") long packetId,
             @ApiParam(value = "The hpacket field which must be updated", required = true) HPacketField field) {
-        getLog().debug( "In Rest Service PUT /hyperiot/hpackets/{}/fields", packetId);
+        getLog().debug("In Rest Service PUT /hyperiot/hpackets/{}/fields", packetId);
         HPacket packet;
         try {
             packet = this.getEntityService().find(packetId, this.getHyperIoTContext());
@@ -461,7 +460,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findTreeFields(
             @ApiParam(value = "id of the packet", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/hpackets/treefields/{}", id);
+        getLog().debug("In Rest Service GET /hyperiot/hpackets/treefields/{}", id);
         try {
             Collection<HPacketField> filteredList = this.getEntityService().getHPacketFieldsTree(this.getHyperIoTContext(), id);
             return Response.ok(filteredList).build();
