@@ -52,14 +52,12 @@ import it.acsoftware.hyperiot.permission.service.rest.PermissionRestApi;
 import it.acsoftware.hyperiot.role.api.RoleRepository;
 import it.acsoftware.hyperiot.role.model.Role;
 import it.acsoftware.hyperiot.role.service.rest.RoleRestApi;
-import it.acsoftware.hyperiot.services.util.HyperIoTServicesTestConfigurationBuilder;
 import it.acsoftware.hyperiot.services.util.HyperIoTServicesTestUtil;
 import org.apache.karaf.features.FeaturesService;
 import org.apache.karaf.itests.KarafTestSupport;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
@@ -115,7 +113,7 @@ public class HyperIoTHProjectWithPermissionRestTest extends KarafTestSupport {
     @Test
     public void test00_hyperIoTFrameworkShouldBeInstalled() {
         // assert on an available service
-        assertServiceAvailable(FeaturesService.class,0);
+        assertServiceAvailable(FeaturesService.class, 0);
         String features = executeCommand("feature:list -i");
         //HyperIoTCore
         assertContains("HyperIoTBase-features ", features);
@@ -148,7 +146,7 @@ public class HyperIoTHProjectWithPermissionRestTest extends KarafTestSupport {
         assertContains("hyperiot", datasource);
 //		System.out.println(executeCommand("bundle:list | grep HyperIoT"));
 
-        String updatePubKeyDataTypeToBlobCommand= "jdbc:execute hyperiot ALTER TABLE HPROJECT ALTER COLUMN PUBKEY SET DATA TYPE BLOB(2147483647)";
+        String updatePubKeyDataTypeToBlobCommand = "jdbc:execute hyperiot ALTER TABLE HPROJECT ALTER COLUMN PUBKEY SET DATA TYPE BLOB(2147483647)";
         executeCommand(updatePubKeyDataTypeToBlobCommand);
         //String columnAfterChangeProject = executeCommand("jdbc:query hyperiot SHOW COLUMNS FROM HPROJECT");
     }
@@ -621,7 +619,7 @@ public class HyperIoTHProjectWithPermissionRestTest extends KarafTestSupport {
         Assert.assertEquals(200, restResponse.getStatus());
         HProject responseEntity = (HProject) restResponse.getEntity();
         Assert.assertNotEquals(0, responseEntity.getId());
-        Assert.assertNotNull( responseEntity.getUser());
+        Assert.assertNotNull(responseEntity.getUser());
         Assert.assertEquals(huser.getId(), responseEntity.getUser().getId());
     }
 
@@ -764,11 +762,11 @@ public class HyperIoTHProjectWithPermissionRestTest extends KarafTestSupport {
         hproject.setUser(null);
         this.impersonateUser(hprojectRestService, huser);
         Response restResponse = hprojectRestService.updateHProject(hproject);
-        Assert.assertEquals( 200 , restResponse.getStatus() );
+        Assert.assertEquals(200, restResponse.getStatus());
         HProject responseEntity = (HProject) restResponse.getEntity();
-        Assert.assertNotEquals( 0 , responseEntity.getId());
-        Assert.assertNotNull( responseEntity.getUser() );
-        Assert.assertEquals( huser.getId() , responseEntity.getUser().getId() );
+        Assert.assertNotEquals(0, responseEntity.getId());
+        Assert.assertNotNull(responseEntity.getUser());
+        Assert.assertEquals(huser.getId(), responseEntity.getUser().getId());
     }
 
     @Test
@@ -2914,8 +2912,8 @@ public class HyperIoTHProjectWithPermissionRestTest extends KarafTestSupport {
         device.setPasswordConfirm("HDevice1.");
         device.setEntityVersion(1);
         p.setDevice(device);
-        p.setFields(fields);
-        byte[] encryptedChallenge = HyperIoTSecurityUtil.encodeMessageWithPrivateKey(plainTextChallenge.getBytes(StandardCharsets.UTF_8),cred.getPrivateKey().getBytes(StandardCharsets.UTF_8));
+        p.setFields(new HashSet<>(fields));
+        byte[] encryptedChallenge = HyperIoTSecurityUtil.encodeMessageWithPrivateKey(plainTextChallenge.getBytes(StandardCharsets.UTF_8), cred.getPrivateKey().getBytes(StandardCharsets.UTF_8));
         AutoRegisterProjectRequest autoregisterRequest = new AutoRegisterProjectRequest();
         autoregisterRequest.setProjectId(cred.getProject().getId());
         autoregisterRequest.setPackets(packets);
@@ -3152,7 +3150,7 @@ public class HyperIoTHProjectWithPermissionRestTest extends KarafTestSupport {
             field2.setMultiplicity(HPacketFieldMultiplicity.SINGLE);
             field2.setValue(40.00);
 
-            hpacket.setFields(new ArrayList<HPacketField>() {
+            hpacket.setFields(new HashSet<>() {
                 {
                     add(field1);
                     add(field2);
@@ -3179,12 +3177,13 @@ public class HyperIoTHProjectWithPermissionRestTest extends KarafTestSupport {
 
             //check restResponse field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(), ((HPacketField) responseAddField1.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
+            List<HPacketField> fields = new ArrayList<>(((HPacket) restResponse.getEntity()).getFields());
+            Assert.assertEquals(fields.get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField1.getEntity()).getPacket().getId());
 
             //check restResponse field2 is equals to responseAddField2 field2
             Assert.assertEquals(field2.getId(), ((HPacketField) responseAddField2.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
+            Assert.assertEquals(fields.get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField2.getEntity()).getPacket().getId());
 
             Assert.assertEquals(2, ((HPacket) restResponse.getEntity()).getFields().size());

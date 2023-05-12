@@ -42,7 +42,6 @@ import org.apache.karaf.itests.KarafTestSupport;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
@@ -84,7 +83,7 @@ public class HyperIoTHPacketRestWithDefaultPermissionTest extends KarafTestSuppo
     @Test
     public void test000_hyperIoTFrameworkShouldBeInstalled() {
         // assert on an available service
-        assertServiceAvailable(FeaturesService.class,0);
+        assertServiceAvailable(FeaturesService.class, 0);
         String features = executeCommand("feature:list -i");
         //HyperIoTCore
         assertContains("HyperIoTBase-features ", features);
@@ -453,7 +452,7 @@ public class HyperIoTHPacketRestWithDefaultPermissionTest extends KarafTestSuppo
         fieldHPacket.setMultiplicity(HPacketFieldMultiplicity.SINGLE);
         fieldHPacket.setValue(24.0);
 
-        hpacket.setFields(new ArrayList<HPacketField>() {
+        hpacket.setFields(new HashSet<>() {
             {
                 add(fieldHPacket);
             }
@@ -501,7 +500,7 @@ public class HyperIoTHPacketRestWithDefaultPermissionTest extends KarafTestSuppo
         Assert.assertEquals(hproject.getId(), hpacket.getDevice().getProject().getId());
         Assert.assertEquals(huser.getId(), hpacket.getDevice().getProject().getUser().getId());
 
-        HPacketField field = hpacket.getFields().get(0);
+        HPacketField field = hpacket.getFields().iterator().next();
         Assert.assertNotEquals(0, field.getId());
         Assert.assertEquals(hpacket.getId(), field.getPacket().getId());
         Assert.assertEquals(hdevice.getId(), field.getPacket().getDevice().getId());
@@ -555,7 +554,7 @@ public class HyperIoTHPacketRestWithDefaultPermissionTest extends KarafTestSuppo
         Assert.assertEquals(hproject.getId(), hpacket.getDevice().getProject().getId());
         Assert.assertEquals(huser.getId(), hpacket.getDevice().getProject().getUser().getId());
 
-        HPacketField field = hpacket.getFields().get(0);
+        HPacketField field = hpacket.getFields().iterator().next();
         Assert.assertNotEquals(0, field.getId());
         Assert.assertEquals(hpacket.getId(), field.getPacket().getId());
         Assert.assertEquals(hdevice.getId(), field.getPacket().getDevice().getId());
@@ -594,14 +593,15 @@ public class HyperIoTHPacketRestWithDefaultPermissionTest extends KarafTestSuppo
         Assert.assertEquals(hproject.getId(), hpacket.getDevice().getProject().getId());
         Assert.assertEquals(huser.getId(), hpacket.getDevice().getProject().getUser().getId());
 
-        HPacketField field1 = hpacket.getFields().get(0);
+        ArrayList<HPacketField> fields = new ArrayList<>(hpacket.getFields());
+        HPacketField field1 = fields.get(0);
         Assert.assertNotEquals(0, field1.getId());
         Assert.assertEquals(hpacket.getId(), field1.getPacket().getId());
         Assert.assertEquals(hdevice.getId(), field1.getPacket().getDevice().getId());
         Assert.assertEquals(hproject.getId(), field1.getPacket().getDevice().getProject().getId());
         Assert.assertEquals(huser.getId(), field1.getPacket().getDevice().getProject().getUser().getId());
 
-        HPacketField field2 = hpacket.getFields().get(1);
+        HPacketField field2 = fields.get(1);
         Assert.assertNotEquals(0, field2.getId());
         Assert.assertEquals(hpacket.getId(), field2.getPacket().getId());
         Assert.assertEquals(hdevice.getId(), field2.getPacket().getDevice().getId());
@@ -856,7 +856,7 @@ public class HyperIoTHPacketRestWithDefaultPermissionTest extends KarafTestSuppo
             field2.setMultiplicity(HPacketFieldMultiplicity.SINGLE);
             field2.setValue(40.00);
 
-            hpacket.setFields(new ArrayList<HPacketField>() {
+            hpacket.setFields(new HashSet<>() {
                 {
                     add(field1);
                     add(field2);
@@ -881,14 +881,15 @@ public class HyperIoTHPacketRestWithDefaultPermissionTest extends KarafTestSuppo
             Assert.assertEquals(hdevice.getProject().getId(), ((HPacketField) responseAddField2.getEntity()).getPacket().getDevice().getProject().getId());
             Assert.assertEquals(ownerHUser.getId(), ((HPacketField) responseAddField2.getEntity()).getPacket().getDevice().getProject().getUser().getId());
 
+            ArrayList<HPacketField> fields = new ArrayList<>(((HPacket) restResponse.getEntity()).getFields());
             //check restResponse field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(), ((HPacketField) responseAddField1.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
+            Assert.assertEquals(fields.get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField1.getEntity()).getPacket().getId());
 
             //check restResponse field2 is equals to responseAddField2 field2
             Assert.assertEquals(field2.getId(), ((HPacketField) responseAddField2.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
+            Assert.assertEquals(fields.get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField2.getEntity()).getPacket().getId());
 
             Assert.assertEquals(2, ((HPacket) restResponse.getEntity()).getFields().size());

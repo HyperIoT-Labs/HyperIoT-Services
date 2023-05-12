@@ -184,7 +184,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         String cronExpression = hProjectAlgorithmTemplate.getCronExpression();
         String config = hProjectAlgorithmTemplate.getConfig();
@@ -207,7 +207,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         this.impersonateUser(hProjectAlgorithmRestService, null);
         Response restResponse = hProjectAlgorithmRestService.saveHProjectAlgorithm(hProjectAlgorithmTemplate);
@@ -231,7 +231,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         hProjectAlgorithmTemplate.setName("");
         this.impersonateUser(hProjectAlgorithmRestApi, adminUser);
@@ -263,7 +263,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         hProjectAlgorithmTemplate.setName(null);
         this.impersonateUser(hProjectAlgorithmRestApi, adminUser);
@@ -293,7 +293,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         hProjectAlgorithmTemplate.setName("<script>console.log()</script>");
         this.impersonateUser(hProjectAlgorithmRestApi, adminUser);
@@ -325,7 +325,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Set one of the possible invalid value
         hProjectAlgorithmTemplate.setName("??????????????????");
@@ -355,7 +355,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Set config with empty value
         hProjectAlgorithmTemplate.setConfig("");
@@ -385,7 +385,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Set config with null value
         hProjectAlgorithmTemplate.setConfig(null);
@@ -415,7 +415,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Set config with malicious value
         hProjectAlgorithmTemplate.setConfig("<script>console.log()</script>");
@@ -445,7 +445,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Set cronExpression with empty value
         hProjectAlgorithmTemplate.setCronExpression("");
@@ -475,7 +475,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Set cronexpression with null value
         hProjectAlgorithmTemplate.setCronExpression(null);
@@ -505,7 +505,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Set cron expression with malicious value
         hProjectAlgorithmTemplate.setCronExpression("<script>console.log()</script>");
@@ -535,7 +535,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Set project with null value
         boolean triggerNullPointer = false;
@@ -562,7 +562,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Associate a project that is not persisted on hprojectalgorithm
         HProject fakeProject = new HProject();
@@ -591,7 +591,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Set algorithm with null value.
         boolean triggerNullPointer = false;
@@ -619,7 +619,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         //Associate a project that is not persisted on hprojectalgorithm
         Algorithm algorithm1 = createAlgorithmWithInputAndOutputField();
@@ -645,7 +645,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         String cronExpression = hProjectAlgorithmTemplate.getCronExpression();
         String config = hProjectAlgorithmTemplate.getConfig();
@@ -689,7 +689,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         String cronExpression = hProjectAlgorithmTemplate.getCronExpression();
         String config = hProjectAlgorithmTemplate.getConfig();
@@ -718,7 +718,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         String cronExpression = hProjectAlgorithmTemplate.getCronExpression();
         String config = hProjectAlgorithmTemplate.getConfig();
@@ -1531,7 +1531,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         String hprojectAlgorithmName = hProjectAlgorithmTemplate.getName();
         String hprojectAlgorithmConfig = hProjectAlgorithmTemplate.getConfig();
@@ -1545,7 +1545,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice anotherDevice = createHDevice(project);
         HPacket otherPacket = createHPacketAndAddHPacketField(anotherDevice, true);
         Assert.assertTrue(otherPacket.getFields() != null && otherPacket.getFields().size() == 1);
-        HPacketField otherPacketField = otherPacket.getFields().get(0);
+        HPacketField otherPacketField = otherPacket.getFields().iterator().next();
 
         //Create a new config for the algorithm
         Algorithm newAlgorithm = createAlgorithmWithInputAndOutputField();
@@ -1653,13 +1653,13 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HProjectAlgorithm hProjectAlgorithm = createHProjectAlgorithm();
         Assert.assertNotEquals(0, hProjectAlgorithm.getId());
         Assert.assertNotNull(hProjectAlgorithm.getProject());
-        Assert.assertNotEquals(0,hProjectAlgorithm.getProject().getId());
+        Assert.assertNotEquals(0, hProjectAlgorithm.getProject().getId());
         impersonateUser(hProjectAlgorithmRestService, adminUser);
         forceAlgorithmTableCreation(hProjectAlgorithm);
-        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(),hProjectAlgorithm.getId());
+        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(), hProjectAlgorithm.getId());
         Assert.assertEquals(200, restResponse.getStatus());
         Assert.assertNotNull(restResponse.getEntity());
-        Assert.assertTrue(((HProjectAlgorithmHBaseResult)restResponse.getEntity()).getRows().isEmpty());
+        Assert.assertTrue(((HProjectAlgorithmHBaseResult) restResponse.getEntity()).getRows().isEmpty());
     }
 
     @Test
@@ -1677,7 +1677,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         hProjectAlgorithmTemplate.setName(createStringFieldWithSpecifiedLenght(256));
         this.impersonateUser(hProjectAlgorithmRestApi, adminUser);
@@ -1709,7 +1709,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         hProjectAlgorithmTemplate.setCronExpression(createStringFieldWithSpecifiedLenght(256));
         this.impersonateUser(hProjectAlgorithmRestApi, adminUser);
@@ -1793,21 +1793,21 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         return field;
     }
 
-    private void forceAlgorithmTableCreation(HProjectAlgorithm hProjectAlgorithm){
+    private void forceAlgorithmTableCreation(HProjectAlgorithm hProjectAlgorithm) {
         HBaseConnectorSystemApi hBaseConnectorSystemApi = getOsgiService(HBaseConnectorSystemApi.class);
-        String algorithmTable= String.format("algorithm_%s",hProjectAlgorithm.getAlgorithm().getId());
-        try{
+        String algorithmTable = String.format("algorithm_%s", hProjectAlgorithm.getAlgorithm().getId());
+        try {
             List<String> columnFamilies = new ArrayList<>();
             columnFamilies.add("value");
-            hBaseConnectorSystemApi.createTable(algorithmTable,columnFamilies);
+            hBaseConnectorSystemApi.createTable(algorithmTable, columnFamilies);
             hBaseConnectorSystemApi.tableExists(algorithmTable);
         } catch (IOException e) {
             e.printStackTrace();
         }
         boolean tableExist = false;
-        try{
+        try {
             tableExist = hBaseConnectorSystemApi.tableExists(algorithmTable);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         Assert.assertTrue(tableExist);
@@ -2055,7 +2055,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         String cronExpression = hProjectAlgorithmTemplate.getCronExpression();
         String config = hProjectAlgorithmTemplate.getConfig();
@@ -2261,7 +2261,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
             field1.setValue(24.0);
 
 
-            hpacket.setFields(new ArrayList<HPacketField>() {
+            hpacket.setFields(new HashSet<>() {
                 {
                     add(field1);
                 }
@@ -2278,7 +2278,7 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
 
             //check restResponse field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(), ((HPacketField) responseAddField1.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
+            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().iterator().next().getId(), ((HPacketField) responseAddField1.getEntity()).getId());
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField1.getEntity()).getPacket().getId());
 
         }
