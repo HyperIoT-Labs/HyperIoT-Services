@@ -147,12 +147,6 @@ public class HPacket extends HyperIoTAbstractEntity
         this.unixTimestampFormatSeconds = false;
     }
 
-    @PostLoad
-    public void postLoad() {
-        //reload fields map from fields list
-        this.reloadFields(true);
-    }
-
     /**
      * @return packet name
      */
@@ -386,7 +380,8 @@ public class HPacket extends HyperIoTAbstractEntity
     @Transient
     @JsonIgnore
     public HashMap<String, HPacketField> getFieldsMap() {
-        this.reloadFields(false);
+        //TODO find more effiecient way, no post load because it breaks the hpacket field loading
+        this.reloadFields(true);
         return fieldsMap;
     }
 
