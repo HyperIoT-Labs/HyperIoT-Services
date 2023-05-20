@@ -22,7 +22,6 @@ import it.acsoftware.hyperiot.base.exception.HyperIoTRuntimeException;
 import it.acsoftware.hyperiot.base.service.rest.HyperIoTBaseRestApi;
 import it.acsoftware.hyperiot.mqtt.client.api.MqttClient;
 import it.acsoftware.hyperiot.mqtt.client.api.MqttClientApi;
-import it.acsoftware.hyperiot.mqtt.client.model.HyperIoTMqttMessage;
 import it.acsoftware.hyperiot.mqtt.client.util.MqttClientConstants;
 import it.acsoftware.hyperiot.mqtt.client.util.MqttClientUtil;
 import it.acsoftware.hyperiot.websocket.session.HyperIoTWebSocketAbstractSession;
@@ -96,8 +95,7 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         try {
             logger.debug(message.getPayload().toString());
-            HyperIoTMqttMessage wsMessage = new HyperIoTMqttMessage(topic, new String(message.getPayload()));
-            getSession().getRemote().sendString(jsonMapper.writeValueAsString(wsMessage));
+            getSession().getRemote().sendString(new String(message.getPayload()));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             getSession().getRemote().sendString(e.getMessage());
@@ -109,8 +107,7 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
         try {
             // TO DO: read topic to publish on from message and check if user can send it
             if (this.client.isConnected()) {
-                String mqttMessage = jsonMapper.readValue(s.getBytes(), String.class);
-                this.client.publish(topic, 1, false, mqttMessage.hashCode(), mqttMessage.getBytes());
+                this.client.publish(topic, 1, false, s.hashCode(), s.getBytes());
             } else {
                 getSession().getRemote().sendString("not connected");
             }
