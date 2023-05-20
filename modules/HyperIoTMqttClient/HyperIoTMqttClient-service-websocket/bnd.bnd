@@ -3,6 +3,7 @@ Import-Package: \
      it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
      it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
      it.acsoftware.hyperiot.base.service.rest;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.base.service.rest.provider;version='${range;[===,+)}',\
      it.acsoftware.hyperiot.websocket.api.channel;version='${range;[===,+)}',\
      it.acsoftware.hyperiot.websocket.api;version='${range;[===,+)}',\
      it.acsoftware.hyperiot.websocket.model;version='${range;[===,+)}',\
