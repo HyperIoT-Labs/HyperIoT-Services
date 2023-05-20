@@ -17,7 +17,8 @@ Import-Package: \
      org.osgi.service*,\
      org.osgi.framework*,\
      com.fasterxml.jackson*;version='${range;[===,+)}',\
-     org.apache.cxf*
+     org.apache.cxf*,\
+     org.slf4j.*
 Export-Package: it.acsoftware.hyperiot.mqtt.client.service.websocket
 
 
