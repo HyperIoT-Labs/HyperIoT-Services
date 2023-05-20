@@ -39,7 +39,7 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
     private static Logger logger = LoggerFactory.getLogger(MqttWebSocketSession.class.getName());
     private MqttClient client;
     private MqttClientApi mqttClientService;
-    private String[] topics;
+    private String topic;
     private ObjectMapper jsonMapper;
 
     public MqttWebSocketSession(Session session) {
@@ -73,11 +73,11 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
         Map<String, List<String>> params = getSession().getUpgradeRequest().getHeaders();
         String mqttUsername = (params.get(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM) != null && params.get(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM).size() == 1) ? params.get(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM).get(0) : "";
         String mqttPassword = (params.get(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM) != null && params.get(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM).size() == 1) ? params.get(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM).get(0) : "";
-        String mqttTopics = (params.get(MqttClientConstants.MQTT_CLIENT_TOPICS_PARAMS) != null && params.get(MqttClientConstants.MQTT_CLIENT_TOPICS_PARAMS).size() == 1) ? params.get(MqttClientConstants.MQTT_CLIENT_TOPICS_PARAMS).get(0) : "";
+        String mqttTopic = (params.get(MqttClientConstants.MQTT_CLIENT_TOPIC_PARAM) != null && params.get(MqttClientConstants.MQTT_CLIENT_TOPIC_PARAM).size() == 1) ? params.get(MqttClientConstants.MQTT_CLIENT_TOPIC_PARAM).get(0) : "";
         //retrieving from osgi context the default JSON Mapper through declarative services
         this.jsonMapper = HyperIoTBaseRestApi.getHyperIoTJsonMapper();
         try {
-            this.topics = mqttTopics.split(",");
+            this.topic = mqttTopic;
             //login to mqtt broker with credentials passed via reuqest
             this.client = this.mqttClientService.createMqttClient(MqttClientUtil.getMqttBrokerCompleteAddress(), mqttUsername, mqttPassword, this);
             this.client.connect(this);
@@ -109,8 +109,8 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
         try {
             // TO DO: read topic to publish on from message and check if user can send it
             if (this.client.isConnected()) {
-                HyperIoTMqttMessage wsMessage = jsonMapper.readValue(s.getBytes(), HyperIoTMqttMessage.class);
-                this.client.publish(wsMessage.getTopic(), 1, false, wsMessage.hashCode(), wsMessage.getMessage().getBytes());
+                String mqttMessage = jsonMapper.readValue(s.getBytes(), String.class);
+                this.client.publish(topic, 1, false, mqttMessage.hashCode(), mqttMessage.getBytes());
             } else {
                 getSession().getRemote().sendString("not connected");
             }
@@ -127,10 +127,8 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
     @Override
     public void onSuccess(IMqttToken asyncActionToken) {
         try {
-            for (String topic : topics) {
-                this.client.subscribe(topic, MqttClientUtil.getQos());
-                getSession().getRemote().sendString("MQTT Client Connected!");
-            }
+            this.client.subscribe(topic, MqttClientUtil.getQos());
+            getSession().getRemote().sendString("MQTT Client Connected!");
         } catch (Exception e) {
             try {
                 getSession().getRemote().sendString(e.getMessage());
