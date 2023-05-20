@@ -43,7 +43,7 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
     private ObjectMapper jsonMapper;
 
     public MqttWebSocketSession(Session session) {
-        super(session, true);
+        super(session, false);
     }
 
     @Override
