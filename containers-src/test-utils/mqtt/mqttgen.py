@@ -74,7 +74,6 @@ def generate(mqttConfig,miscConfig,sensors):
         
 def sendData(mqttc,baseTopic,sensorName,sensor,timestampFieldName,timestampInUnixSeconds,verbose,dryRun,timePassedBy,outlierConf,sendConf):
         # Fields can be present inside the json config that are not sent to the server
-        skipDataInModel = ["-range","-outlier-duration-secs","-temperature-outlier-every-secs","-outlier-every-secs","-outlier"];
         packet_id = sensorName.rsplit('/', 1)[-1]
         data = {}
         timeVal = time.time();
@@ -83,42 +82,7 @@ def sendData(mqttc,baseTopic,sensorName,sensor,timestampFieldName,timestampInUni
         else :
             data[timestampFieldName]= int(round(timeVal*1000))
         
-        for key, value in sensor["data"].items():
-            sendOutlier = False;
-            if not any(skipKey in key for skipKey in skipDataInModel ):
-                if not key in outlierConf:
-                    outlierConf[key] = {
-                        "sendingOutlier":False,
-                        "sendingOutlierStartTime":0
-                    }
-                if not outlierConf[key]["sendingOutlier"] and key+'-outlier-every-secs' in sensor["data"] :
-                    timePassedByModulo = timePassedBy % sensor["data"][key+"-outlier-every-secs"];
-                    if timePassedBy > 0 and timePassedByModulo == 0:
-                         outlierConf[key]["sendingOutlier"] = True
-                         outlierConf[key]["sendingOutlierStartTime"] = datetime.now();
-                         print ("\n\n#######################\nstart sending outlier for "+sensorName+" "+key+"!\n#########################\n\n")
-                if outlierConf[key]["sendingOutlier"]:
-                     outlierTimePassedBy = (datetime.now() - outlierConf[key]["sendingOutlierStartTime"]).total_seconds();
-                     if outlierTimePassedBy >= sensor["data"][key+"-outlier-duration-secs"]:
-                         outlierConf[key]["sendingOutlier"] = False
-                         outlierConf[key]["sendingOutlierStartTime"] = 0
-                         print ("stop sending outlier for "+sensorName+" timeout of "+sensorName+" "+key+"!\n#########################\n\n")
-                if key + "-range" in sensor["data"]:
-                    if (not outlierConf[key]["sendingOutlier"]) or (outlierConf[key]["sendingOutlier"] and key + "-outlier" not in sensor["data"] ):
-                        min_val, max_val = sensor["data"].get(key + "-range", [0, 100])
-                        val = random.uniform(min_val, max_val)
-                        data[key] = val
-                    else :
-                        data[key] = sensor["data"].get(key + "-outlier", 0)
-                if key + "-cyclic-vector" in sensor["data"]:
-                    if not key+"-cyclic-vector-index" in sendConf:
-                        sendConf[key+"-cyclic-vector-index"] = 0;
-                    i = sendConf[key+"-cyclic-vector-index"];
-                    data[key] = sensor["data"][key][i];
-                    i = (i+1) % len(sensor["data"][key]);
-                    sendConf[key+"-cyclic-vector-index"] = i;
-                if not key+'-outlier' in sensor["data"] and not key+'-range' in sensor["data"] and not key+'-cyclic-vector' in sensor["data"]:
-                    data[key] = value
+        prepareJson(data,sensor["data"],outlierConf,timePassedBy,sensorName,sendConf)
                 
         payload = json.dumps(data)
         if verbose:
@@ -126,6 +90,59 @@ def sendData(mqttc,baseTopic,sensorName,sensor,timestampFieldName,timestampInUni
         
         if not dryRun:
             mqttc.publish(baseTopic + sensorName, payload)
+
+def prepareJson(data,jsonObject,outlierConf,timePassedBy,sensorName,sendConf):
+    skipDataInModel = ["-range","-outlier-duration-secs","-temperature-outlier-every-secs","-outlier-every-secs","-outlier"];
+    for key, value in jsonObject.items():
+            if(not is_json_value(value)):
+                sendOutlier = False;
+                if not any(skipKey in key for skipKey in skipDataInModel ):
+                    if not key in outlierConf:
+                        outlierConf[key] = {
+                            "sendingOutlier":False,
+                            "sendingOutlierStartTime":0
+                        }
+                    if not outlierConf[key]["sendingOutlier"] and key+'-outlier-every-secs' in jsonObject :
+                        timePassedByModulo = timePassedBy % jsonObject[key+"-outlier-every-secs"];
+                        if timePassedBy > 0 and timePassedByModulo == 0:
+                            outlierConf[key]["sendingOutlier"] = True
+                            outlierConf[key]["sendingOutlierStartTime"] = datetime.now();
+                            print ("\n\n#######################\nstart sending outlier for "+sensorName+" "+key+"!\n#########################\n\n")
+                    if outlierConf[key]["sendingOutlier"]:
+                        outlierTimePassedBy = (datetime.now() - outlierConf[key]["sendingOutlierStartTime"]).total_seconds();
+                        if outlierTimePassedBy >= jsonObject[key+"-outlier-duration-secs"]:
+                            outlierConf[key]["sendingOutlier"] = False
+                            outlierConf[key]["sendingOutlierStartTime"] = 0
+                            print ("stop sending outlier for "+sensorName+" timeout of "+sensorName+" "+key+"!\n#########################\n\n")
+                    if key + "-range" in jsonObject:
+                        if (not outlierConf[key]["sendingOutlier"]) or (outlierConf[key]["sendingOutlier"] and key + "-outlier" not in jsonObject ):
+                            min_val, max_val = jsonObject.get(key + "-range", [0, 100])
+                            val = random.uniform(min_val, max_val)
+                            data[key] = val
+                        else :
+                            data[key] = jsonObject.get(key + "-outlier", 0)
+                    if key + "-cyclic-vector" in jsonObject:
+                        if not key+"-cyclic-vector-index" in sendConf:
+                            sendConf[key+"-cyclic-vector-index"] = 0;
+                        i = sendConf[key+"-cyclic-vector-index"];
+                        data[key] = jsonObject[key][i];
+                        i = (i+1) % len(jsonObject[key]);
+                        sendConf[key+"-cyclic-vector-index"] = i;
+                    if not key+'-outlier' in jsonObject and not key+'-range' in jsonObject and not key+'-cyclic-vector' in jsonObject:
+                        data[key] = value
+            else:
+                data[key] = {}
+                prepareJson(data[key],value,outlierConf,timePassedBy,sensorName,sendConf)
+
+
+def is_json_value(value):
+    if isinstance(value, (dict)):
+        return True
+    try:
+        json.loads(value)
+        return True
+    except (json.JSONDecodeError, TypeError):
+        return False
 
 
 def main(config_path):
