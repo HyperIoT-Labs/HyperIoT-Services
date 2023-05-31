@@ -498,12 +498,12 @@ public class HPacket extends HyperIoTAbstractEntity
             fieldsMap.put(path, hPacketField);
         else
             for (HPacketField innerField : hPacketField.getInnerFields())
-                getInnerFields(innerField, path + "." + innerField.getName().toLowerCase(), fieldsMap);
+                getInnerFields(innerField, path + "." + innerField.getName(), fieldsMap);
     }
 
     @Transient
     public Object getFieldValue(String fieldPath) {
-        fieldPath = fieldPath.toLowerCase().trim().replace("packet.", "");
+        fieldPath = fieldPath.trim().replace("packet.", "");
         HPacketField field;
         try {
             long hPacketFieldId = Long.parseLong(fieldPath);

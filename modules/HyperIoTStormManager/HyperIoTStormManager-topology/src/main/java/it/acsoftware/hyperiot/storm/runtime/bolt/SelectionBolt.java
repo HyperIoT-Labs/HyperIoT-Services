@@ -140,7 +140,7 @@ public class SelectionBolt extends BaseRichBolt {
     private void stripAttachmentFromField(Map<Long, byte[]> attachments, HPacketField field) {
         if (field.getType() == HPacketFieldType.OBJECT) {
             field.getInnerFields().stream().forEach(innerField -> {
-                stripAttachmentFromField(attachments, field);
+                stripAttachmentFromField(attachments, innerField);
             });
         }
 

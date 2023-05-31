@@ -234,7 +234,7 @@ public class HPacketField extends HyperIoTAbstractEntity implements GenericRecor
             innerFieldsMap = new HashMap<>();
 
             for (HPacketField field : innerFields) {
-                innerFieldsMap.put(field.getName().toLowerCase(), field);
+                innerFieldsMap.put(field.getName(), field);
             }
         }
         return innerFieldsMap;
