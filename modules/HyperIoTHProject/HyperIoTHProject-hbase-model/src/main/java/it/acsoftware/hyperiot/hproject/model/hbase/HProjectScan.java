@@ -24,15 +24,13 @@ import io.cloudevents.core.provider.EventFormatProvider;
 import io.cloudevents.jackson.JsonFormat;
 import it.acsoftware.hyperiot.hpacket.model.HPacket;
 import it.acsoftware.hyperiot.hpacket.model.HPacketField;
+import it.acsoftware.hyperiot.hpacket.model.HPacketFieldType;
 import it.acsoftware.hyperiot.hproject.model.hbase.timeline.TimelineHPacket;
 import it.acsoftware.hyperiot.hproject.model.hbase.timeline.TimelineHPacketField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -101,6 +99,7 @@ public class HProjectScan {
 
     /**
      * Method to add ordinary packet or event
+     *
      * @param hPacket hpacket
      */
     public void addValue(HPacket hPacket) {
@@ -124,7 +123,7 @@ public class HProjectScan {
                         objectMapper.readValue(new String(Objects.requireNonNull(cloudEvent.getData()).toBytes()), HProjectEvent.class);
                 eventPacketField.setValue(hProjectEvent.getRuleName());
             } catch (Throwable e) {
-                LOGGER.error( "Error parsing event", e);
+                LOGGER.error("Error parsing event", e);
                 eventPacketField.setValue("No value found");
             }
             timelineHPacketFieldList.add(eventPacketField);
@@ -145,26 +144,32 @@ public class HProjectScan {
                         objectMapper.readValue(new String(Objects.requireNonNull(cloudEvent.getData()).toBytes()), Map.class));
                 alarmEventPacketField.setValue(eventPayload);
             } catch (Throwable e) {
-                LOGGER.error( "Error parsing event", e);
+                LOGGER.error("Error parsing event", e);
                 alarmEventPacketField.setValue("No value found");
             }
             timelineHPacketFieldList.add(alarmEventPacketField);
             timelineHPacket.setFields(timelineHPacketFieldList);
         } else {
             timelineHPacket.setTimestampField(hPacket.getTimestampField());
-            timelineHPacket.setFields(hPacket.getFields().stream().map(hPacketField -> {
-                TimelineHPacketField timelineHPacketField = new TimelineHPacketField();
-                timelineHPacketField.setName(hPacketField.getName());
-                timelineHPacketField.setValue(hPacketField.getValue());
-                return timelineHPacketField;
-            }).collect(Collectors.toList()));
+            List timelineHPacketFields = getFieldsHierarchy(hPacket.getFieldsMap());
+            timelineHPacket.setFields(timelineHPacketFields);
         }
         values.add(timelineHPacket);
     }
 
+    private List<TimelineHPacketField> getFieldsHierarchy(final Map<String,HPacketField> fields) {
+        return fields.keySet().stream().map(path -> {
+            TimelineHPacketField timelineHPacketField = new TimelineHPacketField();
+            timelineHPacketField.setName(path);
+            timelineHPacketField.setValue(fields.get(path).getValue());
+            return timelineHPacketField;
+        }).collect(Collectors.toList());
+    }
+
     /**
      * Method to add error
-     * @param error error
+     *
+     * @param error     error
      * @param timestamp timestamp
      */
     public void addValue(Map<String, Object> error, long timestamp) {

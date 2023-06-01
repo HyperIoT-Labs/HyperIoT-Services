@@ -17,11 +17,16 @@
 
 package it.acsoftware.hyperiot.hproject.model.hbase.timeline;
 
+import java.util.Objects;
+
 @SuppressWarnings("unused")
 public class TimelineHPacketField {
 
     private String name;
     private Object value;
+
+    public TimelineHPacketField() {
+    }
 
     public String getName() {
         return name;
@@ -37,5 +42,18 @@ public class TimelineHPacketField {
 
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TimelineHPacketField that = (TimelineHPacketField) o;
+        return name.equals(that.name) && Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, value);
     }
 }
