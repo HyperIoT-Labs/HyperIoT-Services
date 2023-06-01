@@ -3524,7 +3524,7 @@ public class HyperIoTHProjectRestTest extends KarafTestSupport {
             field2.setMultiplicity(HPacketFieldMultiplicity.SINGLE);
             field2.setValue(40.00);
 
-            hpacket.setFields(new ArrayList<HPacketField>() {
+            hpacket.setFields(new HashSet<>() {
                 {
                     add(field1);
                     add(field2);
@@ -3551,12 +3551,14 @@ public class HyperIoTHProjectRestTest extends KarafTestSupport {
 
             //check restResponse field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(), ((HPacketField) responseAddField1.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
+            List<HPacketField> fields = new ArrayList<>();
+            fields.addAll(((HPacket) restResponse.getEntity()).getFields());
+            Assert.assertEquals(fields.get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField1.getEntity()).getPacket().getId());
 
             //check restResponse field2 is equals to responseAddField2 field2
             Assert.assertEquals(field2.getId(), ((HPacketField) responseAddField2.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
+            Assert.assertEquals(fields.get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField2.getEntity()).getPacket().getId());
 
             Assert.assertEquals(2, ((HPacket) restResponse.getEntity()).getFields().size());
