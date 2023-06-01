@@ -98,10 +98,10 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
     }
 
     @Before
-    public void impersonateAsHyperIoTAdmin(){
+    public void impersonateAsHyperIoTAdmin() {
         HProjectAlgorithmRestApi hProjectAlgorithmRestApi = getOsgiService(HProjectAlgorithmRestApi.class);
         AuthenticationApi authenticationApi = getOsgiService(AuthenticationApi.class);
-        HyperIoTUser admin = (HyperIoTUser) authenticationApi.login("hadmin","admin");
+        HyperIoTUser admin = (HyperIoTUser) authenticationApi.login("hadmin", "admin");
         this.impersonateUser(hProjectAlgorithmRestApi, admin);
     }
 
@@ -154,7 +154,7 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
                 .post()
@@ -170,8 +170,8 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
                 .validatorBuilder()
                 .withStatusEqual(200)
                 .containExactProperties(hProjectAlgorithmWithJsonViewPublicExpectedProperties())
-                .containExactInnerProperties("project",hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
-                .containExactInnerProperties("algorithm",algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("project", hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("algorithm", algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
                 .containExactInnerProperties("jobParams", hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties())
                 .build();
         boolean testSuccessful = testValidator.validateResponse(response);
@@ -196,8 +196,8 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
                 .validatorBuilder()
                 .withStatusEqual(200)
                 .containExactProperties(hProjectAlgorithmWithJsonViewPublicExpectedProperties())
-                .containExactInnerProperties("project",hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
-                .containExactInnerProperties("algorithm",algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("project", hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("algorithm", algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
                 .containExactInnerProperties("jobParams", hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties())
                 .build();
         boolean testSuccessful = testValidator.validateResponse(response);
@@ -208,7 +208,7 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
     public void test003_updateHProjectAlgorithmShouldSerializeResponseCorrectly() {
         HProjectAlgorithm projectAlgorithm = createHProjectAlgorithm();
         Assert.assertNotEquals(0, projectAlgorithm.getId());
-        projectAlgorithm.setName("Name".concat(UUID.randomUUID().toString().replaceAll("-","")));
+        projectAlgorithm.setName("Name".concat(UUID.randomUUID().toString().replaceAll("-", "")));
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
                 .put()
                 .withUri(HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/hprojectalgorithms"))
@@ -223,8 +223,8 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
                 .validatorBuilder()
                 .withStatusEqual(200)
                 .containExactProperties(hProjectAlgorithmWithJsonViewPublicExpectedProperties())
-                .containExactInnerProperties("project",hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
-                .containExactInnerProperties("algorithm",algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("project", hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("algorithm", algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
                 .containExactInnerProperties("jobParams", hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties())
                 .build();
         boolean testSuccessful = testValidator.validateResponse(response);
@@ -272,8 +272,8 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
                 .validatorBuilder()
                 .withStatusEqual(200)
                 .containExactProperties(hProjectAlgorithmWithJsonViewPublicExpectedProperties())
-                .containExactInnerProperties("project",hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
-                .containExactInnerProperties("algorithm",algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("project", hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("algorithm", algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
                 .containExactInnerProperties("jobParams", hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties())
                 .build();
         boolean testSuccessful = testValidator.validateResponse(response);
@@ -302,8 +302,8 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
                 .withStatusEqual(200)
                 .containExactHyperIoTPaginatedProperties()
                 .containExactInnerProperties("results", hProjectAlgorithmWithJsonViewPublicExpectedProperties())
-                .containExactInnerProperties("results.project",hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
-                .containExactInnerProperties("results.algorithm",algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("results.project", hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("results.algorithm", algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
                 .containExactInnerProperties("results.jobParams", hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties())
                 .build();
         boolean testSuccessful = testValidator.validateResponse(response);
@@ -316,8 +316,8 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
         Assert.assertNotEquals(0, projectAlgorithm.getId());
         Assert.assertNotNull(projectAlgorithm.getProject());
         Assert.assertNotEquals(0, projectAlgorithm.getProject().getId());
-        String requestUri =HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/hprojectalgorithms").
-                    concat("/projects/").concat(String.valueOf(projectAlgorithm.getProject().getId()));
+        String requestUri = HyperIoTHttpUtils.SERVICE_BASE_URL.concat("/hprojectalgorithms").
+                concat("/projects/").concat(String.valueOf(projectAlgorithm.getProject().getId()));
         HyperIoTHttpRequest request = HyperIoTHttpRequestBuilder
                 .get()
                 .withUri(requestUri)
@@ -331,8 +331,8 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
                 .validatorBuilder()
                 .withStatusEqual(200)
                 .containExactProperties(hProjectAlgorithmWithJsonViewPublicExpectedProperties())
-                .containExactInnerProperties("project",hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
-                .containExactInnerProperties("algorithm",algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("project", hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("algorithm", algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
                 .containExactInnerProperties("jobParams", hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties())
                 .build();
         boolean testSuccessful = testValidator.validateResponse(response);
@@ -366,8 +366,8 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
                 .validatorBuilder()
                 .withStatusEqual(200)
                 .containExactProperties(hProjectAlgorithmWithJsonViewPublicExpectedProperties())
-                .containExactInnerProperties("project",hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
-                .containExactInnerProperties("algorithm",algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("project", hProjectWithHyperIoTInnerEntitySerializerExpectedProperties())
+                .containExactInnerProperties("algorithm", algorithmWithHyperIoTInnerEntitySerializerExpectedProperties())
                 .containExactInnerProperties("jobParams", hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties())
                 .build();
         boolean testSuccessful = testValidator.validateResponse(response);
@@ -385,8 +385,7 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
      */
 
 
-
-    private List<String> hProjectAlgorithmWithJsonViewPublicExpectedProperties(){
+    private List<String> hProjectAlgorithmWithJsonViewPublicExpectedProperties() {
         List<String> hProjectAlgorithmWithJsonViewPublicExpectedProperties = new ArrayList<>();
         hProjectAlgorithmWithJsonViewPublicExpectedProperties.addAll(hyperIoTAbstractEntityProperties());
         hProjectAlgorithmWithJsonViewPublicExpectedProperties.add("name");
@@ -400,7 +399,7 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
         return hProjectAlgorithmWithJsonViewPublicExpectedProperties;
     }
 
-    private List<String> hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties(){
+    private List<String> hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties() {
         List<String> hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties = new ArrayList<>();
         hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties.add("appResource");
         hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties.add("cronExpression");
@@ -413,7 +412,7 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
         return hprojectAlgorithmJobParamsWithJsonViewPublicExpectedProperties;
     }
 
-    private List<String> algorithmWithHyperIoTInnerEntitySerializerExpectedProperties(){
+    private List<String> algorithmWithHyperIoTInnerEntitySerializerExpectedProperties() {
         List<String> algorithmWithHyperIoTInnerEntitySerializerExpectedProperties = new ArrayList<>();
         algorithmWithHyperIoTInnerEntitySerializerExpectedProperties.add("id");
         algorithmWithHyperIoTInnerEntitySerializerExpectedProperties.add("entityModifyDate");
@@ -421,7 +420,7 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
         return algorithmWithHyperIoTInnerEntitySerializerExpectedProperties;
     }
 
-    private List<String> hProjectWithHyperIoTInnerEntitySerializerExpectedProperties(){
+    private List<String> hProjectWithHyperIoTInnerEntitySerializerExpectedProperties() {
         List<String> hProjectWithHyperIoTInnerEntitySerializerExpectedProperties = new ArrayList<>();
         hProjectWithHyperIoTInnerEntitySerializerExpectedProperties.add("id");
         hProjectWithHyperIoTInnerEntitySerializerExpectedProperties.add("entityCreateDate");
@@ -442,12 +441,12 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
         return hyperIoTAbstractEntityFields;
     }
 
-    private HProjectAlgorithmConfig createNewHProjectAlgorithmConfigAlgorithmConfig(HProject project){
+    private HProjectAlgorithmConfig createNewHProjectAlgorithmConfigAlgorithmConfig(HProject project) {
         //Crea a new device with a new packet and a new field to create a new HProjectAlgorithConfig.
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField otherPacketField = packet.getFields().get(0);
+        HPacketField otherPacketField = packet.getFields().iterator().next();
         //Create a new config for the algorithm
         Algorithm newAlgorithm = createAlgorithmWithInputAndOutputField();
         AlgorithmConfig newAlgorithmConfig = getAlgorithmConfig(newAlgorithm);
@@ -471,21 +470,21 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
         return newHProjectAlgorithmConfig;
     }
 
-    private void forceAlgorithmTableCreation(HProjectAlgorithm hProjectAlgorithm){
+    private void forceAlgorithmTableCreation(HProjectAlgorithm hProjectAlgorithm) {
         HBaseConnectorSystemApi hBaseConnectorSystemApi = getOsgiService(HBaseConnectorSystemApi.class);
-        String algorithmTable= String.format("algorithm_%s",hProjectAlgorithm.getAlgorithm().getId());
-        try{
+        String algorithmTable = String.format("algorithm_%s", hProjectAlgorithm.getAlgorithm().getId());
+        try {
             List<String> columnFamilies = new ArrayList<>();
             columnFamilies.add("value");
-            hBaseConnectorSystemApi.createTable(algorithmTable,columnFamilies);
+            hBaseConnectorSystemApi.createTable(algorithmTable, columnFamilies);
             hBaseConnectorSystemApi.tableExists(algorithmTable);
         } catch (IOException e) {
             e.printStackTrace();
         }
         boolean tableExist = false;
-        try{
+        try {
             tableExist = hBaseConnectorSystemApi.tableExists(algorithmTable);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         Assert.assertTrue(tableExist);
@@ -618,7 +617,7 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
         HDevice device = createHDevice(project);
         HPacket packet = createHPacketAndAddHPacketField(device, true);
         Assert.assertTrue(packet.getFields() != null && packet.getFields().size() == 1);
-        HPacketField packetField = packet.getFields().get(0);
+        HPacketField packetField = packet.getFields().iterator().next();
         HProjectAlgorithm hProjectAlgorithmTemplate = createHProjectAlgorithmTemplate(project, algorithm, packet, packetField);
         String cronExpression = hProjectAlgorithmTemplate.getCronExpression();
         String config = hProjectAlgorithmTemplate.getConfig();
@@ -844,7 +843,7 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
             field1.setValue(24.0);
 
 
-            hpacket.setFields(new ArrayList<HPacketField>() {
+            hpacket.setFields(new HashSet<>() {
                 {
                     add(field1);
                 }
@@ -861,7 +860,9 @@ public class HyperIoTHProjectAlgorithmRestInterfaceTest extends KarafTestSupport
 
             //check restResponse field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(), ((HPacketField) responseAddField1.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
+            List<HPacketField> fields = new ArrayList<>();
+            fields.addAll(((HPacket) restResponse.getEntity()).getFields());
+            Assert.assertEquals(fields.get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField1.getEntity()).getPacket().getId());
 
         }
