@@ -26,6 +26,7 @@ import it.acsoftware.hyperiot.mqtt.client.util.MqttClientConstants;
 import it.acsoftware.hyperiot.mqtt.client.util.MqttClientUtil;
 import it.acsoftware.hyperiot.websocket.session.HyperIoTWebSocketAbstractSession;
 import org.eclipse.jetty.websocket.api.Session;
+import org.eclipse.jetty.websocket.api.UpgradeRequest;
 import org.eclipse.paho.client.mqttv3.*;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
@@ -69,10 +70,9 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
                 .getServiceReference(MqttClientApi.class);
         mqttClientService = (MqttClientApi) getBundleContext()
                 .getService(serviceReference);
-        Map<String, List<String>> params = getSession().getUpgradeRequest().getHeaders();
-        String mqttUsername = (params.get(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM) != null && params.get(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM).size() == 1) ? params.get(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM).get(0) : "";
-        String mqttPassword = (params.get(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM) != null && params.get(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM).size() == 1) ? params.get(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM).get(0) : "";
-        String mqttTopic = (params.get(MqttClientConstants.MQTT_CLIENT_TOPIC_PARAM) != null && params.get(MqttClientConstants.MQTT_CLIENT_TOPIC_PARAM).size() == 1) ? params.get(MqttClientConstants.MQTT_CLIENT_TOPIC_PARAM).get(0) : "";
+        String mqttUsername = getParameterFromUpgradeRequest(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM, getSession().getUpgradeRequest());
+        String mqttPassword = getParameterFromUpgradeRequest(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM, getSession().getUpgradeRequest());
+        String mqttTopic = getParameterFromUpgradeRequest(MqttClientConstants.MQTT_CLIENT_TOPIC_PARAM, getSession().getUpgradeRequest());
         //retrieving from osgi context the default JSON Mapper through declarative services
         this.jsonMapper = HyperIoTBaseRestApi.getHyperIoTJsonMapper();
         try {
@@ -147,5 +147,21 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
             }
             logger.error(e.getMessage(), e);
         }
+    }
+
+    /**
+     * This method tries to get parameter from header or from request parameters
+     *
+     * @param webSocketRequest
+     * @return param value or empty string
+     */
+    private String getParameterFromUpgradeRequest(String paramName, UpgradeRequest webSocketRequest) {
+        Map<String, List<String>> params = webSocketRequest.getHeaders();
+        String paramValue = (params != null && params.get(paramName) != null && params.get(paramName).size() == 1) ? params.get(paramName).get(0) : null;
+        if (paramValue == null) {
+            params = webSocketRequest.getParameterMap();
+            paramValue = (params != null && params.get(paramName) != null && params.get(paramName).size() == 1) ? params.get(paramName).get(0) : "";
+        }
+        return paramValue;
     }
 }
