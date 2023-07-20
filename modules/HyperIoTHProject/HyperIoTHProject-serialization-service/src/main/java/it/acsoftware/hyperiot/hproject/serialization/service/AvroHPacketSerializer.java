@@ -65,7 +65,7 @@ public final class AvroHPacketSerializer extends Serializer<HPacket> implements 
     @Override
     public byte[] serialize(HPacket hPacket) throws IOException {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            log.debug("Starting deserialization to HPacket instance");
+            log.debug("Starting serialization to HPacket instance");
             DatumWriter<HPacket> datumWriter = new SpecificDatumWriter<>(hPacket.getSchema());
             Encoder encoder = EncoderFactory.get().binaryEncoder(outputStream, null);
             datumWriter.write(hPacket,  encoder);
