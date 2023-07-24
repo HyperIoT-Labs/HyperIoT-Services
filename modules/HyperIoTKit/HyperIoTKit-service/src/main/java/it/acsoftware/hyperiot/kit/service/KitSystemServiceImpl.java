@@ -386,7 +386,7 @@ public final class KitSystemServiceImpl extends HyperIoTBaseEntitySystemServiceI
 		packet.setUnixTimestamp(packetTemplate.isUnixTimestamp());
 		packet.setUnixTimestampFormatSeconds(packetTemplate.isUnixTimestampFormatSeconds());
 		List<HPacketField> fields = configureHPacketsFieldHierarchy(packet, packetTemplate.getFields());
-		packet.setFields(fields);
+		packet.setFields(new HashSet<>(fields));
 		return packet;
 	}
 

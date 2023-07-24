@@ -41,7 +41,36 @@
         "string",
         {
           "type": "array",
-          "items": [ "int", "long", "float", "double", "boolean", "string" ]
+          "items": [
+            "int",
+            "long",
+            "float",
+            "double",
+            "boolean",
+            "string",
+            {
+              "type": "array",
+              "items": [
+                "int",
+                "long",
+                "float",
+                "double",
+                "boolean",
+                "string",
+                {
+                  "type": "array",
+                  "items": [
+                    "int",
+                    "long",
+                    "float",
+                    "double",
+                    "boolean",
+                    "string"
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },

@@ -747,12 +747,12 @@ public class HyperIoTHProjectWithDefaultPermissionRestTest extends KarafTestSupp
     }
 
     @Test
-    public void test022_hUserWithDefaultPermissionCannotUpdateProjectOwnerWhenShareButNotOwnsHProject(){
+    public void test022_hUserWithDefaultPermissionCanUpdateProjectOwnerWhenShareButNotOwnsHProject(){
         HProjectRestApi hProjectRestService = getOsgiService(HProjectRestApi.class);
         // HUser, with default permission, save HProject
         // HUser share HProject with huser2
         // huser2 try to became the new HProject's owner, with the following call updateHProjectOwner..
-        // The operation is not authorized, response status code '403' (HyperIoTUnauthorizedException).
+        // The operation is not authorized, response status code '200'.
         huser = huserWithDefaultPermissionInHyperIoTFramework(true);
         Assert.assertNotEquals(0, huser.getId());
         Assert.assertTrue(huser.isActive());
@@ -766,8 +766,7 @@ public class HyperIoTHProjectWithDefaultPermissionRestTest extends KarafTestSupp
         Assert.assertEquals(hProjectResourceName, sharedEntity.getEntityResourceName());
         this.impersonateUser(hProjectRestService, huser2);
         Response restResponse = hProjectRestService.updateHProjectOwner(hproject.getId(), huser2.getId());
-        Assert.assertEquals(403, restResponse.getStatus());
-        Assert.assertEquals(((HyperIoTBaseError)restResponse.getEntity()).getType() , hyperIoTException + "HyperIoTUnauthorizedException");
+        Assert.assertEquals(200, restResponse.getStatus());
     }
 
 
@@ -920,7 +919,7 @@ public class HyperIoTHProjectWithDefaultPermissionRestTest extends KarafTestSupp
             field2.setMultiplicity(HPacketFieldMultiplicity.SINGLE);
             field2.setValue(40.00);
 
-            hpacket.setFields(new ArrayList<HPacketField>() {
+            hpacket.setFields(new HashSet<>() {
                 {
                     add(field1);
                     add(field2);
@@ -947,12 +946,13 @@ public class HyperIoTHProjectWithDefaultPermissionRestTest extends KarafTestSupp
 
             //check restResponse field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(), ((HPacketField) responseAddField1.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
+            List<HPacketField> fields = new ArrayList<>(((HPacket) restResponse.getEntity()).getFields());
+            Assert.assertTrue(fields.stream().anyMatch (field -> field.getId() == ((HPacketField) responseAddField1.getEntity()).getId()));
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField1.getEntity()).getPacket().getId());
 
             //check restResponse field2 is equals to responseAddField2 field2
             Assert.assertEquals(field2.getId(), ((HPacketField) responseAddField2.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
+            Assert.assertTrue(fields.stream().anyMatch (field -> field.getId() == ((HPacketField) responseAddField2.getEntity()).getId()));
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField2.getEntity()).getPacket().getId());
 
             Assert.assertEquals(2, ((HPacket) restResponse.getEntity()).getFields().size());

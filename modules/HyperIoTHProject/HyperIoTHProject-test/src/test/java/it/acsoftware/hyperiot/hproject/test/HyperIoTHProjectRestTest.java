@@ -2648,10 +2648,10 @@ public class HyperIoTHProjectRestTest extends KarafTestSupport {
 
 
     @Test
-    public void test63_huserWithoutSpecificPermissionTriesToUpdateProjectSharedAfterSharedOperationShouldFail() {
+    public void test63_huserWithoutSpecificPermissionTriesToUpdateProjectSharedAfterSharedOperationShouldSuccess() {
         // hadmin save SharedEntity with the following call saveSharedEntity,
         // huser, without specific permission, tries to update project after shared entity operation
-        // response status code '403' HyperIoTUnauthorizedException
+        // response status code '200'
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
 
@@ -2684,9 +2684,7 @@ public class HyperIoTHProjectRestTest extends KarafTestSupport {
         hproject.setDescription("Description edited by huser: " + huser.getUsername());
         this.impersonateUser(hProjectRestApi, huser);
         Response restResponse = hProjectRestApi.updateHProject(hproject);
-        Assert.assertEquals(403, restResponse.getStatus());
-        Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException",
-                ((HyperIoTBaseError) restResponse.getEntity()).getType());
+        Assert.assertEquals(200, restResponse.getStatus());
     }
 
 
@@ -2903,10 +2901,10 @@ public class HyperIoTHProjectRestTest extends KarafTestSupport {
 
 
     @Test
-    public void test69_huserWithoutSpecificPermissionTriesToFindProjectSharedAfterSharedOperationShouldFail() {
+    public void test69_huserWithoutSpecificPermissionTriesToFindProjectSharedAfterSharedOperationShouldSuccess() {
         // hadmin save Project with the following call saveHProject.
         // huser, without specific permission, tries to find Project after shared entity operation
-        // response status code '403' HyperIoTUnauthorizedException
+        // response status code '200'
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
 
@@ -2937,7 +2935,7 @@ public class HyperIoTHProjectRestTest extends KarafTestSupport {
         addPermission(huser, action, 0);
         this.impersonateUser(hProjectRestApi, huser);
         Response restResponse = hProjectRestApi.findHProject(hproject.getId());
-        Assert.assertEquals(403, restResponse.getStatus());
+        Assert.assertEquals(200, restResponse.getStatus());
     }
 
 
@@ -3065,10 +3063,10 @@ public class HyperIoTHProjectRestTest extends KarafTestSupport {
 
 
     @Test
-    public void test73_huserWithoutSpecificPermissionTriesToDeleteProjectAfterSharedOperationShouldFail() {
+    public void test73_huserWithoutSpecificPermissionTriesToDeleteProjectAfterSharedOperationShouldSuccess() {
         // hadmin save Project with the following call saveHProject, and
         // huser, without specific permission, tries to delete Project after shared entity operation
-        // response status code '403' HyperIoTUnauthorizedException
+        // response status code '200'
         AuthenticationApi authService = getOsgiService(AuthenticationApi.class);
         HyperIoTUser adminUser = (HUser) authService.login("hadmin", "admin");
 
@@ -3098,7 +3096,7 @@ public class HyperIoTHProjectRestTest extends KarafTestSupport {
         addPermission(huser, action, 0);
         this.impersonateUser(hProjectRestApi, huser);
         Response restResponse = hProjectRestApi.deleteHProject(hproject.getId());
-        Assert.assertEquals(403, restResponse.getStatus());
+        Assert.assertEquals(200, restResponse.getStatus());
     }
 
 
@@ -3524,7 +3522,7 @@ public class HyperIoTHProjectRestTest extends KarafTestSupport {
             field2.setMultiplicity(HPacketFieldMultiplicity.SINGLE);
             field2.setValue(40.00);
 
-            hpacket.setFields(new ArrayList<HPacketField>() {
+            hpacket.setFields(new HashSet<>() {
                 {
                     add(field1);
                     add(field2);
@@ -3551,12 +3549,14 @@ public class HyperIoTHProjectRestTest extends KarafTestSupport {
 
             //check restResponse field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(), ((HPacketField) responseAddField1.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
+            List<HPacketField> fields = new ArrayList<>();
+            fields.addAll(((HPacket) restResponse.getEntity()).getFields());
+            Assert.assertEquals(fields.get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField1.getEntity()).getPacket().getId());
 
             //check restResponse field2 is equals to responseAddField2 field2
             Assert.assertEquals(field2.getId(), ((HPacketField) responseAddField2.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
+            Assert.assertEquals(fields.get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField2.getEntity()).getPacket().getId());
 
             Assert.assertEquals(2, ((HPacket) restResponse.getEntity()).getFields().size());

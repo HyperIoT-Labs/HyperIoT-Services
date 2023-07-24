@@ -29,6 +29,7 @@ public class HyperIoTHProjectTestSuite {
         return HyperIoTTestRunner.createHyperIoTTestSuite("it.acsoftware.hyperiot.area.test",
                 "it.acsoftware.hyperiot.hdevice.test",
                 "it.acsoftware.hyperiot.hpacket.test",
+                "it.acsoftware.hyperiot.hpacket.test.serialization",
                 "it.acsoftware.hyperiot.hproject.test",
                 "it.acsoftware.hyperiot.hproject.algorithm.test");
     }

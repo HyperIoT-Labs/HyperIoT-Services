@@ -37,6 +37,7 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public final class HPacketDeserializerUtil {
 
@@ -85,7 +86,16 @@ public final class HPacketDeserializerUtil {
      */
     public static void addField(HPacket packet, Set<HPacketField> fields, HashMap<String, Object> node, String path,
                                 Object innerFieldDataObj) throws Exception {
-        log.debug("In addField for path {}", path);
+        if (log.isDebugEnabled()) {
+            log.debug("ADDING FIELD DEBUG INFO \n PATH: {}", path);
+            log.debug("------ NODE MAP------");
+            AtomicReference<HashMap> atomicReference = new AtomicReference<>(node);
+            node.keySet().forEach(key -> log.debug("{} : {}", key, atomicReference.get().get(key)));
+            log.debug("------ FIELDS------");
+            fields.forEach(field -> log.debug("{}", field));
+            log.debug("------ INNER FIELDS------");
+            log.debug("{}", innerFieldDataObj);
+        }
         HashMap<String, Object> innerFieldData = (HashMap<String, Object>) innerFieldDataObj;
         String p = path;
         int dotIndex = path.indexOf(".");
@@ -239,7 +249,7 @@ public final class HPacketDeserializerUtil {
         return device;
     }
 
-    public static HPacket createHPacket(HPacketInfo hPacketInfo, HashMap<String, Object> message){
+    public static HPacket createHPacket(HPacketInfo hPacketInfo, HashMap<String, Object> message) {
         long projectId = hPacketInfo.getHProjectId();
         HProject project = HPacketDeserializerUtil.createHProject(projectId);
         long deviceId = hPacketInfo.getHDeviceId();
@@ -341,7 +351,7 @@ public final class HPacketDeserializerUtil {
      */
     private static long setHPacketDefaultTimestamp(HPacket packet) {
         log.debug("Error during conversion, or timestamp field \"{}\" isn't present in raw message: add timestamp default values",
-            packet.getTimestampField());
+                packet.getTimestampField());
         packet.setUnixTimestamp(true);
         packet.setUnixTimestampFormatSeconds(false);
         packet.setTimestampField("timestamp-default");

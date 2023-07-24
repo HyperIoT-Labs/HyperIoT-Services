@@ -25,7 +25,6 @@ import it.acsoftware.hyperiot.base.model.HyperIoTValidationError;
 import it.acsoftware.hyperiot.base.service.rest.HyperIoTBaseRestApi;
 import it.acsoftware.hyperiot.base.util.HyperIoTUtil;
 import it.acsoftware.hyperiot.hdevice.api.HDeviceRepository;
-import it.acsoftware.hyperiot.hdevice.api.HDeviceSystemApi;
 import it.acsoftware.hyperiot.hdevice.model.HDevice;
 import it.acsoftware.hyperiot.hdevice.service.rest.HDeviceRestApi;
 import it.acsoftware.hyperiot.hpacket.model.*;
@@ -33,7 +32,6 @@ import it.acsoftware.hyperiot.hpacket.service.rest.HPacketRestApi;
 import it.acsoftware.hyperiot.hproject.model.HProject;
 import it.acsoftware.hyperiot.hproject.service.rest.HProjectRestApi;
 import it.acsoftware.hyperiot.huser.model.HUser;
-import it.acsoftware.hyperiot.huser.service.rest.HUserRestApi;
 import it.acsoftware.hyperiot.services.util.HyperIoTServicesTestUtil;
 import org.apache.karaf.features.FeaturesService;
 import org.apache.karaf.itests.KarafTestSupport;
@@ -200,7 +198,7 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         hdevice.setPasswordConfirm("passwordPass&01");
         hdevice.setSoftwareVersion("1.");
         hdevice.setAdmin(false);
-        String pwdResetCode = "pwdResetCode" ;
+        String pwdResetCode = "pwdResetCode";
         hdevice.setPasswordResetCode(pwdResetCode);
         HProject hproject = createHProject();
         Assert.assertNotEquals(0, hproject.getId());
@@ -1339,14 +1337,14 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         HDevice hdevice = createHDevice(hproject);
         Assert.assertNotEquals(0, hdevice.getId());
         Assert.assertEquals(hproject.getId(), hdevice.getProject().getId());
-        String hdeviceOldPassword = "passwordPass&01" ;
+        String hdeviceOldPassword = "passwordPass&01";
         Assert.assertTrue(HyperIoTUtil.passwordMatches(hdeviceOldPassword, hdevice.getPassword()));
         String hdeviceNewPassword = hdeviceOldPassword.concat("!!!");
         hdevice.setPassword(hdeviceNewPassword);
         this.impersonateUser(hDeviceRestService, adminUser);
         Response restResponse = hDeviceRestService.updateHDevice(hdevice);
         Assert.assertEquals(200, restResponse.getStatus());
-        HDevice hdeviceResponse = ((HDevice)restResponse.getEntity());
+        HDevice hdeviceResponse = ((HDevice) restResponse.getEntity());
         Assert.assertNotNull(hdeviceResponse);
         Assert.assertEquals(hdeviceResponse.getId(), hdevice.getId());
         Assert.assertFalse(HyperIoTUtil.passwordMatches(hdeviceNewPassword, hdeviceResponse.getPassword()));
@@ -1370,11 +1368,11 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         String newPassword = "testPass01/";
         String passwordConfirm = "testPass01/";
         this.impersonateUser(hDeviceRestService, adminUser);
-        Assert.assertTrue(HyperIoTUtil.passwordMatches(oldPassword,hdevice.getPassword()));
+        Assert.assertTrue(HyperIoTUtil.passwordMatches(oldPassword, hdevice.getPassword()));
         Response restResponse = hDeviceRestService.updateHDevicePassword(hdevice.getId(), oldPassword, newPassword,
                 passwordConfirm);
         Assert.assertEquals(200, restResponse.getStatus());
-        Assert.assertTrue(HyperIoTUtil.passwordMatches(newPassword,((HDevice) restResponse.getEntity()).getPassword()));
+        Assert.assertTrue(HyperIoTUtil.passwordMatches(newPassword, ((HDevice) restResponse.getEntity()).getPassword()));
         Assert.assertTrue(HyperIoTUtil.passwordMatches(passwordConfirm, ((HDevice) restResponse.getEntity()).getPasswordConfirm()));
     }
 
@@ -1514,7 +1512,7 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         Assert.assertEquals(5, ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().size());
         boolean invalidPassword = false;
         boolean invalidPasswordConfirm = false;
-        boolean passwordIsMaliciousCode = false ;
+        boolean passwordIsMaliciousCode = false;
         for (int i = 0; i < ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().size(); i++) {
             if (((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(i).getField().contentEquals("hdevice-password")) {
                 Assert.assertFalse(((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors().get(i).getMessage().isEmpty());
@@ -1527,10 +1525,10 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
                 invalidPasswordConfirm = true;
             }
         }
-        List<HyperIoTValidationError> validationError = ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors() ;
-        for( HyperIoTValidationError error : validationError ){
-            if(error.getField() != null && error.getField().equals("hdevice-password") && error.getInvalidValue() != null && error.getInvalidValue().equals("javascript:")){
-                passwordIsMaliciousCode = true ;
+        List<HyperIoTValidationError> validationError = ((HyperIoTBaseError) restResponse.getEntity()).getValidationErrors();
+        for (HyperIoTValidationError error : validationError) {
+            if (error.getField() != null && error.getField().equals("hdevice-password") && error.getInvalidValue() != null && error.getInvalidValue().equals("javascript:")) {
+                passwordIsMaliciousCode = true;
             }
         }
         Assert.assertTrue(invalidPassword);
@@ -2899,7 +2897,7 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         this.impersonateUser(hDeviceRestService, adminUser);
         Response restResponse = hDeviceRestService.saveHDevice(hdevice);
         Assert.assertEquals(200, restResponse.getStatus());
-        Assert.assertEquals(2999 , ((HDevice) restResponse.getEntity()).getDescription().length());
+        Assert.assertEquals(2999, ((HDevice) restResponse.getEntity()).getDescription().length());
     }
 
     @Test
@@ -2916,11 +2914,11 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         this.impersonateUser(hDeviceRestService, adminUser);
         Response restResponse = hDeviceRestService.updateHDevice(hDevice);
         Assert.assertEquals(200, restResponse.getStatus());
-        Assert.assertEquals(2999 , ((HDevice) restResponse.getEntity()).getDescription().length());
+        Assert.assertEquals(2999, ((HDevice) restResponse.getEntity()).getDescription().length());
     }
 
     @Test
-    public void test85_resetPasswordRequestShouldFailWhenHUserIsNotLogged(){
+    public void test85_resetPasswordRequestShouldFailWhenHUserIsNotLogged() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // huser tries to request  HDevice  password reset with the following call resetPasswordRequest
         // but HUser is not logged
@@ -2931,13 +2929,13 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         Assert.assertNotEquals(0, hDevice.getId());
         impersonateUser(hDeviceRestService, null);
         Response restResponse = hDeviceRestService.resetPasswordRequest(hDevice.getId());
-        Assert.assertEquals(403 , restResponse.getStatus());
+        Assert.assertEquals(403, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
     }
 
     @Test
-    public void test86_resetPasswordRequestShouldFailWhenHDeviceNotExist(){
+    public void test86_resetPasswordRequestShouldFailWhenHDeviceNotExist() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // hadmin tries to request  HDevice  password reset with the following call resetPasswordRequest
         // but hdevice not exist
@@ -2950,12 +2948,13 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         Assert.assertNotEquals(0, hDevice.getId());
         impersonateUser(hDeviceRestService, adminUser);
         Response restResponse = hDeviceRestService.resetPasswordRequest(0);
-        Assert.assertEquals(404 , restResponse.getStatus());
+        Assert.assertEquals(404, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTEntityNotFound",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
     }
+
     @Test
-    public void test87_resetPasswordRequestShouldWork(){
+    public void test87_resetPasswordRequestShouldWork() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // hadmin tries to request  HDevice  password reset with the following call resetPasswordRequest
         // response status code '200' OK
@@ -2968,14 +2967,14 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         Assert.assertNotEquals(0, hDevice.getId());
         impersonateUser(hDeviceRestService, adminUser);
         Response restResponse = hDeviceRestService.resetPasswordRequest(hDevice.getId());
-        Assert.assertEquals(200 , restResponse.getStatus());
+        Assert.assertEquals(200, restResponse.getStatus());
         HDeviceRepository hDeviceRepository = getOsgiService(HDeviceRepository.class);
         HDevice deviceAfterOperation = hDeviceRepository.find(hDevice.getId(), null);
         Assert.assertNotNull(deviceAfterOperation.getPasswordResetCode());
     }
 
     @Test
-    public void test88_resetPasswordShouldFailWhenHUserIsNotLogged(){
+    public void test88_resetPasswordShouldFailWhenHUserIsNotLogged() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // adminUser tries to reset password of HDevice, with the following call resetPassword,
         // but HUser is not logged
@@ -2987,13 +2986,13 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         impersonateUser(hDeviceRestService, null);
 
         Response restResponse = hDeviceRestService.resetPassword(hDevice.getId(), "", "", "");
-        Assert.assertEquals(403 , restResponse.getStatus());
+        Assert.assertEquals(403, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
     }
 
     @Test
-    public void test89_resetPasswordShouldFailWhenHDeviceNotExist(){
+    public void test89_resetPasswordShouldFailWhenHDeviceNotExist() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // adminUser tries to reset password of HDevice, with the following call resetPassword,
         // but Hdevice not exist
@@ -3006,13 +3005,13 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         Assert.assertNotEquals(0, hDevice.getId());
         impersonateUser(hDeviceRestService, adminUser);
         Response restResponse = hDeviceRestService.resetPassword(0, "", "", "");
-        Assert.assertEquals(404 , restResponse.getStatus());
+        Assert.assertEquals(404, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTEntityNotFound",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
     }
 
     @Test
-    public void test90_resetPasswordShouldFailWhenPasswordResetCodeIsWrong(){
+    public void test90_resetPasswordShouldFailWhenPasswordResetCodeIsWrong() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // adminUser tries to reset password of HDevice, with the following call resetPassword,
         // but password reset code is wrong
@@ -3032,7 +3031,7 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         String wrongResetCode = "wrong";
         impersonateUser(hDeviceRestService, adminUser);
         Response restResponse = hDeviceRestService.resetPassword(hDevice.getId(), wrongResetCode, "Password123!", "Password123!");
-        Assert.assertEquals(422 , restResponse.getStatus());
+        Assert.assertEquals(422, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTValidationException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
         //Assert that password not change
@@ -3061,7 +3060,7 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         hDeviceRepository.update(hdevice);
         this.impersonateUser(hDeviceRestService, adminUser);
         Response restResponse = hDeviceRestService.resetPassword(hdevice.getId(), passwordResetCode, null,
-               "Password123!");
+                "Password123!");
         Assert.assertEquals(422, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTValidationException",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
@@ -3130,6 +3129,7 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         Assert.assertNotNull(reloadHDevice);
         Assert.assertTrue(HyperIoTUtil.passwordMatches(hdeviceOldPassword, reloadHDevice.getPassword()));
     }
+
     @Test
     public void test94_resetPasswordShouldFailWhenNewPasswordIsMaliciousCode() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
@@ -3149,7 +3149,7 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
         hdevice.setPasswordResetCode(HyperIoTUtil.getPasswordHash(passwordResetCode));
         hDeviceRepository.update(hdevice);
         this.impersonateUser(hDeviceRestService, adminUser);
-        String maliciousPassword = "javascript:" ;
+        String maliciousPassword = "javascript:";
         Response restResponse = hDeviceRestService.resetPassword(hdevice.getId(), passwordResetCode, maliciousPassword,
                 maliciousPassword);
         Assert.assertEquals(422, restResponse.getStatus());
@@ -3194,7 +3194,7 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
     }
 
     @Test
-    public void test96_resetPasswordShouldWork(){
+    public void test96_resetPasswordShouldWork() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // adminUser tries to reset password of HDevice, with the following call resetPassword,
         // response status code '200' OK
@@ -3357,7 +3357,7 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
             field2.setMultiplicity(HPacketFieldMultiplicity.SINGLE);
             field2.setValue(40.00);
 
-            hpacket.setFields(new ArrayList<HPacketField>() {
+            hpacket.setFields(new HashSet<>() {
                 {
                     add(field1);
                     add(field2);
@@ -3384,12 +3384,14 @@ public class HyperIoTHDeviceRestTest extends KarafTestSupport {
 
             //check restResponse field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(), ((HPacketField) responseAddField1.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
+            List<HPacketField> fields = new ArrayList<>();
+            fields.addAll(((HPacket) restResponse.getEntity()).getFields());
+            Assert.assertTrue(fields.stream().anyMatch(field -> field.getId() == ((HPacketField) responseAddField1.getEntity()).getId()));
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField1.getEntity()).getPacket().getId());
 
             //check restResponse field2 is equals to responseAddField2 field2
             Assert.assertEquals(field2.getId(), ((HPacketField) responseAddField2.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
+            Assert.assertTrue(fields.stream().anyMatch(field -> field.getId() == ((HPacketField) responseAddField2.getEntity()).getId()));
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField2.getEntity()).getPacket().getId());
 
             Assert.assertEquals(2, ((HPacket) restResponse.getEntity()).getFields().size());

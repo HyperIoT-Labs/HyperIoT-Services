@@ -43,7 +43,7 @@ import javax.validation.constraints.Size;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.ALL;
 
 /**
  * @author Aristide Cittadino Model class for HPacket of HyperIoT platform. This
@@ -53,28 +53,28 @@ import static javax.persistence.CascadeType.*;
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "device_id", "version"})})
 public class HPacket extends HyperIoTAbstractEntity
-    implements HyperIoTProtectedEntity, HyperIoTOwnedChildResource, GenericRecord {
+        implements HyperIoTProtectedEntity, HyperIoTOwnedChildResource, GenericRecord {
 
     /**
      * Packet name, used to identify it
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private String name;
     /**
      * Packet type, indicates if it is input,output or both
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private HPacketType type;
 
     /**
      * Transmission format es. json,xml,csv
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private HPacketFormat format;
     /**
      * Type of serialization, es. none or avro
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private HPacketSerialization serialization;
 
     /**
@@ -87,14 +87,14 @@ public class HPacket extends HyperIoTAbstractEntity
     /**
      * Packet version
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private String version;
 
     /**
      * Packet fields
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
-    private List<HPacketField> fields;
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
+    private Set<HPacketField> fields;
 
     /**
      * runtime copy of fields
@@ -105,38 +105,38 @@ public class HPacket extends HyperIoTAbstractEntity
      * Transient boolean which indicates the current packet is valid. Not persistent
      * because it's related to data streaming not data definition
      */
-    @JsonView({HyperIoTJSONView.Public.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HProjectJSONView.Export.class})
     private boolean valid;
 
     /**
      * Packet timestamp field
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private String timestampField;
 
     /**
      * Packet timestamp format
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private String timestampFormat;
 
     /**
      * true if packet is sent with unix timestamp
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private boolean unixTimestamp;
 
     /**
      * true if packet has seconds format in timestamp value not milliseconds
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private boolean unixTimestampFormatSeconds;
 
 
     /**
      * Packet traffic plan: it indicates how many bytes per day are sent for its
      */
-    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class,HProjectJSONView.Export.class})
+    @JsonView({HyperIoTJSONView.Public.class, HyperIoTJSONView.Extended.class, HProjectJSONView.Export.class})
     private HPacketTrafficPlan trafficPlan;
 
     /**
@@ -147,19 +147,13 @@ public class HPacket extends HyperIoTAbstractEntity
         this.unixTimestampFormatSeconds = false;
     }
 
-    @PostLoad
-    public void postLoad() {
-        //reload fields map from fields list
-        this.reloadFields(true);
-    }
-
     /**
      * @return packet name
      */
     @NotNullOnPersist
     @NotEmpty
     @NoMalitiusCode
-    @Size( max = 255)
+    @Size(max = 255)
     public String getName() {
         return name;
     }
@@ -227,7 +221,7 @@ public class HPacket extends HyperIoTAbstractEntity
     @NotNullOnPersist
     @NotEmpty
     @NoMalitiusCode
-    @Size( max = 255)
+    @Size(max = 255)
     public String getVersion() {
         return version;
     }
@@ -242,11 +236,12 @@ public class HPacket extends HyperIoTAbstractEntity
     /**
      * Get packet's fields.
      *
-     * @return packet all root fields,because inner fields are cointained inside each Root field
+     * @return packet fields
      */
-    @OneToMany(targetEntity = HPacketField.class, mappedBy = "packet", fetch = FetchType.EAGER, orphanRemoval = true)
+
+    @OneToMany(targetEntity = HPacketField.class, cascade = {ALL}, mappedBy = "packet", fetch = FetchType.EAGER, orphanRemoval = true)
     @Where(clause = "parentField_id IS NULL")
-    public List<HPacketField> getFields() {
+    public Set<HPacketField> getFields() {
         return fields;
     }
 
@@ -255,7 +250,7 @@ public class HPacket extends HyperIoTAbstractEntity
      *
      * @param fields HPacket field list
      */
-    public void setFields(List<HPacketField> fields) {
+    public void setFields(Set<HPacketField> fields) {
         this.fields = fields;
     }
 
@@ -296,7 +291,7 @@ public class HPacket extends HyperIoTAbstractEntity
     @NotNullOnPersist
     @NotEmpty
     @NoMalitiusCode
-    @Size( max = 255)
+    @Size(max = 255)
     public String getTimestampField() {
         return timestampField;
     }
@@ -318,7 +313,7 @@ public class HPacket extends HyperIoTAbstractEntity
     @NotNullOnPersist
     @NotEmpty
     @NoMalitiusCode
-    @Size( max = 255)
+    @Size(max = 255)
     public String getTimestampFormat() {
         return timestampFormat;
     }
@@ -380,12 +375,37 @@ public class HPacket extends HyperIoTAbstractEntity
     }
 
     /**
+     * Removes a packet field regardless its position inside fields hierarchy
+     *
+     * @param toRemove
+     */
+    public void removeField(HPacketField toRemove) {
+        removeHPacketFieldFromInnerFields(getFields(),toRemove);
+    }
+
+    private boolean removeHPacketFieldFromInnerFields(Set<HPacketField> fields, HPacketField toRemove) {
+        if (fields.contains(toRemove)) {
+            fields.remove(toRemove);
+            toRemove.setPacket(null);
+            toRemove.setParentField(null);
+            return true;
+        }
+        for (HPacketField innerField : fields) {
+            boolean removed = removeHPacketFieldFromInnerFields(innerField.getInnerFields(), toRemove);
+            if (removed)
+                return true;
+        }
+        return false;
+    }
+
+    /**
      * Reload fields map
      */
     @Transient
     @JsonIgnore
     public HashMap<String, HPacketField> getFieldsMap() {
-        this.reloadFields(false);
+        //TODO find more effiecient way, no post load because it breaks the hpacket field loading
+        this.reloadFields(true);
         return fieldsMap;
     }
 
@@ -395,7 +415,7 @@ public class HPacket extends HyperIoTAbstractEntity
     @Transient
     @JsonIgnore
     public void defineFields(List<HPacketField> fields) {
-        this.setFields(fields);
+        this.setFields(new HashSet<>(fields));
         this.reloadFields(true);
     }
 
@@ -412,6 +432,7 @@ public class HPacket extends HyperIoTAbstractEntity
 
     /**
      * Used to construct raw json of hpacket
+     *
      * @return Return flat map of fields
      */
     @Transient
@@ -431,6 +452,7 @@ public class HPacket extends HyperIoTAbstractEntity
 
     /**
      * Used to construct raw json of hpacket
+     *
      * @return Return flat map of fields
      */
     @Transient
@@ -476,12 +498,12 @@ public class HPacket extends HyperIoTAbstractEntity
             fieldsMap.put(path, hPacketField);
         else
             for (HPacketField innerField : hPacketField.getInnerFields())
-                getInnerFields(innerField, path + "." + innerField.getName().toLowerCase(), fieldsMap);
+                getInnerFields(innerField, path + "." + innerField.getName(), fieldsMap);
     }
 
     @Transient
     public Object getFieldValue(String fieldPath) {
-        fieldPath = fieldPath.toLowerCase().trim().replace("packet.", "");
+        fieldPath = fieldPath.trim().replace("packet.", "");
         HPacketField field;
         try {
             long hPacketFieldId = Long.parseLong(fieldPath);
@@ -673,9 +695,9 @@ public class HPacket extends HyperIoTAbstractEntity
                 HashMap<Utf8, Object> incomingFields = null;
                 //noinspection unchecked: it's Avro Map type
                 incomingFields = (HashMap<Utf8, Object>) v;
-                for(Utf8 key : incomingFields.keySet())
+                for (Utf8 key : incomingFields.keySet())
                     addField(this, packetFields, (HPacketField) incomingFields.get(key), key.toString());
-                setFields(new ArrayList<>(packetFields));
+                setFields(new HashSet<>(packetFields));
                 break;
             case 7:
                 valid = (boolean) v;

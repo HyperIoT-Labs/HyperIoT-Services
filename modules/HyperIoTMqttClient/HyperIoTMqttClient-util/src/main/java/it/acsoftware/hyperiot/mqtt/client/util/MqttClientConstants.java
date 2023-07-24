@@ -18,9 +18,9 @@
 package it.acsoftware.hyperiot.mqtt.client.util;
 
 public class MqttClientConstants {
-    public static final String MQTT_CLIENT_USERNAME_PARAM = "x-hyperiot-mqtt-username";
-    public static final String MQTT_CLIENT_PASSWORD_PARAM = "x-hyperiot-mqtt-password";
-    public static final String MQTT_CLIENT_TOPICS_PARAMS = "x-hyperiot-mqtt-topics";
+    public static final String MQTT_CLIENT_USERNAME_PARAM = "hyperiot-mqtt-username";
+    public static final String MQTT_CLIENT_PASSWORD_PARAM = "hyperiot-mqtt-password";
+    public static final String MQTT_CLIENT_TOPIC_PARAM = "hyperiot-mqtt-topic";
     public static final String MQTT_CLIENT_CONFIG_FILE_NAME = "it.acsoftware.hyperiot.mqtt.client";
     public static final String MQTT_CLIENT_PROPERTY_BROKER_HOST = "it.acsoftware.hyperiot.mqtt.client.broker.host";
     public static final String MQTT_CLIENT_PROPERTY_BROKER_PORT = "it.acsoftware.hyperiot.mqtt.client.broker.port";

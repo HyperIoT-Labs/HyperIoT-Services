@@ -31,8 +31,7 @@ import java.util.List;
  */
 public interface HPacketFieldSystemApi extends HyperIoTBaseEntitySystemApi<HPacketField> {
     Collection<HPacketField> getHPacketFieldsTree(long packetId);
-    void removeHPacketField(long fieldId);
-
+    
     /**
      *
      * @param packetId the id of the packet associate to the field.

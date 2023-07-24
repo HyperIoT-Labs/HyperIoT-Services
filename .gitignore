@@ -15,3 +15,7 @@ enroute.zip
 /containers-src/compose/data/
 /containers-src/test-utils/mqtt/simple_demo_cumulocity.json
 /containers-src/test-utils/mqtt/simple_demo_cumulocity.json.save
+/containers-src/test-utils/mqtt/bad_water.json
+/containers-src/test-utils/mqtt/ehcare/ecgnew_data_ecg.json
+/containers-src/test-utils/mqtt/ehcare/ecgnew_data_resp.json
+/containers-src/test-utils/mqtt/ehcare/parameters.json

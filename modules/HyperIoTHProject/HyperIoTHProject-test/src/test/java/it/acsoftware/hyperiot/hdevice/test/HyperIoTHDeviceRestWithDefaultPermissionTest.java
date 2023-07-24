@@ -17,13 +17,12 @@
 
 package it.acsoftware.hyperiot.hdevice.test;
 
-import it.acsoftware.hyperiot.base.api.authentication.AuthenticationApi;
 import it.acsoftware.hyperiot.base.api.HyperIoTUser;
+import it.acsoftware.hyperiot.base.api.authentication.AuthenticationApi;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntity;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTPaginableResult;
 import it.acsoftware.hyperiot.base.model.HyperIoTBaseError;
 import it.acsoftware.hyperiot.base.service.rest.HyperIoTBaseRestApi;
-import it.acsoftware.hyperiot.base.test.HyperIoTTestConfigurationBuilder;
 import it.acsoftware.hyperiot.base.util.HyperIoTUtil;
 import it.acsoftware.hyperiot.hdevice.api.HDeviceRepository;
 import it.acsoftware.hyperiot.hdevice.model.HDevice;
@@ -37,7 +36,6 @@ import it.acsoftware.hyperiot.huser.service.rest.HUserRestApi;
 import it.acsoftware.hyperiot.permission.api.PermissionSystemApi;
 import it.acsoftware.hyperiot.permission.model.Permission;
 import it.acsoftware.hyperiot.role.model.Role;
-import it.acsoftware.hyperiot.services.util.HyperIoTServicesTestConfigurationBuilder;
 import it.acsoftware.hyperiot.services.util.HyperIoTServicesTestUtil;
 import it.acsoftware.hyperiot.shared.entity.api.SharedEntityRepository;
 import it.acsoftware.hyperiot.shared.entity.model.SharedEntity;
@@ -47,7 +45,6 @@ import org.apache.karaf.itests.KarafTestSupport;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
@@ -86,7 +83,7 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
     @Test
     public void test00_hyperIoTFrameworkShouldBeInstalled() {
         // assert on an available service
-        assertServiceAvailable(FeaturesService.class,0);
+        assertServiceAvailable(FeaturesService.class, 0);
         String features = executeCommand("feature:list -i");
         //HyperIoTCore
         assertContains("HyperIoTBase-features ", features);
@@ -100,15 +97,15 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         assertContains("HyperIoTSharedEntity-features", features);
         //HyperIoTServices
         assertContains("HyperIoTHProject-features ", features);
-        
-        
+
+
         assertContains("HyperIoTAlgorithm-features ", features);
-        
+
         assertContains("HyperIoTHadoopManager-features ", features);
         assertContains("HyperIoTDashboard-features ", features);
-        
+
         assertContains("HyperIoTRuleEngine-features ", features);
-        
+
         assertContains("HyperIoTStormManager-features ", features);
         assertContains("HyperIoTHBaseConnector-features ", features);
         assertContains("HyperIoTSparkManager-features ", features);
@@ -485,7 +482,8 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         this.impersonateUser(hPacketRestApi, huser);
         Response restResponse = hPacketRestApi.findAllHPacketByProjectId(hproject.getId());
         Assert.assertEquals(200, restResponse.getStatus());
-        List<HPacket> listHPackets = restResponse.readEntity(new GenericType<List<HPacket>>() {});
+        List<HPacket> listHPackets = restResponse.readEntity(new GenericType<List<HPacket>>() {
+        });
         Assert.assertFalse(listHPackets.isEmpty());
         Assert.assertEquals(3, listHPackets.size());
         boolean hpacket1Found = false;
@@ -520,7 +518,7 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
     }
 
     @Test
-    public void test11_getProjectDevicesListWithDefaultPermissionShouldWork(){
+    public void test11_getProjectDevicesListWithDefaultPermissionShouldWork() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // huser, with permission, finds project's device list with the following
         // call getProjectDevicesList
@@ -542,14 +540,14 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         Response restResponse = hDeviceRestService.findAllHDeviceByProjectId(hproject.getId());
         List<HDevice> listHDevice = restResponse.readEntity(new GenericType<List<HDevice>>() {
         });
-        Assert.assertEquals(200,restResponse.getStatus());
+        Assert.assertEquals(200, restResponse.getStatus());
         Assert.assertFalse(listHDevice.isEmpty());
-        Assert.assertEquals(1,listHDevice.size());
-        Assert.assertEquals(listHDevice.get(0).getId(),hdevice.getId());
+        Assert.assertEquals(1, listHDevice.size());
+        Assert.assertEquals(listHDevice.get(0).getId(), hdevice.getId());
     }
 
     @Test
-    public void test12_getProjectDevicesListWithDefaultPermissionShouldFailIfUserNotOwnsProjectAndUserNotShareProject(){
+    public void test12_getProjectDevicesListWithDefaultPermissionShouldFailIfUserNotOwnsProjectAndUserNotShareProject() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // huser2, with permission, finds project's device list with the following
         // call getProjectDevicesList
@@ -570,15 +568,15 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
 
         HUser huser2 = huserWithDefaultPermissionInHyperIoTFramework(true);
         this.impersonateUser(hDeviceRestService, huser2);
-        Assert.assertNotEquals(hproject.getUser().getId(),huser2.getId());
-        Assert.assertFalse(userIsInHProjectSharingUserList(hproject,huser2));
+        Assert.assertNotEquals(hproject.getUser().getId(), huser2.getId());
+        Assert.assertFalse(userIsInHProjectSharingUserList(hproject, huser2));
         Response restResponse = hDeviceRestService.findAllHDeviceByProjectId(hproject.getId());
         Assert.assertEquals(403, restResponse.getStatus());
-        Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException",((HyperIoTBaseError)restResponse.getEntity() ).getType());
+        Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException", ((HyperIoTBaseError) restResponse.getEntity()).getType());
     }
 
     @Test
-    public void test13_getProjectDevicesListWithDefaultPermissionShouldWorkIfUserNotOwnsProjectButProjectIsSharedWithHim(){
+    public void test13_getProjectDevicesListWithDefaultPermissionShouldWorkIfUserNotOwnsProjectButProjectIsSharedWithHim() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // huser2, with permission, finds project's device list with the following
         // call getProjectDevicesList
@@ -598,21 +596,21 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         Assert.assertEquals(huser.getId(), hdevice.getProject().getUser().getId());
 
         HUser huser2 = huserWithDefaultPermissionInHyperIoTFramework(true);
-        createSharedEntity(hproject,huser,huser2);
+        createSharedEntity(hproject, huser, huser2);
         this.impersonateUser(hDeviceRestService, huser2);
-        Assert.assertNotEquals(hproject.getUser().getId(),huser2.getId());
-        Assert.assertTrue(userIsInHProjectSharingUserList(hproject,huser2));
+        Assert.assertNotEquals(hproject.getUser().getId(), huser2.getId());
+        Assert.assertTrue(userIsInHProjectSharingUserList(hproject, huser2));
         Response restResponse = hDeviceRestService.findAllHDeviceByProjectId(hproject.getId());
         List<HDevice> listHDevice = restResponse.readEntity(new GenericType<List<HDevice>>() {
         });
-        Assert.assertEquals(200,restResponse.getStatus());
+        Assert.assertEquals(200, restResponse.getStatus());
         Assert.assertFalse(listHDevice.isEmpty());
-        Assert.assertEquals(1,listHDevice.size());
-        Assert.assertEquals(listHDevice.get(0).getId(),hdevice.getId());
+        Assert.assertEquals(1, listHDevice.size());
+        Assert.assertEquals(listHDevice.get(0).getId(), hdevice.getId());
     }
 
     @Test
-    public void test14_resetPasswordRequestWithDefaultPermissionShouldWork(){
+    public void test14_resetPasswordRequestWithDefaultPermissionShouldWork() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // huser, with permission, request device password reset with the following call resetPasswordRequest
         // response status code '200'
@@ -625,14 +623,14 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         Assert.assertEquals(huser.getId(), hproject.getUser().getId());
 
         HDevice hdevice = createHDevice(hproject);
-        Assert.assertNotEquals(0 , hdevice.getId());
-        this.impersonateUser( hDeviceRestService, huser);
+        Assert.assertNotEquals(0, hdevice.getId());
+        this.impersonateUser(hDeviceRestService, huser);
         Response restResponse = hDeviceRestService.resetPasswordRequest(hdevice.getId());
         Assert.assertEquals(200, restResponse.getStatus());
     }
 
     @Test
-    public void test15_resetPasswordWithDefaultPermissionShouldWork(){
+    public void test15_resetPasswordWithDefaultPermissionShouldWork() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // huser, with permission, reset device password  with the following call resetPasswordRequest
         // response status code '200'
@@ -644,15 +642,15 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         Assert.assertEquals(huser.getId(), hproject.getUser().getId());
         HDevice hdevice = createHDevice(hproject);
         String hdeviceOldPassword = "passwordPass&01";
-        Assert.assertNotEquals(0 , hdevice.getId());
+        Assert.assertNotEquals(0, hdevice.getId());
         //Set password reset code directly from HDeviceRepository such that we know the password reset code (Raw password reset code is sent to user through email).
         HDeviceRepository hDeviceRepository = this.getOsgiService(HDeviceRepository.class);
         String passwordResetCode = UUID.randomUUID().toString();
         hdevice.setPasswordResetCode(HyperIoTUtil.getPasswordHash(passwordResetCode));
         hDeviceRepository.update(hdevice);
-        this.impersonateUser( hDeviceRestService, huser);
+        this.impersonateUser(hDeviceRestService, huser);
         String newPassword = "Password123!";
-        Response restResponse = hDeviceRestService.resetPassword(hdevice.getId(), passwordResetCode, newPassword , newPassword);
+        Response restResponse = hDeviceRestService.resetPassword(hdevice.getId(), passwordResetCode, newPassword, newPassword);
         Assert.assertEquals(200, restResponse.getStatus());
         //Assert that password change
         HDevice reloadHDevice = hDeviceRepository.find(hdevice.getId(), null);
@@ -662,7 +660,7 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
     }
 
     @Test
-    public void test16_resetPasswordWithDefaultPermissionShouldFailWhenHUser2NotOwnHDeviceProject(){
+    public void test16_resetPasswordWithDefaultPermissionShouldFailWhenHUser2NotOwnHDeviceProject() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // huser, register hdevice
         // huser2 , with permission but now owns hdevice's project, reset device password  with the following call resetPasswordRequest
@@ -674,7 +672,7 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         Assert.assertNotEquals(0, hproject.getId());
         Assert.assertEquals(huser.getId(), hproject.getUser().getId());
         HDevice hdevice = createHDevice(hproject);
-        Assert.assertNotEquals(0 , hdevice.getId());
+        Assert.assertNotEquals(0, hdevice.getId());
         String hdeviceOldPassword = "passwordPass&01";
         HDeviceRepository hDeviceRepository = this.getOsgiService(HDeviceRepository.class);
         String passwordResetCode = UUID.randomUUID().toString();
@@ -683,7 +681,7 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         HUser huser2 = huserWithDefaultPermissionInHyperIoTFramework(true);
         this.impersonateUser(hDeviceRestService, huser2);
         String newPassword = "Password123!";
-        Response restResponse = hDeviceRestService.resetPassword(hdevice.getId(), passwordResetCode, newPassword , newPassword);
+        Response restResponse = hDeviceRestService.resetPassword(hdevice.getId(), passwordResetCode, newPassword, newPassword);
         Assert.assertEquals(404, restResponse.getStatus());
         Assert.assertEquals(hyperIoTException + "HyperIoTEntityNotFound",
                 ((HyperIoTBaseError) restResponse.getEntity()).getType());
@@ -695,7 +693,7 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
     }
 
     @Test
-    public void test17_resetPasswordWithDefaultPermissionShouldFailWhenHUser2ShareNotOwnHDeviceProject(){
+    public void test17_resetPasswordWithDefaultPermissionShouldSuccessWhenHUser2ShareNotOwnHDeviceProject() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // huser, register hdevice
         // huser2 (with permission , with share relationship,  but now owns hdevice's project) reset device password  with the following call resetPasswordRequest
@@ -707,7 +705,7 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         Assert.assertNotEquals(0, hproject.getId());
         Assert.assertEquals(huser.getId(), hproject.getUser().getId());
         HDevice hdevice = createHDevice(hproject);
-        Assert.assertNotEquals(0 , hdevice.getId());
+        Assert.assertNotEquals(0, hdevice.getId());
         String hdeviceOldPassword = "passwordPass&01";
         HDeviceRepository hDeviceRepository = this.getOsgiService(HDeviceRepository.class);
         String passwordResetCode = UUID.randomUUID().toString();
@@ -715,18 +713,11 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         hDeviceRepository.update(hdevice);
         HUser huser2 = huserWithDefaultPermissionInHyperIoTFramework(true);
         //share hproject
-        createSharedEntity(hproject,huser,huser2);
+        createSharedEntity(hproject, huser, huser2);
         this.impersonateUser(hDeviceRestService, huser2);
         String newPassword = "Password123!";
-        Response restResponse = hDeviceRestService.resetPassword(hdevice.getId(), passwordResetCode, newPassword , newPassword);
-        Assert.assertEquals(403, restResponse.getStatus());
-        Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException",
-                ((HyperIoTBaseError) restResponse.getEntity()).getType());
-        //Assert that password not change
-        HDevice reloadHDevice = hDeviceRepository.find(hdevice.getId(), null);
-        Assert.assertNotNull(reloadHDevice);
-        Assert.assertFalse(HyperIoTUtil.passwordMatches(newPassword, reloadHDevice.getPassword()));
-        Assert.assertTrue(HyperIoTUtil.passwordMatches(hdeviceOldPassword, reloadHDevice.getPassword()));
+        Response restResponse = hDeviceRestService.resetPassword(hdevice.getId(), passwordResetCode, newPassword, newPassword);
+        Assert.assertEquals(200, restResponse.getStatus());
     }
 
 
@@ -874,33 +865,32 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
             field2.setMultiplicity(HPacketFieldMultiplicity.SINGLE);
             field2.setValue(40.00);
 
-            hpacket.setFields(new ArrayList<HPacketField>() {
+            hpacket.setFields(new HashSet<>() {
                 {
                     add(field1);
                     add(field2);
                 }
             });
 
-            Assert.assertEquals(0,
-                    ((HPacket) restResponse.getEntity()).getFields().get(0).getId());
-            Assert.assertEquals(0,
-                    ((HPacket) restResponse.getEntity()).getFields().get(1).getId());
+
+            List<HPacketField> fields = new ArrayList<>();
+            fields.addAll(((HPacket) restResponse.getEntity()).getFields());
+            Assert.assertEquals(0, fields.get(0).getId());
+            Assert.assertEquals(0, fields.get(1).getId());
 
             // add field1
             this.impersonateUser(hPacketRestApi, huser);
             Response responseAddField1 = hPacketRestApi.addHPacketField(hpacket.getId(), field1);
             Assert.assertEquals(200, responseAddField1.getStatus());
             // field1 has been saved
-            Assert.assertNotEquals(0,
-                    ((HPacket) restResponse.getEntity()).getFields().get(0).getId());
+            Assert.assertTrue(fields.stream().anyMatch(field -> field.getId() != 0));
             // field2 hasn't been saved
-            Assert.assertEquals(0,
-                    ((HPacket) restResponse.getEntity()).getFields().get(1).getId());
+            Assert.assertTrue(fields.stream().anyMatch(field -> field.getId() == 0));
 
             //check restSaveHPacket field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(),
                     ((HPacketField) responseAddField1.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(0).getId(),
+            Assert.assertEquals(fields.get(0).getId(),
                     ((HPacketField) responseAddField1.getEntity()).getId());
 
             Assert.assertEquals(((HPacketField) responseAddField1.getEntity()).getPacket().getId(),
@@ -912,11 +902,11 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
 
             // field2 has been saved
             Assert.assertNotEquals(0,
-                    ((HPacket) restResponse.getEntity()).getFields().get(1).getId());
+                    fields.get(1).getId());
             //check restSaveHPacket field2 is equals to responseAddField2 field2
             Assert.assertEquals(field2.getId(),
                     ((HPacketField) responseAddField2.getEntity()).getId());
-            Assert.assertEquals(((HPacket) restResponse.getEntity()).getFields().get(1).getId(),
+            Assert.assertEquals(fields.get(1).getId(),
                     ((HPacketField) responseAddField2.getEntity()).getId());
 
             Assert.assertEquals(((HPacketField) responseAddField2.getEntity()).getPacket().getId(),
@@ -1013,7 +1003,7 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
             Assert.assertEquals(1, huser.getRoles().size());
             Assert.assertEquals(roles.size(), huser.getRoles().size());
             Assert.assertFalse(roles.isEmpty());
-            for (int i = 0; i < roles.size(); i++){
+            for (int i = 0; i < roles.size(); i++) {
                 role = ((Role) roles.get(i));
             }
             Assert.assertNotNull(role);

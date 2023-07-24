@@ -73,7 +73,8 @@ public class MqttClientTest extends KarafTestSupport {
 
 	@Before
 	public void initPlatformContainers() {
-		HyperIoTServicesTestUtil.initPlatformContainers();
+		//not needed for now
+		// HyperIoTServicesTestUtil.initPlatformContainers();
 	}
 
 	@Test

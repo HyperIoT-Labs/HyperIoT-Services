@@ -22,11 +22,11 @@ import it.acsoftware.hyperiot.base.exception.HyperIoTRuntimeException;
 import it.acsoftware.hyperiot.base.service.rest.HyperIoTBaseRestApi;
 import it.acsoftware.hyperiot.mqtt.client.api.MqttClient;
 import it.acsoftware.hyperiot.mqtt.client.api.MqttClientApi;
-import it.acsoftware.hyperiot.mqtt.client.model.HyperIoTMqttMessage;
 import it.acsoftware.hyperiot.mqtt.client.util.MqttClientConstants;
 import it.acsoftware.hyperiot.mqtt.client.util.MqttClientUtil;
 import it.acsoftware.hyperiot.websocket.session.HyperIoTWebSocketAbstractSession;
 import org.eclipse.jetty.websocket.api.Session;
+import org.eclipse.jetty.websocket.api.UpgradeRequest;
 import org.eclipse.paho.client.mqttv3.*;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
@@ -39,11 +39,11 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
     private static Logger logger = LoggerFactory.getLogger(MqttWebSocketSession.class.getName());
     private MqttClient client;
     private MqttClientApi mqttClientService;
-    private String[] topics;
+    private String topic;
     private ObjectMapper jsonMapper;
 
     public MqttWebSocketSession(Session session) {
-        super(session, true);
+        super(session, false);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
         try {
             this.client.disconnect();
         } catch (MqttException e) {
-            logger.error( e.getMessage(), e);
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -67,26 +67,25 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
     public void initialize() {
         // HProject System API
         ServiceReference serviceReference = getBundleContext()
-            .getServiceReference(MqttClientApi.class);
+                .getServiceReference(MqttClientApi.class);
         mqttClientService = (MqttClientApi) getBundleContext()
-            .getService(serviceReference);
-        Map<String, List<String>> params = getSession().getUpgradeRequest().getParameterMap();
-        String mqttUsername = (params.get(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM) != null && params.get(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM).size() == 1) ? params.get(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM).get(0) : "";
-        String mqttPassword = (params.get(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM) != null && params.get(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM).size() == 1) ? params.get(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM).get(0) : "";
-        String mqttTopics = (params.get(MqttClientConstants.MQTT_CLIENT_TOPICS_PARAMS) != null && params.get(MqttClientConstants.MQTT_CLIENT_TOPICS_PARAMS).size() == 1) ? params.get(MqttClientConstants.MQTT_CLIENT_TOPICS_PARAMS).get(0) : "";
+                .getService(serviceReference);
+        String mqttUsername = getParameterFromUpgradeRequest(MqttClientConstants.MQTT_CLIENT_USERNAME_PARAM, getSession().getUpgradeRequest());
+        String mqttPassword = getParameterFromUpgradeRequest(MqttClientConstants.MQTT_CLIENT_PASSWORD_PARAM, getSession().getUpgradeRequest());
+        String mqttTopic = getParameterFromUpgradeRequest(MqttClientConstants.MQTT_CLIENT_TOPIC_PARAM, getSession().getUpgradeRequest());
         //retrieving from osgi context the default JSON Mapper through declarative services
         this.jsonMapper = HyperIoTBaseRestApi.getHyperIoTJsonMapper();
         try {
-            this.topics = mqttTopics.split(",");
+            this.topic = mqttTopic;
             //login to mqtt broker with credentials passed via reuqest
             this.client = this.mqttClientService.createMqttClient(MqttClientUtil.getMqttBrokerCompleteAddress(), mqttUsername, mqttPassword, this);
             this.client.connect(this);
         } catch (Exception e) {
-            logger.error( e.getMessage(), e);
+            logger.error(e.getMessage(), e);
             try {
                 getSession().getRemote().sendString(e.getMessage());
             } catch (Exception e1) {
-                logger.error( e1.getMessage(), e);
+                logger.error(e1.getMessage(), e);
             }
             throw new HyperIoTRuntimeException(e.getMessage());
         }
@@ -95,11 +94,10 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         try {
-            logger.debug( message.getPayload().toString());
-            HyperIoTMqttMessage wsMessage = new HyperIoTMqttMessage(topic, new String(message.getPayload()));
-            getSession().getRemote().sendString(jsonMapper.writeValueAsString(wsMessage));
+            logger.debug(message.getPayload().toString());
+            getSession().getRemote().sendString(new String(message.getPayload()));
         } catch (Exception e) {
-            logger.error( e.getMessage(), e);
+            logger.error(e.getMessage(), e);
             getSession().getRemote().sendString(e.getMessage());
         }
     }
@@ -109,17 +107,16 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
         try {
             // TO DO: read topic to publish on from message and check if user can send it
             if (this.client.isConnected()) {
-                HyperIoTMqttMessage wsMessage = jsonMapper.readValue(s.getBytes(), HyperIoTMqttMessage.class);
-                this.client.publish(wsMessage.getTopic(), 1, false, wsMessage.hashCode(), wsMessage.getMessage().getBytes());
+                this.client.publish(topic, 1, false, s.hashCode(), s.getBytes());
             } else {
                 getSession().getRemote().sendString("not connected");
             }
         } catch (Exception e) {
-            logger.error( e.getMessage(), e);
+            logger.error(e.getMessage(), e);
             try {
                 getSession().getRemote().sendString(e.getMessage());
             } catch (Exception e1) {
-                logger.error( e1.getMessage(), e1);
+                logger.error(e1.getMessage(), e1);
             }
         }
     }
@@ -127,15 +124,13 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
     @Override
     public void onSuccess(IMqttToken asyncActionToken) {
         try {
-            for (String topic : topics) {
-                this.client.subscribe(topic, MqttClientUtil.getQos());
-                getSession().getRemote().sendString("MQTT Client Connected!");
-            }
+            this.client.subscribe(topic, MqttClientUtil.getQos());
+            getSession().getRemote().sendString("MQTT Client Connected!");
         } catch (Exception e) {
             try {
                 getSession().getRemote().sendString(e.getMessage());
             } catch (Exception e1) {
-                logger.error( e1.getMessage(), e1);
+                logger.error(e1.getMessage(), e1);
             }
         }
     }
@@ -148,9 +143,25 @@ public class MqttWebSocketSession extends HyperIoTWebSocketAbstractSession imple
             try {
                 getSession().getRemote().sendString(e.getMessage());
             } catch (Exception e1) {
-                logger.error( e1.getMessage(), e1);
+                logger.error(e1.getMessage(), e1);
             }
-            logger.error( e.getMessage(), e);
+            logger.error(e.getMessage(), e);
         }
+    }
+
+    /**
+     * This method tries to get parameter from header or from request parameters
+     *
+     * @param webSocketRequest
+     * @return param value or empty string
+     */
+    private String getParameterFromUpgradeRequest(String paramName, UpgradeRequest webSocketRequest) {
+        Map<String, List<String>> params = webSocketRequest.getHeaders();
+        String paramValue = (params != null && params.get(paramName) != null && params.get(paramName).size() == 1) ? params.get(paramName).get(0) : null;
+        if (paramValue == null) {
+            params = webSocketRequest.getParameterMap();
+            paramValue = (params != null && params.get(paramName) != null && params.get(paramName).size() == 1) ? params.get(paramName).get(0) : "";
+        }
+        return paramValue;
     }
 }

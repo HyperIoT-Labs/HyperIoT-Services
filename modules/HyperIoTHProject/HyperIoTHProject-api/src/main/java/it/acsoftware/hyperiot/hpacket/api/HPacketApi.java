@@ -88,7 +88,7 @@ public interface HPacketApi extends HyperIoTBaseEntityApi<HPacket> {
      *
      * @param fieldId
      */
-    void removeHPacketField(HyperIoTContext context, long fieldId, long packetId);
+    void removeHPacketField(HyperIoTContext context, long fieldId,long packetId);
 
     HPacket findHPacketByHpacketFieldId(HyperIoTContext context, long hpacketFieldId);
 
