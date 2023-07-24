@@ -1754,12 +1754,12 @@ public class HyperIoTHPacketRestWithPermissionTest extends KarafTestSupport {
         ArrayList<HPacketField> fields = new ArrayList<>(hpacket.getFields());
         //check restResponse field1 is equals to responseAddField1 field1
         Assert.assertEquals(field1.getId(), ((HPacketField) responseAddField1.getEntity()).getId());
-        Assert.assertEquals(fields.get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
+        Assert.assertTrue(fields.stream().anyMatch(field -> field.getId() == ((HPacketField) responseAddField1.getEntity()).getId()));
         Assert.assertEquals(hpacket.getId(), ((HPacketField) responseAddField1.getEntity()).getPacket().getId());
 
         //check restResponse field2 is equals to responseAddField2 field2
         Assert.assertEquals(field2.getId(), ((HPacketField) responseAddField2.getEntity()).getId());
-        Assert.assertEquals(fields.get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
+        Assert.assertTrue(fields.stream().anyMatch(field -> field.getId() == ((HPacketField) responseAddField2.getEntity()).getId()));
         Assert.assertEquals(hpacket.getId(), ((HPacketField) responseAddField2.getEntity()).getPacket().getId());
 
         Assert.assertEquals(2, hpacket.getFields().size());
@@ -3524,12 +3524,12 @@ public class HyperIoTHPacketRestWithPermissionTest extends KarafTestSupport {
             ArrayList<HPacketField> fields = new ArrayList<>(((HPacket) restResponse.getEntity()).getFields());
             //check restResponse field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(), ((HPacketField) responseAddField1.getEntity()).getId());
-            Assert.assertEquals(fields.get(0).getId(), ((HPacketField) responseAddField1.getEntity()).getId());
+            Assert.assertTrue(fields.stream().anyMatch(field -> field.getId() == ((HPacketField) responseAddField1.getEntity()).getId()));
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField1.getEntity()).getPacket().getId());
 
             //check restResponse field2 is equals to responseAddField2 field2
             Assert.assertEquals(field2.getId(), ((HPacketField) responseAddField2.getEntity()).getId());
-            Assert.assertEquals(fields.get(1).getId(), ((HPacketField) responseAddField2.getEntity()).getId());
+            Assert.assertTrue(fields.stream().anyMatch(field -> field.getId() == ((HPacketField) responseAddField2.getEntity()).getId()));
             Assert.assertEquals(((HPacket) restResponse.getEntity()).getId(), ((HPacketField) responseAddField2.getEntity()).getPacket().getId());
 
             Assert.assertEquals(2, ((HPacket) restResponse.getEntity()).getFields().size());

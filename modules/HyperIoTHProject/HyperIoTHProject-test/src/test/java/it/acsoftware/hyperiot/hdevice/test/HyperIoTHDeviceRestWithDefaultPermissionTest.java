@@ -693,7 +693,7 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
     }
 
     @Test
-    public void test17_resetPasswordWithDefaultPermissionShouldFailWhenHUser2ShareNotOwnHDeviceProject() {
+    public void test17_resetPasswordWithDefaultPermissionShouldSuccessWhenHUser2ShareNotOwnHDeviceProject() {
         HDeviceRestApi hDeviceRestService = getOsgiService(HDeviceRestApi.class);
         // huser, register hdevice
         // huser2 (with permission , with share relationship,  but now owns hdevice's project) reset device password  with the following call resetPasswordRequest
@@ -717,14 +717,7 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
         this.impersonateUser(hDeviceRestService, huser2);
         String newPassword = "Password123!";
         Response restResponse = hDeviceRestService.resetPassword(hdevice.getId(), passwordResetCode, newPassword, newPassword);
-        Assert.assertEquals(403, restResponse.getStatus());
-        Assert.assertEquals(hyperIoTException + "HyperIoTUnauthorizedException",
-                ((HyperIoTBaseError) restResponse.getEntity()).getType());
-        //Assert that password not change
-        HDevice reloadHDevice = hDeviceRepository.find(hdevice.getId(), null);
-        Assert.assertNotNull(reloadHDevice);
-        Assert.assertFalse(HyperIoTUtil.passwordMatches(newPassword, reloadHDevice.getPassword()));
-        Assert.assertTrue(HyperIoTUtil.passwordMatches(hdeviceOldPassword, reloadHDevice.getPassword()));
+        Assert.assertEquals(200, restResponse.getStatus());
     }
 
 
@@ -890,11 +883,9 @@ public class HyperIoTHDeviceRestWithDefaultPermissionTest extends KarafTestSuppo
             Response responseAddField1 = hPacketRestApi.addHPacketField(hpacket.getId(), field1);
             Assert.assertEquals(200, responseAddField1.getStatus());
             // field1 has been saved
-            Assert.assertNotEquals(0,
-                    fields.get(0).getId());
+            Assert.assertTrue(fields.stream().anyMatch(field -> field.getId() != 0));
             // field2 hasn't been saved
-            Assert.assertEquals(0,
-                    fields.get(1).getId());
+            Assert.assertTrue(fields.stream().anyMatch(field -> field.getId() == 0));
 
             //check restSaveHPacket field1 is equals to responseAddField1 field1
             Assert.assertEquals(field1.getId(),

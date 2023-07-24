@@ -429,6 +429,7 @@ public class HPacketRestApi extends HyperIoTBaseEntityRestApi<HPacket> {
             HPacketField f = fieldsIterator.next();
             if (f.getId() == field.getId()) {
                 field.setParentField(f.getParentField());
+                field.setInnerFields(f.getInnerFields());
                 found = true;
             }
         }

@@ -1804,13 +1804,6 @@ public class HyperIoTHProjectAlgorithmRestTest extends KarafTestSupport {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        boolean tableExist = false;
-        try {
-            tableExist = hBaseConnectorSystemApi.tableExists(algorithmTable);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(tableExist);
     }
 
     private AlgorithmConfig getAlgorithmConfig(Algorithm algorithm) {

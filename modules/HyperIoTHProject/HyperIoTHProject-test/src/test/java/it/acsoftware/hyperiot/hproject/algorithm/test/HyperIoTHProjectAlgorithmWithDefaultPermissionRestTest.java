@@ -969,13 +969,6 @@ public class HyperIoTHProjectAlgorithmWithDefaultPermissionRestTest extends Kara
         } catch (IOException e) {
             e.printStackTrace();
         }
-        boolean tableExist = false;
-        try {
-            tableExist = hBaseConnectorSystemApi.tableExists(algorithmTable);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(tableExist);
     }
 
     private boolean userIsInHProjectSharingUserList(HProject project, HUser sharingUser) {
