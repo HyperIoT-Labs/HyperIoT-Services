@@ -1,0 +1,22 @@
+meta {
+  name: Delete Rule
+  type: http
+  seq: 8
+}
+
+delete {
+  url: http://{{domain}}/hyperiot/rules/33
+  body: json
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}
+
+body:json {
+  {}
+}

@@ -1,0 +1,71 @@
+import groovy.xml.XmlUtil
+
+wrapper {
+    jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
+}
+
+allprojects {
+    apply plugin: 'java'
+    compileJava {
+        sourceCompatibility = 11
+        targetCompatibility = 11
+    }
+    repositories {
+        maven {
+            url "https://repository.jboss.org/maven2"
+        }
+    }
+}
+
+task newRelease() {
+    ext.updateHyperIoTProperties = { hyperiotPlatformVersion ->
+        def props = new Properties();
+        def versionsFile = new File(project.projectDir.toString() + "/versions.properties")
+        def versionsContent = versionsFile.getText("UTF-8");
+        def fos = new FileOutputStream(versionsFile);
+        props.load(new StringReader(versionsContent));
+        props.setProperty("hyperIoTPlatformVersion", (String) hyperiotPlatformVersion)
+        props.store(fos, "Upgrade to karaf " + karafVersion + " and hyperiot version " + hyperIoTVersion)
+    }
+
+    ext.updateDistributionPom = { distributionPath ->
+        def parser = new groovy.xml.XmlParser()
+        def pomXmlFile = new File(distributionPath);
+        def pomXmlStr = pomXmlFile.getText('UTF-8')
+        def pomXml = parser.parseText(pomXmlStr)
+        pomXml.parent.version[0].value = hyperIoTVersion + "_karaf_" + karafVersion;
+        pomXmlStr = XmlUtil.serialize(pomXml);
+        def writer = pomXmlFile.newWriter();
+        writer.write(pomXmlStr)
+        writer.close()
+    }
+
+    ext.updateHyperIoTTestDistributionVersion = { karafVersion, hyperIoTVersion ->
+        updateDistributionPom('./containers-src/hyperiot-services-distribution-test/pom.xml')
+    }
+
+    ext.updateHyperIoTServicesVersion = { karafVersion, hyperIoTVersion ->
+        updateDistributionPom('./containers-src/hyperiot-services/pom.xml')
+    }
+
+    ext.updateServicesBrokerVersion = { karafVersion, hyperIoTVersion ->
+        updateDistributionPom('./containers-src/hyperiot-services-broker/pom.xml')
+    }
+
+    doLast {
+        def karafVersion = project.karafVersion
+        def hyperiotVersion = project.hyperIoTVersion
+        def hyperiotPlatformVersion = System.getProperty("hyperiot.platform.version");
+        if (hyperiotPlatformVersion == null || hyperiotPlatformVersion.isEmpty())
+            throw new RuntimeException("Invalid HyperIoT Plarform Version")
+        updateHyperIoTProperties(hyperiotPlatformVersion)
+        updateHyperIoTTestDistributionVersion(karafVersion, hyperiotVersion)
+        updateHyperIoTServicesVersion(karafVersion, hyperiotVersion)
+        updateServicesBrokerVersion(karafVersion, hyperiotVersion)
+    }
+}
+
+project.ext.publishRepoName = "ACSoftwareRepository"
+project.ext.publishRepoUrl =  "https://nexus.acsoftware.it/nexus/repository/maven-hyperiot/"
+project.ext.publishRepoUsername = System.getProperty("publishRepoUsername","");
+project.ext.publishRepoPassword = System.getProperty("publishRepoPassword","");

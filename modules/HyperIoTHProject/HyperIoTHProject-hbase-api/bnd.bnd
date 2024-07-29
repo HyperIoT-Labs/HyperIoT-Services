@@ -1,0 +1,20 @@
+Import-Package: \
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.area.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.hproject.algorithm.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    org.apache.hadoop.hbase.client,\
+    it.acsoftware.hyperiot.hproject.model.hbase;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model.hbase.timeline;version='${range;[===,+)}'
+Export-Package: \
+    it.acsoftware.hyperiot.hproject.api.hbase,\
+    it.acsoftware.hyperiot.hproject.api.hbase.timeline

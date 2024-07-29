@@ -1,0 +1,15 @@
+meta {
+  name: Swagger
+  type: http
+  seq: 13
+}
+
+get {
+  url: http://{{domain}}/hyperiot/hprojects/swagger.json
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+}

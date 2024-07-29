@@ -1,0 +1,11 @@
+Export-Package: it.acsoftware.hyperiot.stormmanager.api
+Import-Package: \
+    com.fasterxml.jackson.core.*;version='${range;[===,+)}',\
+    com.fasterxml.jackson.databind.*;version='${range;[===,+)}',\
+    com.fasterxml.jackson.annotation.*;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}', \
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}'
+DynamicImport-Package: *
+

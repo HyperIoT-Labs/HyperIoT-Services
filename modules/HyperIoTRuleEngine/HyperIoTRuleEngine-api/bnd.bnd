@@ -1,0 +1,6 @@
+Export-Package: it.acsoftware.hyperiot.rule.api
+Import-Package: \
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.model;version='${range;[===,+)}';resolution:=dynamic,\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}'
+

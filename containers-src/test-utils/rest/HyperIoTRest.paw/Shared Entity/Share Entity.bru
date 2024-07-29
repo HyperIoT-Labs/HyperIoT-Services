@@ -1,0 +1,25 @@
+meta {
+  name: Share Entity
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{protocol}}://{{domain}}/hyperiot/sharedentity
+  body: json
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+}
+
+body:json {
+  {
+    "entityResourceName":"it.acsoftware.hyperiot.hproject.model.HProject",
+    "userId":0,
+    "userEmail":"aristide.cittadino@acsoftware.it",
+    "username":"aristide.cittadino@acsoftware.it",
+    "entityId":4059
+  }
+}

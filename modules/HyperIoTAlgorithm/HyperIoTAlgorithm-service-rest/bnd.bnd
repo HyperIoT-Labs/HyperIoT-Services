@@ -1,0 +1,13 @@
+Export-Package: it.acsoftware.hyperiot.algorithm.service.rest
+Import-Package: \
+    it.acsoftware.hyperiot.algorithm.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.algorithm.model;version='${range;[===,+)}'\n    ,\it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.rest;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.rest;version='${range;[===,+)}',\
+    com.fasterxml.jackson.jaxrs.json;version='${range;[===,+)}',\
+    io.swagger.jaxrs,\
+    io.swagger.annotations,\
+    *
+

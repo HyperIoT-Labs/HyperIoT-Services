@@ -1,0 +1,38 @@
+
+
+dependencies {
+	//OSGi Basic Imports
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+	// Project dependencies
+	implementation project(":modules:HyperIoTAlgorithm:HyperIoTAlgorithm-api")
+	implementation project(":modules:HyperIoTAlgorithm:HyperIoTAlgorithm-model")
+	implementation group: "it.acsoftware.hyperiot.hadoopmanager", name: "HyperIoTHadoopManager-api", version:project.hyperIoTVersion
+
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
+
+	// Jackson dependecy
+	implementation group:"com.fasterxml.jackson.jaxrs",name:"jackson-jaxrs-json-provider",version:project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: project.jacksonVersion
+}
+
+jar {
+	manifest {
+		attributes('dsannotations': '*')
+	}
+}
+
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

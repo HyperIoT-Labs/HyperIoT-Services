@@ -1,0 +1,15 @@
+Import-Package: \
+    com.fasterxml.jackson.jaxrs.json;version='${range;[===,+)}',\
+    io.swagger.annotations,\
+    io.swagger.jaxrs,\
+    it.acsoftware.hyperiot.hproject.algorithm.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.algorithm.model;version='${range;[===,+)}'\
+    it.acsoftware.hyperiot.hproject.hbase.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.rest;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.rest;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    *
+Export-Package: \
+    it.acsoftware.hyperiot.hproject.algorithm.service.rest,\

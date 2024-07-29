@@ -1,0 +1,16 @@
+Import-Package: \
+    it.acsoftware.hyperiot.alarm.api;version=1.0.0,\
+    it.acsoftware.hyperiot.alarm.event.api;version=1.0.0,\
+    it.acsoftware.hyperiot.alarm.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.rest;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.rest;version='${range;[===,+)}',\
+    com.fasterxml.jackson.jaxrs.json;version='${range;[===,+)}',\
+    io.swagger.jaxrs,\
+    io.swagger.annotations,\
+    *
+Export-Package: \
+    it.acsoftware.hyperiot.alarm.service.rest,\
+    it.acsoftware.hyperiot.alarm.event.service.rest

@@ -1,0 +1,40 @@
+Import-Package: \
+    it.acsoftware.hyperiot.alarm.actions;version=1.0.0 ,\
+    it.acsoftware.hyperiot.alarm.api;version=1.0.0 ,\
+    it.acsoftware.hyperiot.alarm.event.api;version=1.0.0 ,\
+    it.acsoftware.hyperiot.alarm.event.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.alarm.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.annotations;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.query.util.filter;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.permission.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.huser.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.model.actions;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.model.facts;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.service.actions.events;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hbase.connector.api.*;version='${range;[===,+)}',\
+    com.fasterxml.jackson*;version='${range;[===,+)}',\
+    javax.persistence;version='${range;[===,+)}',\
+    javax.validation;version='${range;[====,+)}',\
+    org.apache.aries*,\
+    org.apache.avro*,\
+    org.apache.hbase.*,\
+    org.apache.hadoop.hbase.util,\
+    org.hibernate.validator;version='${range;[=,+)}',\
+    org.slf4j.*
+Export-Package: \
+    it.acsoftware.hyperiot.alarm.service.actions
+DynamicImport-Package:  org.hibernate.proxy, javassist.util.proxy

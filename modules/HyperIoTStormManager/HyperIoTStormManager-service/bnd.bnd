@@ -1,0 +1,63 @@
+Import-Package: \
+    javax.persistence;version='${range;[===,+)}',\
+    javax.validation;version='${range;[====,+)}',\
+    javassist.util.proxy;version='${range;[====,+)}',\
+    org.hibernate.validator;version='${range;[=,+)}',\
+    com.fasterxml.jackson.core.*;version='${range;[===,+)}',\
+    com.fasterxml.jackson.databind.*;version='${range;[===,+)}',\
+    org.osgi.framework.*,\
+    org.apache.kafka.*,\
+    org.kie.api.runtime,\
+    org.kie.api.runtime.rule,\
+    org.apache.avro,\
+    org.apache.avro.io,\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.annotations;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.permission.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hbase.connector.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.model.actions;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.model.actions.alarm;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.actions;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.actions;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.util.hbase;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.storm.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.stormmanager.actions;version='${range;[===,+)}', \
+    it.acsoftware.hyperiot.stormmanager.api;version='${range;[===,+)}', \
+    it.acsoftware.hyperiot.stormmanager.model;version='${range;[===,+)}', \
+    it.acsoftware.hyperiot.storm.builder, \
+    org.apache.http*,\
+    org.slf4j.*
+
+DynamicImport-Package: \
+    it.acsoftware.hyperiot.storm.runtime.bolt,\
+    it.acsoftware.hyperiot.storm.operations.bolt,\
+    it.acsoftware.hyperiot.storm.hdfs.partitioner,\
+    it.acsoftware.hyperiot.stormmanager.client,\
+    org.apache.hadoop.fs,\
+    org.apache.storm;version=2.3.0,\
+    org.apache.storm.generated;version=2.3.0,\
+    org.apache.storm.bolt;version=2.3.0,\
+    org.apache.storm.spout;version=2.3.0,\
+    org.apache.storm.tuple;version=2.3.0,\
+    org.apache.storm.topology.base;version=2.3.0,\
+    org.apache.storm.flux;version=2.3.0,\
+    org.apache.storm.grouping;version=2.3.0,\
+    org.apache.storm.task;version=2.3.0,\
+    org.apache.storm.hdfs.*;version=2.3.0,\
+    org.apache.storm.hbase.*;version=2.3.0,\
+    org.apache.storm.kafka;version=1.2.2

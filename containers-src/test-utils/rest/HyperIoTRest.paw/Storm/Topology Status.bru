@@ -1,0 +1,18 @@
+meta {
+  name: Topology Status
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://{{domain}}/hyperiot/storm/topology/23/status
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}

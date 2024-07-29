@@ -1,0 +1,21 @@
+meta {
+  name: Edit HDevice
+  type: http
+  seq: 7
+}
+
+put {
+  url: http://{{domain}}/hyperiot/hdevices
+  body: json
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+  {"id":"12","deviceName":"TestDevice","brand":"ACS","model":"Smart Bulb","firmwareVersion":"1.0","softwareVersion":"1.0","description":"Smart bulb with energy meter","project":{"id":"10"}}
+}

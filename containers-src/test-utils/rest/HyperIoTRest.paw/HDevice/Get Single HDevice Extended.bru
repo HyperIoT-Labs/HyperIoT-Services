@@ -1,0 +1,16 @@
+meta {
+  name: Get Single HDevice Extended
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://{{domain}}/hyperiot/hdevices/43/extended
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}

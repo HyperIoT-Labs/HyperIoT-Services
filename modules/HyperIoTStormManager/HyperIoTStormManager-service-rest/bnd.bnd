@@ -1,0 +1,18 @@
+Export-Package: it.acsoftware.hyperiot.stormmanager.service.rest
+Import-Package: \
+    it.acsoftware.hyperiot.huser.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.huser.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.rest;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.rest;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.actions;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.stormmanager.actions;version='${range;[===,+)}',\
+    com.fasterxml.jackson.jaxrs.json;version='${range;[===,+)}',\
+    org.apache.cxf.rs.security.jose.jaxrs,\
+    *
+

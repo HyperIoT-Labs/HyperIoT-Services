@@ -1,0 +1,26 @@
+Import-Package: \
+    com.fasterxml.jackson.core;version='${range;[===,+)}',\
+    com.fasterxml.jackson.databind;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.algorithm.actions;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.algorithm.api;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.algorithm.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.annotations;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hadoopmanager.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hbase.connector.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.permission.api;version='${range;[===,+)}',\
+    javax.persistence;version='${range;[===,+)}',\
+    javax.validation;version='${range;[====,+)}',\
+    org.apache.aries*,\
+    org.hibernate.validator;version='${range;[=,+)}',\
+    org.slf4j.*
+DynamicImport-Package:  org.hibernate.proxy, javassist.util.proxy
+

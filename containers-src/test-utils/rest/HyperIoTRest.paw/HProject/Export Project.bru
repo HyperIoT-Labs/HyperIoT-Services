@@ -1,0 +1,20 @@
+meta {
+  name: Export Project
+  type: http
+  seq: 16
+}
+
+get {
+  url: https://{{domain}}/hyperiot/hprojects/2030/exports
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}
+
+body:form-urlencoded {
+  ~file: undefined
+}

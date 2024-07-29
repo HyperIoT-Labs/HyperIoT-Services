@@ -1,0 +1,5 @@
+package it.acsoftware.hyperiot.drools.global.functions;
+import it.acsoftware.hyperiot.hpacket.model.HPacket;
+
+function Object convertToValue(Object val) {
+}

@@ -1,0 +1,10 @@
+Bundle-Activator: it.acsoftware.hyperiot.dashboard.actions.DashboardActionsBundleActivator
+Import-Package: \
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.dashboard.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.dashboard.widget.model;version='${range;[===,+)}',\
+    org.slf4j.*
+Export-Package: \
+    it.acsoftware.hyperiot.dashboard.widget.actions,\
+    it.acsoftware.hyperiot.dashboard.actions

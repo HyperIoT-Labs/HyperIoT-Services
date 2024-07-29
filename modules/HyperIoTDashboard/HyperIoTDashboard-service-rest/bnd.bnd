@@ -1,0 +1,17 @@
+Export-Package: \
+    it.acsoftware.hyperiot.dashboard.service.rest,\
+    it.acsoftware.hyperiot.dashboard.widget.service.rest
+Import-Package: \
+    it.acsoftware.hyperiot.dashboard.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.dashboard.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.rest;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.rest;version='${range;[===,+)}',\
+    com.fasterxml.jackson*;version='${range;[===,+)}',\
+    io.swagger.jaxrs,\
+    io.swagger.annotations,\
+    *
+

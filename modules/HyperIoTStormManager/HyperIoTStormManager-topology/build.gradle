@@ -1,0 +1,113 @@
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation "org.easymock:easymock:3.3.1"
+    testImplementation "org.powermock:powermock-module-junit4:1.6.2"
+    testImplementation "org.powermock:powermock-api-easymock:1.6.2"
+    testImplementation "org.slf4j:slf4j-log4j12:1.7.6"
+
+    implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+    implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+
+    // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
+    implementation group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
+    //Jackson
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: project.jacksonVersion
+
+    implementation "org.apache.avro:avro:1.8.2"
+    //Storm
+    implementation group: "org.apache.storm", name: "storm-kafka-client", version: project.storm24CoreVersion
+    implementation group: "org.apache.storm", name: "storm-hdfs", version: project.storm24CoreVersion
+    implementation group: "org.apache.storm", name: "storm-hbase", version: project.storm24CoreVersion
+    implementation group: "org.apache.storm", name: "flux-core", version: project.storm24CoreVersion
+    implementation group: "org.apache.storm", name: "flux-wrappers", version: project.storm24CoreVersion
+    implementation group: "org.apache.storm", name: "storm-core", version: project.storm24CoreVersion
+    // HyperIoT Dependencies imported for the fat jar in storm, not used inside OSGi container
+    // in stormExtLib
+    implementation group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.asset.tag", name: "HyperIoTAssetTag-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.alarm", name: "HyperIoTAlarm-model", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.alarm", name: "HyperIoTAlarm-api", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.alarm", name: "HyperIoTAlarm-service", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.jobscheduler", name: "HyperIoTJobScheduler-api", version:project.hyperIoTVersion
+    // Quartz dependency (it is required by HyperIoTJobScheduler-api)
+    implementation group: 'org.quartz-scheduler', name: 'quartz', version: project.quartzVersion
+    implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-api", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-service", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-api",version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-deserialization-api",version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-deserialization-model",version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-deserialization-service",version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-hbase-api",version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-hbase-model",version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-hbase-util",version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-model",version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-model",version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-serialization-api",version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-serialization-service",version:project.hyperIoTPlatformVersion
+    // External deps required by HyperIoT RuleEngine
+    implementation group: 'org.kie', name: 'kie-osgi-integration', version: '7.20.0.Final'
+
+    // CloudEvents
+    implementation group: 'io.cloudevents', name: 'cloudevents-api', version: project.cloudEventsVersion
+    implementation group: 'io.cloudevents', name: 'cloudevents-core', version: project.cloudEventsVersion
+    implementation group: 'io.cloudevents', name: 'cloudevents-json-jackson', version: project.cloudEventsVersion
+
+    implementation project(":modules:HyperIoTStormManager:HyperIoTStormManager-api")
+    implementation project(":modules:HyperIoTStormManager:HyperIoTStormManager-model")
+
+    //HyperIoTStorm api
+    implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-api", version:project.hyperIoTVersion
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat = 'full'
+    }
+}
+
+javadoc {
+    include "**/it/acsoftware/hyperiot/*"
+}
+
+configurations {
+    archives.extendsFrom(testImplementation)
+}
+
+jar {
+    manifest {
+        attributes('dsannotations': '*')
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            credentials {
+                username project.publishRepoUsername
+                password project.publishRepoPassword
+            }
+            name = 'ACSoftwareRepository'
+            url = project.publishRepoUrl
+        }
+    }
+    publications {
+        hyperiot(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+

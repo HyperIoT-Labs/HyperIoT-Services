@@ -1,0 +1,22 @@
+meta {
+  name: Delete Device Area
+  type: http
+  seq: 11
+}
+
+delete {
+  url: http://{{domain}}/hyperiot/areas/548/devices/549
+  body: json
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}
+
+body:json {
+  {"id":"547","description":"test PUT","name":"Area Name","project":{"id":"218","user":{"id":"77"}}}
+}

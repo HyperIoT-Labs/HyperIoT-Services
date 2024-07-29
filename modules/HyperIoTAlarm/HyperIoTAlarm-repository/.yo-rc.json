@@ -1,0 +1,9 @@
+{
+    "generator-hyperiot": {
+        "inner-project": true,
+        "project-type": "repository",
+        "projectName": "HyperIoTAlarm",
+        "projectGroupId": "it.acsoftware.hyperiot.alarm",
+        "projectVersion": "1.0.0"
+    }
+}

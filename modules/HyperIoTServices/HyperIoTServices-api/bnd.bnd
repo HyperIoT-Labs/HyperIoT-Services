@@ -1,0 +1,4 @@
+Export-Package: it.acsoftware.hyperiot.services.api
+Import-Package: \
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}'

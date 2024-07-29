@@ -1,0 +1,101 @@
+{
+  "type": "record",
+  "name": "HPacket",
+  "namespace": "it.acsoftware.hyperiot.hpacket.model",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "type",
+      "type": "string"
+    },
+    {
+      "name": "format",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "serialization",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "device",
+      "type": [
+        "null",
+        "long"
+      ]
+    },
+    {
+      "name": "version",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "fields",
+      "type": [
+        "null",
+        {
+          "type": "map",
+          "values": it.acsoftware.hyperiot.hpacket.model.HPacketField
+        }
+      ]
+    },
+    {
+      "name": "valid",
+      "type": "boolean"
+    },
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "categoryIds",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "long"
+        }
+      ]
+    },
+    {
+      "name": "tagIds",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "long"
+        }
+      ]
+    },
+    {
+      "name": "timestampField",
+      "type": "string"
+    },
+    {
+      "name": "timestampFormat",
+      "type": "string"
+    },
+    {
+      "name": "trafficPlan",
+      "type": "string"
+    },
+    {
+      "name": "unixTimestamp",
+      "type": "boolean"
+    },
+    {
+      "name": "unixTimestampFormatSeconds",
+      "type": "boolean"
+    }
+  ]
+}

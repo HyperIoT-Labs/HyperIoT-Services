@@ -1,0 +1,23 @@
+meta {
+  name: HProject Scan Data
+  type: http
+  seq: 17
+}
+
+get {
+  url: {{protocol}}://{{domain}}/hyperiot/hprojects/38/hpackets/1711922400000/1714514400000?maxResults=50&packetIds=42&deviceIds=&alarmState=
+  body: none
+  auth: none
+}
+
+query {
+  maxResults: 50
+  packetIds: 42
+  deviceIds: 
+  alarmState: 
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}

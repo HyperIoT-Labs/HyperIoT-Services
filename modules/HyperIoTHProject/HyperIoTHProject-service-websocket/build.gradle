@@ -1,0 +1,45 @@
+dependencies {
+	//OSGi Basic Imports
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+    // Jackson dependecy
+    implementation group:"com.fasterxml.jackson.jaxrs",name:"jackson-jaxrs-json-provider",version:project.jacksonVersion
+	// WebSocket service external deps (KafkaWebSocketSession)
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.kafka.connector", name: "HyperIoTKafkaConnector-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.kafka.connector", name: "HyperIoTKafkaConnector-service-websocket", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-api", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-model", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-session", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-channel", version: project.hyperIoTVersion
+
+	implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-servlet', version: project.jettyWSVersion
+	implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.2.6.RELEASE'
+	implementation group: 'io.projectreactor.kafka', name: 'reactor-kafka', version: '1.1.0.RELEASE'
+
+	implementation group: "org.apache.cxf", name:"cxf-bundle-jaxrs", version:"2.7.18"
+	// Avro
+	implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-api")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-model")
+}
+
+jar {
+	manifest {
+		attributes('dsannotations': '*')
+	}
+}
+
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

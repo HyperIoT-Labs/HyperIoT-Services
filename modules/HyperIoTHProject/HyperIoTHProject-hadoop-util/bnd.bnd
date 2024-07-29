@@ -1,0 +1,9 @@
+Import-Package: \
+    com.fasterxml.jackson.databind;version='${range;[===,+)}',\
+    com.fasterxml.jackson.core;version='${range;[===,+)}',\
+    org.osgi.service.cm,\
+    org.osgi.service.components*,\
+    org.osgi.service*,\
+    org.osgi.framework
+Export-Package: \
+    it.acsoftware.hyperiot.hproject.util.hadoop

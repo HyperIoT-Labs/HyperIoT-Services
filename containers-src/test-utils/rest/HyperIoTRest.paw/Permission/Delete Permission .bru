@@ -1,0 +1,20 @@
+meta {
+  name: Delete Permission
+  type: http
+  seq: 8
+}
+
+delete {
+  url: http://{{domain}}/hyperiot/permissions/6777
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}
+
+body:json {
+  {}
+}

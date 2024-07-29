@@ -1,0 +1,26 @@
+
+version: '2.1'
+
+networks:
+  hyperiot:
+    name: hyperiot
+    driver: bridge
+
+services:
+
+  postgresql:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: postgresql
+
+  zookeeper:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: zookeeper
+
+  kafka:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: kafka
+    depends_on:
+       - zookeeper

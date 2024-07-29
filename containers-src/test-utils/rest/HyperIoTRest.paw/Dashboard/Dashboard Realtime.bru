@@ -1,0 +1,16 @@
+meta {
+  name: Dashboard Realtime
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{domain}}/hyperiot/dashboards/project/22/realtime
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Content-Type: application/json
+}

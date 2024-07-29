@@ -1,0 +1,21 @@
+meta {
+  name: HProjects List Pagination
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://{{domain}}/hyperiot/hprojects?delta=12
+  body: none
+  auth: none
+}
+
+query {
+  delta: 12
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  ~Accept: application/json
+  ~Content-Type: application/json
+}

@@ -1,0 +1,11 @@
+Export-Package: \
+    it.acsoftware.hyperiot.dashboard.api,\
+    it.acsoftware.hyperiot.dashboard.widget.api
+Import-Package: \
+    it.acsoftware.hyperiot.area.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.dashboard.widget.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.dashboard.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}'
+

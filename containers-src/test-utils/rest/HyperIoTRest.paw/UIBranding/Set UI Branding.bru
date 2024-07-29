@@ -1,0 +1,24 @@
+meta {
+  name: Set UI Branding
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://{{domain}}/hyperiot/ui-branding
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  Content-Type: multipart/form-data
+}
+
+body:form-urlencoded {
+  name: CompanyName
+  colorScheme: red
+  logo: undefined
+  favicon: undefined
+}

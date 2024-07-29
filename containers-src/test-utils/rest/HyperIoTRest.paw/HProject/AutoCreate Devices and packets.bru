@@ -1,0 +1,20 @@
+meta {
+  name: AutoCreate Devices and packets
+  type: http
+  seq: 9
+}
+
+post {
+  url: http://{{domain}}/hyperiot/hprojects/register
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}
+
+body:json {
+  {"cipherTextChallenge":"LiCLRMyYe+/3VQ9/wGy1XdI9NHPmAL89oisHZxvqZi7jehclhh16UrFNyKME1pPvYjTghWmZGLEzZUxC8kntezXi9HHv2mtgNJ8KVf8lL0jO/0BrYVu+inM1e3M2lNPbU5IXk5AtZfhY/ZhlqPcPUb4MDI6kWvBYNtXUaT9+W+12yaEJIQeNyp5GUVLiM/NYdWUvb8amE4TbrxNeqULBy/jym58o75ZRcuQedvN+npkwqzfkHG8hJ3nf8YSaS59ePvc8yQmD01Z+xtkS0N9H8qB1P+CRJCSTMsxofZIU1iqRhikQxNIrqX1++eT8oexP9QlYDxeR5U6b1vqPkYRZEQ==","projectId":"29","packets":[]}
+}

@@ -1,0 +1,6 @@
+Export-Package: it.acsoftware.hyperiot.widget.api
+Import-Package: \
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',it.acsoftware.hyperiot.widget.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.huser.model;version='${range;[===,+)}'
+

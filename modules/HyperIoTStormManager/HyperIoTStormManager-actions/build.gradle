@@ -1,0 +1,34 @@
+
+
+
+dependencies {
+	//OSGi Basic Imports
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	// Slf4j
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
+	//Project Dependencies
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-model", version: project.hyperIoTPlatformVersion
+	implementation project(":modules:HyperIoTStormManager:HyperIoTStormManager-model")
+
+}
+
+jar {
+	manifest {
+		attributes('dsannotations': '*')
+	}
+}
+
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

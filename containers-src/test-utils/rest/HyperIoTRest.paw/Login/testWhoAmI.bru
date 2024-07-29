@@ -1,0 +1,16 @@
+meta {
+  name: testWhoAmI
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{domain}}/hyperiot/authentication/whoAmI
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/x-www-form-urlencoded
+  ~AUTHORIZATION: JWT {{JWTToken}}
+}

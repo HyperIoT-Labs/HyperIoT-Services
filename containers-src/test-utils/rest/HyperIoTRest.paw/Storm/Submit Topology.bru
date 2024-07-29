@@ -1,0 +1,18 @@
+meta {
+  name: Submit Topology
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{domain}}/hyperiot/storm/topology/18/submit
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}

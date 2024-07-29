@@ -1,0 +1,9 @@
+{
+    "generator-hyperiot": {
+        "inner-project": true,
+        "project-type": "api",
+        "projectName": "HyperIoTAlgorithm",
+        "projectGroupId": "it.acsoftware.hyperiot.algorithm",
+        "projectVersion": "1.0.0"
+    }
+}

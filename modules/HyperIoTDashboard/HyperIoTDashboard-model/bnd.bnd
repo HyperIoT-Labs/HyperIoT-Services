@@ -1,0 +1,22 @@
+Import-Package: \
+    javax.persistence*;version='${range;[===,+)}',\
+    javax.validation*;version='${range;[====,+)}',\
+    org.hibernate.annotations;version='${range;[=,+)}',\
+    org.hibernate.validator.*;version='${range;[=,+)}',\
+    org.hibernate.proxy;version='${range;[=,+)}',\
+    javassist.util.proxy;version='${range;[====,+)}',\
+    org.osgi.framework,\
+    org.postgresql,\
+    com.fasterxml.jackson*;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.validation;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.area.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.huser.model;version='${range;[===,+)}'
+Export-Package: \
+    it.acsoftware.hyperiot.dashboard.model,\
+    it.acsoftware.hyperiot.dashboard.widget.model
+
+

@@ -1,0 +1,20 @@
+meta {
+  name: HPacket List
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{domain}}/hyperiot/hpackets/all/33/types?types=INPUT
+  body: none
+  auth: none
+}
+
+query {
+  types: INPUT
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}

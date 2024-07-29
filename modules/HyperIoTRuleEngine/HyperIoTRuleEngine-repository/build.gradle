@@ -1,0 +1,39 @@
+
+
+
+dependencies {
+	//OSGi Basic Imports
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+    //Validation
+    implementation group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
+    //Hibernate
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+	implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
+	implementation group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
+	implementation group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version: project.apacheAriesJpaVersion
+	implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+	//HyperIoTBase Dependencies
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-repository", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version: project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-model", version: project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-job-model", version: project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version: project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-model", version: project.hyperIoTVersion
+	//Project dependencies
+	implementation project(":modules:HyperIoTRuleEngine:HyperIoTRuleEngine-api")
+	implementation project(":modules:HyperIoTRuleEngine:HyperIoTRuleEngine-model")
+}
+
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

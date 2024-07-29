@@ -1,0 +1,16 @@
+meta {
+  name: Module Status
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://{{domain}}/hyperiot/roles/module/status
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}

@@ -1,0 +1,22 @@
+meta {
+  name: Export Data
+  type: http
+  seq: 18
+}
+
+post {
+  url: {{protocol}}://{{domain}}/hyperiot/hprojects/38/hpacket/42/export/csv?rowKeyLowerBound=1719784800000&rowKeyUpperBound=1722463200000&exportName=prova&prettyTimestamp=true
+  body: none
+  auth: none
+}
+
+query {
+  rowKeyLowerBound: 1719784800000
+  rowKeyUpperBound: 1722463200000
+  exportName: prova
+  prettyTimestamp: true
+}
+
+headers {
+  Authorization: JWT {{JWTToken}}
+}

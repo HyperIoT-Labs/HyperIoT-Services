@@ -1,0 +1,16 @@
+meta {
+  name: Actions List
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://{{domain}}/hyperiot/permissions/actions
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}

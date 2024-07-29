@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTMqtt2Kafka-features">
+  <repository>mvn:org.apache.camel.karaf/apache-camel/2.25.4/xml/features</repository>
+  <feature name="hyperiot-camel-mqtt2kafka" version="2.4.0" description="All  HyperIoT HyperIoTMqtt2Kafka modules">
+    <feature>camel</feature>
+    <feature>camel-jms</feature>
+    <feature>camel-blueprint</feature>
+    <feature>camel-spring</feature>
+    <feature>hyperiot-kafkaconnector-basic</feature>
+    <feature>hyperiot-mqttauthentication</feature>
+    <feature>hyperiot-mqtt-authorization</feature>
+    <bundle>mvn:org.apache.activemq/activemq-camel/5.16.3</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.camel.mqtt2kafka/HyperIoTMqtt2Kafka-camel-connector/2.4.0</bundle>
+  </feature>
+</features>

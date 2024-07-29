@@ -1,0 +1,19 @@
+meta {
+  name: All Alarms Status
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{protocol}}://{{domain}}/hyperiot/alarms/status?projectId=252
+  body: none
+  auth: none
+}
+
+query {
+  projectId: 252
+}
+
+headers {
+  Authorization: JWT {{JWTToken}}
+}

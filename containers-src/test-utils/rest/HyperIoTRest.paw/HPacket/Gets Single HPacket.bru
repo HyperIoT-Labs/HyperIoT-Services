@@ -1,0 +1,16 @@
+meta {
+  name: Gets Single HPacket
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://{{domain}}/hyperiot/hpackets/14
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}

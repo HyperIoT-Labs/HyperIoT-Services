@@ -1,0 +1,17 @@
+Export-Package: \
+    it.acsoftware.hyperiot.kit.api,\
+    it.acsoftware.hyperiot.kit.category.api,\
+    it.acsoftware.hyperiot.kit.template.api
+Import-Package: \
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.asset.tag.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.kit.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.kit.category.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.kit.template.model;version='${range;[===,+)}' ,\
+        it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+        it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.huser.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.algorithm.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.role.model;version='${range;[===,+)}'

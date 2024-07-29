@@ -1,0 +1,53 @@
+
+
+
+dependencies {
+	//OSGi Basic Imports
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	//JPA Dependenc ies
+	implementation group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
+	implementation group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version: project.apacheAriesJpaVersion
+	implementation group: "org.apache.cxf" ,name: "cxf-rt-rs-security-jose-jaxrs",version: project.cxfVersion
+	//Validation
+	implementation group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
+	implementation group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
+    //Hibernate
+    implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
+	//Karaf JaaS
+	implementation group: 'org.apache.karaf.jaas', name: 'org.apache.karaf.jaas.config', version: project.karafVersion
+	implementation group: 'org.apache.karaf.jaas', name: 'org.apache.karaf.jaas.boot', version: project.karafVersion
+	//HyperIoTBase Dependencies
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.authentication", name: "HyperIoTAuthentication-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-api", version:project.hyperIoTPlatformVersion
+	implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-model", version:project.hyperIoTPlatformVersion
+	// https://mvnrepository.com/artifact/org.apache.activemq/activemq-jaas
+	implementation group: 'org.apache.activemq', name: 'activemq-all', version: project.activemqVersion
+	implementation group: 'org.apache.activemq', name: 'activemq-jaas', version: project.activemqVersion
+
+	//Project Dependencies
+	implementation project(":modules:HyperIoTMqttAuthentication:HyperIoTMqttAuthentication-api")
+
+}
+
+jar {
+	manifest {
+		attributes('dsannotations': '*')
+	}
+}
+
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

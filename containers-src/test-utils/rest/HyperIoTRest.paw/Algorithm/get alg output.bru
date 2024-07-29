@@ -1,0 +1,19 @@
+meta {
+  name: get alg output
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://dashboard-test.hyperiot.cloud/hyperiot/hprojectalgorithms/projects/6399/algorithms/6586?asRowResult=true
+  body: none
+  auth: none
+}
+
+query {
+  asRowResult: true
+}
+
+headers {
+  Authorization: JWT {{JWTToken}}
+}

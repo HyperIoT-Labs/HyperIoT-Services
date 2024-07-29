@@ -1,0 +1,9 @@
+{
+    "generator-hyperiot": {
+        "inner-project": true,
+        "project-type": "service",
+        "projectName": "HyperIoTMqttAuthorization",
+        "projectGroupId": "it.acsoftware.hyperiot.mqtt.authorization",
+        "projectVersion": "1.0.0"
+    }
+}

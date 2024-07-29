@@ -1,0 +1,33 @@
+dependencies {
+    //OSGi Basic Imports
+    implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+    implementation group: "org.osgi", name: "osgi.cmpn", version: project.osgiCompendiumVersion
+    //Jax RS
+    implementation group: "javax.ws.rs", name: "javax.ws.rs-api", version: project.jaxWsRsApiVersion
+    //Jackson
+    implementation group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: project.jacksonVersion
+    //Swagger
+    implementation group: "org.apache.cxf", name: "cxf-rt-rs-service-description-swagger", version: project.cxfVersion
+    implementation group: "org.webjars", name: "swagger-ui", version: project.swaggerUIVersion
+    //Project Base dependencies
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service-rest", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version: project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version: project.hyperIoTVersion
+    //Project dependencies
+
+    implementation project(":modules:HyperIoTAlarm:HyperIoTAlarm-model")
+
+    implementation project(":modules:HyperIoTAlarm:HyperIoTAlarm-api")
+}
+
+
+publishing {
+    publications {
+        hyperiot(MavenPublication) {
+            from components.java
+        }
+    }
+}
+

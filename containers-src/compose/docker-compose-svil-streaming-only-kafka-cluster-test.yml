@@ -1,0 +1,349 @@
+
+version: '2.1'
+
+networks:
+  hyperiot:
+    name: hyperiot
+    driver: bridge
+
+services:
+
+  zookeeper:
+    image: zookeeper:3.5.5
+    container_name: zookeper
+    hostname: zookeeper-1.hyperiot.com
+    ports:
+      - "2181:2181"
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zookeeper-1.hyperiot.com:2888:3888;2181 server.2=zookeeper-2.hyperiot.com:2888:3888;2181
+    volumes:
+      - ./data/zookeeper:/data/version-2/
+    networks:
+      hyperiot:
+        aliases:
+          - zookeeper-1.hyperiot.com 
+  zookeeper2:
+    image: zookeeper:3.5.5
+    container_name: zookeper2
+    hostname: zookeeper-2.hyperiot.com
+    ports:
+      - "2182:2181"
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zookeeper-1.hyperiot.com:2888:3888;2181 server.2=zookeeper-2.hyperiot.com:2888:3888;2181
+    volumes:
+      - ./data/zookeeper2:/data/version-2/
+    networks:
+      hyperiot:
+        aliases:
+          - zookeeper-2.hyperiot.com
+
+  kafka:
+    image: nexus.acsoftware.it:18079/hyperiot/kafka:1.0.29
+    container_name: kafka
+    ports:
+      - "8083:8083"
+      - "9092:9092"
+    environment:
+      - MQTT_SERVER=tcp://mqtt.hyperiot.com:1883
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-1.hyperiot.com:9092
+      - KAFKA_BROKER_ID=1
+      - CONNECT_PLUGIN_PATH=/opt/acsoftware/connectors
+      - KAFKA_ADVERTISED_HOST_NAME=kafka-1.hyperiot.com
+      - KAFKA_ADVERTISED_PORT=9092
+      - KAFKA_DELETE_TOPIC_ENABLE=true
+      - KAFKA_LOG_DIRS=/kafka/kafka-logs
+      - KAFKA_LOG_RETENTION_HOURS=1
+      - KAFKA_MESSAGE_MAX_BYTES=10000000
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=10000000
+      - KAFKA_GROUP_MAX_SESSION_TIMEOUT_MS=60000
+      - KAFKA_NUM_PARTITIONS=2
+      - KAFKA_DELETE_RETENTION_MS=1000
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper-1.hyperiot.com:2181,zookeeper-2.hyperiot.com:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data/kafka:/kafka/kafka-logs
+    networks:
+      hyperiot:
+        aliases:
+          - kafka-1.hyperiot.com
+  kafka-manager:
+    image: hlebalbau/kafka-manager:stable
+    container_name: kafka-manager
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_HOSTS: zookeeper-1.hyperiot.com:2181,zookeeper-2.hyperiot.com:2181
+      APPLICATION_SECRET: letmein
+    command: -Dpidfile.path=/dev/null
+    networks:
+      - hyperiot
+
+  nimbus:
+    image: nexus.acsoftware.it:18079/hyperiot/storm:1.0.18
+    command: storm nimbus
+    container_name: nimbus
+    hostname: storm.hyperiot.com
+    networks:
+      hyperiot:
+        aliases:
+          - storm.hyperiot.com
+    restart: always
+    ports:
+      - 6627:6627
+    volumes:
+      - ./data/storm/log/nimbus:/logs/
+      - ./data/storm/conf/:/conf/
+      - ./data/storm/data/:/data/
+    environment:
+      ZOOKEEPER_SERVERS: "'zookeeper-1.hyperiot.com','zookeeper-2.hyperiot.com'"
+      NIMBUS_SEEDS: "'storm.hyperiot.com'"
+  supervisor:
+    image: nexus.acsoftware.it:18079/hyperiot/storm:1.0.18
+    command: storm supervisor
+    container_name: supervisor
+    restart: always
+    networks:
+      - hyperiot
+    volumes:
+      - ./data/storm/log/supervisor:/logs/
+      - ./data/storm/conf/:/conf/
+      - ./data/storm/data/:/data/
+    environment:
+      ZOOKEEPER_SERVERS: "'zookeeper-1.hyperiot.com','zookeeper-2.hyperiot.com'"
+      NIMBUS_SEEDS: "'storm.hyperiot.com'"
+  storm-ui:
+    image: nexus.acsoftware.it:18079/hyperiot/storm:1.0.18
+    command: storm ui
+    container_name: storm_ui
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+       - hyperiot
+    volumes:
+      - ./data/storm/log/ui:/logs/
+      - ./data/storm/conf/:/conf/
+      - ./data/storm/data/:/data/
+    environment:
+      ZOOKEEPER_SERVERS: "'zookeeper-1.hyperiot.com','zookeeper-2.hyperiot.com'"
+      NIMBUS_SEEDS: "'storm.hyperiot.com'"
+
+  postgresql:
+    image: nexus.acsoftware.it:18079/hyperiot/postgres:1.0.0
+    container_name: postgresql
+    networks:
+      hyperiot:
+        aliases:
+          - postgres.hyperiot.com
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=hyperiot
+      - POSTGRES_PASSWORD=hyperiot
+      - POSTGRES_DB=hyperiot
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - SCHED_DB_BACKUP="false"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data/pgdata
+
+  karaf-activemq-mqtt:
+    image: nexus.acsoftware.it:18079/hyperiot/karaf-activemq-mqtt:5.15.8-1.0.48
+    container_name: karaf_active_mqtt
+    ports:
+      - "1883:1883"
+      - "8102:8101"
+      - "5006:5005"
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-1.hyperiot.com:9092
+      - DB_SERVER_NAME=postgres.hyperiot.com
+      - DB_SERVER_PORT=5432
+      - DB_SERVER_USER=hyperiot
+      - DB_SERVER_PASSWORD=hyperiot
+      - DB_SERVER_JDBC_DRIVER=org.postgresql.Driver
+      - HYPERIOT_LOG_LEVEL=TRACE
+      - HYPERIOT_NODE_ID=1
+      - HYPERIOT_ZOOKEEPER_URL=zookeeper-1.hyperiot.com:2181,zookeeper-2.hyperiot.com:2181
+    networks:
+      hyperiot:
+        aliases:
+          - mqtt.hyperiot.com
+
+  nginx-frontend:
+    image: nexus.acsoftware.it:18079/hyperiot/nginx-hyperiot-frontend:1.0.31
+    container_name: nginx-frontend
+    networks:
+      - hyperiot
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - API_URL=http://karaf-microservices.hyperiot.com:8181
+    networks:
+       - hyperiot
+
+  namenode:
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-namenode:1.0.2
+    container_name: namenode
+    hostname: namenode
+    networks:
+      hyperiot:
+        aliases:
+          - namenode
+    volumes:
+      - ./data/hadoop/namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ../hyperiot-hadoop/hadoop.env
+    ports:
+      - "50070:50070"
+
+  resourcemanager:
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-resourcemanager:1.0.2
+    networks:
+      hyperiot:
+        aliases:
+          - resourcemanager
+    container_name: resourcemanager
+    ports:
+      - "8088:8088"
+    env_file:
+      - ../hyperiot-hadoop/hadoop.env
+
+  historyserver:
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-historyserver:1.0.2
+    networks:
+      hyperiot:
+        aliases:
+          - historyserver
+    container_name: historyserver
+    volumes:
+      - ./data/hadoop/historyserver:/hadoop/yarn/timeline
+    ports:
+      - "8188:8188"
+    env_file:
+      - ../hyperiot-hadoop/hadoop.env
+
+  nodemanager:
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-nodemanager:1.0.2
+    networks:
+      hyperiot:
+        aliases:
+          - nodemanager
+    container_name: nodemanager
+    ports:
+      - "8042:8042"
+    env_file:
+      - ../hyperiot-hadoop/hadoop.env
+
+  datanode1:
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-datanode:1.0.2
+    networks:
+      hyperiot:
+        aliases:
+          - datanode1
+    container_name: datanode1
+    volumes:
+      - ./data/hadoop/datanode1:/hadoop/dfs/data
+    env_file:
+      - ../hyperiot-hadoop/hadoop.env
+    ports:
+      - "50075:50075"
+  datanode2:
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-datanode:1.0.2
+    networks:
+      hyperiot:
+        aliases:
+          - datanode2
+    container_name: datanode2
+    volumes:
+      - ./data/hadoop/datanode2:/hadoop/dfs/data
+    env_file:
+      - ../hyperiot-hadoop/hadoop.env
+    ports:
+        - "50076:50075"
+  datanode3:
+    image: nexus.acsoftware.it:18079/hyperiot/hadoop-datanode:1.0.2
+    networks:
+      hyperiot:
+        aliases:
+          - datanode3
+    container_name: datanode3
+    volumes:
+      - ./data/hadoop/datanode3:/hadoop/dfs/data
+    env_file:
+      - ../hyperiot-hadoop/hadoop.env
+    ports:
+      - "50077:50075"
+      
+  hbase-master:
+    image: nexus.acsoftware.it:18079/hyperiot/hbase-hmaster:1.0.2
+    networks:
+      hyperiot:
+        aliases:
+          - hbase-master.hyperiot.com 
+    container_name: hbase-master
+    hostname: hbase-master.hyperiot.com 
+    env_file:
+      - ../hyperiot-hbase/hbase-distributed-local.env
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 datanode2:50076 datanode3:50077 zookeeper-1.hyperiot.com:2181 zookeeper-2.hyperiot.com:2181"
+    ports:
+      - "16000:16000"
+      - "16010:16010"
+
+  hbase-region:
+    image: nexus.acsoftware.it:18079/hyperiot/hbase-regionserver:1.0.2
+    networks:
+      hyperiot:
+        aliases:
+          - hbase-regionserver.hyperiot.com
+    container_name: hbase-regionserver
+    hostname: hbase-regionserver.hyperiot.com
+    env_file:
+      - ../hyperiot-hbase/hbase-distributed-local.env
+    environment:
+      HBASE_CONF_hbase_regionserver_hostname: hbase-regionserver
+      SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 datanode2:50076 datanode3:50077 zookeeper-1.hyperiot.com:2181 zookeeper-2.hyperiot.com:2181 hbase-master.hyperiot.com:16010"
+    ports:
+      - "16020:16020"
+      - "16030:16030"
+
+  hive-server:
+    image: nexus.acsoftware.it:18079/hyperiot/hive:1.0.2
+    container_name: hive-server
+    networks:
+      hyperiot:
+        aliases:
+          - hive-server
+    env_file:
+      - ./containers-src/docker-hive/hadoop-hive.env
+    environment:
+      SERVICE : "hive-server"
+      SERVICE_PRECONDITION: "hive-metastore:9083"
+    ports:
+      - "10000:10000"
+
+  hive-metastore:
+    image: nexus.acsoftware.it:18079/hyperiot/hive:1.0.2
+    container_name: hive-metastore
+    networks:
+      hyperiot:
+        aliases:
+          - hive-metastore
+    env_file:
+      - ./containers-src/docker-hive/hadoop-hive.env
+    environment:
+      SERVICE : "hive-metastore"
+      SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 postgres.hyperiot.com:5432"
+      DB_SERVER_NAME: "postgres.hyperiot.com"
+      DB_SERVER_PORT: "5432"
+      DB_SERVER_USER: "hive"
+      DB_SERVER_PASSWORD: "hive"
+      DB_NAME: "metastore"
+      DB_SERVER_JDBC_DRIVER: "org.postgresql.Driver"
+    ports:
+      - "9083:9083"
+

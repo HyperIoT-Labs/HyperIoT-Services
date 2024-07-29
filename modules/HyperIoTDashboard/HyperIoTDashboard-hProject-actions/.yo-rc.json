@@ -1,0 +1,10 @@
+{
+    "generator-hyperiot": {
+        "inner-project": true,
+        "project-type": "custom",
+        "projectName": "HyperIoTDashboard",
+        "projectGroupId": "it.acsoftware.hyperiot.dashboard",
+        "projectVersion": "1.1.0",
+        "projectFolder": "HyperIoTDashboard-hProject-actions"
+    }
+}

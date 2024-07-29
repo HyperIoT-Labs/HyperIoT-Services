@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTRuleEngine-features">
+  <repository>mvn:org.kie/kie-karaf-features/7.74.1.Final/xml/features</repository>
+  <feature name="hyperiot-ruleengine" version="${project.version}" description="All  Hyperiot HyperIoTRuleEngine modules">
+    <feature>hyperiot-base</feature>
+    <feature>drools-module</feature>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-actions/${project.version}</bundle>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-api/${project.version}</bundle>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-service/${project.version}</bundle>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-model/${project.version}</bundle>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-repository/${project.version}</bundle>
+    <bundle start-level="83">mvn:commons-codec/commons-codec/1.15</bundle>
+
+<!--    <bundle start-level="83">mvn:org.drools/drools-core/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.drools/drools-core-reflective/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.drools/drools-compiler/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.drools/drools-mvel-parser/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.drools/drools-mvel-compiler/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.drools/drools-mvel/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.kie.soup/kie-soup-xstream/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.kie.soup/kie-soup-commons/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.kie.soup/kie-soup-project-datamodel-api/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.kie.soup/kie-soup-project-datamodel-commons/7.74.0.Final</bundle>
+    <bundle start-level="83">mvn:org.kie.soup/kie-soup-maven-support/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.kie/kie-osgi-integration/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.kie/kie-api/7.74.1.Final</bundle>
+    <bundle start-level="83">mvn:org.kie/kie-internal/7.74.1.Final</bundle>
+
+    <bundle start-level="83">mvn:com.google.protobuf/protobuf-java/3.6.1</bundle>
+    <bundle start-level="83">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.antlr/3.5_1</bundle>
+    <bundle start-level="83">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xstream-java8/1.4.10_1</bundle>
+
+    <bundle start-level="83">mvn:org.mvel/mvel2/2.4.15.Final</bundle>-->
+
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-service-rest/${project.version}</bundle>
+  </feature>
+  <feature name="hyperiot-ruleengine-basic" version="${project.version}" description="All  Hyperiot HyperIoTRuleEngine modules with NO rest services">
+    <feature>hyperiot-base-basic</feature>
+    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-actions/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-model/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-repository/${project.version}</bundle>
+  </feature>
+</features>

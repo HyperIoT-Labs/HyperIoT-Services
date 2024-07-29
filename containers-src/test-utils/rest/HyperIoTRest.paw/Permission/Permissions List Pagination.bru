@@ -1,0 +1,20 @@
+meta {
+  name: Permissions List Pagination
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{domain}}/hyperiot/permissions?delta=1
+  body: none
+  auth: none
+}
+
+query {
+  delta: 1
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}

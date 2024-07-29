@@ -1,0 +1,25 @@
+{
+  "mqtt": {
+    "host": "broker.hyperiot.cloud",
+    "port": 1883,
+    "topic": "streaming/"
+  },
+  "misc": {
+    "duration": 30,
+    "verbose": true,
+	"dry-run": false
+  },
+  "sensors": {
+    "39/42/43": {
+	    "username": "HDeviceTemp1",
+	    "password": "Hy0!USER",
+	    "active":true,
+	    "data":{
+	        "temperature": 17, "temperature-range": [16, 18],"temperature-outlier":85,"temperature-outlier-duration-secs":5,"temperature-outlier-every-secs":15,
+	        "humidity": 20, "humidity-range": [20, 25]
+	  	 },
+	 	 "waitBeforeSendSec":0.5
+    }
+  }
+}
+

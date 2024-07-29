@@ -1,0 +1,36 @@
+FROM openjdk:11
+
+ARG KARAF_MICROSERVICES_VERSION=1.0.0
+
+ENV KARAF_USER karaf
+ENV KARAF_UID 8181
+#ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV KARAF_VERSION 4.2.10
+ENV JAVA_MAX_MEM 256m
+ENV KARAF_EXEC exec
+ENV KARAF_FOLDER /opt/apache-karaf-mqtt
+ENV KARAF_TAR_FILE karaf-activemq-mqtt-${KARAF_MICROSERVICES_VERSION}.tar.gz
+ENV DB_SERVER_NAME host.docker.internal
+ENV DB_SERVER_PORT 5432
+ENV DB_SERVER_USER postgres
+ENV DB_SERVER_PASSWORD=
+ENV DB_SERVER_JDBC_DRIVER org.postgresql.Driver
+
+COPY ./target/$KARAF_TAR_FILE /opt/
+
+RUN mkdir /opt/karaf
+
+RUN groupadd -r $KARAF_USER --gid=$KARAF_UID && useradd -rm -g $KARAF_USER --uid=$KARAF_UID $KARAF_USER
+
+RUN apt-get update && apt-get install -y --no-install-recommends jq curl && rm -rf /var/lib/apt/lists/*
+
+RUN tar --strip-components=1 -C /opt/karaf -xzf /opt/$KARAF_TAR_FILE \
+    && rm /opt/$KARAF_TAR_FILE \
+    && chown -R $KARAF_USER.$KARAF_USER /opt/karaf \
+    && chmod 700 /opt/karaf/data
+
+EXPOSE 1099 8101 44444 1883 8181 61616 61614
+
+USER $KARAF_USER
+
+CMD ["/opt/karaf/bin/karaf", "run","debug","clean"]

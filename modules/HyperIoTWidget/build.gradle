@@ -1,0 +1,44 @@
+
+allprojects {
+    group 'it.acsoftware.hyperiot.widget'
+    version project.hyperIoTPlatformVersion
+    repositories{
+      mavenCentral()
+      mavenLocal{
+		  content {
+			  // Used only for test and development phase.
+			  includeGroupByRegex "it\\.acsoftware.*"
+		  }
+	  }
+      maven {
+         url "https://plugins.gradle.org/m2/"
+      }
+
+   maven {
+         name = 'ACSoftwareRepository'
+         url = project.acsMavenRepository
+      }
+	}
+
+   
+	apply plugin: 'biz.aQute.bnd.builder'
+	apply plugin: 'maven-publish'
+
+	publishing {
+		repositories {
+			maven {
+				credentials {
+					username project.publishRepoUsername
+					password project.publishRepoPassword
+				}
+				name = 'ACSoftwareRepository'
+				url = project.publishRepoUrl
+			}
+		}
+ 	}
+
+    
+}
+
+
+

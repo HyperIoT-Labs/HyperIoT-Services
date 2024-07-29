@@ -1,0 +1,16 @@
+meta {
+  name: HProject
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{domain}}/hyperiot/hprojects/33
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}

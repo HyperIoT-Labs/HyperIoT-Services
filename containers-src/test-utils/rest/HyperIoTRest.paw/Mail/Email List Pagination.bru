@@ -1,0 +1,23 @@
+meta {
+  name: Email List Pagination
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{domain}}/hyperiot/mail/templates?delta=-44&page=1
+  body: none
+  auth: none
+}
+
+query {
+  delta: -44
+  page: 1
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}

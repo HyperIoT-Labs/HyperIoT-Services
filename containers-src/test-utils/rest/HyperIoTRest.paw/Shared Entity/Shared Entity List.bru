@@ -1,0 +1,15 @@
+meta {
+  name: Shared Entity List
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://{{domain}}/hyperiot/sharedentity/all
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+}

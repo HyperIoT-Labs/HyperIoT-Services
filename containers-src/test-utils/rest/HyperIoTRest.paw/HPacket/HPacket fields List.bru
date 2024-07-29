@@ -1,0 +1,20 @@
+meta {
+  name: HPacket fields List
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://{{domain}}/hyperiot/hpackets/all/2030
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}
+
+body:json {
+  {"id":14,"name":"TestPacket","type":"OUTPUT","format":"JSON","serialization":"AVRO","device":{"id":12},"version":"1.0","fields":[{"name":"temperature","description":"Temperature","type":"DOUBLE","multiplicity":"SINGLE"},{"name":"humidity","description":"Humidity","type":"DOUBLE","multiplicity":"SINGLE"}]}
+}

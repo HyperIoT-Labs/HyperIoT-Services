@@ -1,0 +1,26 @@
+  nimbus:
+    extends:
+      file: docker-compose-svil-basic.yml
+      service: nimbus
+    links:
+      - zookeeper
+    depends_on:
+      - "zookeeper"
+
+  supervisor:
+    extends:
+      file: docker-compose-svil-basic.yml
+      service: supervisor
+    links:
+      - zookeeper
+      - nimbus
+
+  storm-ui:
+    extends:
+      file: docker-compose-svil-basic.yml
+      service: storm-ui
+    links:
+      - nimbus
+    depends_on:
+      - "supervisor"
+      - "nimbus"

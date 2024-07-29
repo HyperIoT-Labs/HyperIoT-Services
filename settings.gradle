@@ -1,0 +1,15 @@
+buildscript{
+    repositories {
+        mavenLocal()
+        maven {
+            name = 'ACSoftwareRepository'
+            url = "https://nexus.acsoftware.it/nexus/repository/maven-hyperiot/"
+        }
+    }
+
+    dependencies {
+        classpath 'it.acsoftware.hyperiot.gradle.plugins.workspace:HyperIoTWorkspaceGradlePlugin:2.3.0'
+    }
+}
+
+apply plugin: 'it.acsoftware.hyperiot.workspace'

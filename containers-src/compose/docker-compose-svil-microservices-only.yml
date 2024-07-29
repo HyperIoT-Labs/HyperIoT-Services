@@ -1,0 +1,28 @@
+version: '2.1'
+
+networks:
+  hyperiot:
+    name: hyperiot
+    driver: bridge
+
+services:
+  postgresql:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: postgresql
+
+  karaf-microservices:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: karaf-microservices
+    depends_on:
+      - postgresql
+
+  nginx-frontend:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: nginx-frontend
+    depends_on:
+      - karaf-microservices
+
+

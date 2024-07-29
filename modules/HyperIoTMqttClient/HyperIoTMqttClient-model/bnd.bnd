@@ -1,0 +1,10 @@
+Import-Package: \
+    org.osgi.framework,\
+    org.postgresql,\
+    com.fasterxml.jackson*;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.validation;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.model;version='${range;[===,+)}'
+Export-Package: it.acsoftware.hyperiot.mqtt.client.model
+

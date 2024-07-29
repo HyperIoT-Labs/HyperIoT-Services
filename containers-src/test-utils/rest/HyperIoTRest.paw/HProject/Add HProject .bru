@@ -1,0 +1,20 @@
+meta {
+  name: Add HProject 
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://{{domain}}/hyperiot/hprojects
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}
+
+body:json {
+  {"name":"First","description":"Test project","user":{"id":6}}
+}

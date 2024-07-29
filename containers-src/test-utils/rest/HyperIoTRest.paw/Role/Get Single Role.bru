@@ -1,0 +1,16 @@
+meta {
+  name: Get Single Role
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://{{domain}}/hyperiot/roles/7
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Content-Type: application/json
+}

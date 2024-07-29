@@ -1,0 +1,9 @@
+{
+    "generator-hyperiot": {
+        "inner-project": true,
+        "project-type": "api",
+        "projectName": "HyperIoTRuleEngine",
+        "projectGroupId": "it.acsoftware.hyperiot.rule",
+        "projectVersion": "1.0.0"
+    }
+}

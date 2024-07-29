@@ -1,0 +1,10 @@
+Bundle-Activator: it.acsoftware.hyperiot.stormmanager.actions.StormManagerActionsBundleActivator
+Import-Package: \
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.stormmanager.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    org.slf4j.*
+Export-Package: it.acsoftware.hyperiot.stormmanager.actions
+

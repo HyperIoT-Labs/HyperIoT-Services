@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+  <modelVersion>4.0.0</modelVersion>
+    
+  <groupId>it.acsoftware.hyperiot.container</groupId>
+    
+  <artifactId>karaf-microservices</artifactId>
+    
+  <version>${hyperiot.platform.version}</version>
+    
+  <packaging>karaf-assembly</packaging>
+    
+  <name>karaf-microservices-feature</name>
+    
+  <description>karaf-microservices</description>
+    
+  <parent>
+        
+    <groupId>it.acsoftware.hyperiot.container</groupId>
+        
+    <artifactId>hyperiot-karaf-distribution-parent</artifactId>
+        
+    <version>2.3.0_karaf_4.4.3</version>
+      
+  </parent>
+    
+  <properties>
+        
+    <hyperiot.platform.version>${hyperiot.platform.version}</hyperiot.platform.version>
+      
+  </properties>
+    
+  <repositories>
+        
+    <repository>
+            
+      <id>it.acsoftware.hyperiot</id>
+            
+      <name>hyperiot nexus</name>
+            
+      <url>https://nexus.acsoftware.it/nexus/repository/maven-hyperiot/</url>
+          
+    </repository>
+      
+  </repositories>
+    
+  <dependencies>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.alarm</groupId>
+            
+      <artifactId>HyperIoTAlarm-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.algorithm</groupId>
+            
+      <artifactId>HyperIoTAlgorithm-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.kafka.connector</groupId>
+            
+      <artifactId>HyperIoTKafkaConnector-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.hadoopmanager</groupId>
+            
+      <artifactId>HyperIoTHadoopManager-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.kit</groupId>
+            
+      <artifactId>HyperIoTKit-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.hproject</groupId>
+            
+      <artifactId>HyperIoTHProject-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.jobscheduler</groupId>
+            
+      <artifactId>HyperIoTJobScheduler-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.rule</groupId>
+            
+      <artifactId>HyperIoTRuleEngine-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.mqtt.client</groupId>
+            
+      <artifactId>HyperIoTMqttClient-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.stormmanager</groupId>
+            
+      <artifactId>HyperIoTStormManager-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.dashboard</groupId>
+            
+      <artifactId>HyperIoTDashboard-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.widget</groupId>
+            
+      <artifactId>HyperIoTWidget-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.sparkmanager</groupId>
+            
+      <artifactId>HyperIoTSparkManager-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.hbase.connector</groupId>
+            
+      <artifactId>HyperIoTHBaseConnector-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.avro</groupId>
+            
+      <artifactId>HyperIoTAvro-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.cloud.events</groupId>
+            
+      <artifactId>HyperIoTCloudEvents-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.services</groupId>
+            
+      <artifactId>HyperIoTServices-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+        
+    <dependency>
+            
+      <groupId>it.acsoftware.hyperiot.ui.branding</groupId>
+            
+      <artifactId>HyperIoTUIBranding-features</artifactId>
+            
+      <classifier>features</classifier>
+            
+      <version>${hyperiot.platform.version}</version>
+            
+      <type>xml</type>
+            
+      <scope>runtime</scope>
+          
+    </dependency>
+      
+  </dependencies>
+    
+  <build>
+        
+    <plugins>
+            
+      <plugin>
+                
+        <groupId>org.apache.karaf.tooling</groupId>
+                
+        <artifactId>karaf-maven-plugin</artifactId>
+                
+        <version>${karaf.version}</version>
+                
+        <extensions>true</extensions>
+                
+        <configuration>
+                    
+          <bootFeatures>
+                        
+            <feature>standard</feature>
+                        
+            <feature>hyperiot-core-clustered</feature>
+                        
+            <feature>hyperiot-services</feature>
+                        
+            <feature>hawtio</feature>
+                        
+            <feature>hyperiot-jobscheduler</feature>
+                        
+            <feature>hyperiot-alarm</feature>
+                        
+            <feature>hyperiot-algorithm</feature>
+                        
+            <feature>hyperiot-area</feature>
+                        
+            <feature>hyperiot-kafkaconnector</feature>
+                        
+            <feature>hyperiot-mqtt-authorization</feature>
+                        
+            <feature>hyperiot-hadoopmanager</feature>
+                        
+            <feature>hyperiot-hproject</feature>
+                        
+            <feature>hyperiot-ruleengine</feature>
+                        
+            <feature>hyperiot-stormmanager</feature>
+                        
+            <feature>hyperiot-mqttclient</feature>
+                        
+            <feature>hyperiot-dashboard</feature>
+                        
+            <feature>hyperiot-widget</feature>
+                        
+            <feature>hyperiot-hbaseconnector</feature>
+                        
+            <feature>hyperiot-sparkmanager</feature>
+                        
+            <feature>hyperiot-avro</feature>
+                        
+            <feature>hyperiot-cloudevents</feature>
+                        
+            <feature>hyperiot-websocket-channel</feature>
+                        
+            <feature>hyperiot-uibranding</feature>
+                        
+            <feature>hyperiot-kit</feature>
+                      
+          </bootFeatures>
+                  
+        </configuration>
+              
+      </plugin>
+          
+    </plugins>
+      
+  </build>
+  
+</project>

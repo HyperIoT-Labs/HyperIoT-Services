@@ -1,0 +1,13 @@
+  namenode:
+    extends:
+      file: docker-compose-svil-basic.yml
+      service: namenode
+
+  datanode1:
+    extends:
+      file: docker-compose-svil-basic.yml
+      service: datanode1
+    depends_on:
+      - "namenode"
+    links:
+      - "namenode"

@@ -1,0 +1,9 @@
+{
+    "generator-hyperiot": {
+        "inner-project": true,
+        "project-type": "features",
+        "projectName": "HyperIoTStormManager",
+        "projectGroupId": "it.acsoftware.hyperiot.stormmanager",
+        "projectVersion": "1.1.0"
+    }
+}

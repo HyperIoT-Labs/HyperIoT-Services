@@ -1,0 +1,15 @@
+meta {
+  name: Module Status
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://{{domain}}/hyperiot/hdevices/module/status
+  body: none
+  auth: none
+}
+
+headers {
+  ~AUTHORIZATION: JWT {{JWTToken}}
+}

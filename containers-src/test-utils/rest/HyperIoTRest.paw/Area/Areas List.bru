@@ -1,0 +1,18 @@
+meta {
+  name: Areas List
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{domain}}/hyperiot/areas/all
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}

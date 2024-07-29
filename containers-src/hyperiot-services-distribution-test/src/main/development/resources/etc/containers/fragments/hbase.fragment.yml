@@ -1,0 +1,11 @@
+  hbase-master:
+    extends:
+      file: docker-compose-svil-basic.yml
+      service: hbase-master
+
+  hbase-region:
+    extends:
+      file: docker-compose-svil-basic.yml
+      service: hbase-region
+    depends_on:
+      - hbase-master

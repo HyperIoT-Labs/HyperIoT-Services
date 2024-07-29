@@ -1,0 +1,20 @@
+meta {
+  name: Delete HProject 
+  type: http
+  seq: 11
+}
+
+delete {
+  url: http://{{domain}}/hyperiot/hprojects/36
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}
+
+body:json {
+  {}
+}

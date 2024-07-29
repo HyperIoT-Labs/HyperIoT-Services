@@ -1,0 +1,82 @@
+version: '2.1'
+
+networks:
+  hyperiot:
+    name: hyperiot
+    driver: bridge
+
+services:
+  zookeeper:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: zookeeper
+
+  kafka:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: kafka
+    depends_on:
+       - zookeeper
+
+  kafka-manager:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: kafka-manager
+    depends_on:
+      - kafka
+      - zookeeper
+
+  nimbus:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: nimbus
+    links:
+      - zookeeper
+    depends_on:
+      - zookeeper
+
+  supervisor:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: supervisor
+    links:
+      - zookeeper
+      - nimbus
+
+  storm-ui:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: storm-ui
+    links:
+      - nimbus
+    depends_on:
+      - supervisor
+      - nimbus
+
+  postgresql:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: postgresql
+
+  karaf-activemq-mqtt:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: karaf-activemq-mqtt
+    depends_on:
+      - postgresql
+
+  karaf-microservices:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: karaf-microservices
+    depends_on:
+      - postgresql
+
+  nginx-frontend:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: nginx-frontend
+    depends_on:
+      - karaf-microservices
+
+

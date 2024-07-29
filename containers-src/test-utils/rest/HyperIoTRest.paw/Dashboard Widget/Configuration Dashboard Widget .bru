@@ -1,0 +1,24 @@
+meta {
+  name: Configuration Dashboard Widget 
+  type: http
+  seq: 9
+}
+
+put {
+  url: http://localhost:8181/hyperiot/dashboardwidgets/configuration?dashboardWidgetId=4390
+  body: json
+  auth: none
+}
+
+query {
+  dashboardWidgetId: 4390
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Content-Type: application/json
+}
+
+body:json {
+  {\"description\":\"test setDashboardWidgetConf\"}
+}

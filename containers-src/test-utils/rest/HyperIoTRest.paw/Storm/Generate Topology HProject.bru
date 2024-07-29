@@ -1,0 +1,18 @@
+meta {
+  name: Generate Topology HProject
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{domain}}/hyperiot/storm/topology/generate/800
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}

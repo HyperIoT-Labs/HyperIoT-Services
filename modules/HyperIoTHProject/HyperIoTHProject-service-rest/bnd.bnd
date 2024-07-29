@@ -1,0 +1,26 @@
+Export-Package: \
+    it.acsoftware.hyperiot.area.service.rest,\
+    it.acsoftware.hyperiot.hdevice.service.rest,\
+    it.acsoftware.hyperiot.hpacket.service.rest,\
+    it.acsoftware.hyperiot.hproject.algorithm.service.rest,\
+    it.acsoftware.hyperiot.hproject.service.rest
+Import-Package: \
+    it.acsoftware.hyperiot.hproject.algorithm.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.algorithm.model;version='${range;[===,+)}'\
+    it.acsoftware.hyperiot.hproject.algorithm.model.dto;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.api.hbase;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.area.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.rest;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.rest;version='${range;[===,+)}',\
+    com.fasterxml.jackson.jaxrs.json;version='${range;[===,+)}',\
+    io.swagger.jaxrs,\
+    io.swagger.annotations,\
+    *
+

@@ -1,0 +1,10 @@
+{
+    "generator-hyperiot": {
+        "inner-project": true,
+        "project-type": "custom",
+        "projectName": "HyperIoTHProject",
+        "projectGroupId": "it.acsoftware.hyperiot.hproject",
+        "projectVersion": "1.1.0",
+        "projectFolder": "HyperIoTHProject-hadoop-util"
+    }
+}

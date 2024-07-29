@@ -1,0 +1,138 @@
+{
+  "mqtt": {
+    "host": "broker-test.hyperiot.cloud",
+    "port": 1883,
+    "topic": "streaming/"
+  },
+  "misc": {
+    "duration": 30,
+    "verbose": true,
+	"dry-run": false
+  },
+  "sensors": {
+ 	 "4216/4224/4238": {
+         "username": "WindSensor1",
+         "password": "WindSensor1.",
+		"active":false,
+		"data":{ 
+       	 "speed": 1, "speed-range": [10, 11]
+   		 },
+		 "waitBeforeSendSec":1.5
+     },
+	 "4216/4225/4239": {
+	     "username": "WindSensor2",
+	     "password": "WindSensor2.",
+		 "active":false,
+ 		"data":{ 
+        	 "speed": 1, "speed-range": [10, 11]
+    		 },
+ 		 "waitBeforeSendSec":0.98
+    },
+ 	"44216/4226/4240": {
+	    "username": "WindSensor3",
+	    "password": "WindSensor3.",
+		 "active":false,
+		"data":{
+       	 "speed": 1, "speed-range": [10, 11]
+   		 },
+		 "waitBeforeSendSec":1.3
+   	},
+	 "4216/4227/4241": {
+	     "username": "lumenSensor1",
+	     "password": "lumenSensor1.",
+		 "active":true,
+	 	"data":{
+	 		  "luminance": 1, "luminance-range": [500, 550]
+	  		 },
+	 	 "waitBeforeSendSec":0.8
+    },
+   	"4216/4228/4242": {
+	    "username": "lumenSensor2",
+	    "password": "lumenSensor2.",
+		 "active":true,
+	 	"data":{
+	 		  "luminance": 1, "luminance-range": [500, 550]
+	  		 },
+	 	 "waitBeforeSendSec":0.9
+  	},
+  	"4216/4229/4243": {
+	    "username": "lumenSensor3",
+	    "password": "lumenSensor3.",
+		 "active":true,
+	 	"data":{
+	 		  "luminance": 1, "luminance-range": [500, 550]
+	  		 },
+	 	 "waitBeforeSendSec":1.1
+	},
+ 	 "4216/4230/4244": {
+	     "username": "lumenSensor4",
+	     "password": "lumenSensor4.",
+		 "active":true,
+ 	 	"data":{
+ 	 		  "luminance": 1, "luminance-range": [500, 550]
+ 	  		 },
+ 	 	 "waitBeforeSendSec":1.2
+	},
+ 	 "4216/4231/4245": {
+	     "username": "lumenSensor5",
+	     "password": "lumenSensor5.",
+		 "active":true,
+ 	 	"data":{
+ 	 		  "luminance": 1, "luminance-range": [500, 550]
+ 	  		 },
+ 	 	 "waitBeforeSendSec":1
+	},
+    "4216/4219/4233": {
+	    "username": "HumiTempSensor1",
+	    "password": "HumiTempSensor1.",
+		 "active":true,
+	 	"data":{
+	        "temperature": 21.1, "temperature-range": [20, 22],"temperature-outlier":95,"temperature-outlier-duration-secs":5,"temperature-outlier-every-secs":15,
+	        "humidity": 33.3, "humidity-range": [30, 35]
+	  	 },
+	 	 "waitBeforeSendSec":0.5
+    },
+    "4216/4220/4234": {
+	    "username": "HumiTempSensor2",
+	    "password": "HumiTempSensor2.",
+		 "active":true,
+	 	"data":{
+	        "temperature": 21.1, "temperature-range": [19, 21],"temperature-outlier":95,"temperature-outlier-duration-secs":5,"temperature-outlier-every-secs":15,
+	        "humidity": 33.3, "humidity-range": [29, 33]
+	  	 },
+	 	 "waitBeforeSendSec":0.4
+    },
+    "4216/4221/4235": {
+	    "username": "HumiTempSensor3",
+	    "password": "HumiTempSensor3.",
+		 "active":true,
+	 	"data":{
+	        "temperature": 21.1, "temperature-range": [21, 23],"temperature-outlier":95,"temperature-outlier-duration-secs":5,"temperature-outlier-every-secs":15,
+	        "humidity": 33.3, "humidity-range": [30, 31]
+	  	 },
+	 	 "waitBeforeSendSec":0.7
+    },
+    "4216/4222/4236": {
+	    "username": "HumiTempSensor4",
+	    "password": "HumiTempSensor4.",
+		 "active":true,
+	 	"data":{
+	        "temperature": 21.1, "temperature-range": [22, 24],"temperature-outlier":95,"temperature-outlier-duration-secs":5,"temperature-outlier-every-secs":15,
+	        "humidity": 33.3, "humidity-range": [28, 30]
+	  	 },
+	 	 "waitBeforeSendSec":0.8
+    },
+    "4216/4223/4237": {
+	    "username": "HumiTempSensor5",
+	    "password": "HumiTempSensor5.",
+		"active":true,
+	 	"data":{
+	        "temperature": 21.1, "temperature-range": [19, 20],"temperature-outlier":95,"temperature-outlier-duration-secs":5,"temperature-outlier-every-secs":15,
+	        "humidity": 33.3, "humidity-range": [30, 31]
+	  	 },
+	 	 "waitBeforeSendSec":0.6
+    }
+	
+
+  }
+}

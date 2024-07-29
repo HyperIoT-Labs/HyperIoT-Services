@@ -1,0 +1,235 @@
+
+configurations {
+	testCopy {
+
+	}
+}
+
+dependencies {
+	
+	//OSGi Basic Imports
+	testImplementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	testImplementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	//Jax RS
+	testImplementation group: "javax.ws.rs", name: "javax.ws.rs-api",version:project.jaxWsRsApiVersion
+	implementation group: "org.apache.cxf" ,name: "cxf-rt-rs-service-description-swagger",version: project.cxfVersion
+	testImplementation group: "org.webjars" ,name:"swagger-ui",version: project.swaggerUIVersion
+	//JPA
+	testImplementation group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
+	testImplementation group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version:project.apacheAriesJpaVersion
+	//Validation
+	testImplementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+	testImplementation group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
+	testImplementation group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
+	//Project Base dependencies
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service-rest", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test-utils", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test-containers", version:project.hyperIoTVersion
+
+	testImplementation group: "it.acsoftware.hyperiot.authentication", name: "HyperIoTAuthentication-service", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.authentication", name: "HyperIoTAuthentication-service-rest", version:project.hyperIoTVersion
+
+	//WebSocket
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-api", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-model", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-session", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-channel", version: project.hyperIoTVersion
+
+	testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-api", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-service-rest", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-test-utils", version:project.hyperIoTVersion
+
+	testImplementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-model", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-service-rest", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-test-utils", version:project.hyperIoTVersion
+
+	testImplementation group: "it.acsoftware.hyperiot.shared.entity", name: "HyperIoTSharedEntity-api", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.shared.entity", name: "HyperIoTSharedEntity-model", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.shared.entity", name: "HyperIoTSharedEntity-service-rest", version:project.hyperIoTVersion
+
+	testImplementation group: "it.acsoftware.hyperiot.hadoopmanager", name: "HyperIoTHadoopManager-api", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.hadoopmanager", name: "HyperIoTHadoopManager-service", version:project.hyperIoTVersion
+
+	testImplementation group: "it.acsoftware.hyperiot.hbase.connector", name: "HyperIoTHBaseConnector-api", version:project.hyperIoTVersion
+
+	// Quartz dependency
+	testImplementation group: 'org.quartz-scheduler', name: 'quartz', version: project.quartzVersion
+	//JobSchedulerDependency
+	testImplementation group: "it.acsoftware.hyperiot.jobscheduler", name: "HyperIoTJobScheduler-api", version:project.hyperIoTVersion
+
+	//AssetCategory
+	testImplementation group: "it.acsoftware.hyperiot.asset.category" , name:"HyperIoTAssetCategory-model" , version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.asset.category" , name:"HyperIoTAssetCategory-api" , version:project.hyperIoTVersion
+
+	//AssetTag
+	testImplementation group: "it.acsoftware.hyperiot.asset.tag", name: "HyperIoTAssetTag-model", version:project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.asset.tag", name: "HyperIoTAssetTag-api", version:project.hyperIoTVersion
+
+	//Alarm Project
+	testCopy  group: "it.acsoftware.hyperiot.alarm", name:'HyperIoTAlarm-test', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.alarm", name:'HyperIoTAlarm-api', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.alarm", name:'HyperIoTAlarm-model', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.alarm", name:'HyperIoTAlarm-service', version:project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.alarm", name:'HyperIoTAlarm-service-rest', version: project.hyperIoTPlatformVersion
+
+	//Dashboard Project
+	testCopy  group: "it.acsoftware.hyperiot.dashboard", name:'HyperIoTDashboard-test', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.dashboard", name:'HyperIoTDashboard-actions', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.dashboard", name:'HyperIoTDashboard-hProject-actions', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.dashboard", name:'HyperIoTDashboard-api', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.dashboard", name:'HyperIoTDashboard-model', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.dashboard", name:'HyperIoTDashboard-repository', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.dashboard", name:'HyperIoTDashboard-service', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.dashboard", name:'HyperIoTDashboard-service-rest', version: project.hyperIoTPlatformVersion
+
+	//HProject
+	testCopy  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-test', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-api', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-actions', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-service-rest', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-model', version: project.hyperIoTPlatformVersion
+
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-serialization-api', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-serialization-service', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-deserialization-api', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-deserialization-model', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-deserialization-service', version: project.hyperIoTPlatformVersion
+
+	//HProjectAlgorithm
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-job', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-job-actions', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-job-api', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-job-service-rest', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-job-model', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.hproject", name:'HyperIoTHProject-job-util', version: project.hyperIoTPlatformVersion
+
+	//Algorithm
+	testCopy  group: "it.acsoftware.hyperiot.algorithm", name:'HyperIoTAlgorithm-test', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.algorithm", name:'HyperIoTAlgorithm-actions', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.algorithm", name:'HyperIoTAlgorithm-api', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.algorithm", name:'HyperIoTAlgorithm-model', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.algorithm", name:'HyperIoTAlgorithm-repository', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.algorithm", name:'HyperIoTAlgorithm-service', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.algorithm", name:'HyperIoTAlgorithm-service-rest', version: project.hyperIoTPlatformVersion
+
+	//Kit
+	testCopy  group: "it.acsoftware.hyperiot.kit", name:'HyperIoTKit-test', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.kit", name:'HyperIoTKit-actions', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.kit", name:'HyperIoTKit-api', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.kit", name:'HyperIoTKit-model', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.kit", name:'HyperIoTKit-repository', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.kit", name:'HyperIoTKit-service', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.kit", name:'HyperIoTKit-service-rest', version: project.hyperIoTPlatformVersion
+
+
+	//Rule Engine
+	testCopy  group: "it.acsoftware.hyperiot.rule", name:'HyperIoTRuleEngine-test', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.rule", name:'HyperIoTRuleEngine-actions', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.rule", name:'HyperIoTRuleEngine-api', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.rule", name:'HyperIoTRuleEngine-model', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.rule", name:'HyperIoTRuleEngine-repository', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.rule", name:'HyperIoTRuleEngine-service', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.rule", name:'HyperIoTRuleEngine-service-rest', version: project.hyperIoTPlatformVersion
+
+	//Widget
+	testCopy  group: "it.acsoftware.hyperiot.widget", name:'HyperIoTWidget-test', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.widget", name:'HyperIoTWidget-api', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.widget", name:'HyperIoTWidget-model', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.widget", name:'HyperIoTWidget-repository', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.widget", name:'HyperIoTWidget-service', version: project.hyperIoTPlatformVersion
+	testImplementation  group: "it.acsoftware.hyperiot.widget", name:'HyperIoTWidget-service-rest', version: project.hyperIoTPlatformVersion
+
+	//Storm
+	testImplementation group: "it.acsoftware.hyperiot.storm", name:'HyperIoTStorm-api', version: project.hyperIoTVersion
+	testImplementation group: "it.acsoftware.hyperiot.storm", name:'HyperIoTStorm-service', version: project.hyperIoTVersion
+
+	//StormManager
+	testCopy group: "it.acsoftware.hyperiot.stormmanager", name:'HyperIoTStormManager-test', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.stormmanager", name:'HyperIoTStormManager-api', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.stormmanager", name:'HyperIoTStormManager-actions', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.stormmanager", name:'HyperIoTStormManager-model', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.stormmanager", name:'HyperIoTStormManager-topology', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.stormmanager", name:'HyperIoTStormManager-actions', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.stormmanager", name:'HyperIoTStormManager-service', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.stormmanager", name:'HyperIoTStormManager-service-rest', version: project.hyperIoTPlatformVersion
+
+	//MqttClient
+	testCopy group: "it.acsoftware.hyperiot.mqtt.client", name:'HyperIoTMqttClient-test', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.mqtt.client", name:'HyperIoTMqttClient-api', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.mqtt.client", name:'HyperIoTMqttClient-model', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.mqtt.client", name:'HyperIoTMqttClient-service', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.mqtt.client", name:'HyperIoTMqttClient-service-websocket', version: project.hyperIoTPlatformVersion
+
+	//Services
+	//Project dependencies
+	testImplementation group: "it.acsoftware.hyperiot.services", name:'HyperIoTServices-api', version: project.hyperIoTPlatformVersion
+	testImplementation group: "it.acsoftware.hyperiot.services", name:'HyperIoTServices-util', version: project.hyperIoTPlatformVersion
+
+	// Avro
+	testImplementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+	// Kie
+	testImplementation group: 'org.kie', name: 'kie-osgi-integration', version: '7.74.1.Final'
+	//MQTT Paho
+	testImplementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: project.eclipsePahoVersion
+	//Jax RS
+	testImplementation group: "org.apache.cxf", name: "cxf-rt-frontend-jaxws",version:project.cxfVersion
+	// https://mvnrepository.com/artifact/com.google.guava/guava
+	testImplementation 'org.reflections:reflections:0.9.12'
+
+	testImplementation group: "org.apache.karaf.itests", name:"common", version:project.karafVersion
+	testImplementation group: "org.apache.karaf", name:"apache-karaf", version:project.karafVersion
+	testImplementation group: "org.apache.karaf.shell", name:"org.apache.karaf.shell.core", version:project.karafVersion
+    testImplementation group: "org.ops4j.pax.exam", name: "pax-exam-container-karaf",version: project.paxExamVersion
+    testImplementation group: "org.ops4j.pax.exam", name: "pax-exam-junit4",version: project.paxExamVersion
+    testImplementation group: "org.ops4j.pax.exam", name: "pax-exam",version: project.paxExamVersion
+}
+
+
+
+task extractTests(type: Copy) {
+	from ( configurations.testCopy.collect { it.isDirectory() ? it : zipTree(it) } ){
+		exclude 'META-INF'
+		exclude 'META-INF/MANIFEST.MF'
+	}
+	into file("src/test-imported/java")
+}
+
+task deleteImportedTests(type: Delete) {
+	delete "src/test-imported/"
+}
+
+compileTestJava.dependsOn(extractTests)
+clean.dependsOn(deleteImportedTests)
+test.doLast {deleteImportedTests}
+
+sourceSets {
+	test {
+		java.srcDir file("src/test-imported/java")
+	}
+}
+
+test {
+	//Forwarding system properties passed by arguments
+	systemProperties(System.getProperties())
+	filter {
+		includeTestsMatching "it.acsoftware.hyperiot.services.test.HyperIoTServicesTestSuite"
+	}
+	useJUnit()
+	reports.junitXml.destination = file("$buildDir/test-results")
+}
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

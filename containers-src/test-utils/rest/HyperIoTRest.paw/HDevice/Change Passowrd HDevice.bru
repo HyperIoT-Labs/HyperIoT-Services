@@ -1,0 +1,43 @@
+meta {
+  name: Change Passowrd HDevice
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{protocol}}://{{domain}}/hyperiot/hdevices/password
+  body: formUrlEncoded
+  auth: none
+}
+
+query {
+  ~deviceId: 14
+  ~oldPassword: admin
+  ~newPassword: kioL0876chioLO34@
+  ~passwordConfirm: kioL0876chioLO34@
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  Content-Type: application/x-www-form-urlencoded
+}
+
+body:json {
+  deviceId=14,oldPassword=admin,newPassword=kioL0876chioLO34@,passwordConfirm=kioL0876chioLO34@
+  
+}
+
+body:form-urlencoded {
+  deviceId: 14
+  oldPassword: admin
+  newPassword: kioL0876chioLO34@
+  passwordConfirm: kioL0876chioLO34@
+}
+
+body:multipart-form {
+  deviceId: 14
+  oldPassword: admin
+  newPassword: kioL0876chioLO34@
+  passwordConfirm: kioL0876chioLO34@
+}

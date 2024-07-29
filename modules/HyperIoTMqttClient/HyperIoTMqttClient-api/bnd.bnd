@@ -1,0 +1,7 @@
+Export-Package: it.acsoftware.hyperiot.mqtt.client.api
+Import-Package: \
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    org.eclipse.paho.client.mqttv3
+
+

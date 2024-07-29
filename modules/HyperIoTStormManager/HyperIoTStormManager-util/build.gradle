@@ -1,0 +1,37 @@
+configurations {
+	resource {}
+}
+
+dependencies {
+	//OSGi Basic Imports
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+	// Project dependencies
+	implementation project(":modules:HyperIoTStormManager:HyperIoTStormManager-api")
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
+
+	//Allows to bnd plugin to find right version of storm core,flux,hdfs and hbase
+	resource project(":modules:HyperIoTStormManager:HyperIoTStormManager-topology")
+
+}
+
+jar {
+	manifest {
+		attributes('dsannotations': '*')
+	}
+	from { configurations.resource.collect { it } }
+}
+
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

@@ -1,0 +1,102 @@
+{
+  "type": "record",
+  "name": "HPacketField",
+  "namespace": "it.acsoftware.hyperiot.hpacket.model",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "type",
+      "type": "string"
+    },
+    {
+      "name": "multiplicity",
+      "type": "string"
+    },
+    {
+      "name": "packet",
+      "type": [
+        "null",
+        "long"
+      ]
+    },
+    {
+      "name": "value",
+      "type": [
+        "null",
+        "int",
+        "long",
+        "float",
+        "double",
+        "boolean",
+        "string",
+        {
+          "type": "array",
+          "items": [
+            "int",
+            "long",
+            "float",
+            "double",
+            "boolean",
+            "string",
+            {
+              "type": "array",
+              "items": [
+                "int",
+                "long",
+                "float",
+                "double",
+                "boolean",
+                "string",
+                {
+                  "type": "array",
+                  "items": [
+                    "int",
+                    "long",
+                    "float",
+                    "double",
+                    "boolean",
+                    "string"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "categoryIds",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "long"
+        }
+      ]
+    },
+    {
+      "name": "tagIds",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "long"
+        }
+      ]
+    }
+  ]
+}

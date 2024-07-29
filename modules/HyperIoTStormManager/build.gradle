@@ -1,0 +1,54 @@
+allprojects {
+    group 'it.acsoftware.hyperiot.stormmanager'
+    version project.hyperIoTPlatformVersion
+    repositories {
+
+        mavenLocal{
+            content {
+                // Used only for test and development phase.
+                includeGroupByRegex "it\\.acsoftware.*"
+            }
+        }
+
+        maven {
+            url "https://www.datanucleus.org/downloads/maven2/"
+        }
+
+        maven {
+            url "https://repo.clojars.org/"
+        }
+
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+
+        maven {
+            url "https://packages.confluent.io/maven/"
+        }
+
+        maven {
+            name = 'ACSoftwareRepository'
+            url = project.acsMavenRepository
+        }
+
+        mavenCentral()
+    }
+
+    
+    apply plugin: 'biz.aQute.bnd.builder'
+    apply plugin: 'maven-publish'
+
+    publishing {
+        repositories {
+            maven {
+                credentials {
+                    username project.publishRepoUsername
+                    password project.publishRepoPassword
+                }
+                name = 'ACSoftwareRepository'
+                url = project.publishRepoUrl
+            }
+        }
+    }
+}
+

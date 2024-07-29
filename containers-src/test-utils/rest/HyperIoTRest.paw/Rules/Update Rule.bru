@@ -1,0 +1,22 @@
+meta {
+  name: Update Rule
+  type: http
+  seq: 7
+}
+
+put {
+  url: http://{{domain}}/hyperiot/rules
+  body: json
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}
+
+body:json {
+  {"id":30,"name":"Test Rule","description":"Everybody wants to rule the world.","ruleDefinition":"packet.gps.latitude >= 3 AND packet.temperature > 24","type":0,"project":{"id":10},"packet":{"id":14},"jsonActions":"[\"{ \\\"actionName\\\":\\\"AddCategoryRuleAction\\\", \\\"categoryIds\\\":[  123 ] }\"]"}
+}

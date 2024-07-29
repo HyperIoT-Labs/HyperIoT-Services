@@ -1,0 +1,50 @@
+
+
+
+dependencies {
+	//OSGi Basic Imports
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	//JPA Dependenc ies
+	implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+	implementation group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+	implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
+	implementation group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version: project.apacheAriesJpaVersion
+	implementation group: "org.apache.cxf" ,name: "cxf-rt-rs-security-jose-jaxrs",version: project.cxfVersion
+	//Validation
+	implementation group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
+	implementation group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
+	//HyperIoTBase Dependencies
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-model", version:project.hyperIoTPlatformVersion
+	//Project Dependencies
+	implementation project(":modules:HyperIoTDashboard:HyperIoTDashboard-api")
+	implementation project(":modules:HyperIoTDashboard:HyperIoTDashboard-actions")
+	implementation project(":modules:HyperIoTDashboard:HyperIoTDashboard-model")
+	implementation project(":modules:HyperIoTDashboard:HyperIoTDashboard-repository")
+
+}
+
+jar {
+	manifest {
+		attributes('dsannotations': '*')
+	}
+}
+
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

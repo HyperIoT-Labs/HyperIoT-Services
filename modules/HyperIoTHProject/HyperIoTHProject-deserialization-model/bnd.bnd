@@ -1,0 +1,3 @@
+Export-Package: \
+    it.acsoftware.hyperiot.hproject.deserialization.model,\
+    it.acsoftware.hyperiot.hproject.deserialization.model.exception

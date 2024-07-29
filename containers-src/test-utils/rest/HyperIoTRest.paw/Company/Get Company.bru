@@ -1,0 +1,15 @@
+meta {
+  name: Get Company
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://{{domain}}/hyperiot/companies/505
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+}

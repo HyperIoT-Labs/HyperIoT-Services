@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  hbase-master:
+    image: hyperiot/hbase-master
+    container_name: hbase-master
+    hostname: hbase-master
+    env_file:
+      - hbase-distributed-local.env
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181"
+    ports:
+      - 16010:16010
+
+  hbase-region:
+    image: hyperiot/hbase-region
+    container_name: hbase-regionserver
+    hostname: hbase-regionserver
+    env_file:
+      - hbase-distributed-local.env
+    environment:
+      HBASE_CONF_hbase_regionserver_hostname: hbase-region
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zoo:2181 hbase-master:16010"
+    ports:
+      - 16030:16030
+
+volumes:
+  hadoop_namenode:
+  hadoop_datanode:
+  hadoop_historyserver:

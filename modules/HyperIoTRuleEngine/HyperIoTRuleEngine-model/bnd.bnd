@@ -1,0 +1,34 @@
+Import-Package: \
+    javax.persistence*;version='${range;[===,+)}',\
+    javax.validation*;version='${range;[====,+)}',\
+    org.hibernate.*;version='${range;[=,+)}',\
+    org.hibernate.proxy;version='${range;[=,+)}',\
+    javassist.util.proxy;version='${range;[====,+)}',\
+    org.osgi.framework,\
+    org.postgresql,\
+    com.fasterxml.jackson*;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.asset.tag.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.asset.tag.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.validation;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.huser.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.role.model;version='${range;[===,+)}',\
+    com.fasterxml.jackson.*;version='${range;[===,+)}'
+Export-Package: \
+    it.acsoftware.hyperiot.rule.model,\
+    it.acsoftware.hyperiot.rule.model.facts,\
+    it.acsoftware.hyperiot.rule.model.actions,\
+    it.acsoftware.hyperiot.rule.model.actions.alarm,\
+    it.acsoftware.hyperiot.rule.model.actions.events,\
+    it.acsoftware.hyperiot.rule.model.operations
+DynamicImport-Package: *
+-fixupmessages "Classes found in the wrong directory"; restrict:=error; is:=warning
+
+
+

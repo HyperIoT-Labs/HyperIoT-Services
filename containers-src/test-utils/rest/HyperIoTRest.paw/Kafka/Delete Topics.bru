@@ -1,0 +1,22 @@
+meta {
+  name: Delete Topics
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://{{domain}}/hyperiot/kafka/topics
+  body: json
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}
+
+body:json {
+  ["prova"]
+}

@@ -1,0 +1,18 @@
+meta {
+  name: Get Single User
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://{{domain}}/hyperiot/husers/1
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}

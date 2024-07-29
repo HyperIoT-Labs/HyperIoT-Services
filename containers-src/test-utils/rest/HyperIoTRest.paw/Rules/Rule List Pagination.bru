@@ -1,0 +1,23 @@
+meta {
+  name: Rule List Pagination
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://{{domain}}/hyperiot/rules?delta=1&page=1
+  body: none
+  auth: none
+}
+
+query {
+  delta: 1
+  page: 1
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}

@@ -1,0 +1,7 @@
+Export-Package: it.acsoftware.hyperiot.algorithm.api
+Import-Package: \
+    com.fasterxml.jackson.core;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.algorithm.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}'
+

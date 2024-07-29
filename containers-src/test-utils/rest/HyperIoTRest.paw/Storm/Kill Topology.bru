@@ -1,0 +1,18 @@
+meta {
+  name: Kill Topology
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://{{domain}}/hyperiot/storm/topology/23/kill
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}

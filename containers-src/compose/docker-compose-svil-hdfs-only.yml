@@ -1,0 +1,41 @@
+version: '2.1'
+
+networks:
+  hyperiot:
+    name: hyperiot
+    driver: bridge
+
+services:
+
+  namenode:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: namenode
+
+  datanode1:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: datanode1
+    depends_on:
+      - "namenode"
+    links:
+      - "namenode"
+
+  datanode2:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: datanode2
+    depends_on:
+      - "namenode"
+    links:
+      - "namenode"
+
+  datanode3:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: datanode3
+    depends_on:
+      - "namenode"
+    links:
+      - "namenode"
+

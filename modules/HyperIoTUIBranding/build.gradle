@@ -1,0 +1,51 @@
+allprojects {
+    group 'it.acsoftware.hyperiot.ui.branding'
+    version project.hyperIoTPlatformVersion
+    repositories {
+        mavenLocal()
+
+        mavenCentral()
+
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+
+
+        maven {
+
+            credentials {
+                username project.publishRepoUsername
+                password project.publishRepoPassword
+            }
+
+            name = project.publishRepoName
+            url = project.publishRepoUrl
+        }
+    }
+
+    
+    apply plugin: 'biz.aQute.bnd.builder'
+    apply plugin: 'maven-publish'
+
+    configurations {
+        testImplementation.extendsFrom implementation
+    }
+
+    publishing {
+        repositories {
+            maven {
+
+                credentials {
+                    username project.publishRepoUsername
+                    password project.publishRepoPassword
+                }
+
+                name = project.publishRepoName
+                url = project.publishRepoUrl
+            }
+        }
+    }
+}
+
+
+

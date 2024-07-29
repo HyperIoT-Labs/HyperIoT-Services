@@ -1,0 +1,18 @@
+meta {
+  name: Module Status
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://{{domain}}/hyperiot/storm/module/status
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}

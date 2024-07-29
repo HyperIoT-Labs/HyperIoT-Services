@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTDashboard-features">
+  <feature name="hyperiot-dashboard" version="${project.version}" description="All  Hyperiot HyperIoTDashboard modules">
+    <feature>hyperiot-base</feature>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-actions/${project.version}</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-api/${project.version}</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-service/${project.version}</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-model/${project.version}</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-repository/${project.version}</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-hProject-actions/${project.version}</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-service-rest/${project.version}</bundle>
+  </feature>
+  <feature name="hyperiot-dashboard-basic" version="${project.version}" description="All  Hyperiot HyperIoTDashboard modules with NO rest services">
+    <feature>hyperiot-base-basic</feature>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-actions/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-model/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-repository/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-hProject-actions/${project.version}</bundle>
+  </feature>
+</features>

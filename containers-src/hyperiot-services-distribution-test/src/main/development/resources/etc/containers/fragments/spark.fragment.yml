@@ -1,0 +1,13 @@
+  spark-master:
+    extends:
+      file: docker-compose-svil-basic.yml
+      service: spark-master
+
+  spark-worker-1:
+    extends:
+      file: docker-compose-svil-basic.yml
+      service: spark-worker-1
+    depends_on:
+      - "spark-master"
+    links:
+      - "spark-master"

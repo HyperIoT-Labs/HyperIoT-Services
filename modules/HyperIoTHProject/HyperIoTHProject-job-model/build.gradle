@@ -1,0 +1,47 @@
+dependencies {
+	//OSGi Basic Imports
+    implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+    implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	//Hibernate
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+	implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+	implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
+	implementation group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
+    //Jackson
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: project.jacksonVersion
+	//Validation
+	implementation group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-validation", version:project.hyperIoTVersion
+	// HyperIoTBase Dependencies
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+
+	// Project dependencies
+	implementation group: "it.acsoftware.hyperiot.jobscheduler", name: "HyperIoTJobScheduler-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version:project.hyperIoTPlatformVersion
+	implementation group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-api", version:project.hyperIoTPlatformVersion
+	// Quartz dependency
+	implementation group: 'org.quartz-scheduler', name: 'quartz', version: project.quartzVersion
+
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-model")
+	implementation project(":modules:HyperIoTHProject:HyperIoTHProject-job")
+}
+
+jar {
+	manifest {
+		attributes('dsannotations': '*')
+	}
+}
+
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

@@ -1,0 +1,17 @@
+Import-Package: \
+    javax.jms*,\
+    org.slf4j.*,\
+    org.apache.activemq.*,\
+    org.apache.camel,\
+    org.apache.camel.model,\
+    org.apache.camel.support,\
+    org.apache.camel.impl,\
+    org.apache.camel.builder,\
+    org.apache.camel.component,\
+    org.apache.camel.component.*,\
+    org.apache.kafka*,\
+    org.osgi.framework,\
+    org.osgi.service.cm,\
+    it.acsoftware.hyperiot.base.util,\
+    it.acsoftware.hyperiot.kafka.connector.api,\
+    it.acsoftware.hyperiot.kafka.connector.model

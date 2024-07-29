@@ -1,0 +1,28 @@
+Export-Package: it.acsoftware.hyperiot.hproject.service.websocket
+Import-Package: \
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.websocket.api.channel;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.websocket.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.websocket.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.websocket.model.message;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.websocket.session;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.kafka.connector.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.kafka.connector.service.websocket;version='${range;[===,+)}',\
+    com.fasterxml.jackson.jaxrs.json;version='${range;[===,+)}',\
+    org.osgi.service*,\
+    org.osgi.framework*,\
+    io.swagger.jaxrs,\
+    io.swagger.annotations,\
+    org.eclipse.jetty.websocket.api,\
+    org.apache.avro.*;version='${range;[===,+)}',\
+    org.slf4j.*
+
+
+

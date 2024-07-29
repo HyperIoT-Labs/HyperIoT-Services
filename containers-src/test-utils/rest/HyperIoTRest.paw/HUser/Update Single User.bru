@@ -1,0 +1,22 @@
+meta {
+  name: Update Single User
+  type: http
+  seq: 11
+}
+
+put {
+  url: http://{{domain}}/hyperiot/husers
+  body: json
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  
+  Content-Type: application/json
+}
+
+body:json {
+  {"id":6,"name":"Vincenzo","lastname":"Longo","username":"vincenzo","email":"vincenzo.longo@acsoftware.it","active":true}
+}

@@ -1,0 +1,37 @@
+{
+  "mqtt": {
+    "host": "localhost",
+    "port": 1883,
+    "topic": "streaming/"
+  },
+  "misc": {
+    "duration": 25,
+    "verbose": true,
+	"dry-run": false
+  },
+  "sensors": {
+    "38/41/42": {
+	    "username": "Device1",
+	    "password": "Device1_",
+		"active":true,
+	 	"data":{
+	        "temperature": 30, "temperature-range": [25, 40],"temperature-outlier":85,"temperature-outlier-duration-secs":5,"temperature-outlier-every-secs":15,
+	        "humidity": 20, "humidity-range": [20, 25],
+			"alarm":true
+	  	 },
+	 	 "waitBeforeSendSec":0.5
+    },
+    "38/41/171": {
+            "username": "Device1",
+            "password": "Device1_",
+                "active":true,
+                "data":{
+                "temperature2": 30, "temperature2-range": [25, 40],"humidity2-outlier":85,"humidity2-outlier-duration-secs":5,"humidity2-outlier-every-secs":15,
+                "humidity2": 20, "humidity2-range": [20, 25],
+                        "alarm":true
+                 },
+                 "waitBeforeSendSec":0.5
+    }
+    }
+  }
+}

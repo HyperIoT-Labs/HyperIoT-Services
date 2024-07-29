@@ -1,0 +1,16 @@
+Export-Package: it.acsoftware.hyperiot.rule.service.rest
+Import-Package: \
+    it.acsoftware.hyperiot.rule.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.rule.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.rest;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.rest;version='${range;[===,+)}',\
+    com.fasterxml.jackson.jaxrs.json;version='${range;[===,+)}',\
+    io.swagger.jaxrs,\
+    io.swagger.annotations,\
+    *
+

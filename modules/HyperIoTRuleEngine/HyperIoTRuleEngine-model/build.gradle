@@ -1,0 +1,58 @@
+
+configurations {
+	includeInJar {
+		canBeResolved(true)
+		canBeConsumed(false)
+	}
+}
+
+dependencies {
+	//OSGi Basic Imports
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	//Swagger
+	implementation group: "org.apache.cxf" ,name: "cxf-rt-rs-service-description-swagger",version: project.cxfVersion
+	//Hibernate
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+	implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+	implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
+	//Validation
+	implementation group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
+	implementation group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
+	//Jackson
+	implementation group:"com.fasterxml.jackson.module",name:"jackson-module-jaxb-annotations",version:project.jacksonVersion
+	implementation group:"com.fasterxml.jackson.core", name: "jackson-core", version:project.jacksonVersion
+	implementation group:"com.fasterxml.jackson.core", name: "jackson-databind", version:project.jacksonVersion
+	// Avro
+	implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+	//HyperIoTBase Dependencies
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-validation", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-model", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+	implementation group: "org.apache.cxf", name:"cxf-bundle-jaxrs", version:"2.7.18"
+	implementation group: "org.apache.commons", name: "commons-math3", version: "3.6.1"
+	includeInJar group: "org.apache.commons", name: "commons-math3", version: "3.6.1"
+	// Project dependencies
+	implementation group: "it.acsoftware.hyperiot.asset.tag", name: "HyperIoTAssetTag-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.asset.tag", name: "HyperIoTAssetTag-model", version:project.hyperIoTVersion
+}
+
+publishing {
+        publications {
+            hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+}
+
+jar {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+	manifest {
+		attributes('dsannotations': '*')
+	}
+	zip64 true
+	from { configurations.includeInJar.collect { it.isDirectory() ? it : zipTree(it) } }
+}

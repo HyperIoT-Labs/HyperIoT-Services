@@ -1,0 +1,6 @@
+Import-Package: \
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}'
+Export-Package: \
+    it.acsoftware.hyperiot.hproject.serialization.api

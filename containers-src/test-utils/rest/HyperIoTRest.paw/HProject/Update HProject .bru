@@ -1,0 +1,20 @@
+meta {
+  name: Update HProject 
+  type: http
+  seq: 10
+}
+
+put {
+  url: http://{{domain}}/hyperiot/hprojects
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}
+
+body:json {
+  {"id":15,"name":"First project12","description":"Test projectdasdasd","user":{"id":4},"entityVersion":"3"}
+}

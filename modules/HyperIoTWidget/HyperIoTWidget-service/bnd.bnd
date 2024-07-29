@@ -1,0 +1,22 @@
+Import-Package: \
+    javax.persistence;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.widget.model;version='${range;[===,+)}',\
+    javax.validation;version='${range;[====,+)}',\
+    org.hibernate.validator;version='${range;[=,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.widget.api;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.widget.actions;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.permission.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.annotations;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.query.util.filter;version='${range;[===,+)}',\
+    org.slf4j.*
+DynamicImport-Package:  org.hibernate.proxy, javassist.util.proxy
+

@@ -1,0 +1,49 @@
+
+dependencies {
+	//OSGi Basic Imports
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+	//SLF4J
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test-containers", version:project.hyperIoTVersion
+
+	implementation group: "org.apache.karaf.itests", name:"common", version:project.karafVersion
+	implementation group: "org.apache.karaf", name:"apache-karaf", version: project.karafVersion
+	implementation group: 'org.ops4j.pax.exam', name: 'pax-exam-container-karaf', version: project.paxExamVersion
+
+}
+
+jar {
+	manifest {
+		attributes('dsannotations': '*')
+	}
+}
+
+
+
+// Generate java class to import gradle variables on java files
+task generateBuildPropertiesJavaFile {
+	ext.outputDir = "$buildDir/generated/java"
+	inputs.property('hyperIoTVersion', project.hyperIoTVersion)
+	inputs.property('karafVersion', project.karafVersion)
+	outputs.dir outputDir
+	doLast {
+		mkdir "$outputDir/it/acsoftware/hyperiot/services/util"
+		file("$outputDir/it/acsoftware/hyperiot/services/util/BuildProperties.java").text =
+				"""|package it.acsoftware.hyperiot.services.util;
+               |public class BuildProperties {
+               |    public static String getHyperIoTServicesVersion() { return "${project.hyperIoTPlatformVersion}"; }
+               |}""".stripMargin()
+	}
+}
+compileJava.dependsOn generateBuildPropertiesJavaFile
+sourceSets.main.java.srcDir generateBuildPropertiesJavaFile.outputDir
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

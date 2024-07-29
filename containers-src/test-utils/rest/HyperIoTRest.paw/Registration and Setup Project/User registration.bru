@@ -1,0 +1,22 @@
+meta {
+  name: User registration
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{domain}}/hyperiot/husers/register
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  
+  Content-Type: application/json
+  ~AUTHORIZATION: JWT {{JWTToken}}
+}
+
+body:json {
+  {"username":"aristide","email":"aristide.cittadino","password":"Abra_Cadabra_123","passwordConfirm":"Abra_Cadabra_123"}
+}

@@ -1,0 +1,17 @@
+meta {
+  name: Get Area Image
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://{{domain}}/hyperiot/areas/918/image
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/octet-stream
+  Content-Type: application/json
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Delete Company
+  type: http
+  seq: 7
+}
+
+delete {
+  url: http://{{domain}}/hyperiot/companies/529
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}
+
+body:json {
+  {"businessName":"1","city":"lamezia","invoiceAddress":"lamezia","nation":"italia","postalCode":"88000","vatNumber":"983475","huserCreator":{"id":"77"}}
+}

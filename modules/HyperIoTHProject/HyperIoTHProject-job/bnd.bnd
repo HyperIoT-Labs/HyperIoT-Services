@@ -1,0 +1,12 @@
+Import-Package: \
+    com.fasterxml.jackson.core;version='${range;[===,+)}',\
+    com.fasterxml.jackson.databind;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hadoopmanager.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hbase.connector.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.sparkmanager.job;version='${range;[===,+)}',\
+    org.osgi.framework,\
+    org.quartz;version='${range;[===,+)}',\
+    org.slf4j.*
+Export-Package: \
+    it.acsoftware.hyperiot.hproject.algorithm.job

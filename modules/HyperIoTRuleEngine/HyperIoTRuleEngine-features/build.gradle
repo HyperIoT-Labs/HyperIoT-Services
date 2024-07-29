@@ -1,0 +1,8 @@
+publishing {
+    publications {
+        hyperiot(MavenPublication) {
+            artifact source: "src/main/resources/features.xml", classifier: 'features'
+            artifactId project.name
+        }
+    }
+}

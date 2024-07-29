@@ -1,0 +1,19 @@
+Import-Package: \
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.serialization.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    org.apache.avro*;version='${range;[===,+)}',\
+    org.apache.kafka.*;version='${range;[===,+)}',\
+    org.slf4j;version='${range;[===,+)}',\
+    com.fasterxml.jackson*;version='${range;[===,+)}'
+Export-Package: \
+    it.acsoftware.hyperiot.hproject.serialization.service,\
+    it.acsoftware.hyperiot.hproject.serialization.service.builder
+-fixupmessages "Classes found in the wrong directory"; restrict:=error; is:=warning
+

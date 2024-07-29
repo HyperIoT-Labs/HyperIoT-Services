@@ -1,0 +1,9 @@
+Import-Package: \
+    org.apache.aries*,\
+    org.slf4j.*,\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.security.*;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.services.api;version='${range;[===,+)}'
+Export-Package: it.acsoftware.hyperiot.services.service

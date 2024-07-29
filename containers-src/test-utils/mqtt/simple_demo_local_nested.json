@@ -1,0 +1,34 @@
+{
+  "mqtt": {
+    "host": "localhost",
+    "port": 1883,
+    "topic": "streaming/"
+  },
+  "misc": {
+    "duration": 25,
+    "verbose": true,
+	"dry-run": false
+  },
+  "sensors": {
+    "83/86/87": {
+	    "username": "device",
+	    "password": "Device1__",
+		"active":true,
+	 	"data":{
+	        "data":{
+            "field":{
+              "nested2":{
+                "value":5,"value-range":[5,10],
+                "value2":15,"value2-range":[15,30],
+                "nestedMore":{
+                  "value3":32,"value3-range":[35,40]
+                }
+              }
+            }
+          },
+          "fieldFlat":30,"fieldFlat-range": [25, 40]
+	  	 },
+	 	 "waitBeforeSendSec":0.5
+    }	
+  }
+}

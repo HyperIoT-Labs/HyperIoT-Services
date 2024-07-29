@@ -1,0 +1,14 @@
+Export-Package: \
+    it.acsoftware.hyperiot.area.api,\
+    it.acsoftware.hyperiot.hdevice.api,\
+    it.acsoftware.hyperiot.hpacket.api,\
+    it.acsoftware.hyperiot.hproject.api
+Import-Package: \
+    it.acsoftware.hyperiot.area.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}', \
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}' ,\
+    it.acsoftware.hyperiot.hproject.algorithm.model.dto;version='${range;[===,+)}';resolution:=optional,\
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}'
+

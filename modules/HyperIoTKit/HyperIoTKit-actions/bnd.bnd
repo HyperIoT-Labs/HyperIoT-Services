@@ -1,0 +1,9 @@
+Bundle-Activator: it.acsoftware.hyperiot.kit.actions.KitActionsBundleActivator
+Import-Package: \
+    org.slf4j.*,\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.kit.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.kit.category.model;version='${range;[===,+)}'
+    Export-Package: it.acsoftware.hyperiot.kit.actions

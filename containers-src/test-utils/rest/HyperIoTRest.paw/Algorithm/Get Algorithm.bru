@@ -1,0 +1,22 @@
+meta {
+  name: Get Algorithm
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{protocol}}://{{domain}}/hyperiot/hpackets/fields?fieldId=6445&fieldId=6446
+  body: none
+  auth: none
+}
+
+query {
+  fieldId: 6445
+  fieldId: 6446
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+  AUTHORIZATION: JWT {{JWTToken}}
+}

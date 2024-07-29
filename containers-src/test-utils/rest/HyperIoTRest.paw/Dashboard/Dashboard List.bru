@@ -1,0 +1,15 @@
+meta {
+  name: Dashboard List
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{domain}}/hyperiot/dashboards/all
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+}

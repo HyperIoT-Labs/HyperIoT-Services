@@ -1,0 +1,26 @@
+Import-Package: \
+     it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.base.service.rest;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.base.service.rest.provider;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.websocket.api.channel;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.websocket.api;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.websocket.model;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.websocket.model.message;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.websocket.session;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.mqtt.client.api;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.mqtt.client.model;version='${range;[===,+)}',\
+     it.acsoftware.hyperiot.mqtt.client.util;version='${range;[===,+)}',\
+     org.eclipse.paho.client.mqttv3*,\
+     org.eclipse.jetty.websocket.api,\
+     org.osgi.service*,\
+     org.osgi.framework*,\
+     com.fasterxml.jackson*;version='${range;[===,+)}',\
+     org.apache.cxf*,\
+     org.slf4j.*
+Export-Package: it.acsoftware.hyperiot.mqtt.client.service.websocket
+
+
+

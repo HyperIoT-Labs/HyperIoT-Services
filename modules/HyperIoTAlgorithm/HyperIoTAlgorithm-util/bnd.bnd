@@ -1,0 +1,15 @@
+Import-Package: \
+    com.fasterxml.jackson.databind;version='${range;[===,+)}',\
+    com.fasterxml.jackson.core;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.algorithm.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.algorithm.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hadoopmanager.api;version='${range;[===,+)}',\
+    org.osgi.service.cm,\
+    org.osgi.service.components*,\
+    org.osgi.service*,\
+    org.osgi.framework,\
+    org.slf4j.*
+Export-Package: it.acsoftware.hyperiot.algorithm.util
+
+

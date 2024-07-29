@@ -1,0 +1,14 @@
+Import-Package: \
+    com.fasterxml.jackson.core;version='${range;[===,+)}',\
+    com.fasterxml.jackson.databind;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.dashboard.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.dashboard.widget.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.dashboard.widget.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}',\
+    org.osgi.framework,\
+    org.slf4j;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.query.util.filter;version='${range;[===,+)}'

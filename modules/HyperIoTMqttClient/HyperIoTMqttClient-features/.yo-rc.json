@@ -1,0 +1,9 @@
+{
+    "generator-hyperiot": {
+        "inner-project": true,
+        "project-type": "features",
+        "projectName": "HyperIoTMqttClient",
+        "projectGroupId": "it.acsoftware.hyperiot.mqtt.client",
+        "projectVersion": "1.0.0"
+    }
+}

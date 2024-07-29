@@ -1,0 +1,32 @@
+Import-Package: \
+    com.fasterxml.jackson.annotation;version='${range;[===,+)}',\
+    com.fasterxml.jackson.databind.annotation;version='${range;[===,+)}',\
+    com.fasterxml.jackson.core;version='${range;[===,+)}',\
+    com.fasterxml.jackson.databind;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.algorithm.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.algorithm.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.validation;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.huser.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.role.model;version='${range;[===,+)}',\
+    javassist.util.proxy;version='${range;[====,+)}',\
+    javax.persistence*;version='${range;[===,+)}',\
+    javax.validation*;version='${range;[====,+)}',\
+    org.hibernate.annotations;version='${range;[=,+)}',\
+    org.hibernate.proxy;version='${range;[=,+)}',\
+    org.hibernate.validator.*;version='${range;[=,+)}',\
+    org.osgi.framework,\
+    org.postgresql,\
+    org.apache.avro*,\
+    org.slf4j.*
+Export-Package: \
+    it.acsoftware.hyperiot.area.model,\
+    it.acsoftware.hyperiot.hdevice.model,\
+    it.acsoftware.hyperiot.hpacket.model,\
+    it.acsoftware.hyperiot.hproject.model
+
+

@@ -1,0 +1,8 @@
+Bundle-Activator: it.acsoftware.hyperiot.algorithm.actions.AlgorithmActionsBundleActivator
+Import-Package: \
+    it.acsoftware.hyperiot.base.action;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.base.action.util;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.algorithm.model;version='${range;[===,+)}',\
+    org.slf4j.*
+Export-Package: it.acsoftware.hyperiot.algorithm.actions
+

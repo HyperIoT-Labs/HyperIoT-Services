@@ -1,0 +1,69 @@
+dependencies {
+
+    //OSGi Basic Imports
+    testImplementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+    testImplementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+    //Jax RS
+    testImplementation group: "javax.ws.rs", name: "javax.ws.rs-api", version: project.jaxWsRsApiVersion
+    testImplementation group: "org.apache.cxf", name: "cxf-rt-rs-service-description-swagger", version: project.cxfVersion
+    //Validation
+    testImplementation group: "javax.validation", name: "validation-api", version: project.javaxValidationVersion
+
+    //Project Base dependencies
+    testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service-rest", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-test-utils", version: project.hyperIoTVersion
+
+    testImplementation group: "it.acsoftware.hyperiot.authentication", name: "HyperIoTAuthentication-service", version: project.hyperIoTVersion
+
+    testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-api", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-service-rest", version: project.hyperIoTVersion
+
+    testImplementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-model", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-service-rest", version: project.hyperIoTVersion
+    testImplementation group: "it.acsoftware.hyperiot.services", name: "HyperIoTServices-util", version: project.hyperIoTPlatformVersion
+    //Project dependencies
+    testImplementation project(":modules:HyperIoTWidget:HyperIoTWidget-api")
+    testImplementation project(":modules:HyperIoTWidget:HyperIoTWidget-model")
+    testImplementation project(":modules:HyperIoTWidget:HyperIoTWidget-repository")
+    testImplementation project(":modules:HyperIoTWidget:HyperIoTWidget-service")
+    testImplementation project(":modules:HyperIoTWidget:HyperIoTWidget-service-rest")
+
+    //Test dependencies
+    testImplementation group: "org.apache.karaf.itests", name: "common", version: project.karafVersion
+    testImplementation group: "org.apache.karaf", name: "apache-karaf", version: project.karafVersion
+    testImplementation group: "org.apache.karaf.shell", name: "org.apache.karaf.shell.core", version: project.karafVersion
+    testImplementation group: "org.ops4j.pax.exam", name: "pax-exam-container-karaf", version: project.paxExamVersion
+    testImplementation group: "org.ops4j.pax.exam", name: "pax-exam-junit4", version: project.paxExamVersion
+    testImplementation group: "org.ops4j.pax.exam", name: "pax-exam", version: project.paxExamVersion
+}
+
+jar {
+    from sourceSets.test.java
+    //excluding custom configuration SPI ,so it can be defined in the destination project
+    exclude('META-INF/services/org.ops4j.pax.exam.ConfigurationFactory')
+}
+
+test {
+    //Forwarding system properties passed by arguments
+    systemProperties(System.getProperties())
+    filter {
+        includeTestsMatching "it.acsoftware.hyperiot.widget.test.HyperIoTWidgetTestSuite"
+    }
+    useJUnit()
+}
+
+publishing {
+    publications {
+        hyperiot(MavenPublication) {
+            from components.java
+        }
+    }
+}

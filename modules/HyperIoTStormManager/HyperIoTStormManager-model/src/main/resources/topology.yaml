@@ -1,0 +1,39 @@
+# Topology configuration
+name: "%topology-name%"
+config:
+  topology.workers: %topology_workers%
+  topology.worker.max.heap.size.mb: %worker_max_heap_size%
+  topology.worker.logwriter.childopts: "-Xms%topology_logw_xms% -Xmx%topology_logw_xmx%"
+  topology.component.resources.onheap.memory.mb: %topology_onheap_memory%
+  spout.kafka_servers: "${spout.kafka_servers}"
+  bolt.enrichment.kafka_topic: "${bolt.enrichment.kafka_topic}"
+  rule-engine.drools:
+    enrichment: ${bolt.enrichment.drools}
+    event: ${bolt.event.drools}
+    alarmevent: ${bolt.alarm.event.drools}
+  bolt.event.kafka_topic: "${bolt.event.kafka_topic}"
+  hbase.conf:
+    hbase.rootdir: "${hbase.rootdir}"
+    hbase.zookeeper.quorum: "${hbase.zookeeper.quorum}"
+    hbase.zookeeper.property.clientPort: "${hbase.zookeeper.property.clientPort}"
+    #Properties added to correctly handling hbase failure
+    hbase.client.operation.timeout : %{hbase.client.operation.timeout}%
+    hbase.client.retries.number : %{hbase.client.retries.number}%
+  project.id: %hproject-id%
+  event.rule.ids: %event-rule-ids%
+  alarm.event.rule.ids: %alarm-event-rule-ids%
+  alarm.event.rule.map: %alarm-event-rule-map%
+  hdfs.config :
+    #Add this configuration to resolve static-ip problem when hdfs go down
+    dfs.client.use.datanode.hostname: true
+  hdfs.write.dir: "${hdfs.write.dir}"
+  hdfs.url: "${hdfs.url}"
+  #Properties added for DLQ's exponential back off configuration
+  it.acsoftware.hyperiot.storm.initialDelayKafkaSpoutDLQ.seconds : %{it.acsoftware.hyperiot.storm.initialDelayKafkaSpoutDLQ.seconds}%
+  it.acsoftware.hyperiot.storm.progressiveDelayFactorKafkaSpoutDLQ.seconds : %{it.acsoftware.hyperiot.storm.progressiveDelayFactorKafkaSpoutDLQ.seconds}%
+  it.acsoftware.hyperiot.storm.maxRetryKafkaSpoutDLQ : %{it.acsoftware.hyperiot.storm.maxRetryKafkaSpoutDLQ}%
+  it.acsoftware.hyperiot.storm.maxDelayKafkaSpoutDLQ.seconds : %{it.acsoftware.hyperiot.storm.maxDelayKafkaSpoutDLQ.seconds}%
+  #Properties added to correctly handling hbase failure
+  it.acsoftware.hyperiot.storm.hbase.client.batch.size: %{it.acsoftware.hyperiot.storm.hbase.client.batch.size}%
+  it.acsoftware.hyperiot.storm.hbase.client.flush.interval.seconds: %{it.acsoftware.hyperiot.storm.hbase.client.flush.interval.seconds}%
+%packets-config%

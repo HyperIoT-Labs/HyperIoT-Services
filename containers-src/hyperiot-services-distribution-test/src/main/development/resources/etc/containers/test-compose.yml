@@ -1,0 +1,11 @@
+
+version: '2.1'
+
+networks:
+  hyperiotTestNetwork:
+    name: hyperiotTestNetwork
+    driver: bridge
+
+services:
+
+$$fragments$$

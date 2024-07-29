@@ -1,0 +1,17 @@
+meta {
+  name: Module Status Copy
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://{{domain}}/hyperiot/ui-branding/module/status
+  body: none
+  auth: none
+}
+
+headers {
+  AUTHORIZATION: JWT {{JWTToken}}
+  Accept: application/json
+  Content-Type: application/json
+}

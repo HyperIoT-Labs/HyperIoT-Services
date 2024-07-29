@@ -1,0 +1,112 @@
+
+version: '2.1'
+
+networks:
+  hyperiot:
+    name: hyperiot
+    driver: bridge
+
+services:
+
+  zookeeper:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: zookeeper
+
+  kafka:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: kafka
+    depends_on:
+       - zookeeper
+
+  kafka-manager:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: kafka-manager
+    depends_on:
+      - kafka
+      - zookeeper
+
+  nimbus:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: nimbus
+    links:
+      - zookeeper
+    depends_on:
+      - zookeeper
+
+  supervisor:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: supervisor
+    links:
+      - zookeeper
+      - nimbus
+
+  storm-ui:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: storm-ui
+    links:
+      - nimbus
+    depends_on:
+      - supervisor
+      - nimbus
+
+  postgresql:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: postgresql
+
+  karaf-activemq-mqtt:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: karaf-activemq-mqtt
+    depends_on:
+      - postgresql
+
+  namenode:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: namenode
+
+  datanode1:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: datanode1
+    depends_on:
+      - "namenode"
+    links:
+      - "namenode"
+
+  datanode2:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: datanode2
+    depends_on:
+      - "namenode"
+    links:
+      - "namenode"
+
+  datanode3:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: datanode3
+    depends_on:
+      - "namenode"
+    links:
+      - "namenode"
+
+  hbase-master:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: hbase-master
+
+  hbase-region:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: hbase-region
+    depends_on:
+      - hbase-master

@@ -1,0 +1,192 @@
+# Topology configuration
+name: "Test-7"
+config:
+  topology.workers: 1
+  spout.kafka_servers: "${spout.kafka_servers}"
+  bolt.enrichment.kafka_topic: "${bolt.enrichment.kafka_topic}"
+  bolt.enrichment.drools: ${bolt.enrichment.drools}
+  bolt.event.kafka_topic: "${bolt.event.kafka_topic}"
+  bolt.event.drools: ${bolt.event.drools}
+  packet.9: ${packet.9}
+  spout.kafka_topic.9: "${spout.kafka_topic.9}"
+  packet.12: ${packet.12}
+  spout.kafka_topic.12: "${spout.kafka_topic.12}"
+
+components:
+  # KAFKA Spout
+  - id: "spoutConfigBuilder-raw-9"
+    className: "org.apache.storm.kafka.spout.KafkaSpoutConfig$Builder"
+    constructorArgs:
+      - "${spout.kafka_servers}"
+      - ["${spout.kafka_topic.9}"]
+    configMethods:
+      - name: "setProp"
+        args:
+          - {
+            "key.deserializer" : "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "group.id" : "group-1"
+          }
+  - id: "spoutConfig-raw-9"
+    className: "org.apache.storm.kafka.spout.KafkaSpoutConfig"
+    constructorArgs:
+      - ref: "spoutConfigBuilder-raw-9"
+  # KAFKA Spout
+  - id: "spoutConfigBuilder-raw-12"
+    className: "org.apache.storm.kafka.spout.KafkaSpoutConfig$Builder"
+    constructorArgs:
+      - "${spout.kafka_servers}"
+      - ["${spout.kafka_topic.12}"]
+    configMethods:
+      - name: "setProp"
+        args:
+          - {
+            "key.deserializer" : "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "group.id" : "group-1"
+          }
+  - id: "spoutConfig-raw-12"
+    className: "org.apache.storm.kafka.spout.KafkaSpoutConfig"
+    constructorArgs:
+      - ref: "spoutConfigBuilder-raw-12"
+
+  # Kafka producer for enriched packets (speed-layer)
+  - id: "boltConfig-speedlayer-topic"
+    className: "org.apache.storm.kafka.bolt.selector.DefaultTopicSelector"
+    constructorArgs:
+      - "${bolt.enrichment.kafka_topic}"
+  - id: "boltConfig-speedlayer-mapper"
+    className: "org.apache.storm.kafka.bolt.mapper.FieldNameBasedTupleToKafkaMapper"
+    constructorArgs:
+      - "device_id"
+      - "packet"
+  - id: "boltConfig-speedlayer"
+    className: "java.util.Properties"
+    configMethods:
+      - name: "put"
+        args:
+          - "bootstrap.servers"
+          - "${spout.kafka_servers}"
+      - name: "put"
+        args:
+          - "acks"
+          - "1"
+      - name: "put"
+        args:
+          - "key.serializer"
+          - "org.apache.kafka.common.serialization.LongSerializer"
+      - name: "put"
+        args:
+          - "value.serializer"
+          - "it.acsoftware.hyperiot.avro.AvroSerializer"
+
+  # Kafka producer for packet events (event-layer)
+  - id: "boltConfig-eventlayer-topic"
+    className: "org.apache.storm.kafka.bolt.selector.DefaultTopicSelector"
+    constructorArgs:
+      - "${bolt.event.kafka_topic}"
+  - id: "boltConfig-eventlayer-mapper"
+    className: "org.apache.storm.kafka.bolt.mapper.FieldNameBasedTupleToKafkaMapper"
+    constructorArgs:
+      - "message_type"
+      - "event_json"
+  - id: "boltConfig-eventlayer"
+    className: "java.util.Properties"
+    configMethods:
+      - name: "put"
+        args:
+          - "bootstrap.servers"
+          - "${spout.kafka_servers}"
+      - name: "put"
+        args:
+          - "acks"
+          - "1"
+      - name: "put"
+        args:
+          - "key.serializer"
+          - "org.apache.kafka.common.serialization.StringSerializer"
+      - name: "put"
+        args:
+          - "value.serializer"
+          - "org.apache.kafka.common.serialization.StringSerializer"
+
+# Spout definitions
+spouts:
+  # Kafka raw messages spout
+  - id: "kafka-spout-raw-9"
+    className: "org.apache.storm.kafka.spout.KafkaSpout"
+    constructorArgs:
+      - ref: "spoutConfig-raw-9"
+  # Kafka raw messages spout
+  - id: "kafka-spout-raw-12"
+    className: "org.apache.storm.kafka.spout.KafkaSpout"
+    constructorArgs:
+      - ref: "spoutConfig-raw-12"
+
+# Bolt definitions
+bolts:
+  - id: "bolt-deserialization"
+    className: "it.acsoftware.hyperiot.storm.runtime.bolt.DeserializationBolt"
+  - id: "bolt-enrichment"
+    className: "it.acsoftware.hyperiot.storm.runtime.bolt.EnrichmentBolt"
+  - id: "bolt-event"
+    className: "it.acsoftware.hyperiot.storm.runtime.bolt.EventBolt"
+  - id: "bolt-kafka-speedlayer"
+    className: "org.apache.storm.kafka.bolt.KafkaBolt"
+    configMethods:
+      - name: "withProducerProperties"
+        args: [ref: "boltConfig-speedlayer"]
+      - name: "withTopicSelector"
+        args: [ref: "boltConfig-speedlayer-topic"]
+      - name: "withTupleToKafkaMapper"
+        args: [ref: "boltConfig-speedlayer-mapper"]
+  - id: "bolt-kafka-eventlayer"
+    className: "org.apache.storm.kafka.bolt.KafkaBolt"
+    configMethods:
+      - name: "withProducerProperties"
+        args: [ref: "boltConfig-eventlayer"]
+      - name: "withTopicSelector"
+        args: [ref: "boltConfig-eventlayer-topic"]
+      - name: "withTupleToKafkaMapper"
+        args: [ref: "boltConfig-eventlayer-mapper"]
+
+# Stream definitions
+streams:
+  # From Kafka raw messages spout (kafka-spout-raw) to deserialization bolt (bolt-deserialization)
+  - name: "kafka-spout-raw-9 --> bolt-deserialization"
+    from: "kafka-spout-raw-9"
+    to: "bolt-deserialization"
+    grouping:
+      type: SHUFFLE
+  # From Kafka raw messages spout (kafka-spout-raw) to deserialization bolt (bolt-deserialization)
+  - name: "kafka-spout-raw-12 --> bolt-deserialization"
+    from: "kafka-spout-raw-12"
+    to: "bolt-deserialization"
+    grouping:
+      type: SHUFFLE
+
+  # From deserialization bolt (bolt-deserialization) to enrichment bolt (bolt-enrichment)
+  - name: "bolt-deserialization --> bolt-enrichment"
+    from: "bolt-deserialization"
+    to: "bolt-enrichment"
+    grouping:
+      type: SHUFFLE
+  # From enrichment bolt (bolt-enrichment) to event bolt (bolt-event)
+  - name: "bolt-deserialization --> bolt-event"
+    from: "bolt-deserialization"
+    to: "bolt-event"
+    grouping:
+      type: SHUFFLE
+  # From enrichment bolt (bolt-enrichment) to speed-layer bolt (bolt-kafka-speedlayer) (sending back to enriched kafka topic using AVRO schema)
+  - name: "bolt-enrichment --> bolt-kafka-speedlayer"
+    from: "bolt-enrichment"
+    to: "bolt-kafka-speedlayer"
+    grouping:
+      type: SHUFFLE
+  # From event bolt (bolt-event) to event-layer bolt (bolt-kafka-eventlayer) (sending back to kafka event topic sending JSON formatted event action)
+  - name: "bolt-event --> bolt-kafka-eventlayer"
+    from: "bolt-event"
+    to: "bolt-kafka-eventlayer"
+    grouping:
+      type: SHUFFLE
+

@@ -1,0 +1,82 @@
+
+dependencies {
+    //OSGi Basic Imports
+    implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+    implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+    //JPA Dependencies
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
+    implementation group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
+    implementation group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version: project.apacheAriesJpaVersion
+    implementation group: "org.apache.cxf" ,name: "cxf-rt-rs-security-jose-jaxrs",version: project.cxfVersion
+    //Jackson
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: project.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: project.jacksonVersion
+    //Validation
+    implementation group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion
+    implementation group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
+    //Hibernate
+    implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
+    implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+
+    //HyperIoTBase Dependencies
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-actions", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-validation", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.huser", name: "HyperIoTHUser-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.hbase.connector", name: "HyperIoTHBaseConnector-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.hbase.connector", name: "HyperIoTHBaseConnector-model", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.hadoopmanager", name: "HyperIoTHadoopManager-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-api", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version:project.hyperIoTPlatformVersion
+    implementation group: "it.acsoftware.hyperiot.hbase.connector", name: "HyperIoTHBaseConnector-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.jobscheduler", name: "HyperIoTJobScheduler-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.permission", name: "HyperIoTPermission-api", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.sparkmanager", name: "HyperIoTSparkManager-job", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.jobscheduler", name: "HyperIoTJobScheduler-api", version:project.hyperIoTVersion
+
+    // Quartz dependency
+    implementation group: 'org.quartz-scheduler', name: 'quartz', version: project.quartzVersion
+    // HBase dependency
+    implementation group: 'org.apache.hbase', name: 'hbase-client', version: project.hbaseVersion
+    // HBase dependency
+    implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+    implementation group: "com.google.protobuf", name: "protobuf-java", version: project.googleProtobufVersion
+
+    //Project Dependencies
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-actions")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-api")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-job-api")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-deserialization-api")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-deserialization-model")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-deserialization-service")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-model")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-job-actions")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-job-model")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-job-repository")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-repository")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-hbase-api")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-hbase-model")
+    implementation project(":modules:HyperIoTHProject:HyperIoTHProject-hbase-util")
+}
+
+jar {
+	manifest {
+		attributes('dsannotations': '*')
+	}
+}
+
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

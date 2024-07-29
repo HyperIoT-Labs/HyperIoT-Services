@@ -1,0 +1,47 @@
+
+
+dependencies {
+	//OSGi Basic Imports
+	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
+	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
+    // WebSocket service external deps (KafkaWebSocketSession)
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
+    implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-model", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service-rest", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service-rest-provider", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-api", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-model", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-session", version: project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.websocket", name: "HyperIoTWebSocket-channel", version: project.hyperIoTVersion
+	implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-servlet', version: project.jettyWSVersion
+    // Jackson dependecy
+    implementation group:"com.fasterxml.jackson.jaxrs",name:"jackson-jaxrs-json-provider",version:project.jacksonVersion
+	implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.2.6.RELEASE'
+	implementation group: "org.apache.cxf", name:"cxf-bundle-jaxrs", version: "2.7.18"
+	implementation group: 'org.apache.cxf.dosgi', name: 'cxf-dosgi-common', version: project.cxfDosgiVersion
+	//MQTT Paho
+	implementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: project.eclipsePahoVersion
+	//Project Dependencies
+	implementation project(":modules:HyperIoTMqttClient:HyperIoTMqttClient-api")
+	implementation project(":modules:HyperIoTMqttClient:HyperIoTMqttClient-model")
+	implementation project(":modules:HyperIoTMqttClient:HyperIoTMqttClient-service")
+	implementation project(":modules:HyperIoTMqttClient:HyperIoTMqttClient-util")
+}
+
+jar {
+	manifest {
+		attributes('dsannotations': '*')
+	}
+}
+
+
+
+publishing {
+    	publications {
+        	hyperiot(MavenPublication) {
+            	from components.java
+        	}
+    }
+ }

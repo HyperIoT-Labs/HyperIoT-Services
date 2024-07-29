@@ -1,0 +1,14 @@
+
+version: '2.1'
+
+networks:
+  hyperiot:
+    name: hyperiot
+    driver: bridge
+
+services:
+
+  zookeeper:
+    extends:
+     file: docker-compose-svil-basic.yml
+     service: zookeeper

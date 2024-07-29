@@ -1,0 +1,15 @@
+meta {
+  name: Get Widget List
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{protocol}}://{{domain}}/{{contextRoot}}/widgets/all
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: JWT {{JWTToken}}
+}
