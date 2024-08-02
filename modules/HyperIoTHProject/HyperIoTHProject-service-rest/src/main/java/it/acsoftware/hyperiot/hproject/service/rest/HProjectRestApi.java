@@ -578,7 +578,7 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     }
 
     @POST
-    @Path("/export/{exportId}/stop")
+    @Path("/export/stop/{exportId}")
     @LoggedIn
     @ApiOperation(value = "/hyperiot/hprojects/export/{exportId}/stop", notes = "Service for stopping HPacket export", httpMethod = "POST", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
