@@ -153,19 +153,15 @@ public class HPacketDataExporterImpl implements it.acsoftware.hyperiot.hpacket.a
     public HPacketDataExportStatus start() {
         this.started = true;
         this.totalCount = countResults(hProjectId, hPacketId);
-        if (totalCount > 0) {
-            try {
-                HPacketDataExportStatus initialStatus = createStatus();
-                this.zookeeperConnectorSystemApi.createPersistent(zookeeperPath, initialStatus.toJson().getBytes(), true);
-                executor.execute(this);
-                return initialStatus;
-            } catch (Exception e) {
-                this.errorMessages.add("Impossibile to create status node: " + e.getMessage());
-                this.started = false;
-                this.completed = true;
-            }
-        } else {
-            this.started = true;
+        this.completed = totalCount > 0 ? false:true;
+        try {
+            HPacketDataExportStatus initialStatus = createStatus();
+            this.zookeeperConnectorSystemApi.createPersistent(zookeeperPath, initialStatus.toJson().getBytes(), true);
+            executor.execute(this);
+            return initialStatus;
+        } catch (Exception e) {
+            this.errorMessages.add("Impossibile to create status node: " + e.getMessage());
+            this.started = false;
             this.completed = true;
         }
         return this.createStatus();
