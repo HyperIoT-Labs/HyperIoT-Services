@@ -25,6 +25,7 @@ import it.acsoftware.hyperiot.dashboard.actions.HyperIoTDashboardAction;
 import it.acsoftware.hyperiot.dashboard.api.DashboardRepository;
 import it.acsoftware.hyperiot.dashboard.api.DashboardSystemApi;
 import it.acsoftware.hyperiot.dashboard.model.Dashboard;
+import it.acsoftware.hyperiot.hdevice.model.HDevice;
 import it.acsoftware.hyperiot.hproject.model.HProject;
 import it.acsoftware.hyperiot.permission.api.PermissionSystemApi;
 import it.acsoftware.hyperiot.role.util.HyperIoTRoleConstants;
@@ -116,6 +117,11 @@ public final class DashboardSystemServiceImpl extends HyperIoTBaseEntitySystemSe
     }
 
     @Override
+    public void createDeviceDashboard(HDevice device) {
+        this.repository.createDeviceDashboard(device);
+    }
+
+    @Override
     public void removeByAreaId(long areaId) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("areaId", areaId);
@@ -127,6 +133,13 @@ public final class DashboardSystemServiceImpl extends HyperIoTBaseEntitySystemSe
         HashMap<String, Object> params = new HashMap<>();
         params.put("hProjectId", hProjectId);
         repository.executeUpdateQuery("delete from Dashboard dashboard where dashboard.HProject.id = :hProjectId", params);
+    }
+
+    @Override
+    public void removeByHDeviceId(long hDeviceId) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("hDeviceId", hDeviceId);
+        repository.executeUpdateQuery("delete from Dashboard dashboard where dashboard.deviceId = :hDeviceId", params);
     }
 
 }

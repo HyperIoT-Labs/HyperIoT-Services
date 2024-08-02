@@ -61,7 +61,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
     @Path("/module/status")
     @ApiOperation(value = "/module/status", notes = "Simple service for checking module status", httpMethod = "GET")
     public Response checkModuleWorking() {
-        getLog().debug( "In Rest Service GET /hyperiot/dashboard/module/status");
+        getLog().debug("In Rest Service GET /hyperiot/dashboard/module/status");
         return Response.ok("Dashboard Module works!").build();
     }
 
@@ -70,7 +70,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
      */
     @Override
     protected HyperIoTBaseEntityApi<Dashboard> getEntityService() {
-        getLog().debug( "invoking getEntityService, returning: {}" , this.entityService);
+        getLog().debug("invoking getEntityService, returning: {}", this.entityService);
         return entityService;
     }
 
@@ -79,7 +79,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
      */
     @Reference(service = DashboardApi.class)
     protected void setEntityService(DashboardApi entityService) {
-        getLog().debug( "invoking setEntityService, setting: {}" , this.entityService);
+        getLog().debug("invoking setEntityService, setting: {}", this.entityService);
         this.entityService = entityService;
     }
 
@@ -100,7 +100,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
     @JsonView({HyperIoTJSONView.Public.class})
     public Response findDashboard(
             @ApiParam(value = "id from which dashboard object will retrieve", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service GET /hyperiot/dashboards/{}" , id);
+        getLog().debug("In Rest Service GET /hyperiot/dashboards/{}", id);
         return this.find(id);
     }
 
@@ -121,7 +121,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
     @JsonView({HyperIoTJSONView.Public.class})
     public Response saveDashboard(
             @ApiParam(value = "Dashboard entity which must be saved ", required = true) Dashboard entity) {
-        getLog().debug( "In Rest Service POST /hyperiot/dashboards \n Body: {}" , entity);
+        getLog().debug("In Rest Service POST /hyperiot/dashboards \n Body: {}", entity);
         return this.save(entity);
     }
 
@@ -142,7 +142,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
     @JsonView({HyperIoTJSONView.Public.class})
     public Response updateDashboard(
             @ApiParam(value = "Dashboard entity which must be updated ", required = true) Dashboard entity) {
-        getLog().debug( "In Rest Service PUT /hyperiot/dashboards \n Body: {}" , entity);
+        getLog().debug("In Rest Service PUT /hyperiot/dashboards \n Body: {}", entity);
         return this.update(entity);
     }
 
@@ -163,7 +163,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
     @JsonView({HyperIoTJSONView.Public.class})
     public Response deleteDashboard(
             @ApiParam(value = "The dashboard id which must be deleted", required = true) @PathParam("id") long id) {
-        getLog().debug( "In Rest Service DELETE /hyperiot/dashboards/{}" , id);
+        getLog().debug("In Rest Service DELETE /hyperiot/dashboards/{}", id);
         return this.remove(id);
     }
 
@@ -182,7 +182,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView({HyperIoTJSONView.Public.class})
     public Response findAllDashboard() {
-        getLog().debug( "In Rest Service GET /hyperiot/dashboards/all");
+        getLog().debug("In Rest Service GET /hyperiot/dashboards/all");
         return this.findAll();
     }
 
@@ -201,11 +201,12 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView({HyperIoTJSONView.Public.class})
     public Response findHProjectRealtimeDashboard(@ApiParam(value = "The project id ", required = true) @PathParam("projectId") Long projectId) {
-        getLog().debug( "In Rest Service GET /hyperiot/dashboards/project/{projectId}/realtime");
+        getLog().debug("In Rest Service GET /hyperiot/dashboards/project/{projectId}/realtime");
         try {
             HashMap<String, Object> filter = new HashMap<String, Object>();
             filter.put("dashboardType", DashboardType.REALTIME);
             filter.put("HProject.id", projectId);
+            filter.put("deviceId", 0);
             return Response.ok(this.entityService.findAll(filter, this.getHyperIoTContext())).build();
         } catch (Throwable t) {
             return this.handleException(t);
@@ -227,11 +228,12 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView({HyperIoTJSONView.Public.class})
     public Response findHProjectOfflineDashboard(@ApiParam(value = "The project id ", required = true) @PathParam("projectId") Long projectId) {
-        getLog().debug( "In Rest Service GET /hyperiot/dashboards/project/{}",projectId);
+        getLog().debug("In Rest Service GET /hyperiot/dashboards/project/{}", projectId);
         try {
             HashMap<String, Object> filter = new HashMap<String, Object>();
             filter.put("dashboardType", DashboardType.OFFLINE);
             filter.put("HProject.id", projectId);
+            filter.put("deviceId", 0);
             return Response.ok(this.entityService.findAll(filter, this.getHyperIoTContext())).build();
         } catch (Throwable t) {
             return this.handleException(t);
@@ -253,7 +255,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView({HyperIoTJSONView.Public.class})
     public Response findAreaRealtimeDashboard(@ApiParam(value = "The area id ", required = true) @PathParam("areaId") Long areaId) {
-        getLog().debug( "In Rest Service GET /hyperiot/dashboards/area/{}/realtime", areaId);
+        getLog().debug("In Rest Service GET /hyperiot/dashboards/area/{}/realtime", areaId);
         try {
             HashMap<String, Object> filter = new HashMap<>();
             filter.put("dashboardType", DashboardType.REALTIME);
@@ -279,11 +281,63 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView({HyperIoTJSONView.Public.class})
     public Response findAreaOfflineDashboard(@ApiParam(value = "The area id ", required = true) @PathParam("areaId") Long areaId) {
-        getLog().debug( "In Rest Service GET /hyperiot/dashboards/area/{}/offline", areaId);
+        getLog().debug("In Rest Service GET /hyperiot/dashboards/area/{}/offline", areaId);
         try {
             HashMap<String, Object> filter = new HashMap<>();
             filter.put("dashboardType", DashboardType.OFFLINE);
             filter.put("area.id", areaId);
+            return Response.ok(this.entityService.findAll(filter, this.getHyperIoTContext())).build();
+        } catch (Throwable t) {
+            return this.handleException(t);
+        }
+    }
+
+    /**
+     * Get the realtime Dashboard associated to the Area with the given id
+     *
+     * @return the Area Dashboard
+     */
+    @GET
+    @Path("/hdevice/{hdeviceId}/realtime")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/dashboards/hdevice/{deviceId}/realtime", notes = "Service for finding realtime dashboard related to a specific device", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 500, message = "Internal error")})
+    @JsonView({HyperIoTJSONView.Public.class})
+    public Response findDeviceRealtimeDashboard(@ApiParam(value = "The device id ", required = true) @PathParam("deviceId") Long deviceId) {
+        getLog().debug("In Rest Service GET /hyperiot/dashboards/hdevice/{}/realtime", deviceId);
+        try {
+            HashMap<String, Object> filter = new HashMap<>();
+            filter.put("dashboardType", DashboardType.REALTIME);
+            filter.put("deviceId", deviceId);
+            return Response.ok(this.entityService.findAll(filter, this.getHyperIoTContext())).build();
+        } catch (Throwable t) {
+            return this.handleException(t);
+        }
+    }
+
+    /**
+     * Get the realtime Dashboard associated to the Area with the given id
+     *
+     * @return the Area Dashboard
+     */
+    @GET
+    @Path("/hdevice/{hdeviceId}/offline")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/dashboards/hdevice/{deviceId}/offline", notes = "Service for finding offline dashboard related to a specific device", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 500, message = "Internal error")})
+    @JsonView({HyperIoTJSONView.Public.class})
+    public Response findDeviceOfflineDashboard(@ApiParam(value = "The device id ", required = true) @PathParam("deviceId") Long deviceId) {
+        getLog().debug("In Rest Service GET /hyperiot/dashboards/hdevice/{}/offline", deviceId);
+        try {
+            HashMap<String, Object> filter = new HashMap<>();
+            filter.put("dashboardType", DashboardType.OFFLINE);
+            filter.put("deviceId", deviceId);
             return Response.ok(this.entityService.findAll(filter, this.getHyperIoTContext())).build();
         } catch (Throwable t) {
             return this.handleException(t);
@@ -304,7 +358,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView({HyperIoTJSONView.Public.class})
     public Response findAllDashboardPaginated(@QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
-        getLog().debug( "In Rest Service GET /hyperiot/dashboards/");
+        getLog().debug("In Rest Service GET /hyperiot/dashboards/");
         return this.findAll(delta, page);
     }
 

@@ -19,6 +19,7 @@ package it.acsoftware.hyperiot.dashboard.api;
 
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseRepository;
 import it.acsoftware.hyperiot.dashboard.model.Dashboard;
+import it.acsoftware.hyperiot.hdevice.model.HDevice;
 import it.acsoftware.hyperiot.hproject.model.HProject;
 import it.acsoftware.hyperiot.area.model.Area;
 
@@ -30,4 +31,5 @@ import it.acsoftware.hyperiot.area.model.Area;
 public interface DashboardRepository extends HyperIoTBaseRepository<Dashboard> {
     void createHProjectDashboard(HProject project);
     void createAreaDashboard(Area area);
+    void createDeviceDashboard(HDevice device);
 }

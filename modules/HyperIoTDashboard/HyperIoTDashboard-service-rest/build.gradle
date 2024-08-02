@@ -18,6 +18,7 @@ dependencies {
 	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
 	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-util", version:project.hyperIoTVersion
 	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-security", version:project.hyperIoTVersion
+	implementation group: "it.acsoftware.hyperiot.hproject", name: "HyperIoTHProject-model", version:project.hyperIoTPlatformVersion
 	//Project dependencies
 	implementation project(":modules:HyperIoTDashboard:HyperIoTDashboard-model")
 	implementation project(":modules:HyperIoTDashboard:HyperIoTDashboard-api")

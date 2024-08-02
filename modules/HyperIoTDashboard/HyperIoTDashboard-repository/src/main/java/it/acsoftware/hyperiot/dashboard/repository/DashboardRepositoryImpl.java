@@ -17,19 +17,17 @@
 
 package it.acsoftware.hyperiot.dashboard.repository;
 
-import it.acsoftware.hyperiot.dashboard.model.DashboardType;
-import it.acsoftware.hyperiot.hproject.model.HProject;
 import it.acsoftware.hyperiot.area.model.Area;
+import it.acsoftware.hyperiot.base.repository.HyperIoTBaseRepositoryImpl;
+import it.acsoftware.hyperiot.dashboard.api.DashboardRepository;
+import it.acsoftware.hyperiot.dashboard.model.Dashboard;
+import it.acsoftware.hyperiot.dashboard.model.DashboardType;
+import it.acsoftware.hyperiot.hdevice.model.HDevice;
+import it.acsoftware.hyperiot.hproject.model.HProject;
 import org.apache.aries.jpa.template.JpaTemplate;
-
 import org.apache.aries.jpa.template.TransactionType;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
-import it.acsoftware.hyperiot.base.repository.HyperIoTBaseRepositoryImpl;
-
-import it.acsoftware.hyperiot.dashboard.api.DashboardRepository ;
-import it.acsoftware.hyperiot.dashboard.model.Dashboard;
 
 /**
  *
@@ -77,10 +75,12 @@ public class DashboardRepositoryImpl extends HyperIoTBaseRepositoryImpl<Dashboar
 			Dashboard offlineD = new Dashboard();
 			offlineD.setDashboardType(DashboardType.OFFLINE);
 			offlineD.setHProject(project);
+			offlineD.setDeviceId(0);
 			offlineD.setName(project.getName()+" Offline Dashboard");
 			Dashboard onlineD = new Dashboard();
 			onlineD.setDashboardType(DashboardType.REALTIME);
 			onlineD.setHProject(project);
+			onlineD.setDeviceId(0);
 			onlineD.setName(project.getName()+" Online Dashboard");
 			entityManager.persist(offlineD);
 			entityManager.persist(onlineD);
@@ -93,14 +93,36 @@ public class DashboardRepositoryImpl extends HyperIoTBaseRepositoryImpl<Dashboar
 			Dashboard offlineD = new Dashboard();
 			offlineD.setDashboardType(DashboardType.OFFLINE);
 			offlineD.setHProject(area.getProject());
+			offlineD.setDeviceId(0);
 			offlineD.setArea(area);
 			offlineD.setName(area.getName()+" Offline Dashboard");
 			Dashboard onlineD = new Dashboard();
 			onlineD.setDashboardType(DashboardType.REALTIME);
 			onlineD.setHProject(area.getProject());
 			onlineD.setArea(area);
+			onlineD.setDeviceId(0);
 			onlineD.setName(area.getName()+" Online Dashboard");
 			entityManager.persist(offlineD);
+			entityManager.persist(onlineD);
+		});
+	}
+
+	@Override
+	public void createDeviceDashboard(HDevice device) {
+		this.jpa.tx(TransactionType.Required, entityManager -> {
+			Dashboard offlineD = new Dashboard();
+			offlineD.setDashboardType(DashboardType.OFFLINE);
+			offlineD.setHProject(device.getProject());
+			offlineD.setDeviceId(device.getId());
+			offlineD.setArea(null);
+			offlineD.setName(device.getDeviceName()+" Offline Dashboard");
+			entityManager.persist(offlineD);
+			Dashboard onlineD = new Dashboard();
+			onlineD.setDashboardType(DashboardType.REALTIME);
+			onlineD.setHProject(device.getProject());
+			onlineD.setDeviceId(device.getId());
+			onlineD.setArea(null);
+			onlineD.setName(device.getDeviceName()+" Online Dashboard");
 			entityManager.persist(onlineD);
 		});
 	}

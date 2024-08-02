@@ -20,6 +20,7 @@ package it.acsoftware.hyperiot.dashboard.api;
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntitySystemApi;
 import it.acsoftware.hyperiot.dashboard.model.Dashboard;
+import it.acsoftware.hyperiot.hdevice.model.HDevice;
 import it.acsoftware.hyperiot.hproject.model.HProject;
 
 /**
@@ -29,6 +30,8 @@ import it.acsoftware.hyperiot.hproject.model.HProject;
 public interface DashboardSystemApi extends HyperIoTBaseEntitySystemApi<Dashboard> {
     void createHProjectDashboard(HProject project);
     void createAreaDashboard(Area area);
+    void createDeviceDashboard(HDevice device);
     void removeByAreaId(long areaId);
     void removeByHProjectId(long hProjectId);
+    void removeByHDeviceId(long hDeviceId);
 }

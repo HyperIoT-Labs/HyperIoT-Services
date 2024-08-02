@@ -7,5 +7,6 @@ Import-Package: \
     it.acsoftware.hyperiot.dashboard.widget.model;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.dashboard.model;version='${range;[===,+)}' ,\
     it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
-    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}'
+    it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}'
 

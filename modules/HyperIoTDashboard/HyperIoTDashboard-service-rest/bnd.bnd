@@ -4,6 +4,7 @@ Export-Package: \
 Import-Package: \
     it.acsoftware.hyperiot.dashboard.api;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.dashboard.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.exception;version='${range;[===,+)}',\

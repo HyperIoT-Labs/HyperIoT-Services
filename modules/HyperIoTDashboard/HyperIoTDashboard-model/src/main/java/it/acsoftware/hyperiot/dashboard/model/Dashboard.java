@@ -67,6 +67,8 @@ public class Dashboard extends HyperIoTAbstractEntity implements HyperIoTProtect
      */
     private Area area;
 
+    private long deviceId;
+
     /**
      * Get dashboard name
      *
@@ -138,6 +140,15 @@ public class Dashboard extends HyperIoTAbstractEntity implements HyperIoTProtect
 
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    @Column(columnDefinition = "bigint DEFAULT 0")
+    public long getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(long deviceId) {
+        this.deviceId = deviceId;
     }
 
     @OneToMany(mappedBy = "dashboard", targetEntity = DashboardWidget.class, cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)

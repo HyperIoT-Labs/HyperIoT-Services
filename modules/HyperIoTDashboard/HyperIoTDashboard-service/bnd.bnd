@@ -22,6 +22,7 @@ Import-Package: \
     it.acsoftware.hyperiot.query.util.filter;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.area.model;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hdevice.model;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.permission.api;version='${range;[===,+)}',\
     org.slf4j.*
 
