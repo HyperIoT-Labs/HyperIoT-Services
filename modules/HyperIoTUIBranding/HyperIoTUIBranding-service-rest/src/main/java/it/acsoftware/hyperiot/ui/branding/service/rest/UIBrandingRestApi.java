@@ -120,7 +120,7 @@ public class UIBrandingRestApi extends HyperIoTBaseEntityRestApi<UIBranding> {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/uibrandings", notes = "Service for updating a uibranding entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/ui-branding", notes = "Service for updating a uibranding entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"), @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"), @ApiResponse(code = 500, message = "Invalid ID supplied")})
     @JsonView(Isolated.class)
     public Response updateUIBranding(@ApiParam(value = "name the user want to visualize", name = "name", type = "String") @Multipart(value = "name") String name,
@@ -150,7 +150,7 @@ public class UIBrandingRestApi extends HyperIoTBaseEntityRestApi<UIBranding> {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/uibrandings", notes = "Service for resetting a uibranding entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/ui-branding", notes = "Service for resetting a uibranding entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"), @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"), @ApiResponse(code = 500, message = "Invalid ID supplied")})
     @JsonView(Isolated.class)
     public Response updateUIBranding() {
@@ -158,6 +158,7 @@ public class UIBrandingRestApi extends HyperIoTBaseEntityRestApi<UIBranding> {
         UIBranding currentBranding = findUIBranding();
         if (currentBranding != null) {
             this.remove(currentBranding.getId());
+            return Response.ok().build();
         }
         return Response.status(404).build();
     }
