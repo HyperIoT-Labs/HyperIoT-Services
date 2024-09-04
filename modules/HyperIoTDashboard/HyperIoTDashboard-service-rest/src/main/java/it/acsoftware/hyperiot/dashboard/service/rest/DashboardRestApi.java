@@ -306,7 +306,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView({HyperIoTJSONView.Public.class})
-    public Response findDeviceRealtimeDashboard(@ApiParam(value = "The device id ", required = true) @PathParam("deviceId") Long deviceId) {
+    public Response findDeviceRealtimeDashboard(@ApiParam(value = "The device id ", required = true) @PathParam("hdeviceId") Long deviceId) {
         getLog().debug("In Rest Service GET /hyperiot/dashboards/hdevice/{}/realtime", deviceId);
         try {
             HashMap<String, Object> filter = new HashMap<>();
