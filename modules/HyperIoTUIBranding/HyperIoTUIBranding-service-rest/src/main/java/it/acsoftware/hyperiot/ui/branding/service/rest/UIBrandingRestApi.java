@@ -142,6 +142,45 @@ public class UIBrandingRestApi extends HyperIoTBaseEntityRestApi<UIBranding> {
     }
 
     /**
+     * Service updates logo forUIBranding
+     *
+     * @return the UIBranding updated
+     */
+    @PATCH
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/ui-branding/logo", notes = "Service for updating a uibranding entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"), @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"), @ApiResponse(code = 500, message = "Invalid ID supplied")})
+    @JsonView(Isolated.class)
+    public Response updateUIBranding(@ApiParam(value = "logo image ", name = "logoFile", type = "String") @Multipart(value = "logo", type = "image/*") Attachment logoFile,
+                                     @ApiParam(value = "favicon image", name = "faviconFile", type = "String") @Multipart(value = "favicon", type = "image/*") Attachment faviconFile) {
+        getLog().debug("In Rest Service PUT /hyperiot/uibrandings ");
+        UIBranding currentBranding = findUIBranding();
+        enrichUIBranding(currentBranding, logoFile, faviconFile);
+        return this.update(currentBranding);
+    }
+
+    /**
+     * Service updates logo forUIBranding
+     *
+     * @return the UIBranding updated
+     */
+    @PATCH
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/ui-branding/colorScheme", notes = "Service for updating a uibranding entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"), @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"), @ApiResponse(code = 500, message = "Invalid ID supplied")})
+    @JsonView(Isolated.class)
+    public Response updateUIBranding(@ApiParam(value = "chosen color scheme", name = "colorScheme", type = "String") @Multipart(value = "colorScheme") String colorScheme) {
+        getLog().debug("In Rest Service PUT /hyperiot/uibrandings ");
+        UIBranding currentBranding = findUIBranding();
+        currentBranding.setColorScheme(colorScheme);
+        return this.update(currentBranding);
+    }
+
+    /**
      * Service updates a UIBranding
      *
      * @return the UIBranding updated
