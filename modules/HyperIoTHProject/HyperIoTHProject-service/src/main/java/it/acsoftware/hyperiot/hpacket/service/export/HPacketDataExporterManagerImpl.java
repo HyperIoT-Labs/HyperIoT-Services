@@ -48,11 +48,13 @@ import java.util.UUID;
 @Component(service = HPacketDataExportManager.class, immediate = true)
 public class HPacketDataExporterManagerImpl implements HPacketDataExportManager {
     private static Logger log = LoggerFactory.getLogger(HPacketDataExporterManagerImpl.class);
+    private static final String DATE_DEFAULT_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private HPacketSystemApi hPacketSystemApi;
     private ZookeeperConnectorSystemApi zookeeperConnectorSystemApi;
     private HPacketDataExportRepository hPacketDataExportRepository;
     private HadoopManagerSystemApi hadoopManagerSystemApi;
     private Map<String, HPacketDataExporter> localRunningExports = new HashMap<>();
+
 
     @Reference
     public void sethPacketSystemApi(HPacketSystemApi hPacketSystemApi) {
@@ -91,7 +93,7 @@ public class HPacketDataExporterManagerImpl implements HPacketDataExportManager 
         if (prettifyTimestamp) {
             DateTimeFormatter dateTimeFormatter = null;
             if (timestampPattern == null)
-                dateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME;
+                dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_DEFAULT_PATTERN);
             else
                 dateTimeFormatter = DateTimeFormatter.ofPattern(timestampPattern);
             hPacketSerializerBuilder.withPrettyTimestamp(true)
