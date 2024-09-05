@@ -301,7 +301,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
     @Path("/hdevice/{hdeviceId}/realtime")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/dashboards/hdevice/{deviceId}/realtime", notes = "Service for finding realtime dashboard related to a specific device", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/dashboards/hdevice/{hdeviceId}/realtime", notes = "Service for finding realtime dashboard related to a specific device", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Internal error")})
@@ -324,7 +324,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
      * @return the Area Dashboard
      */
     @GET
-    @Path("/hdevice/{hdeviceId}/offline")
+    @Path("/hdevice/{deviceId}/offline")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
     @ApiOperation(value = "/hyperiot/dashboards/hdevice/{deviceId}/offline", notes = "Service for finding offline dashboard related to a specific device", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
