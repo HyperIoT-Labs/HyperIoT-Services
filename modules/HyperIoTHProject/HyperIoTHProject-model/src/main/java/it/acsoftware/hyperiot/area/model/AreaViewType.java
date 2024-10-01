@@ -22,7 +22,8 @@ import java.util.Collections;
 import java.util.List;
 
 public enum AreaViewType {
-    MAP,
+    //MAP supports image types just for uploading miniatures
+    MAP("jpg", "jpeg", "svg", "webp","png"),
     BIM_XKT("xkt"),
     BIM_IFC("ifc"),
     IMAGE("jpg", "jpeg", "svg", "webp","png");
