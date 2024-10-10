@@ -111,4 +111,10 @@ public interface AreaApi extends HyperIoTBaseEntityApi<Area> {
      */
     Area updateAndPreserveImageData(Area entity, HyperIoTContext ctx);
 
+    /**
+     *
+     * @param areaId
+     */
+    void resetAreaType(HyperIoTContext context,long areaId);
+
 }

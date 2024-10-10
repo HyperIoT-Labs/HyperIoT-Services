@@ -24,7 +24,6 @@ import io.swagger.annotations.ApiKeyAuthDefinition.ApiKeyLocation;
 import it.acsoftware.hyperiot.area.api.AreaApi;
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.area.model.AreaDevice;
-import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
 import it.acsoftware.hyperiot.base.model.HyperIoTBaseError;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
 import it.acsoftware.hyperiot.base.security.rest.LoggedIn;
@@ -269,6 +268,30 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
         getLog().debug("In Rest Service PUT /hyperiot/areas \n Body: {}", entity);
         try {
             return Response.ok().entity(this.getEntityService().updateAndPreserveImageData(entity,getHyperIoTContext())).build();
+        } catch (Exception e){
+            return handleException(e);
+        }
+    }
+
+    /**
+     * Service updates a Area
+     *
+     * @param entity Area object to update in database
+     * @return the Area updated
+     */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/areas/{id}/resetType", notes = "Service for updating a area entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
+            @ApiResponse(code = 403, message = "Not authorized"), @ApiResponse(code = 422, message = "Not validated"),
+            @ApiResponse(code = 500, message = "Invalid ID supplied")})
+    @JsonView(HyperIoTJSONView.Public.class)
+    public Response resetAreaType(@ApiParam(value = "Area entity which must be updated ", required = true) @PathParam("id") Long areaId) {
+        getLog().debug("In Rest Service PUT /hyperiot/areas/{}/restType ", areaId);
+        try {
+            this.getEntityService().resetAreaType(getHyperIoTContext(),areaId);
+            return Response.ok().build();
         } catch (Exception e){
             return handleException(e);
         }

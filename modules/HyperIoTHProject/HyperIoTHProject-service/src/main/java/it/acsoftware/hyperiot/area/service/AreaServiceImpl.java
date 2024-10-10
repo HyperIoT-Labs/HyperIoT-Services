@@ -243,6 +243,12 @@ public final class AreaServiceImpl extends HyperIoTOwnedChildBaseEntityServiceIm
     }
 
     @Override
+    @AllowPermissions(actions = HyperIoTAreaAction.Names.AREA_DEVICE_MANAGER, checkById = true, idParamIndex = 1)
+    public void resetAreaType(HyperIoTContext context,long areaId) {
+        this.systemService.resetAreaType(areaId);
+    }
+
+    @Override
     public String getOwnerFieldPath() {
         return "project.user.id";
     }

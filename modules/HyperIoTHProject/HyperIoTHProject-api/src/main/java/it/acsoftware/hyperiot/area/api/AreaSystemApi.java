@@ -112,4 +112,10 @@ public interface AreaSystemApi extends HyperIoTBaseEntitySystemApi<Area> {
      */
     Area updateAndPreserveImageData(Area entity);
 
+    /**
+     *
+     * @param areaId
+     */
+    void resetAreaType(long areaId);
+
 }

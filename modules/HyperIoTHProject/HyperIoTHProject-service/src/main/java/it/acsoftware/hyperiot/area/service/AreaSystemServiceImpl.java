@@ -39,6 +39,7 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -259,4 +260,20 @@ public final class AreaSystemServiceImpl extends HyperIoTBaseEntitySystemService
         this.permissionSystemApi.checkOrCreateRoleWithPermissions(HyperIoTRoleConstants.ROLE_NAME_REGISTERED_USER, actions);
     }
 
+    @Override
+    public void resetAreaType(long areaId) {
+        Area a = find(areaId,null);
+        a.setAreaConfiguration("");
+        //resetting all area devices
+        a.getAreaDevices().clear();
+        a.getInnerArea().forEach(innerArea -> innerArea.setMapInfo(null));
+        if(a.getImagePath() != null && !a.getImagePath().isBlank()) {
+            String imagePath = a.getImagePath();
+            File f = new File(imagePath);
+            if(f.exists())
+                f.delete();
+            a.setImagePath("");
+        }
+        this.update(a,null);
+    }
 }
