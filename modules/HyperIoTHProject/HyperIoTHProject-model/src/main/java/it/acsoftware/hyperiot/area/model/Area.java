@@ -249,7 +249,9 @@ public class Area extends HyperIoTAbstractEntity
      * @param parentArea
      */
     public void setParentArea(Area parentArea) {
-        this.parentArea = parentArea;
+        //parent area cannot be area itself
+        if(parentArea != null && parentArea.getId() != this.getId())
+            this.parentArea = parentArea;
     }
 
     /**
