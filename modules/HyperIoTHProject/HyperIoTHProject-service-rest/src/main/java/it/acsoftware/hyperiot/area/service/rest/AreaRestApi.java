@@ -276,10 +276,10 @@ public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
     /**
      * Service updates a Area
      *
-     * @param entity Area object to update in database
-     * @return the Area updated
+     * @param areaId area to update inside the database
      */
     @PUT
+    @Path("/{id}/resetType")
     @Consumes(MediaType.APPLICATION_JSON)
     @LoggedIn
     @ApiOperation(value = "/hyperiot/areas/{id}/resetType", notes = "Service for updating a area entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
