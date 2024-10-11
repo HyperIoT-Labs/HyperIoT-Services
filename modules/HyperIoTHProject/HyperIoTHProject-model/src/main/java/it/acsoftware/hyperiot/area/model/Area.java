@@ -47,6 +47,15 @@ import java.util.Set;
 @Entity
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = {"name", "project_id", "parentArea_id"})})
+@NamedEntityGraph(name = "completeArea",
+        attributeNodes = {
+                @NamedAttributeNode(value = "areaDevices", subgraph = "areaDevices"),
+                @NamedAttributeNode(value = "innerArea", subgraph = "innerArea")
+        },
+        subgraphs = {
+                @NamedSubgraph(name = "areaDevices", attributeNodes = @NamedAttributeNode(value = "areaDevices")),
+                @NamedSubgraph(name = "innerArea", attributeNodes = @NamedAttributeNode(value = "innerArea",subgraph = "innerArea"))
+        })
 public class Area extends HyperIoTAbstractEntity
         implements HyperIoTProtectedEntity, HyperIoTOwnedChildResource {
 

@@ -47,4 +47,7 @@ public interface AreaRepository extends HyperIoTBaseRepository<Area> {
 
     Collection<Area> getInnerArea(long areaId);
 
+    //Loads area with inner areas and associated inner device ids
+    Area load(long areaId);
+
 }

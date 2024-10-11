@@ -20,14 +20,19 @@ package it.acsoftware.hyperiot.area.repository;
 import it.acsoftware.hyperiot.area.api.AreaRepository;
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.area.model.AreaDevice;
+import it.acsoftware.hyperiot.base.exception.HyperIoTNoResultException;
 import it.acsoftware.hyperiot.base.repository.HyperIoTBaseRepositoryImpl;
 import org.apache.aries.jpa.template.JpaTemplate;
 import org.apache.aries.jpa.template.TransactionType;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import javax.persistence.EntityGraph;
+import javax.persistence.NoResultException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Aristide Cittadino Implementation class of the Area. This
@@ -52,7 +57,7 @@ public class AreaRepositoryImpl extends HyperIoTBaseRepositoryImpl<Area> impleme
      */
     @Override
     protected JpaTemplate getJpa() {
-        getLog().debug( "invoking getJpa, returning: {}", jpa);
+        getLog().debug("invoking getJpa, returning: {}", jpa);
         return jpa;
     }
 
@@ -62,12 +67,12 @@ public class AreaRepositoryImpl extends HyperIoTBaseRepositoryImpl<Area> impleme
     @Override
     @Reference(target = "(osgi.unit.name=hyperiot-hProject-persistence-unit)")
     protected void setJpa(JpaTemplate jpa) {
-        getLog().debug( "invoking setJpa, setting: {}", jpa);
+        getLog().debug("invoking setJpa, setting: {}", jpa);
         this.jpa = jpa;
     }
 
-    public Collection<AreaDevice> getAreaDevicesDeepList(long areaId){
-        return  jpa.txExpr(entityNamanger -> {
+    public Collection<AreaDevice> getAreaDevicesDeepList(long areaId) {
+        return jpa.txExpr(entityNamanger -> {
             return entityNamanger.createNativeQuery(
                     "WITH RECURSIVE cte_area AS (\n" +
                             "    SELECT\n" +
@@ -87,18 +92,18 @@ public class AreaRepositoryImpl extends HyperIoTBaseRepositoryImpl<Area> impleme
                             "FROM\n" +
                             "    areadevice\n" +
                             "INNER JOIN cte_area ON areadevice.area_id = cte_area.id;", AreaDevice.class
-            ).setParameter("areaId",areaId).getResultList();
+            ).setParameter("areaId", areaId).getResultList();
         });
     }
 
     @Override
     public List<Area> getRootProjectArea(long projectId) {
-        return jpa.txExpr(TransactionType.Required,entityManager -> {
+        return jpa.txExpr(TransactionType.Required, entityManager -> {
             return entityManager.createNativeQuery(
                     "SELECT * FROM area a \n" +
                             "WHERE a.project_id = :projectId \n" +
-                            "and a.parentarea_id is NULL",Area.class
-            ).setParameter("projectId",projectId).getResultList();
+                            "and a.parentarea_id is NULL", Area.class
+            ).setParameter("projectId", projectId).getResultList();
         });
     }
 
@@ -106,7 +111,7 @@ public class AreaRepositoryImpl extends HyperIoTBaseRepositoryImpl<Area> impleme
     public Collection<Area> getAreaListByProjectId(long projectId) {
         return this.getJpa().txExpr(TransactionType.Required, (entityManager) -> {
             String query = "Select a FROM Area a WHERE a.project.id=:projectId AND (a.parentArea.id = 0 OR a.parentArea.id = NULL)";
-            return entityManager.createQuery(query).setParameter("projectId",projectId).getResultList();
+            return entityManager.createQuery(query).setParameter("projectId", projectId).getResultList();
         });
     }
 
@@ -114,7 +119,22 @@ public class AreaRepositoryImpl extends HyperIoTBaseRepositoryImpl<Area> impleme
     public Collection<Area> getInnerArea(long areaId) {
         return this.getJpa().txExpr(TransactionType.Required, (entityManager) -> {
             String query = "Select a from Area a where a.parentArea.id = :areaId";
-            return entityManager.createQuery(query).setParameter("areaId",areaId).getResultList();
+            return entityManager.createQuery(query).setParameter("areaId", areaId).getResultList();
+        });
+    }
+
+    public Area load(long areaId) {
+        return this.jpa.txExpr(TransactionType.RequiresNew, entityManager -> {
+            try {
+                EntityGraph<?> entityGraph = entityManager.getEntityGraph("completeArea");
+                Map<String, Object> properties = new HashMap<>();
+                properties.put("javax.persistence.fetchgraph", entityGraph);
+                return entityManager.find(Area.class, areaId, properties);
+            } catch (NoResultException e) {
+                throw new HyperIoTNoResultException();
+            } catch (Exception e) {
+                throw e;
+            }
         });
     }
 
