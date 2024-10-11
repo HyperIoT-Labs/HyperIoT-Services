@@ -265,8 +265,8 @@ public final class AreaSystemServiceImpl extends HyperIoTBaseEntitySystemService
     public void resetAreaType(long areaId, AreaViewType newViewType) {
         Area a = find(areaId,null);
         a.setAreaConfiguration("");
-        //resetting all area devices
-        a.getAreaDevices().clear();
+        //resetting all area devices, dropping cascade
+        a.setAreaDevices(new ArrayList<>());
         a.setAreaViewType(newViewType);
         a.getInnerArea().forEach(innerArea -> innerArea.setMapInfo(null));
         if(a.getImagePath() != null && !a.getImagePath().isBlank()) {
