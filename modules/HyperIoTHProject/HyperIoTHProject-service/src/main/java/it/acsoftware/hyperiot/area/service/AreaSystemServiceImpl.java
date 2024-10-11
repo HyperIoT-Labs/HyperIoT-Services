@@ -23,6 +23,7 @@ import it.acsoftware.hyperiot.area.api.AreaRepository;
 import it.acsoftware.hyperiot.area.api.AreaSystemApi;
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.area.model.AreaDevice;
+import it.acsoftware.hyperiot.area.model.AreaViewType;
 import it.acsoftware.hyperiot.base.action.util.HyperIoTActionsUtil;
 import it.acsoftware.hyperiot.base.api.HyperIoTAction;
 import it.acsoftware.hyperiot.base.api.HyperIoTContext;
@@ -261,11 +262,12 @@ public final class AreaSystemServiceImpl extends HyperIoTBaseEntitySystemService
     }
 
     @Override
-    public void resetAreaType(long areaId) {
+    public void resetAreaType(long areaId, AreaViewType newViewType) {
         Area a = find(areaId,null);
         a.setAreaConfiguration("");
         //resetting all area devices
         a.getAreaDevices().clear();
+        a.setAreaViewType(newViewType);
         a.getInnerArea().forEach(innerArea -> innerArea.setMapInfo(null));
         if(a.getImagePath() != null && !a.getImagePath().isBlank()) {
             String imagePath = a.getImagePath();

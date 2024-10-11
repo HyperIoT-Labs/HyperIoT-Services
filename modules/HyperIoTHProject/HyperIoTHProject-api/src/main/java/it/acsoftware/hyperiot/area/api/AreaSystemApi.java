@@ -19,6 +19,7 @@ package it.acsoftware.hyperiot.area.api;
 
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.area.model.AreaDevice;
+import it.acsoftware.hyperiot.area.model.AreaViewType;
 import it.acsoftware.hyperiot.base.api.HyperIoTContext;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntitySystemApi;
 
@@ -116,6 +117,6 @@ public interface AreaSystemApi extends HyperIoTBaseEntitySystemApi<Area> {
      *
      * @param areaId
      */
-    void resetAreaType(long areaId);
+    void resetAreaType(long areaId, AreaViewType newViewType);
 
 }

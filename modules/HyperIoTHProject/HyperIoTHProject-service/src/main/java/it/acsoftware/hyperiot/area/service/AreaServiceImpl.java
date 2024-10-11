@@ -22,6 +22,7 @@ import it.acsoftware.hyperiot.area.api.AreaApi;
 import it.acsoftware.hyperiot.area.api.AreaSystemApi;
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.area.model.AreaDevice;
+import it.acsoftware.hyperiot.area.model.AreaViewType;
 import it.acsoftware.hyperiot.base.action.util.HyperIoTActionsUtil;
 import it.acsoftware.hyperiot.base.api.HyperIoTContext;
 import it.acsoftware.hyperiot.base.api.HyperIoTOwnedResource;
@@ -244,8 +245,8 @@ public final class AreaServiceImpl extends HyperIoTOwnedChildBaseEntityServiceIm
 
     @Override
     @AllowPermissions(actions = HyperIoTAreaAction.Names.AREA_DEVICE_MANAGER, checkById = true, idParamIndex = 1)
-    public void resetAreaType(HyperIoTContext context,long areaId) {
-        this.systemService.resetAreaType(areaId);
+    public void resetAreaType(HyperIoTContext context, long areaId, AreaViewType newViewType) {
+        this.systemService.resetAreaType(areaId,newViewType);
     }
 
     @Override
