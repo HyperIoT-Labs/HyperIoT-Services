@@ -50,6 +50,8 @@ import java.util.Set;
 @NamedEntityGraph(name = "completeArea",
         attributeNodes = {
                 @NamedAttributeNode(value = "areaDevices"),
+                @NamedAttributeNode(value = "parentArea"),
+                @NamedAttributeNode(value = "project"),
                 @NamedAttributeNode(value = "innerArea", subgraph = "innerArea")
         },
         subgraphs = {
