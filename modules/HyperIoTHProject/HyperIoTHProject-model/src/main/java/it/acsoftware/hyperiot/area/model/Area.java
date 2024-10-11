@@ -51,11 +51,12 @@ import java.util.Set;
         attributeNodes = {
                 @NamedAttributeNode(value = "areaDevices"),
                 @NamedAttributeNode(value = "parentArea"),
-                @NamedAttributeNode(value = "project"),
+                @NamedAttributeNode(value = "project",subgraph = "project"),
                 @NamedAttributeNode(value = "innerArea", subgraph = "innerArea")
         },
         subgraphs = {
-                @NamedSubgraph(name = "innerArea", attributeNodes = @NamedAttributeNode(value = "innerArea"))
+                @NamedSubgraph(name = "innerArea", attributeNodes = @NamedAttributeNode(value = "innerArea")),
+                @NamedSubgraph(name = "project", attributeNodes = {@NamedAttributeNode(value = "user")})
         })
 public class Area extends HyperIoTAbstractEntity
         implements HyperIoTProtectedEntity, HyperIoTOwnedChildResource {
