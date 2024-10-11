@@ -49,12 +49,11 @@ import java.util.Set;
         @UniqueConstraint(columnNames = {"name", "project_id", "parentArea_id"})})
 @NamedEntityGraph(name = "completeArea",
         attributeNodes = {
-                @NamedAttributeNode(value = "areaDevices", subgraph = "areaDevices"),
+                @NamedAttributeNode(value = "areaDevices"),
                 @NamedAttributeNode(value = "innerArea", subgraph = "innerArea")
         },
         subgraphs = {
-                @NamedSubgraph(name = "areaDevices", attributeNodes = @NamedAttributeNode(value = "areaDevices")),
-                @NamedSubgraph(name = "innerArea", attributeNodes = @NamedAttributeNode(value = "innerArea",subgraph = "innerArea"))
+                @NamedSubgraph(name = "innerArea", attributeNodes = @NamedAttributeNode(value = "innerArea"))
         })
 public class Area extends HyperIoTAbstractEntity
         implements HyperIoTProtectedEntity, HyperIoTOwnedChildResource {
