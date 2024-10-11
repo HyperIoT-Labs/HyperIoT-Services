@@ -276,6 +276,6 @@ public final class AreaSystemServiceImpl extends HyperIoTBaseEntitySystemService
                 f.delete();
             a.setImagePath("");
         }
-        this.update(a,null);
+        repository.update(a);
     }
 }
