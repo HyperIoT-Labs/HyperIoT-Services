@@ -175,7 +175,7 @@ public class Area extends HyperIoTAbstractEntity
     /**
      * @return Area Devices
      */
-    @OneToMany(targetEntity = AreaDevice.class, mappedBy = "area", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    @OneToMany(targetEntity = AreaDevice.class, mappedBy = "area",orphanRemoval = true, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     @Fetch(FetchMode.SUBSELECT)
     public Collection<AreaDevice> getAreaDevices() {
         return areaDevices;
