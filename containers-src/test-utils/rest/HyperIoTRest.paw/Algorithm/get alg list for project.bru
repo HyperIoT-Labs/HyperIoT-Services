@@ -1,0 +1,15 @@
+meta {
+  name: get alg list for project
+  type: http
+  seq: 5
+}
+
+get {
+  url: https://dashboard-test.hyperiot.cloud/hyperiot/hprojectalgorithms/projects/6399
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: JWT {{JWTToken}}
+}
