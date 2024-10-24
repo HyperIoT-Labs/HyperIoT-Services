@@ -27,6 +27,7 @@ public class AlarmEventStatus {
     private String description;
     private boolean fired;
     private Date lastFiredTimestamp;
+    private long ruleId;
 
     public AlarmEventStatus(AlarmEvent alarmEvent, Date lastFiredTimestamp, boolean fired) {
         this.alarmEventId = alarmEvent.getId();
@@ -36,6 +37,7 @@ public class AlarmEventStatus {
         this.description = alarmEvent.getEvent().getDescription();
         this.fired = fired;
         this.lastFiredTimestamp = lastFiredTimestamp;
+        this.ruleId = alarmEvent.getEvent().getId();
     }
 
     public long getAlarmEventId() {
