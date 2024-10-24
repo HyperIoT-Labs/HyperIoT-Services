@@ -67,4 +67,12 @@ public class AlarmEventStatus {
     public Date getLastFiredTimestamp() {
         return lastFiredTimestamp;
     }
+
+    public long getRuleId() {
+        return ruleId;
+    }
+
+    public void setRuleId(long ruleId) {
+        this.ruleId = ruleId;
+    }
 }
