@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTRuleEngine-features">
   <repository>mvn:org.kie/kie-karaf-features/7.74.1.Final/xml/features</repository>
-  <feature name="hyperiot-ruleengine" version="2.4.0" description="All  Hyperiot HyperIoTRuleEngine modules">
+  <feature name="hyperiot-ruleengine" version="2.5.0" description="All  Hyperiot HyperIoTRuleEngine modules">
     <feature>hyperiot-base</feature>
     <feature>drools-module</feature>
-    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-actions/2.4.0</bundle>
-    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-api/2.4.0</bundle>
-    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-service/2.4.0</bundle>
-    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-model/2.4.0</bundle>
-    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-repository/2.4.0</bundle>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-actions/2.5.0</bundle>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-api/2.5.0</bundle>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-service/2.5.0</bundle>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-model/2.5.0</bundle>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-repository/2.5.0</bundle>
     <bundle start-level="83">mvn:commons-codec/commons-codec/1.15</bundle>
 
 <!--    <bundle start-level="83">mvn:org.drools/drools-core/7.74.1.Final</bundle>
@@ -32,14 +32,14 @@
 
     <bundle start-level="83">mvn:org.mvel/mvel2/2.4.15.Final</bundle>-->
 
-    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-service-rest/2.4.0</bundle>
+    <bundle start-level="83">mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-service-rest/2.5.0</bundle>
   </feature>
-  <feature name="hyperiot-ruleengine-basic" version="2.4.0" description="All  Hyperiot HyperIoTRuleEngine modules with NO rest services">
+  <feature name="hyperiot-ruleengine-basic" version="2.5.0" description="All  Hyperiot HyperIoTRuleEngine modules with NO rest services">
     <feature>hyperiot-base-basic</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-actions/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-api/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-service/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-model/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-repository/2.4.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-actions/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-api/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-service/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-model/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.rule/HyperIoTRuleEngine-repository/2.5.0</bundle>
   </feature>
 </features>

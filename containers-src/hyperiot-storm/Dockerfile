@@ -1,4 +1,4 @@
-FROM fabric8/java-alpine-openjdk11-jre:latest
+FROM openjdk:17
 
 # Install required packages
 RUN apk add --no-cache \

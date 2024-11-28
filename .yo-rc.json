@@ -635,7 +635,7 @@
     "globalProjectName": "HyperIoT",
     "generateWithPrefix": true,
     "defaultModuleVersion": "1.3.5",
-    "hyperIoTVersion": "2.3.0",
+    "hyperIoTVersion": "2.4.0",
     "publishRepo": true,
     "publishRepoName": "ACSoftwareRepository",
     "publishRepoUrl": "https://nexus.acsoftware.it/nexus/repository/maven-hyperiot/",

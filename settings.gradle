@@ -8,7 +8,7 @@ buildscript{
     }
 
     dependencies {
-        classpath 'it.acsoftware.hyperiot.gradle.plugins.workspace:HyperIoTWorkspaceGradlePlugin:2.3.0'
+        classpath 'it.acsoftware.hyperiot.gradle.plugins.workspace:HyperIoTWorkspaceGradlePlugin:2.4.0'
     }
 }
 

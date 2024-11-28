@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTKit-features">
-  <feature name="hyperiot-kit" version="2.4.0" description="All  HyperIoT HyperIoTKit modules">
+  <feature name="hyperiot-kit" version="2.5.0" description="All  HyperIoT HyperIoTKit modules">
     <feature>hyperiot-base</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-actions/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-api/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-service/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-model/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-repository/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-service-rest/2.4.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-actions/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-api/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-service/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-model/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-repository/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-service-rest/2.5.0</bundle>
   </feature>
-  <feature name="hyperiot-kit-basic" version="2.4.0" description="All  HyperIoT HyperIoTKit modules with NO rest services">
+  <feature name="hyperiot-kit-basic" version="2.5.0" description="All  HyperIoT HyperIoTKit modules with NO rest services">
     <feature>hyperiot-base-basic</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-actions/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-api/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-service/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-model/2.4.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-repository/2.4.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-actions/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-api/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-service/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-model/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.kit/HyperIoTKit-repository/2.5.0</bundle>
   </feature>
 </features>

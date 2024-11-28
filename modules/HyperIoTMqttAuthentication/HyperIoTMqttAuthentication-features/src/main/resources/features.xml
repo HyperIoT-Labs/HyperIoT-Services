@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTMqttAuthentication-features">
-  <feature name="hyperiot-mqttauthentication" version="2.4.0" description="All  HyperIoT HyperIoTMqttAuthentication modules">
+  <feature name="hyperiot-mqttauthentication" version="2.5.0" description="All  HyperIoT HyperIoTMqttAuthentication modules">
     <feature>hyperiot-base-basic</feature>
-    <bundle start-level="86">mvn:it.acsoftware.hyperiot.mqtt.authentication/HyperIoTMqttAuthentication-api/2.4.0</bundle>
-    <bundle start-level="86">mvn:it.acsoftware.hyperiot.mqtt.authentication/HyperIoTMqttAuthentication-service/2.4.0</bundle>
+    <bundle start-level="86">mvn:it.acsoftware.hyperiot.mqtt.authentication/HyperIoTMqttAuthentication-api/2.5.0</bundle>
+    <bundle start-level="86">mvn:it.acsoftware.hyperiot.mqtt.authentication/HyperIoTMqttAuthentication-service/2.5.0</bundle>
   </feature>
 </features>
