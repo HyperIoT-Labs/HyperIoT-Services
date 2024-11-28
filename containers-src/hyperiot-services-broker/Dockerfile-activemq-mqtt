@@ -22,7 +22,7 @@ RUN mkdir /opt/karaf
 
 RUN groupadd -r $KARAF_USER --gid=$KARAF_UID && useradd -rm -g $KARAF_USER --uid=$KARAF_UID $KARAF_USER
 
-RUN apt-get update && apt-get install -y --no-install-recommends jq curl && rm -rf /var/lib/apt/lists/*
+#RUN apt-get update && apt-get install -y --no-install-recommends jq curl && rm -rf /var/lib/apt/lists/*
 
 RUN tar --strip-components=1 -C /opt/karaf -xzf /opt/$KARAF_TAR_FILE \
     && rm /opt/$KARAF_TAR_FILE \
