@@ -43,7 +43,6 @@ import it.acsoftware.hyperiot.hproject.model.HProject;
 import it.acsoftware.hyperiot.hproject.model.HyperIoTTopicType;
 import it.acsoftware.hyperiot.huser.api.HUserSystemApi;
 import it.acsoftware.hyperiot.huser.model.HUser;
-import it.acsoftware.hyperiot.query.util.filter.HyperIoTQueryBuilder;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -305,11 +304,22 @@ public final class HProjectServiceImpl extends HyperIoTBaseEntityServiceImpl<HPr
 
     @Override
     @AllowPermissions(
-            actions = {"find"},
+            actions = {HyperIoTCrudAction.Names.FIND},
             checkById = true
     )
-    public HProject load(long projectId,HyperIoTContext context) {
+    public HProject load(long projectId, HyperIoTContext context) {
         return this.getSystemService().load(projectId);
+    }
+
+    @Override
+    @AllowPermissions(
+            actions = {HyperIoTCrudAction.Names.FINDALL},
+            checkById = true
+    )
+    public Collection<HProject> load(HyperIoTContext context) {
+        //getting all project which belongs to the current user
+        HyperIoTQuery filter = createConditionForOwnedOrSharedResource(null,context);
+        return this.getSystemService().load(filter);
     }
 
     @Override

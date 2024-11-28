@@ -17,6 +17,7 @@
 
 package it.acsoftware.hyperiot.hproject.repository;
 
+import it.acsoftware.hyperiot.base.api.entity.HyperIoTQuery;
 import it.acsoftware.hyperiot.base.exception.HyperIoTNoResultException;
 import it.acsoftware.hyperiot.base.repository.HyperIoTBaseRepositoryImpl;
 import it.acsoftware.hyperiot.hproject.api.HProjectRepository;
@@ -31,6 +32,7 @@ import org.osgi.service.component.annotations.Reference;
 import javax.persistence.EntityGraph;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,11 +110,26 @@ public class HProjectRepositoryImpl extends HyperIoTBaseRepositoryImpl<HProject>
     public HProject load(long projectId) {
         return this.jpa.txExpr(TransactionType.RequiresNew, entityManager -> {
             try {
-                //entityManager.createQuery("from HProject hp inner join fetch hp.devices devices inner join fetch devices.packets packets inner join fetch packets.fields where hp.id = :id").setParameter("id", projectId);
                 EntityGraph<?> entityGraph = entityManager.getEntityGraph("completeProject");
                 Map<String, Object> properties = new HashMap<>();
                 properties.put("javax.persistence.fetchgraph", entityGraph);
                 return entityManager.find(HProject.class, projectId, properties);
+            } catch (NoResultException e) {
+                throw new HyperIoTNoResultException();
+            } catch (Exception e) {
+                throw e;
+            }
+        });
+    }
+
+    public Collection<HProject> load(HyperIoTQuery filter) {
+        return this.jpa.txExpr(TransactionType.RequiresNew, entityManager -> {
+            try {
+                EntityGraph<?> entityGraph = entityManager.getEntityGraph("completeProject");
+                Map<String, Object> hints = new HashMap<>();
+                hints.put("javax.persistence.fetchgraph", entityGraph);
+                Query q = createQuery(filter, null, entityManager, hints);
+                return q.getResultList();
             } catch (NoResultException e) {
                 throw new HyperIoTNoResultException();
             } catch (Exception e) {

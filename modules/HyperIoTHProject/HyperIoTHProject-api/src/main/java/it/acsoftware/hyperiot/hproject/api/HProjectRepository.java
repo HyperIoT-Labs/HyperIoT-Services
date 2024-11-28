@@ -19,7 +19,10 @@ package it.acsoftware.hyperiot.hproject.api;
 
 import it.acsoftware.hyperiot.base.api.HyperIoTContext;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseRepository;
+import it.acsoftware.hyperiot.base.api.entity.HyperIoTQuery;
 import it.acsoftware.hyperiot.hproject.model.HProject;
+
+import java.util.Collection;
 
 /**
  * 
@@ -33,4 +36,6 @@ public interface HProjectRepository extends HyperIoTBaseRepository<HProject> {
     HProject updateHProjectOwner(long projectId, long userId);
 
     HProject load(long projectId);
+
+    Collection<HProject> load(HyperIoTQuery filter);
 }

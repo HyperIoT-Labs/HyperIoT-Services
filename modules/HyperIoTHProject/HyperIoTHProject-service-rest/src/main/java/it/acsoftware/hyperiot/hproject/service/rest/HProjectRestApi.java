@@ -167,7 +167,7 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @Path("/{id}/details")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/hprojects/{id}", notes = "Service for finding hproject with deeper details", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/hprojects/{id}/details", notes = "Service for finding hproject with deeper details", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 404, message = "Entity not found")})
@@ -176,7 +176,31 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
             @ApiParam(value = "id from which project object will retrieve", required = true) @PathParam("id") long id) {
         getLog().debug("In Rest Service GET /hyperiot/hprojects/{}", id);
         try {
-            HProject project = this.getEntityService().load(id,getHyperIoTContext());
+            HProject project = this.getEntityService().load(id, getHyperIoTContext());
+            return Response.ok(project).build();
+        } catch (Throwable var4) {
+            return this.handleException(var4);
+        }
+    }
+
+    /**
+     * Service finds all user projects with deeper details
+     *
+     * @return HProjects list if found
+     */
+    @GET
+    @Path("/details")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LoggedIn
+    @ApiOperation(value = "/hyperiot/hprojects/details", notes = "Service for finding all user projects with deeper details", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
+            @ApiResponse(code = 403, message = "Not authorized"),
+            @ApiResponse(code = 404, message = "Entity not found")})
+    @JsonView(HyperIoTJSONView.Extended.class)
+    public Response findHProjectsDetails() {
+        getLog().debug("In Rest Service GET /hyperiot/hprojects/details");
+        try {
+            Collection<HProject> project = this.getEntityService().load(getHyperIoTContext());
             return Response.ok(project).build();
         } catch (Throwable var4) {
             return this.handleException(var4);
@@ -359,6 +383,7 @@ public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Internal error")})
+    @Deprecated
     @JsonView(HProjectJSONView.Cards.class)
     public Response cardsView() {
         getLog().debug("In Rest Service GET /hyperiot/hprojects/");

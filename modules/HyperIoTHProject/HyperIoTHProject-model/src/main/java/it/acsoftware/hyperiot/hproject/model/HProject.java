@@ -85,17 +85,17 @@ public class HProject extends HyperIoTAbstractEntity
     @JsonSerialize(using = HyperIoTInnerEntityJSONSerializer.class)
     private HUser user;
 
-    @JsonView(HProjectJSONView.Cards.class)
+    @JsonView({HProjectJSONView.Cards.class,HyperIoTJSONView.Extended.class})
     private int deviceCount;
 
-    @JsonView(HProjectJSONView.Cards.class)
+    @JsonView({HProjectJSONView.Cards.class,HyperIoTJSONView.Extended.class})
     private int statisticsCount;
 
-    @JsonView(HProjectJSONView.Cards.class)
+    @JsonView({HProjectJSONView.Cards.class,HyperIoTJSONView.Extended.class})
     private int rulesCount;
     @JsonIgnore
     private int sharesCount;
-    @JsonView(HProjectJSONView.Cards.class)
+    @JsonView({HProjectJSONView.Cards.class,HyperIoTJSONView.Extended.class})
     private HProjectSharingInfo hProjectSharingInfo;
 
     /**
@@ -113,7 +113,7 @@ public class HProject extends HyperIoTAbstractEntity
     @JsonView({HyperIoTJSONView.Extended.class,HyperIoTJSONView.Internal.class,HProjectJSONView.Export.class})
     private Set<HDevice> devices;
 
-    @JsonView({HProjectJSONView.Export.class})
+    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Extended.class})
     private Set<Area> areas;
 
     /**

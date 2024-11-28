@@ -20,6 +20,7 @@ package it.acsoftware.hyperiot.hproject.api;
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.base.api.HyperIoTContext;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
+import it.acsoftware.hyperiot.base.api.entity.HyperIoTQuery;
 import it.acsoftware.hyperiot.hpacket.api.HPacketDataExporter;
 import it.acsoftware.hyperiot.hpacket.model.HPacket;
 import it.acsoftware.hyperiot.hpacket.model.HPacketFormat;
@@ -155,4 +156,5 @@ public interface HProjectApi extends HyperIoTBaseEntityApi<HProject> {
     void finalizeExportDownload(String exportId,long hProjectId,HyperIoTContext context);
 
     HProject load(long projectId,HyperIoTContext context);
+    Collection<HProject> load(HyperIoTContext context);
 }

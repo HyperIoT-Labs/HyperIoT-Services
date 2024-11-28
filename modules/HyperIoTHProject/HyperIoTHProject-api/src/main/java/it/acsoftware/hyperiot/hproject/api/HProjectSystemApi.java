@@ -20,6 +20,7 @@ package it.acsoftware.hyperiot.hproject.api;
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.base.api.HyperIoTContext;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntitySystemApi;
+import it.acsoftware.hyperiot.base.api.entity.HyperIoTQuery;
 import it.acsoftware.hyperiot.hdevice.model.HDevice;
 import it.acsoftware.hyperiot.hpacket.model.HPacket;
 import it.acsoftware.hyperiot.hproject.algorithm.model.dto.ImportLogReport;
@@ -172,4 +173,5 @@ public interface HProjectSystemApi extends HyperIoTBaseEntitySystemApi<HProject>
     HProject updateHProjectOwner(HyperIoTContext ctx , long projectId, long userId);
 
     HProject load(long projectId);
+    Collection<HProject> load(HyperIoTQuery filter);
 }

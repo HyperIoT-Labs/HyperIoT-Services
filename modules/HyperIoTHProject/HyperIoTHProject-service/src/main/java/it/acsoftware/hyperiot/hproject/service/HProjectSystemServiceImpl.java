@@ -457,12 +457,17 @@ public final class HProjectSystemServiceImpl extends HyperIoTBaseEntitySystemSer
         return this.getRepository().load(projectId);
     }
 
+    @Override
+    public Collection<HProject> load(HyperIoTQuery filter) {
+        return this.getRepository().load(filter);
+    }
+
     /*
-        Add device project structure to project when import if constraint's validation isn't violated.
-        The method has side effect on project parameter.
-        The method can throw an exception .
-        To understand exception's reason look validation's check in this method.
-         */
+            Add device project structure to project when import if constraint's validation isn't violated.
+            The method has side effect on project parameter.
+            The method can throw an exception .
+            To understand exception's reason look validation's check in this method.
+             */
     private void ifValidAddDeviceStructureToProjectWhenImport(HProject projectToImport , HyperIoTContext context){
         //Add device project structure to project when import if constraint's validation isn't violated.
         //The method has side effect on project parameter.
