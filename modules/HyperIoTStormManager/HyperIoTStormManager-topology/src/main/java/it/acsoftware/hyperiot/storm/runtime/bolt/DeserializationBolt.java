@@ -66,7 +66,9 @@ public class DeserializationBolt extends BaseBasicBolt {
 
     // Default constructor
     public DeserializationBolt() {
-        aliveTickFrequency = 10; // Default to 10 seconds
+        //TODO: disabling tick tuple in, please verify performance and uncomment or remove it
+        //aliveTickFrequency = 10; // Default to 10 seconds
+        aliveTickFrequency = 0;
     }
 
     // Constructor that sets emit frequency
