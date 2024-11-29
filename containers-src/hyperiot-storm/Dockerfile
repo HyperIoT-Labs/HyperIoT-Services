@@ -42,6 +42,5 @@ COPY acsoftware /$DISTRO_NAME/acsoftware
 COPY ./storm_extlib/* /$DISTRO_NAME/extlib/
 RUN echo /$DISTRO_NAME/extlib/
 
-
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]

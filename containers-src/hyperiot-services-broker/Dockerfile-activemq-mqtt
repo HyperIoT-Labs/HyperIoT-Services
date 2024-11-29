@@ -19,7 +19,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 ENV PATH=/usr/lib/jvm/java-17-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # --- Installing required packages ---
-RUN apk update && apk add --no-cache openjdk17 java-cacerts jq curl
+RUN apk update && apk add --no-cache openssh openjdk17 java-cacerts jq curl
 # --- Extracting Karaf ---
 COPY ./target/$KARAF_TAR_FILE /opt/
 RUN mkdir /opt/karaf
