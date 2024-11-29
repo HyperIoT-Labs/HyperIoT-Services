@@ -35,9 +35,6 @@ WORKDIR $DISTRO_NAME
 
 ENV PATH $PATH:/$DISTRO_NAME/bin
 
-# Storm ACS-Topology
-COPY acsoftware /$DISTRO_NAME/acsoftware
-
 # Storm dependencies for running HyperIoT topologies
 COPY ./storm_extlib/* /$DISTRO_NAME/extlib/
 RUN echo /$DISTRO_NAME/extlib/
