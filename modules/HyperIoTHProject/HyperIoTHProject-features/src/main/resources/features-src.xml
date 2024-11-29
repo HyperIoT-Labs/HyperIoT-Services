@@ -32,7 +32,7 @@
   </feature>
   <feature name="hyperiot-hproject-basic" version="${project.version}" description="All  Hyperiot HyperIoTHProject modules with NO rest services">
     <feature>hyperiot-base-basic</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.hadoopmanager/HyperIoTHadoopManager-api/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hadoopmanager/HyperIoTHadoopManager-api/${project.hyperIoTVersion}</bundle>
     <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-actions/${project.version}</bundle>
     <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-api/${project.version}</bundle>
     <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-service/${project.version}</bundle>
