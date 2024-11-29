@@ -3,7 +3,7 @@
   <repository>mvn:it.acsoftware.hyperiot.storm/HyperIoTStorm-features/2.2.2/xml/features</repository>
   <feature name="hyperiot-stormmanager" version="${project.version}" description="All Hyperiot HyperIoTStormManager modules">
     <feature>hyperiot-base-basic</feature>
-    <feature>hyperiot-storm-2.4</feature>
+    <feature>hyperiot-storm-2.7</feature>
     <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-actions/${project.version}</bundle>
     <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-api/${project.version}</bundle>
     <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-model/${project.version}</bundle>
