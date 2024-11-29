@@ -14,7 +14,7 @@ Import-Package: \
     it.acsoftware.hyperiot.base.service;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.service.entity;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.util;version='${range;[===,+)}',\
-    it.acsoftware.hyperiot.hadoopmanager.api;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hadoopmanager.api;version='${range;[===,+)}';resolution:=optional,\
     it.acsoftware.hyperiot.hproject.model;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.hdevice.actions;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.hdevice.api;version='${range;[===,+)}',\
@@ -24,8 +24,8 @@ Import-Package: \
     it.acsoftware.hyperiot.hpacket.model;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.hproject.actions;version='${range;[===,+)}', \
     it.acsoftware.hyperiot.hproject.api;version='${range;[===,+)}',\
-    it.acsoftware.hyperiot.hproject.model.hbase;version='${range;[===,+)}',\
-    it.acsoftware.hyperiot.hproject.api.hbase;version='${range;[===,+)}',\
+    it.acsoftware.hyperiot.hproject.model.hbase;version='${range;[===,+)}';resolution:=optional,\
+    it.acsoftware.hyperiot.hproject.api.hbase;version='${range;[===,+)}';resolution:=optional,\
     it.acsoftware.hyperiot.hproject.serialization.api;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.hproject.serialization.service.builder;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.huser.model;version='${range;[===,+)}',\
