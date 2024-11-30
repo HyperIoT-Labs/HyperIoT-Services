@@ -34,12 +34,12 @@ dependencies {
 	implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-api", version:project.hyperIoTPlatformVersion
 	implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version:project.hyperIoTPlatformVersion
     //Storm
-    implementation group: "org.apache.storm", name: "storm-kafka-client", version: project.storm24CoreVersion
-    implementation group: "org.apache.storm", name: "storm-hdfs", version: project.storm24CoreVersion
-    implementation group: "org.apache.storm", name: "storm-hbase", version: project.storm24CoreVersion
-    implementation group: "org.apache.storm", name: "flux-core", version: project.storm24CoreVersion
-    implementation group: "org.apache.storm", name: "flux-wrappers", version: project.storm24CoreVersion
-    implementation group: "org.apache.storm", name: "storm-core", version: project.storm24CoreVersion
+    implementation group: "org.apache.storm", name: "storm-kafka-client", version: project.stormVersion
+    implementation group: "org.apache.storm", name: "storm-hdfs", version:  project.stormVersion
+    implementation group: "org.apache.storm", name: "storm-hbase", version: "2.5.0"
+    implementation group: "org.apache.storm", name: "flux-core", version:  project.stormVersion
+    implementation group: "org.apache.storm", name: "flux-wrappers", version:  project.stormVersion
+    implementation group: "org.apache.storm", name: "storm-core", version:  project.stormVersion
     // Jackson
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:project.jacksonVersion
 
@@ -69,3 +69,4 @@ publishing {
 		}
     }
 }
+

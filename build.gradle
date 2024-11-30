@@ -69,3 +69,4 @@ project.ext.publishRepoName = "ACSoftwareRepository"
 project.ext.publishRepoUrl =  "https://nexus.acsoftware.it/nexus/repository/maven-hyperiot/"
 project.ext.publishRepoUsername = System.getProperty("publishRepoUsername","");
 project.ext.publishRepoPassword = System.getProperty("publishRepoPassword","");
+project.ext.stormVersion="2.7.0"
