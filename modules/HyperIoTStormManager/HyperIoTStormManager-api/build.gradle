@@ -20,7 +20,7 @@ dependencies {
 	implementation group:"com.fasterxml.jackson.module", name:"jackson-module-jaxb-annotations", version:project.jacksonVersion
 
 	// https://mvnrepository.com/artifact/org.apache.storm/storm-core
-	implementation group: 'org.apache.storm', name: 'storm-core', version: project.stormCoreVersion
+	implementation group: 'org.apache.storm', name: 'storm-core', version: project.stormVersion
 }
 
 

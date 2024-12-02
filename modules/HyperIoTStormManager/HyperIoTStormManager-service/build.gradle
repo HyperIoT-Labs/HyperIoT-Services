@@ -33,16 +33,10 @@ dependencies {
 	// HyperIoTRuleEngine dependencies
 	implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-api", version:project.hyperIoTPlatformVersion
 	implementation group: "it.acsoftware.hyperiot.rule", name: "HyperIoTRuleEngine-model", version:project.hyperIoTPlatformVersion
-    //Storm
-    implementation group: "org.apache.storm", name: "storm-kafka-client", version: project.stormVersion
-    implementation group: "org.apache.storm", name: "storm-hdfs", version:  project.stormVersion
-    implementation group: "org.apache.storm", name: "storm-hbase", version: "2.5.0"
-    implementation group: "org.apache.storm", name: "flux-core", version:  project.stormVersion
-    implementation group: "org.apache.storm", name: "flux-wrappers", version:  project.stormVersion
-    implementation group: "org.apache.storm", name: "storm-core", version:  project.stormVersion
+	//HyperIoTStorm
+	implementation group: "it.acsoftware.hyperiot.storm", name: "HyperIoTStorm-bundles", version:project.hyperIoTVersion
     // Jackson
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:project.jacksonVersion
-
 
 	// Project dependencies
 	implementation project(":modules:HyperIoTStormManager:HyperIoTStormManager-actions")
@@ -52,6 +46,9 @@ dependencies {
 
 	//HyperIoTStorm api.
 	implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-api", version:project.hyperIoTVersion
+	implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-bundles", version:project.hyperIoTVersion
+	implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-service", version:project.hyperIoTVersion
+	implementation group: 'org.apache.hbase', name: 'hbase-client', version: project.hbaseVersion
 }
 
 jar {

@@ -53,8 +53,7 @@ Import-Package: \
     org.apache.avro.io,\
     org.ietf.jgss*,\
     org.osgi.framework,\
-    org.quartz;version='${range;[===,+)}',\
-    org.slf4j
+    org.quartz;version='${range;[===,+)}'
 
 DynamicImport-Package: \
     org.apache.hadoop.fs,\

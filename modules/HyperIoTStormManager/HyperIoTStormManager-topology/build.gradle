@@ -20,13 +20,11 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: project.jacksonVersion
 
     implementation "org.apache.avro:avro:1.8.2"
-    //Storm
-    implementation group: "org.apache.storm", name: "storm-kafka-client", version: project.stormVersion
-    implementation group: "org.apache.storm", name: "storm-hdfs", version: project.stormVersion
-    implementation group: "org.apache.storm", name: "storm-hbase", version: "2.5.0"
-    implementation group: "org.apache.storm", name: "flux-core", version: project.stormVersion
-    implementation group: "org.apache.storm", name: "flux-wrappers", version: project.stormVersion
-    implementation group: "org.apache.storm", name: "storm-core", version: project.stormVersion
+    //HyperIoTStorm
+    implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-api", version:project.hyperIoTVersion
+    implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-bundles", version:project.hyperIoTVersion
+    implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-service", version:project.hyperIoTVersion
+    implementation group: 'org.apache.hbase', name: 'hbase-client', version: project.hbaseVersion
     // HyperIoT Dependencies imported for the fat jar in storm, not used inside OSGi container
     // in stormExtLib
     implementation group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version:project.hyperIoTPlatformVersion
@@ -66,9 +64,6 @@ dependencies {
 
     implementation project(":modules:HyperIoTStormManager:HyperIoTStormManager-api")
     implementation project(":modules:HyperIoTStormManager:HyperIoTStormManager-model")
-
-    //HyperIoTStorm api
-    implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-api", version:project.hyperIoTVersion
 }
 
 test {

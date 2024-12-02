@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTStormManager-features">
-  <repository>mvn:it.acsoftware.hyperiot.storm/HyperIoTStorm-features/2.2.2/xml/features</repository>
+  <repository>mvn:it.acsoftware.hyperiot.storm/HyperIoTStorm-features/2.4.0/xml/features</repository>
   <feature name="hyperiot-stormmanager" version="2.5.0" description="All Hyperiot HyperIoTStormManager modules">
     <feature>hyperiot-base-basic</feature>
-    <feature>hyperiot-storm-2.4</feature>
+    <feature>hyperiot-storm</feature>
     <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-actions/2.5.0</bundle>
     <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-api/2.5.0</bundle>
     <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-model/2.5.0</bundle>
