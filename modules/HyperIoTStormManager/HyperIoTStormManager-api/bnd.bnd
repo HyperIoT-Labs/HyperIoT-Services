@@ -2,6 +2,7 @@ Export-Package: it.acsoftware.hyperiot.stormmanager.api
 Import-Package: \
     com.fasterxml.jackson.core.*;version='${range;[===,+)}',\
     com.fasterxml.jackson.databind.*;version='${range;[===,+)}',\
+    org.apache.kafka.clients.admin,\
     com.fasterxml.jackson.annotation.*;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.api;version='${range;[===,+)}',\
     it.acsoftware.hyperiot.base.api.entity;version='${range;[===,+)}', \

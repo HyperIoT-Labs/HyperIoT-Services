@@ -49,6 +49,7 @@ dependencies {
 	implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-bundles", version:project.hyperIoTVersion
 	implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-service", version:project.hyperIoTVersion
 	implementation group: 'org.apache.hbase', name: 'hbase-client', version: project.hbaseVersion
+	implementation group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
 }
 
 jar {

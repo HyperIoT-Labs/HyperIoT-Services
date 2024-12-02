@@ -7,6 +7,8 @@ Import-Package: \
     com.fasterxml.jackson.databind.*;version='${range;[===,+)}',\
     org.osgi.framework.*,\
     org.apache.kafka.*,\
+    org.apache.hadoop.fs,\
+    org.apache.kafka.clients.admin,\
     org.kie.api.runtime,\
     org.kie.api.runtime.rule,\
     org.apache.avro,\
@@ -48,7 +50,6 @@ DynamicImport-Package: \
     it.acsoftware.hyperiot.storm.operations.bolt,\
     it.acsoftware.hyperiot.storm.hdfs.partitioner,\
     it.acsoftware.hyperiot.stormmanager.client,\
-    org.apache.hadoop.fs,\
     org.apache.storm;version=2.3.0,\
     org.apache.storm.generated;version=2.3.0,\
     org.apache.storm.bolt;version=2.3.0,\

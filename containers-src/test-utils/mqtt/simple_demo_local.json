@@ -20,18 +20,6 @@
 			"alarm":true
 	  	 },
 	 	 "waitBeforeSendSec":0.5
-    },
-    "38/41/171": {
-            "username": "Device1",
-            "password": "Device1_",
-                "active":true,
-                "data":{
-                "temperature2": 30, "temperature2-range": [25, 40],"humidity2-outlier":85,"humidity2-outlier-duration-secs":5,"humidity2-outlier-every-secs":15,
-                "humidity2": 20, "humidity2-range": [20, 25],
-                        "alarm":true
-                 },
-                 "waitBeforeSendSec":0.5
-    }
     }
   }
 }

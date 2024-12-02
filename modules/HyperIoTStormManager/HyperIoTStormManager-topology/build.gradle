@@ -25,6 +25,7 @@ dependencies {
     implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-bundles", version:project.hyperIoTVersion
     implementation group: 'it.acsoftware.hyperiot.storm', name:"HyperIoTStorm-service", version:project.hyperIoTVersion
     implementation group: 'org.apache.hbase', name: 'hbase-client', version: project.hbaseVersion
+    implementation group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
     // HyperIoT Dependencies imported for the fat jar in storm, not used inside OSGi container
     // in stormExtLib
     implementation group: "it.acsoftware.hyperiot.algorithm", name: "HyperIoTAlgorithm-model", version:project.hyperIoTPlatformVersion
@@ -55,7 +56,7 @@ dependencies {
     implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-serialization-api",version:project.hyperIoTPlatformVersion
     implementation group: "it.acsoftware.hyperiot.hproject",name:"HyperIoTHProject-serialization-service",version:project.hyperIoTPlatformVersion
     // External deps required by HyperIoT RuleEngine
-    implementation group: 'org.kie', name: 'kie-osgi-integration', version: '7.20.0.Final'
+    implementation group: 'org.kie', name: 'kie-osgi-integration', version: '7.74.1.Final'
 
     // CloudEvents
     implementation group: 'io.cloudevents', name: 'cloudevents-api', version: project.cloudEventsVersion

@@ -8,5 +8,6 @@ Import-Package: \
     org.osgi.framework,\
     org.slf4j.*
 Export-Package: it.acsoftware.hyperiot.stormmanager.util
+DynamicImport-Package: *
 
 
