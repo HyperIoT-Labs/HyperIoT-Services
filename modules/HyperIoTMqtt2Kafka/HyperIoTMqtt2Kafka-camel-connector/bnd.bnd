@@ -1,5 +1,6 @@
 Import-Package: \
-    javax.jms*,\
+    javax.jms,\
+    javax.jms.*,\
     org.slf4j.*,\
     org.apache.activemq.*,\
     org.apache.camel,\

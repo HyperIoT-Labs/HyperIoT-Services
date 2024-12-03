@@ -20,8 +20,8 @@ package it.acsoftware.hyperiot.camel.mqtt2kafka;
 import it.acsoftware.hyperiot.camel.mqtt2kafka.component.HyperIoTMqtt2KafkaConnector;
 import it.acsoftware.hyperiot.camel.mqtt2kafka.component.util.HyperIoTMqtt2KafkaUtil;
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.camel.component.ActiveMQComponent;
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.activemq.ActiveMQComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
@@ -43,6 +43,7 @@ public class HyperIoTMqtt2KafkaRegistrar {
     public void start(BundleContext context) {
         mqtt2KafkaContext = new DefaultCamelContext();
         mqtt2KafkaContext.addComponent(HyperIoTMqtt2KafkaConnector.HYPERIOT_CAMEL_MQTT_2_KAFKA_COMPONENT_NAME, new HyperIoTMqtt2KafkaConnector());
+
         ActiveMQComponent activeMQComponent = new ActiveMQComponent(this.mqtt2KafkaContext);
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();
         factory.setUserName(HyperIoTMqtt2KafkaUtil.getMqttBrokerUsername());
@@ -83,11 +84,11 @@ public class HyperIoTMqtt2KafkaRegistrar {
     private boolean attempRouteStart() {
         try {
             this.mqtt2KafkaContext.addRoutes(new HyperIoTMqttJMS2KafkaRouteBuilder());
-            this.mqtt2KafkaContext.startRoute(HyperIoTMqttJMS2KafkaRouteBuilder.HYPERIOT_MQTT_TO_JMS_ID);
+            this.mqtt2KafkaContext.start();
             return true;
         } catch (Throwable e) {
             try {
-                this.mqtt2KafkaContext.stopRoute(HyperIoTMqttJMS2KafkaRouteBuilder.HYPERIOT_MQTT_TO_JMS_ID);
+                this.mqtt2KafkaContext.stop();
                 this.mqtt2KafkaContext.removeRoute(HyperIoTMqttJMS2KafkaRouteBuilder.HYPERIOT_MQTT_TO_JMS_ID);
             } catch (Exception e1) {
                 logger.error(e1.getMessage(), e1);

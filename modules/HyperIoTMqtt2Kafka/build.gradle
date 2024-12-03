@@ -40,6 +40,3 @@ allprojects {
     
 }
 
-
-
-project.ext.activemqCamelVersion="5.16.5"

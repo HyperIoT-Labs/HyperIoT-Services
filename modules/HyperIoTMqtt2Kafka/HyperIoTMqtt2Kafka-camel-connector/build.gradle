@@ -11,11 +11,11 @@ dependencies {
     implementation group: 'it.acsoftware.hyperiot.base',name:'HyperIoTBase-util',version:project.hyperIoTVersion
     implementation group: 'it.acsoftware.hyperiot.kafka.connector',name:'HyperIoTKafkaConnector-api',version:project.hyperIoTVersion
     implementation group: 'it.acsoftware.hyperiot.kafka.connector',name:'HyperIoTKafkaConnector-model',version:project.hyperIoTVersion
-    implementation group:'it.acsoftware.hyperiot.base', name:'HyperIoTBase-util',version:project.hyperIoTVersion
+    implementation group: 'it.acsoftware.hyperiot.base', name:'HyperIoTBase-util',version:project.hyperIoTVersion
 
     implementation group: 'org.apache.camel',name:'camel-core',version:project.apacheCamelVersion
     implementation group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
-    implementation group: 'org.apache.activemq', name: 'activemq-camel', version: project.activemqCamelVersion
+    implementation group: 'org.apache.camel', name: 'camel-activemq', version: project.apacheCamelVersion
 
 }
 

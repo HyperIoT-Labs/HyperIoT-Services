@@ -25,9 +25,8 @@
   </parent>
     
   <properties>
-        
-    <activemq.version>5.18.6</activemq.version>
-        
+    <activemq.version>5.17.6</activemq.version>
+
     <hyperiot.platform.version>${hyperiot.platform.version}</hyperiot.platform.version>
         
     <hyperiot.version>${hyperiot.version}</hyperiot.version>
@@ -41,7 +40,7 @@
       <id>it.acsoftware.hyperiot</id>
             
       <name>hyperiot nexus</name>
-            
+
       <url>https://nexus.acsoftware.it/nexus/repository/maven-hyperiot/</url>
           
     </repository>
@@ -223,21 +222,21 @@
       <scope>runtime</scope>
           
     </dependency>
-        
+
     <dependency>
-            
+
       <groupId>org.apache.activemq</groupId>
-            
+
       <artifactId>activemq-karaf</artifactId>
-            
+
       <classifier>features</classifier>
-            
+
       <version>${activemq.version}</version>
-            
+
       <type>xml</type>
-            
+
       <scope>runtime</scope>
-          
+
     </dependency>
         
     <dependency>
@@ -296,7 +295,7 @@
                         
             <feature>hyperiot-core-basic-clustered</feature>
                         
-            <feature>hyperiot-services</feature>
+            <feature>hyperiot-services-basic</feature>
                         
             <feature>hyperiot-jobscheduler</feature>
                         
@@ -312,9 +311,9 @@
                         
             <feature>hyperiot-camel-mqtt2kafka</feature>
                         
-            <feature>activemq-broker-noweb</feature>
-                        
             <feature>hyperiot-avro</feature>
+
+            <feature>activemq-broker-noweb</feature>
                       
           </bootFeatures>
                   

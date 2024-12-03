@@ -42,6 +42,7 @@
     <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-deserialization-service/${project.version}</bundle>
     <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-serialization-api/${project.version}</bundle>
     <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-serialization-service/${project.version}</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.hadoopmanager/HyperIoTHadoopManager-api/${project.hyperIoTVersion}</bundle>
     <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-actions/${project.version}</bundle>
     <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-api/${project.version}</bundle>
     <bundle>mvn:it.acsoftware.hyperiot.hproject/HyperIoTHProject-job-model/${project.version}</bundle>

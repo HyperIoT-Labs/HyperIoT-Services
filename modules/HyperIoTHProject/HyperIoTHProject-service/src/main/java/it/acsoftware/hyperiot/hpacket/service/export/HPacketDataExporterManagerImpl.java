@@ -36,6 +36,7 @@ import it.acsoftware.hyperiot.zookeeper.connector.util.HyperIoTZookeeperConstant
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,12 +67,14 @@ public class HPacketDataExporterManagerImpl implements HPacketDataExportManager 
         this.zookeeperConnectorSystemApi = zookeeperConnectorSystemApi;
     }
 
-    @Reference
+    //inject not working on mqtt server
+    @Reference(cardinality = ReferenceCardinality.OPTIONAL)
     public void sethPacketDataExportRepository(HPacketDataExportRepository hPacketDataExportRepository) {
         this.hPacketDataExportRepository = hPacketDataExportRepository;
     }
 
-    @Reference
+    //inject not working on mqtt server
+    @Reference(cardinality = ReferenceCardinality.OPTIONAL)
     public void setHadoopManagerSystemApi(HadoopManagerSystemApi hadoopManagerSystemApi) {
         this.hadoopManagerSystemApi = hadoopManagerSystemApi;
     }

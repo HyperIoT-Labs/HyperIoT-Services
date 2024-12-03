@@ -23,7 +23,6 @@ import it.acsoftware.hyperiot.kafka.connector.model.HyperIoTKafkaMessage;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultProducer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +34,9 @@ import java.util.Map;
  * @Author Aristide Cittadino
  * HyperIoT2KafkaProducer Producer
  */
-public class HyperIoT2KafkaProducer extends DefaultProducer {
+public class HyperIoT2KafkaProducer extends org.apache.camel.support.DefaultProducer {
     private static final transient Logger logger = LoggerFactory
-        .getLogger(HyperIoT2KafkaProducer.class);
+            .getLogger(HyperIoT2KafkaProducer.class);
 
     private HyperIoTMqtt2KafkaEndpoint endpoint;
     private KafkaProducer<byte[], byte[]> producer;
@@ -65,8 +64,8 @@ public class HyperIoT2KafkaProducer extends DefaultProducer {
             // now from messageIn we convert data from Mqtt To Kafka Standard
             Message messageIn = (Message) exchange.getIn();
             HyperIoTKafkaMessage message = HyperIoTMqtt2KafkaUtil
-                .createKafkaKeyValueFromMqttTopic(topic,
-                    messageIn.getBody(byte[].class));
+                    .createKafkaKeyValueFromMqttTopic(topic,
+                            messageIn.getBody(byte[].class));
             logger.debug("Converting MQTT Message from topic {}, to kafka topic {} and key {}", topic, message.getTopic(), new String(message.getKey()));
             if (message != null) {
                 if (topic != null) {
