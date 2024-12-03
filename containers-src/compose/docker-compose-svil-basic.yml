@@ -60,7 +60,7 @@ services:
       - hyperiot
 
   nimbus:
-    image: nexus.acsoftware.it:18079/hyperiot/storm:2.5.0-7
+    image: nexus.acsoftware.it:18079/hyperiot/storm:2.5.0-9
     command: storm nimbus
     container_name: nimbus
     hostname: storm.hyperiot.com
@@ -79,7 +79,7 @@ services:
       NIMBUS_SEEDS: "'storm.hyperiot.com'"
       SUPERVISOR_SLOTS_PORTS: "6700,6701,6702,6703"
   supervisor:
-    image: nexus.acsoftware.it:18079/hyperiot/storm:2.5.0-7
+    image: nexus.acsoftware.it:18079/hyperiot/storm:2.5.0-9
     command: storm supervisor
     container_name: supervisor
     restart: always
@@ -93,7 +93,7 @@ services:
       NIMBUS_SEEDS: "'storm.hyperiot.com'"
       SUPERVISOR_SLOTS_PORTS: "6700,6701,6702,6703"
   storm-ui:
-    image: nexus.acsoftware.it:18079/hyperiot/storm:2.5.0-7
+    image: nexus.acsoftware.it:18079/hyperiot/storm:2.5.0-9
     command: storm ui
     container_name: storm_ui
     ports:
@@ -128,7 +128,7 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
 
   karaf-activemq-mqtt:
-    image: nexus.acsoftware.it:18079/hyperiot/karaf-activemq-mqtt:5.17.3-2.5.0-5
+    image: nexus.acsoftware.it:18079/hyperiot/karaf-activemq-mqtt:5.17.3-2.5.0-1
     container_name: karaf_active_mqtt
     ports:
       - "1883:1883"
@@ -151,7 +151,7 @@ services:
         aliases:
           - mqtt.hyperiot.com
   karaf-microservices:
-    image: nexus.acsoftware.it:18079/hyperiot/karaf-microservices:2.5.0-1
+    image: nexus.acsoftware.it:18079/hyperiot/karaf-microservices:2.5.0-5
     container_name: karaf_microservices
     ports:
       - "8101:8101"
