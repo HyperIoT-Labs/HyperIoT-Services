@@ -21,8 +21,9 @@ import it.acsoftware.hyperiot.camel.mqtt2kafka.component.HyperIoTMqtt2KafkaConne
 import it.acsoftware.hyperiot.camel.mqtt2kafka.component.util.HyperIoTMqtt2KafkaUtil;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
 import org.apache.camel.component.activemq.ActiveMQComponent;
-import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.core.osgi.OsgiDefaultCamelContext;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -41,16 +42,19 @@ public class HyperIoTMqtt2KafkaRegistrar {
 
     @Activate
     public void start(BundleContext context) {
-        mqtt2KafkaContext = new DefaultCamelContext();
-        mqtt2KafkaContext.addComponent(HyperIoTMqtt2KafkaConnector.HYPERIOT_CAMEL_MQTT_2_KAFKA_COMPONENT_NAME, new HyperIoTMqtt2KafkaConnector());
-
-        ActiveMQComponent activeMQComponent = new ActiveMQComponent(this.mqtt2KafkaContext);
-        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();
-        factory.setUserName(HyperIoTMqtt2KafkaUtil.getMqttBrokerUsername());
-        factory.setPassword(HyperIoTMqtt2KafkaUtil.getMqttBrokerPassword());
-        activeMQComponent.setConnectionFactory(factory);
-        mqtt2KafkaContext.addComponent("activemq", activeMQComponent);
+        mqtt2KafkaContext = new OsgiDefaultCamelContext(context);
         try {
+            HyperIoTMqtt2KafkaConnector connector = new HyperIoTMqtt2KafkaConnector(mqtt2KafkaContext);
+            Endpoint endpoint = connector.createEndpoint(HyperIoTMqtt2KafkaConnector.HYPERIOT_CAMEL_MQTT_2_KAFKA_COMPONENT_NAME);
+            mqtt2KafkaContext.addComponent(HyperIoTMqtt2KafkaConnector.HYPERIOT_CAMEL_MQTT_2_KAFKA_COMPONENT_NAME, connector);
+            mqtt2KafkaContext.addEndpoint(HyperIoTMqtt2KafkaConnector.HYPERIOT_CAMEL_MQTT_2_KAFKA_COMPONENT_NAME,endpoint);
+            ActiveMQComponent activeMQComponent = new ActiveMQComponent(this.mqtt2KafkaContext);
+            ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();
+            factory.setBrokerURL("tcp://localhost:61616");
+            factory.setUserName(HyperIoTMqtt2KafkaUtil.getMqttBrokerUsername());
+            factory.setPassword(HyperIoTMqtt2KafkaUtil.getMqttBrokerPassword());
+            activeMQComponent.setConnectionFactory(factory);
+            mqtt2KafkaContext.addComponent("activemqMQTT", activeMQComponent);
             context.registerService(CamelContext.class, mqtt2KafkaContext, null);
             this.mqtt2KafkaContext.start();
             Thread startRouteThread = new Thread(new Runnable() {
@@ -85,6 +89,7 @@ public class HyperIoTMqtt2KafkaRegistrar {
         try {
             this.mqtt2KafkaContext.addRoutes(new HyperIoTMqttJMS2KafkaRouteBuilder());
             this.mqtt2KafkaContext.start();
+            this.mqtt2KafkaContext.getRouteController().startRoute(HyperIoTMqttJMS2KafkaRouteBuilder.HYPERIOT_MQTT_TO_JMS_ID);
             return true;
         } catch (Throwable e) {
             try {

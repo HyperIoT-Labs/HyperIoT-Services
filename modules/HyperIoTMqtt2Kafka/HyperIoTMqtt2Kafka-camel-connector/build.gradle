@@ -16,6 +16,8 @@ dependencies {
     implementation group: 'org.apache.camel',name:'camel-core',version:project.apacheCamelVersion
     implementation group: 'org.apache.kafka', name: 'kafka-clients', version: project.apacheKafkaVersion
     implementation group: 'org.apache.camel', name: 'camel-activemq', version: project.apacheCamelVersion
+    implementation group: 'org.apache.camel.karaf', name: 'camel-core-osgi', version: project.apacheCamelVersion
+
 
 }
 

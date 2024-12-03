@@ -42,7 +42,7 @@ public class HyperIoTMqttJMS2KafkaRouteBuilder extends RouteBuilder {
             .append("maxConcurrentConsumers=").append(HyperIoTMqtt2KafkaUtil.getMaxConcurrentConsumers())
             .append("&")
             .append("clientId=").append(HyperIoTMqtt2KafkaConstants.HYPERIOT_MQTT_2_KAFKA_CLIENT_ID);
-        String topicPattern = "activemq:topic:"+ HyperIoTMqtt2KafkaConstants.JMS_TOPIC_MQTT_TOPIC_PATTERN+options.toString();
+        String topicPattern = "activemqMQTT:topic:"+ HyperIoTMqtt2KafkaConstants.JMS_TOPIC_MQTT_TOPIC_PATTERN+options.toString();
         logger.info("Configuring Mqtt JMS 2 Kafka Route Builder with pattern {} and options: {}",topicPattern,options.toString());
         from(topicPattern)
             .autoStartup(false)
