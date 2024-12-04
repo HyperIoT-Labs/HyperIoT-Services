@@ -79,12 +79,12 @@ public class DeserializationBolt extends BaseBasicBolt {
     //Configure frequency of tick tuples for this bolt
     //This delivers a 'tick' tuple on a specific interval,
     //which is used to trigger certain actions
-    @Override
+    /*@Override
     public Map<String, Object> getComponentConfiguration() {
         Config conf = new Config();
         conf.put(Config.TOPOLOGY_TICK_TUPLE_FREQ_SECS, aliveTickFrequency);
         return conf;
-    }
+    }*/
 
     @Override
     public void prepare(Map stormConf, TopologyContext context) {
