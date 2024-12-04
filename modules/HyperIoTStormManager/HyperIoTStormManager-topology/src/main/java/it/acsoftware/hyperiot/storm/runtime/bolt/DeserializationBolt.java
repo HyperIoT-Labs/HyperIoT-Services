@@ -29,7 +29,7 @@ import it.acsoftware.hyperiot.hproject.model.HProject;
 import it.acsoftware.hyperiot.storm.runtime.bolt.util.BoltUtil;
 import it.acsoftware.hyperiot.storm.util.StormConstants;
 import it.acsoftware.hyperiot.stormmanager.model.HyperIoTTopologyError;
-import org.apache.storm.Config;
+
 import org.apache.storm.Constants;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.BasicOutputCollector;
