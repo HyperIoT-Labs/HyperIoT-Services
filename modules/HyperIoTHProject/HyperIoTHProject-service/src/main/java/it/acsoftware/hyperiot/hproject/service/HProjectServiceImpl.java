@@ -313,8 +313,7 @@ public final class HProjectServiceImpl extends HyperIoTBaseEntityServiceImpl<HPr
 
     @Override
     @AllowPermissions(
-            actions = {HyperIoTCrudAction.Names.FINDALL},
-            checkById = true
+            actions = {HyperIoTCrudAction.Names.FINDALL}
     )
     public Collection<HProject> load(HyperIoTContext context) {
         //getting all project which belongs to the current user
