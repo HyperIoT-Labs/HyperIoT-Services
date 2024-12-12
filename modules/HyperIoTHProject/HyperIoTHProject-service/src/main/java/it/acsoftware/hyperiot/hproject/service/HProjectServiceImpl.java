@@ -26,6 +26,7 @@ import it.acsoftware.hyperiot.base.api.entity.HyperIoTQuery;
 import it.acsoftware.hyperiot.base.exception.HyperIoTEntityNotFound;
 import it.acsoftware.hyperiot.base.exception.HyperIoTRuntimeException;
 import it.acsoftware.hyperiot.base.exception.HyperIoTUnauthorizedException;
+import it.acsoftware.hyperiot.base.security.annotations.AllowGenericPermissions;
 import it.acsoftware.hyperiot.base.security.annotations.AllowPermissions;
 import it.acsoftware.hyperiot.base.security.util.HyperIoTSecurityUtil;
 import it.acsoftware.hyperiot.base.service.entity.HyperIoTBaseEntityServiceImpl;
@@ -312,7 +313,7 @@ public final class HProjectServiceImpl extends HyperIoTBaseEntityServiceImpl<HPr
     }
 
     @Override
-    @AllowPermissions(
+    @AllowGenericPermissions(
             actions = {HyperIoTCrudAction.Names.FINDALL}
     )
     public Collection<HProject> load(HyperIoTContext context) {
