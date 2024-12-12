@@ -113,7 +113,7 @@ public class HProject extends HyperIoTAbstractEntity
     @JsonView({HyperIoTJSONView.Extended.class,HyperIoTJSONView.Internal.class,HProjectJSONView.Export.class})
     private Set<HDevice> devices;
 
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Extended.class})
+    @JsonView({HProjectJSONView.Export.class})
     private Set<Area> areas;
 
     /**
