@@ -25,6 +25,7 @@ import it.acsoftware.hyperiot.storm.hbase.mapper.AlarmHBaseMapper;
 import it.acsoftware.hyperiot.storm.hbase.mapper.AvroHBaseMapper;
 import it.acsoftware.hyperiot.storm.hbase.mapper.EventRuleStateHBaseMapper;
 import it.acsoftware.hyperiot.storm.hbase.mapper.TimelineHBaseMapper;
+import it.acsoftware.hyperiot.storm.hdfs.HyperIoTFileNameFormat;
 import it.acsoftware.hyperiot.storm.hdfs.partitioner.HyperiotPartitioner;
 import it.acsoftware.hyperiot.storm.runtime.bolt.*;
 import it.acsoftware.hyperiot.storm.util.StormConstants;
@@ -34,7 +35,6 @@ import org.apache.storm.generated.StormTopology;
 import org.apache.storm.hbase.bolt.HyperIoTHBaseBolt;
 import org.apache.storm.hbase.bolt.mapper.SimpleHBaseMapper;
 import org.apache.storm.hdfs.bolt.AvroGenericRecordBolt;
-import org.apache.storm.hdfs.bolt.format.DefaultFileNameFormat;
 import org.apache.storm.hdfs.bolt.rotation.FileSizeRotationPolicy;
 import org.apache.storm.hdfs.bolt.sync.CountSyncPolicy;
 import org.apache.storm.hdfs.common.Partitioner;
@@ -451,7 +451,7 @@ public class HyperIoTTopologyBuilder implements StormTopologyBuilder {
      */
     private static AvroGenericRecordBolt createBatchLayerPersistenceBolt(Map<String, Object> props, HProject project, Partitioner partitioner) {
         AvroGenericRecordBolt avroGenericRecordBolt = new AvroGenericRecordBolt();
-        DefaultFileNameFormat defaultFileNameFormat = new DefaultFileNameFormat().withPath((String) props.get("hdfs.write.dir")).withExtension(".avro");
+        HyperIoTFileNameFormat defaultFileNameFormat = new HyperIoTFileNameFormat().withPath((String) props.get("hdfs.write.dir")).withExtension(".avro");
         FileSizeRotationPolicy fileSizeRotationPolicy = new FileSizeRotationPolicy(1, FileSizeRotationPolicy.Units.GB);
         CountSyncPolicy countSyncPolicy = new CountSyncPolicy(10);
         //Omit this configuration to override default.
