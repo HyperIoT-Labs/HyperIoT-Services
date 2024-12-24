@@ -12,7 +12,7 @@ dependencies {
 	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
 	//JPA Dependenc ies
 	implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
-	implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+	implementation group: 'org.javassist', name: 'javassist', version: project.javassistVersion
 	implementation group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
 	implementation group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version: project.apacheAriesJpaVersion
 	implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion

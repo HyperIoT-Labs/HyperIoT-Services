@@ -57,7 +57,7 @@
       <artifactId>spring</artifactId>
             
       <classifier>features</classifier>
-            
+
       <version>${karaf.version}</version>
             
       <type>xml</type>
@@ -301,21 +301,21 @@
             <feature>hyperiot-jobscheduler</feature>
                         
             <feature>hyperiot-kafkaconnector-basic</feature>
-                        
-            <feature>hyperiot-mqtt-authorization</feature>
-                        
-            <feature>hyperiot-mqttauthentication</feature>
-                        
+
+            <feature>hyperiot-avro</feature>
+
             <feature>hyperiot-hproject-basic</feature>
                         
             <feature>hyperiot-algorithm-basic</feature>
                         
             <feature>hyperiot-camel-mqtt2kafka</feature>
-                        
-            <feature>hyperiot-avro</feature>
+
+            <feature>hyperiot-mqtt-authorization</feature>
+
+            <feature>hyperiot-mqttauthentication</feature>
                         
             <feature>activemq-broker-noweb</feature>
-                      
+
           </bootFeatures>
                   
         </configuration>

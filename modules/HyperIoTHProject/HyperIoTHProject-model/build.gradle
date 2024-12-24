@@ -8,7 +8,7 @@ dependencies {
     // https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
     implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
-    implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+    implementation group: 'org.javassist', name: 'javassist', version: project.javassistVersion
 	implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
 	implementation group: "org.hibernate",name: "hibernate-validator",version:project.hibernateValidatorVersion
 	//Validation

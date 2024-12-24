@@ -3,7 +3,7 @@ dependencies {
 	//OSGi Basic Imports
 	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
 	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
-    implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+    implementation group: 'org.javassist', name: 'javassist', version: project.javassistVersion
     //HyperIoTBase Dependencies
     implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion
     implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-service", version:project.hyperIoTVersion
