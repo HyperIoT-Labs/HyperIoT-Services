@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiKeyAuthDefinition.ApiKeyLocation;
 import it.acsoftware.hyperiot.alarm.api.AlarmApi;
 import it.acsoftware.hyperiot.alarm.event.model.AlarmEvent;
 import it.acsoftware.hyperiot.alarm.model.Alarm;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
 import it.acsoftware.hyperiot.base.security.rest.LoggedIn;
@@ -43,17 +44,11 @@ import java.util.List;
  */
 @SwaggerDefinition(basePath = "/alarms", info = @Info(description = "HyperIoT Alarm API", version = "2.0.0", title = "hyperiot Alarm", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
         @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
-@Api(value = "/alarms", produces = "application/json")
+@Api(tags = "Alarms", value = "/alarms", produces = "application/json")
 @Produces(MediaType.APPLICATION_JSON)
-@Component(service = AlarmRestApi.class, property = {
-        "service.exported.interfaces=it.acsoftware.hyperiot.alarm.service.rest.AlarmRestApi",
-        "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/alarms",
-        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-        "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"
-}, immediate = true)
-@Path("")
-public class
-AlarmRestApi extends HyperIoTBaseEntityRestApi<Alarm> {
+@Component(service = HyperIoTRestService.class,immediate = true)
+@Path("/alarms")
+public class AlarmRestApi extends HyperIoTBaseEntityRestApi<Alarm> implements HyperIoTRestService {
     private AlarmApi entityService;
 
     /**

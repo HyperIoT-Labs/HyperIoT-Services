@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTMqttClient-features">
-  <feature name="hyperiot-mqttclient" version="2.5.0" description="All  HyperIoT HyperIoTMqttClient modules">
+  <feature name="hyperiot-mqttclient" version="2.6.0" description="All  HyperIoT HyperIoTMqttClient modules">
     <feature>hyperiot-base</feature>
     <bundle start-level="88">mvn:org.eclipse.paho/org.eclipse.paho.client.mqttv3/1.2.5</bundle>
-    <bundle start-level="88">mvn:it.acsoftware.hyperiot.mqtt.client/HyperIoTMqttClient-api/2.5.0</bundle>
-    <bundle start-level="88">mvn:it.acsoftware.hyperiot.mqtt.client/HyperIoTMqttClient-model/2.5.0</bundle>
-    <bundle start-level="88">mvn:it.acsoftware.hyperiot.mqtt.client/HyperIoTMqttClient-service/2.5.0</bundle>
-    <bundle start-level="88">mvn:it.acsoftware.hyperiot.mqtt.client/HyperIoTMqttClient-util/2.5.0</bundle>
-    <bundle start-level="88">mvn:it.acsoftware.hyperiot.mqtt.client/HyperIoTMqttClient-service-websocket/2.5.0</bundle>
+    <bundle start-level="88">mvn:it.acsoftware.hyperiot.mqtt.client/HyperIoTMqttClient-api/2.6.0</bundle>
+    <bundle start-level="88">mvn:it.acsoftware.hyperiot.mqtt.client/HyperIoTMqttClient-model/2.6.0</bundle>
+    <bundle start-level="88">mvn:it.acsoftware.hyperiot.mqtt.client/HyperIoTMqttClient-service/2.6.0</bundle>
+    <bundle start-level="88">mvn:it.acsoftware.hyperiot.mqtt.client/HyperIoTMqttClient-util/2.6.0</bundle>
+    <bundle start-level="88">mvn:it.acsoftware.hyperiot.mqtt.client/HyperIoTMqttClient-service-websocket/2.6.0</bundle>
   </feature>
 </features>

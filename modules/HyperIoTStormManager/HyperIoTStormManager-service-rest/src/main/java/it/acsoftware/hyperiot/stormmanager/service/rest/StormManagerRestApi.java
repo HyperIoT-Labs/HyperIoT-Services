@@ -18,6 +18,7 @@ package it.acsoftware.hyperiot.stormmanager.service.rest;
 
 import io.swagger.annotations.*;
 import io.swagger.annotations.ApiKeyAuthDefinition.ApiKeyLocation;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.security.rest.LoggedIn;
 import it.acsoftware.hyperiot.base.service.rest.HyperIoTBaseRestApi;
 import it.acsoftware.hyperiot.stormmanager.api.StormManagerApi;
@@ -34,15 +35,10 @@ import javax.ws.rs.core.Response;
 
 @SwaggerDefinition(basePath = "/storm", info = @Info(description = "HyperIoT StormManager API", version = "1.0.0", title = "HyperIoT Storm Manager", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
         @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
-@Api(value = "/storm", produces = "application/json")
-@Component(service = StormManagerRestApi.class, property = {
-        "service.exported.interfaces=it.acsoftware.hyperiot.stormmanager.service.rest.StormManagerRestApi",
-        "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/storm",
-        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-        "service.exported.intents=swagger",
-        "service.exported.intents=exceptionmapper"}, immediate = true)
-@Path("")
-public class StormManagerRestApi extends HyperIoTBaseRestApi {
+@Api(tags = "Storm", value = "/storm", produces = "application/json")
+@Component(service = HyperIoTRestService.class, immediate = true)
+@Path("/storm")
+public class StormManagerRestApi extends HyperIoTBaseRestApi implements HyperIoTRestService {
     private StormManagerApi stormServiceApi;
 
     /**

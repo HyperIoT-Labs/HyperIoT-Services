@@ -20,6 +20,7 @@ package it.acsoftware.hyperiot.ui.branding.service.rest;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.*;
 import io.swagger.annotations.ApiKeyAuthDefinition.ApiKeyLocation;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTQuery;
 import it.acsoftware.hyperiot.base.exception.HyperIoTRuntimeException;
@@ -49,10 +50,10 @@ import java.util.Collection;
  * @author Aristide Cittadino UIBranding rest service class. Registered with DOSGi CXF
  */
 @SwaggerDefinition(basePath = "/ui-branding", info = @Info(description = "HyperIoT UIBranding API", version = "2.0.0", title = "hyperiot UIBranding", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {@ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
-@Api(value = "/ui-branding", produces = "application/json")
-@Component(service = UIBrandingRestApi.class, property = {"service.exported.interfaces=it.acsoftware.hyperiot.ui.branding.service.rest.UIBrandingRestApi", "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/ui-branding", "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter", "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"}, immediate = true)
-@Path("")
-public class UIBrandingRestApi extends HyperIoTBaseEntityRestApi<UIBranding> {
+@Api(tags = "UIBranding", value = "/ui-branding", produces = "application/json")
+@Component(service = HyperIoTRestService.class, immediate = true)
+@Path("/ui-branding")
+public class UIBrandingRestApi extends HyperIoTBaseEntityRestApi<UIBranding> implements HyperIoTRestService {
     private UIBrandingApi entityService;
     private HUserSystemApi hUserSystemApi;
 

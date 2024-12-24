@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTDashboard-features">
-  <feature name="hyperiot-dashboard" version="2.5.0" description="All  Hyperiot HyperIoTDashboard modules">
+  <feature name="hyperiot-dashboard" version="2.6.0" description="All  Hyperiot HyperIoTDashboard modules">
     <feature>hyperiot-base</feature>
-    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-actions/2.5.0</bundle>
-    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-api/2.5.0</bundle>
-    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-service/2.5.0</bundle>
-    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-model/2.5.0</bundle>
-    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-repository/2.5.0</bundle>
-    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-hProject-actions/2.5.0</bundle>
-    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-service-rest/2.5.0</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-actions/2.6.0</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-api/2.6.0</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-service/2.6.0</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-model/2.6.0</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-repository/2.6.0</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-hProject-actions/2.6.0</bundle>
+    <bundle start-level="85">mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-service-rest/2.6.0</bundle>
   </feature>
-  <feature name="hyperiot-dashboard-basic" version="2.5.0" description="All  Hyperiot HyperIoTDashboard modules with NO rest services">
+  <feature name="hyperiot-dashboard-basic" version="2.6.0" description="All  Hyperiot HyperIoTDashboard modules with NO rest services">
     <feature>hyperiot-base-basic</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-actions/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-api/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-service/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-model/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-repository/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-hProject-actions/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-actions/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-api/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-service/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-model/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-repository/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.dashboard/HyperIoTDashboard-hProject-actions/2.6.0</bundle>
   </feature>
 </features>

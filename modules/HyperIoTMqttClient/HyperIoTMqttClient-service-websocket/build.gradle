@@ -1,6 +1,8 @@
 
 
 dependencies {
+	// SLF4J
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
 	//OSGi Basic Imports
 	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
 	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
@@ -20,7 +22,6 @@ dependencies {
     implementation group:"com.fasterxml.jackson.jaxrs",name:"jackson-jaxrs-json-provider",version:project.jacksonVersion
 	implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.2.6.RELEASE'
 	implementation group: "org.apache.cxf", name:"cxf-bundle-jaxrs", version: "2.7.18"
-	implementation group: 'org.apache.cxf.dosgi', name: 'cxf-dosgi-common', version: project.cxfDosgiVersion
 	//MQTT Paho
 	implementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: project.eclipsePahoVersion
 	//Project Dependencies

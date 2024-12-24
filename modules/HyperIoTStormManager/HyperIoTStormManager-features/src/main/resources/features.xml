@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTStormManager-features">
-  <repository>mvn:it.acsoftware.hyperiot.storm/HyperIoTStorm-features/2.4.0/xml/features</repository>
-  <feature name="hyperiot-stormmanager" version="2.5.0" description="All Hyperiot HyperIoTStormManager modules">
+  <repository>mvn:it.acsoftware.hyperiot.storm/HyperIoTStorm-features/2.5.0/xml/features</repository>
+  <feature name="hyperiot-stormmanager" version="2.6.0" description="All Hyperiot HyperIoTStormManager modules">
     <feature>hyperiot-base-basic</feature>
     <feature>hyperiot-storm</feature>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-actions/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-api/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-model/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-service/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-service-rest/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-topology/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-util/2.5.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-actions/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-api/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-model/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-service/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-service-rest/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-topology/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-util/2.6.0</bundle>
   </feature>
-  <feature name="hyperiot-stormmanager-test" version="2.5.0" description="All Hyperiot HyperIoTStormManager modules">
+  <feature name="hyperiot-stormmanager-test" version="2.6.0" description="All Hyperiot HyperIoTStormManager modules">
     <feature>hyperiot-base-basic</feature>
     <feature>hyperiot-storm-test</feature>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-actions/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-api/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-model/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-service/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-service-rest/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-topology/2.5.0</bundle>
-    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-util/2.5.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-actions/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-api/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-model/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-service/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-service-rest/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-topology/2.6.0</bundle>
+    <bundle start-level="90">mvn:it.acsoftware.hyperiot.stormmanager/HyperIoTStormManager-util/2.6.0</bundle>
   </feature>
 </features>
