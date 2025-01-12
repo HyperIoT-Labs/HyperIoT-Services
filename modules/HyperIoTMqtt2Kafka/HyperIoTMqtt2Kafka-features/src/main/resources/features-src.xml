@@ -1,37 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTMqtt2Kafka-features">
   <repository>mvn:org.apache.camel.karaf/apache-camel/${project.apacheCamelVersion}/xml/features</repository>
+  <repository>mvn:org.apache.activemq/activemq-karaf/${project.activemqVersion}/xml/features</repository>
   <feature name="hyperiot-camel-mqtt2kafka" version="${project.version}" description="All  HyperIoT HyperIoTMqtt2Kafka modules">
-    <feature>camel</feature>
-    <feature>camel-jms</feature>
-    <feature>camel-blueprint</feature>
-    <feature>camel-spring</feature>
-    <feature>camel-activemq</feature>
+    <feature>activemq-camel</feature>
+    <feature>activemq-broker-noweb</feature>
+    <bundle>mvn:org.apache.camel/camel-activemq/3.22.3</bundle>
     <feature>hyperiot-kafkaconnector-basic</feature>
-    <feature>hyperiot-mqttauthentication</feature>
-    <feature>hyperiot-mqtt-authorization</feature>
     <bundle>mvn:com.github.luben/zstd-jni/1.5.6-8</bundle>
     <bundle>mvn:it.acsoftware.hyperiot.camel.mqtt2kafka/HyperIoTMqtt2Kafka-camel-connector/${project.version}</bundle>
+    <feature>hyperiot-mqtt-authentication</feature>
+    <feature>hyperiot-mqtt-authorization</feature>
   </feature>
-  <!-- WORKAROUND FORCING SPRING 5 in Karaf 4.4.6-->
-  <feature name="spring" version="5.3.29_1" description="">
-    <bundle dependency="true" start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aopalliance/1.0_6</bundle>
-    <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-core/5.3.29_1</bundle>
-    <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-expression/5.3.29_1</bundle>
-    <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-beans/5.3.29_1</bundle>
-    <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-aop/5.3.29_1</bundle>
-    <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-context/5.3.29_1</bundle>
-    <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-context-support/5.3.29_1</bundle>
-  </feature>
-  <feature name="spring-tx" version="5.3.29_1" description="" >
-    <feature>spring</feature>
-    <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-tx/5.3.29_1</bundle>
-  </feature>
-  <feature name="spring-jms" description="Spring 5.3.x JMS support" version="5.3.29_1">
-    <feature version="[5.3.29_1,5.4)">spring-tx</feature>
-    <bundle dependency="true" start-level="10">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
-    <bundle dependency="true" start-level="10">mvn:org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1</bundle>
-    <bundle start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.spring-jms/5.3.29_1</bundle>
-  </feature>
-
 </features>
