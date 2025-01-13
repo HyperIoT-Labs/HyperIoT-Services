@@ -5,11 +5,26 @@
   <feature name="hyperiot-camel-mqtt2kafka" version="${project.version}" description="All  HyperIoT HyperIoTMqtt2Kafka modules">
     <feature>activemq-camel</feature>
     <feature>activemq-broker-noweb</feature>
-    <bundle>mvn:org.apache.camel/camel-activemq/3.22.3</bundle>
     <feature>hyperiot-kafkaconnector-basic</feature>
-    <bundle>mvn:com.github.luben/zstd-jni/1.5.6-8</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.camel.mqtt2kafka/HyperIoTMqtt2Kafka-camel-connector/${project.version}</bundle>
     <feature>hyperiot-mqtt-authentication</feature>
     <feature>hyperiot-mqtt-authorization</feature>
+    <feature>hyperiot-camel-activemq</feature>
+    <bundle>mvn:com.github.luben/zstd-jni/1.5.6-8</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.camel.mqtt2kafka/HyperIoTMqtt2Kafka-camel-connector/${project.version}</bundle>
+  </feature>
+  <!-- work around in order to use camel 3.22.3 and activemq 5.18.6 since camel 3 supports 5.17.6-->
+  <!-- When upgrading to activemq 6.X this feature should be removed-->
+  <feature name="hyperiot-camel-activemq">
+    <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-annotation_1.0_spec/1.1.1</bundle>
+    <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
+    <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-j2ee-management_1.1_spec/1.0.1</bundle>
+    <bundle dependency="true">mvn:org.jvnet.jaxb2_commons/jaxb2-basics-runtime/0.12.0</bundle>
+    <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxb-impl/2.2.11_1</bundle>
+    <bundle dependency="true">mvn:org.apache.commons/commons-pool2/2.11.1</bundle>
+    <bundle dependency="true">mvn:commons-net/commons-net/3.9.0</bundle>
+    <bundle dependency="true">wrap:mvn:org.apache.zookeeper/zookeeper/3.5.9$Export-Package=org.apache.zookeeper;version=3.5.9,org.apache.zookeeper.*;version=3.5.9</bundle>
+    <bundle dependency="true">wrap:mvn:org.apache.zookeeper/zookeeper-jute/3.5.9$Export-Package=org.apache.jute;version=3.5.9,org.apache.zookeeper.*;version=3.5.9</bundle>
+    <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1</bundle>
+    <bundle>mvn:org.apache.camel/camel-activemq/${project.apacheCamelVersion}</bundle>
   </feature>
 </features>
