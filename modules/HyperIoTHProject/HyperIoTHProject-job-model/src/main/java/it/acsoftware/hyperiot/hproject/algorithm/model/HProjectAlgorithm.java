@@ -108,6 +108,12 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
     private String cronExpression;
 
     /**
+     * Timezone
+     */
+    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Public.class})
+    private String timeZoneId;
+
+    /**
      * This object contains detail of job, i.e. id, parameters and org.quartz.Job implementation
      */
     private JobDetail jobDetail;
@@ -250,6 +256,18 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
     public void setCronExpression(String cronExpression) {
         this.cronExpression = cronExpression;
         jobParams.put(CRON_EXPRESSION_KEY, cronExpression);
+    }
+
+    @NoMalitiusCode
+    @NotNullOnPersist
+    @NotEmpty
+    @Size( max = 255)
+    public String getTimeZoneId() {
+        return timeZoneId;
+    }
+
+    public void setTimeZoneId(String timeZoneId) {
+        this.timeZoneId = timeZoneId;
     }
 
     @Override
