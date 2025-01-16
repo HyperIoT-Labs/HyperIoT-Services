@@ -111,7 +111,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
      * Timezone
      */
     @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Public.class})
-    private String timeZoneId;
+    private String timezoneId;
 
     /**
      * This object contains detail of job, i.e. id, parameters and org.quartz.Job implementation
@@ -262,12 +262,13 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
     @NotNullOnPersist
     @NotEmpty
     @Size( max = 255)
-    public String getTimeZoneId() {
-        return timeZoneId;
+    @Override
+    public String getTimezoneId() {
+        return timezoneId;
     }
 
     public void setTimeZoneId(String timeZoneId) {
-        this.timeZoneId = timeZoneId;
+        this.timezoneId = timeZoneId;
     }
 
     @Override
