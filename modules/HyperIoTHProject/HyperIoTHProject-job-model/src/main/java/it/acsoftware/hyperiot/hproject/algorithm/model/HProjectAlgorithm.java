@@ -271,8 +271,8 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
         return timezoneId;
     }
 
-    public void setTimezoneId(String timeZoneId) {
-        this.timezoneId = timeZoneId;
+    public void setTimezoneId(String timezoneId) {
+        this.timezoneId = timezoneId;
     }
 
     @Override
