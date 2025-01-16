@@ -60,7 +60,7 @@ services:
       - hyperiot
 
   nimbus:
-    image: nexus.acsoftware.it:18079/hyperiot/storm:2.5.0-1
+    image: nexus.acsoftware.it:18079/hyperiot/storm:2.6.0-1
     command: storm nimbus
     container_name: nimbus
     hostname: storm.hyperiot.com
@@ -79,7 +79,7 @@ services:
       NIMBUS_SEEDS: "'storm.hyperiot.com'"
       SUPERVISOR_SLOTS_PORTS: "6700,6701,6702,6703"
   supervisor:
-    image: nexus.acsoftware.it:18079/hyperiot/storm:2.5.0-1
+    image: nexus.acsoftware.it:18079/hyperiot/storm:2.6.0-1
     command: storm supervisor
     container_name: supervisor
     restart: always
@@ -93,7 +93,7 @@ services:
       NIMBUS_SEEDS: "'storm.hyperiot.com'"
       SUPERVISOR_SLOTS_PORTS: "6700,6701,6702,6703"
   storm-ui:
-    image: nexus.acsoftware.it:18079/hyperiot/storm:2.5.0-1
+    image: nexus.acsoftware.it:18079/hyperiot/storm:2.6.0-1
     command: storm ui
     container_name: storm_ui
     ports:
