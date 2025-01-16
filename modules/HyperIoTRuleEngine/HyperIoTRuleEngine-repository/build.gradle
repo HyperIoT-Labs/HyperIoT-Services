@@ -12,7 +12,7 @@ dependencies {
 	implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
 	implementation group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
 	implementation group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version: project.apacheAriesJpaVersion
-	implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+	implementation group: 'org.javassist', name: 'javassist', version: project.javassistVersion
 	//HyperIoTBase Dependencies
 	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-repository", version:project.hyperIoTVersion
 	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion

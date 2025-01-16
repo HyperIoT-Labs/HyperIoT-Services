@@ -3,8 +3,6 @@ Export-package: \
     it.acsoftware.hyperiot.camel.mqtt2kafka.component,\
     it.acsoftware.hyperiot.camel.mqtt2kafka.component.util
 Import-Package: \
-    javax.jms,\
-    javax.jms.*,\
     org.slf4j.*,\
     org.apache.activemq.*,\
     org.apache.camel,\

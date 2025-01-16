@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTMqtt2Kafka-features">
-  <repository>mvn:org.apache.camel.karaf/apache-camel/3.22.2/xml/features</repository>
-  <feature name="hyperiot-camel-mqtt2kafka" version="2.5.0" description="All  HyperIoT HyperIoTMqtt2Kafka modules">
-    <feature>camel</feature>
-    <feature>camel-jms</feature>
-    <feature>camel-blueprint</feature>
-    <feature>camel-spring</feature>
-    <feature>camel-activemq</feature>
+  <repository>mvn:org.apache.camel.karaf/apache-camel/3.22.3/xml/features</repository>
+  <repository>mvn:org.apache.activemq/activemq-karaf/5.18.6/xml/features</repository>
+  <feature name="hyperiot-camel-mqtt2kafka" version="2.6.0" description="All  HyperIoT HyperIoTMqtt2Kafka modules">
+    <feature>activemq-camel</feature>
+    <feature>activemq-broker-noweb</feature>
     <feature>hyperiot-kafkaconnector-basic</feature>
-    <feature>hyperiot-mqttauthentication</feature>
+    <feature>hyperiot-mqtt-authentication</feature>
     <feature>hyperiot-mqtt-authorization</feature>
+    <feature>hyperiot-camel-activemq</feature>
     <bundle>mvn:com.github.luben/zstd-jni/1.5.6-8</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.camel.mqtt2kafka/HyperIoTMqtt2Kafka-camel-connector/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.camel.mqtt2kafka/HyperIoTMqtt2Kafka-camel-connector/2.6.0</bundle>
+  </feature>
+  <!-- work around in order to use camel 3.22.3 and activemq 5.18.6 since camel 3 supports 5.17.6-->
+  <!-- When upgrading to activemq 6.X this feature should be removed-->
+  <feature name="hyperiot-camel-activemq">
+    <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-annotation_1.0_spec/1.1.1</bundle>
+    <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
+    <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-j2ee-management_1.1_spec/1.0.1</bundle>
+    <bundle dependency="true">mvn:org.jvnet.jaxb2_commons/jaxb2-basics-runtime/0.12.0</bundle>
+    <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxb-impl/2.2.11_1</bundle>
+    <bundle dependency="true">mvn:org.apache.commons/commons-pool2/2.11.1</bundle>
+    <bundle dependency="true">mvn:commons-net/commons-net/3.9.0</bundle>
+    <bundle dependency="true">wrap:mvn:org.apache.zookeeper/zookeeper/3.5.9$Export-Package=org.apache.zookeeper;version=3.5.9,org.apache.zookeeper.*;version=3.5.9</bundle>
+    <bundle dependency="true">wrap:mvn:org.apache.zookeeper/zookeeper-jute/3.5.9$Export-Package=org.apache.jute;version=3.5.9,org.apache.zookeeper.*;version=3.5.9</bundle>
+    <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1</bundle>
+    <bundle>mvn:org.apache.camel/camel-activemq/3.22.3</bundle>
   </feature>
 </features>

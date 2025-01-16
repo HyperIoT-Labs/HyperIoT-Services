@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTWidget-features">
-  <feature name="hyperiot-widget" version="2.5.0" description="All  HyperIoT HyperIoTWidget modules">
+  <feature name="hyperiot-widget" version="2.6.0" description="All  HyperIoT HyperIoTWidget modules">
     <feature>hyperiot-base</feature>
-    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-api/2.5.0</bundle>
-    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-service/2.5.0</bundle>
-    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-actions/2.5.0</bundle>
-    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-model/2.5.0</bundle>
-    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-repository/2.5.0</bundle>
-    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-service-rest/2.5.0</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-api/2.6.0</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-service/2.6.0</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-actions/2.6.0</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-model/2.6.0</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-repository/2.6.0</bundle>
+    <bundle start-level="91">mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-service-rest/2.6.0</bundle>
   </feature>
-  <feature name="hyperiot-widget-basic" version="2.5.0" description="All  HyperIoT HyperIoTWidget modules with NO rest services">
+  <feature name="hyperiot-widget-basic" version="2.6.0" description="All  HyperIoT HyperIoTWidget modules with NO rest services">
     <feature>hyperiot-base-basic</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-api/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-service/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-actions/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-model/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-repository/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-api/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-service/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-actions/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-model/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.widget/HyperIoTWidget-repository/2.6.0</bundle>
   </feature>
 </features>

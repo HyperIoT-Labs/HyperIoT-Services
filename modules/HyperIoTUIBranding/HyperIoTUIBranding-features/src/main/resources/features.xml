@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTUIBranding-features">
-  <feature name="hyperiot-uibranding" version="2.5.0" description="All  HyperIoT HyperIoTUIBranding modules">
+  <feature name="hyperiot-uibranding" version="2.6.0" description="All  HyperIoT HyperIoTUIBranding modules">
     <feature>hyperiot-base</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-actions/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-api/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-service/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-model/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-repository/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-service-rest/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-actions/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-api/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-service/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-model/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-repository/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-service-rest/2.6.0</bundle>
   </feature>
-  <feature name="hyperiot-uibranding-basic" version="2.5.0" description="All  HyperIoT HyperIoTUIBranding modules with NO rest services">
+  <feature name="hyperiot-uibranding-basic" version="2.6.0" description="All  HyperIoT HyperIoTUIBranding modules with NO rest services">
     <feature>hyperiot-base-basic</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-actions/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-api/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-service/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-model/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-repository/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-actions/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-api/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-service/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-model/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.ui.branding/HyperIoTUIBranding-repository/2.6.0</bundle>
   </feature>
 </features>

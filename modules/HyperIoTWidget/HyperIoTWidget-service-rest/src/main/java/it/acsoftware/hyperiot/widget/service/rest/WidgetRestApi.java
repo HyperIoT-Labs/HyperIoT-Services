@@ -20,6 +20,7 @@ package it.acsoftware.hyperiot.widget.service.rest;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.*;
 import io.swagger.annotations.ApiKeyAuthDefinition.ApiKeyLocation;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
 import it.acsoftware.hyperiot.base.security.rest.LoggedIn;
@@ -38,16 +39,11 @@ import javax.ws.rs.core.Response;
  */
 @SwaggerDefinition(basePath = "/widgets", info = @Info(description = "HyperIoT Widget API", version = "2.0.0", title = "hyperiot Widget", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
         @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
-@Api(value = "/widgets", produces = "application/json")
+@Api(tags = "Widgets", value = "/widgets", produces = "application/json")
 @Produces(MediaType.APPLICATION_JSON)
-@Component(service = WidgetRestApi.class, property = {
-        "service.exported.interfaces=it.acsoftware.hyperiot.widget.service.rest.WidgetRestApi",
-        "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/widgets",
-        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-        "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"
-}, immediate = true)
-@Path("")
-public class WidgetRestApi extends HyperIoTBaseEntityRestApi<Widget> {
+@Component(service = HyperIoTRestService.class, immediate = true)
+@Path("/widgets")
+public class WidgetRestApi extends HyperIoTBaseEntityRestApi<Widget> implements HyperIoTRestService {
     private WidgetApi entityService;
 
     /**

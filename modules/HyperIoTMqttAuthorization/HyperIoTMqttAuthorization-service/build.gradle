@@ -2,6 +2,8 @@
 
 
 dependencies {
+	// SLF4J
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
 	//OSGi Basic Imports
 	implementation group: "org.osgi", name: "osgi.core", version: project.osgiVersion
 	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion

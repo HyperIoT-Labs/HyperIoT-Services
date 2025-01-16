@@ -20,6 +20,7 @@ package it.acsoftware.hyperiot.hproject.algorithm.service.rest;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.*;
 import io.swagger.annotations.ApiKeyAuthDefinition.ApiKeyLocation;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
 import it.acsoftware.hyperiot.base.security.rest.LoggedIn;
@@ -40,18 +41,13 @@ import javax.ws.rs.core.Response;
 /**
  * @author Aristide Cittadino HProjectAlgorithm rest service class. Registered with DOSGi CXF
  */
-@SwaggerDefinition(basePath = "/hprojectalgorithms", info = @Info(description = "HyperIoT HProjectAlgorithm API", version = "2.0.0", title = "hyperiot HProjectAlgorithm", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
+@SwaggerDefinition(basePath = "/hprojects/algorithms", info = @Info(description = "HyperIoT HProjectAlgorithm API", version = "2.0.0", title = "hyperiot HProjectAlgorithm", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
         @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
-@Api(value = "/hprojectalgorithms", produces = "application/json")
+@Api(tags = "HProject Algorithms", value = "/hprojects/algorithms", produces = "application/json")
 @Produces(MediaType.APPLICATION_JSON)
-@Component(service = HProjectAlgorithmRestApi.class, property = {
-        "service.exported.interfaces=it.acsoftware.hyperiot.hproject.algorithm.service.rest.HProjectAlgorithmRestApi",
-        "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/hprojectalgorithms",
-        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-        "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"
-}, immediate = true)
-@Path("")
-public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProjectAlgorithm> {
+@Component(service = HyperIoTRestService.class, immediate = true)
+@Path("/hprojects/algorithms")
+public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProjectAlgorithm> implements HyperIoTRestService  {
     private HProjectAlgorithmApi entityService;
     private HProjectHBaseApi hbaseApi;
 
@@ -64,7 +60,7 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @Path("/module/status")
     @ApiOperation(value = "/module/status", notes = "Simple service for checking module status", httpMethod = "GET")
     public Response checkModuleWorking() {
-        getLog().debug("In Rest Service GET /hyperiot/hprojectalgorithm/module/status");
+        getLog().debug("In Rest Service GET /hyperiot/hproject/algorithms/module/status");
         return Response.ok("HProjectAlgorithm Module works!").build();
     }
 
@@ -101,7 +97,7 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/hprojectalgorithms/{id}", notes = "Service for finding hprojectalgorithm", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/hprojects/algorithms/{id}", notes = "Service for finding hprojectalgorithm", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Entity not found")})
@@ -121,7 +117,7 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/hprojectalgorithms", notes = "Service for adding a new hprojectalgorithm entity", httpMethod = "POST", produces = "application/json", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/hprojects/algorithms", notes = "Service for adding a new hprojectalgorithm entity", httpMethod = "POST", produces = "application/json", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 422, message = "Not validated"),
@@ -129,7 +125,7 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @JsonView(HyperIoTJSONView.Public.class)
     public Response saveHProjectAlgorithm(
             @ApiParam(value = "HProjectAlgorithm entity which must be saved ", required = true) HProjectAlgorithm entity) {
-        getLog().debug("In Rest Service POST /hyperiot/hprojectalgorithms \n Body: {}", entity);
+        getLog().debug("In Rest Service POST /hyperiot/hprojects/algorithms \n Body: {}", entity);
         return this.save(entity);
     }
 
@@ -142,7 +138,7 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/hprojectalgorithms", notes = "Service for updating a hprojectalgorithm entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/hprojects/algorithms", notes = "Service for updating a hprojectalgorithm entity", httpMethod = "PUT", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 422, message = "Not validated"),
@@ -150,7 +146,7 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @JsonView(HyperIoTJSONView.Public.class)
     public Response updateHProjectAlgorithm(
             @ApiParam(value = "HProjectAlgorithm entity which must be updated ", required = true) HProjectAlgorithm entity) {
-        getLog().debug("In Rest Service PUT /hyperiot/hprojectalgorithms \n Body: {}", entity);
+        getLog().debug("In Rest Service PUT /hyperiot/hprojects/algorithms \n Body: {}", entity);
         return this.update(entity);
     }
 
@@ -164,14 +160,14 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/hprojectalgorithms/{id}", notes = "Service for deleting a hprojectalgorithm entity", httpMethod = "DELETE", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/hprojects/algorithms/{id}", notes = "Service for deleting a hprojectalgorithm entity", httpMethod = "DELETE", consumes = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Entity not found")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response deleteHProjectAlgorithm(
             @ApiParam(value = "The hprojectalgorithm id which must be deleted", required = true) @PathParam("id") long id) {
-        getLog().debug("In Rest Service DELETE /hyperiot/hprojectalgorithms/{}", id);
+        getLog().debug("In Rest Service DELETE /hyperiot/hprojects/algorithms/{}", id);
         return this.remove(id);
     }
 
@@ -184,13 +180,13 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/hprojectalgorithms/all", notes = "Service for finding all hprojectalgorithm entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/hprojects/algorithms/all", notes = "Service for finding all hprojectalgorithm entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findAllHProjectAlgorithm() {
-        getLog().debug("In Rest Service GET /hyperiot/hprojectalgorithms/");
+        getLog().debug("In Rest Service GET /hyperiot/hprojects/algorithms/");
         return this.findAll();
     }
 
@@ -202,13 +198,13 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/hprojectalgorithms", notes = "Service for finding all hprojectalgorithm entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/hprojects/algorithms", notes = "Service for finding all hprojectalgorithm entities", httpMethod = "GET", produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Internal error")})
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findAllHProjectAlgorithmPaginated(@QueryParam("delta") Integer delta, @QueryParam("page") Integer page) {
-        getLog().debug("In Rest Service GET /hyperiot/hprojectalgorithms/");
+        getLog().debug("In Rest Service GET /hyperiot/hprojects/algorithms/");
         return this.findAll(delta, page);
     }
 
@@ -219,10 +215,10 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
      * @return List of algorithms
      */
     @GET
-    @Path("/projects/{id}")
+    @Path("/project/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/hprojectalgorithms/projects/{id}", notes = "Return the list of algorithms which " +
+    @ApiOperation(value = "/hyperiot/hprojects/algorithms/project/{id}", notes = "Return the list of algorithms which " +
             "have been defined for project with given ID", httpMethod = "GET", produces = "application/json",
             authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
@@ -231,7 +227,7 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findByHProjectId(
             @ApiParam(value = "ID of the project", required = true) @PathParam("id") long id) {
-        getLog().debug("In Rest Service GET /hyperiot/hprojectalgorithms/projects/{}", id);
+        getLog().debug("In Rest Service GET /hyperiot/hprojects/algorithms/project/{}", id);
         try {
             return Response.ok().entity(entityService.findByHProjectId(getHyperIoTContext(), id)).build();
         } catch (Throwable e) {
@@ -247,10 +243,10 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
      * @return Response
      */
     @GET
-    @Path("/projects/{projectId}/algorithms/{hProjectAlgorithmId}")
+    @Path("/project/{projectId}/algorithm/{hProjectAlgorithmId}")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/hprojectalgorithms/projects/{projectId}/algorithms/{hProjectAlgorithmId}",
+    @ApiOperation(value = "/hyperiot/hprojects/algorithms/project/{projectId}/algorithm/{hProjectAlgorithmId}",
             notes = "Return outputs of algorithm which have been defined for a project", httpMethod = "GET",
             produces = "application/json", authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
@@ -261,7 +257,7 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
             @ApiParam(value = "ID of project", required = true) @PathParam("projectId") long projectId,
             @ApiParam(value = "ID of HProjectAlgorithm", required = true) @PathParam("hProjectAlgorithmId") long hProjectAlgorithmId,
             @QueryParam(value = "asRowResult") Boolean asRowResult) {
-        getLog().debug("In Rest Service GET /hyperiot/hprojectalgorithms/projects/{}/algorithms/{}",
+        getLog().debug("In Rest Service GET /hyperiot/hprojects/algorithms/project/{}/algorithm/{}",
                 projectId, hProjectAlgorithmId);
         try {
             HProjectAlgorithmHBaseResult result = hbaseApi.getAlgorithmOutputs(getHyperIoTContext(), projectId, hProjectAlgorithmId);
@@ -283,7 +279,7 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/hprojectalgorithms/{hProjectAlgorithmId}/config", notes = "Service to update " +
+    @ApiOperation(value = "/hyperiot/hprojects/algorithms/{hProjectAlgorithmId}/config", notes = "Service to update " +
             "configuration of HProjectAlgorithm", httpMethod = "POST", produces = "application/json",
             authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation"),
@@ -294,7 +290,7 @@ public class HProjectAlgorithmRestApi extends HyperIoTBaseEntityRestApi<HProject
             @ApiParam(value = "HProjectAlgorithm ID whose update configuration", required = true)
             @PathParam("hProjectAlgorithmId") long hProjectAlgorithmId,
             @ApiParam(value = "Base config", required = true) HProjectAlgorithmConfig config) {
-        getLog().debug("In Rest Service GET /hyperiot/hprojectalgorithms/{}/config", hProjectAlgorithmId);
+        getLog().debug("In Rest Service GET /hyperiot/hprojects/algorithms/{}/config", hProjectAlgorithmId);
         try {
             HProjectAlgorithm response = entityService.updateConfig(getHyperIoTContext(), hProjectAlgorithmId, config);
             return Response.ok(response).build();
