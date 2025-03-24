@@ -453,7 +453,7 @@ public class HyperIoTTopologyBuilder implements StormTopologyBuilder {
         AvroGenericRecordBolt avroGenericRecordBolt = new AvroGenericRecordBolt();
         HyperIoTFileNameFormat defaultFileNameFormat = new HyperIoTFileNameFormat().withPath((String) props.get("hdfs.write.dir")).withExtension(".avro");
         FileSizeRotationPolicy fileSizeRotationPolicy = new FileSizeRotationPolicy(1, FileSizeRotationPolicy.Units.GB);
-        CountSyncPolicy countSyncPolicy = new CountSyncPolicy(10);
+        CountSyncPolicy countSyncPolicy = new CountSyncPolicy(1);
         //Omit this configuration to override default.
         //avroGenericRecordBolt.withConfigKey("hdfs.config-1");
         avroGenericRecordBolt.withFileNameFormat(defaultFileNameFormat);
