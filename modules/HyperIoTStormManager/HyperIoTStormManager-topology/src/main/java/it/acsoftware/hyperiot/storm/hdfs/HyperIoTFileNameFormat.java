@@ -37,7 +37,7 @@ public class HyperIoTFileNameFormat implements FileNameFormat {
     }
 
     public String getName(long rotation, long timeStamp) {
-        return this.prefix + this.componentId + "-" + this.taskId + "-" + rotation + this.extension;
+        return this.prefix + this.componentId + "-" + this.taskId + "-" + System.currentTimeMillis() + "-" + rotation + this.extension;
     }
 
     public String getPath() {
