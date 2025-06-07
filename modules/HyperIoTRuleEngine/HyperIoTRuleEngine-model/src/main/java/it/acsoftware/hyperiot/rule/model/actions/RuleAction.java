@@ -179,4 +179,8 @@ public abstract class RuleAction {
         // add sendMail action to the rule actions list
         return "actions.add(\"" + data + "\")";
     }
+
+    public boolean validate(){
+        return true;
+    }
 }

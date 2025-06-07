@@ -28,6 +28,11 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:project.jacksonVersion
 	// Avro
 	implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+	//EvalEX for big math expression
+	implementation group: "com.ezylang", name:"EvalEx", version:"3.5.0"
+	implementation group: "com.ezylang", name:"EvalEx-big-math", version:"1.0.1"
+	includeInJar group: "com.ezylang", name:"EvalEx", version:"3.5.0"
+	includeInJar group: "com.ezylang", name:"EvalEx-big-math", version:"1.0.1"
 
 	//HyperIoTBase Dependencies
 	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion

@@ -53,6 +53,7 @@ public class RuleDroolsBuilder {
                 .append("import it.acsoftware.hyperiot.rule.model.facts.LastReceivedPacket;\n")
                 .append("import it.acsoftware.hyperiot.rule.model.facts.FiredRule;\n")
                 .append("import it.acsoftware.hyperiot.rule.service.actions.FourierTransformRuleAction;\n")
+                .append("import it.acsoftware.hyperiot.rule.service.actions.ComputeFieldRuleAction;\n")
                 .append("import java.time.Instant;\n")
                 .append("import java.time.LocalDate;\n")
                 .append("import java.time.LocalDateTime;\n")
