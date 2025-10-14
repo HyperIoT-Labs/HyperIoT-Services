@@ -13,7 +13,7 @@ dependencies {
 	// Project dependencies
 	implementation project(":modules:HyperIoTStormManager:HyperIoTStormManager-api")
 	implementation group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVersion
-
+	implementation project(":modules:HyperIoTStormManager:HyperIoTStormManager-topology")
 	//Allows to bnd plugin to find right version of storm core,flux,hdfs and hbase
 	resource project(":modules:HyperIoTStormManager:HyperIoTStormManager-topology")
 

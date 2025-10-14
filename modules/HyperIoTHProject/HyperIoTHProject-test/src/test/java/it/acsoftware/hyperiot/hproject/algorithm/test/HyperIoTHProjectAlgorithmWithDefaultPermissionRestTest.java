@@ -897,7 +897,7 @@ public class HyperIoTHProjectAlgorithmWithDefaultPermissionRestTest extends Kara
         Assert.assertNotEquals(0, hProjectAlgorithm.getProject().getId());
         impersonateUser(hProjectAlgorithmRestService, huser);
         forceAlgorithmTableCreation(hProjectAlgorithm);
-        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(), hProjectAlgorithm.getId());
+        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(), hProjectAlgorithm.getId(),true);
         Assert.assertEquals(200, restResponse.getStatus());
         Assert.assertNotNull(restResponse.getEntity());
         Assert.assertTrue(((HProjectAlgorithmHBaseResult) restResponse.getEntity()).getRows().isEmpty());
@@ -920,7 +920,7 @@ public class HyperIoTHProjectAlgorithmWithDefaultPermissionRestTest extends Kara
         Assert.assertNotEquals(project.getUser().getId(), huser2.getId());
         Assert.assertFalse(userIsInHProjectSharingUserList(project, huser2));
         impersonateUser(hProjectAlgorithmRestService, huser2);
-        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(), hProjectAlgorithm.getId());
+        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(), hProjectAlgorithm.getId(),true);
         Assert.assertEquals(403, restResponse.getStatus());
         Assert.assertEquals(((HyperIoTBaseError) restResponse.getEntity()).getType(), hyperIoTException + "HyperIoTUnauthorizedException");
     }
@@ -943,7 +943,7 @@ public class HyperIoTHProjectAlgorithmWithDefaultPermissionRestTest extends Kara
         Assert.assertNotEquals(project.getUser().getId(), huser2.getId());
         Assert.assertTrue(userIsInHProjectSharingUserList(project, huser2));
         impersonateUser(hProjectAlgorithmRestService, huser2);
-        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(), hProjectAlgorithm.getId());
+        Response restResponse = hProjectAlgorithmRestService.getAlgorithmOutputs(hProjectAlgorithm.getProject().getId(), hProjectAlgorithm.getId(),true);
         Assert.assertEquals(200, restResponse.getStatus());
         Assert.assertNotNull(restResponse.getEntity());
         Assert.assertTrue(((HProjectAlgorithmHBaseResult) restResponse.getEntity()).getRows().isEmpty());
