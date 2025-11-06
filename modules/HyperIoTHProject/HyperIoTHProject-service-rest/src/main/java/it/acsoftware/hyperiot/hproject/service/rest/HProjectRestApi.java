@@ -27,6 +27,7 @@ import it.acsoftware.hyperiot.area.model.AreaDevice;
 import it.acsoftware.hyperiot.area.model.HProjectExportAreaDeviceMixin;
 import it.acsoftware.hyperiot.area.model.HProjectExportAreaMixin;
 import it.acsoftware.hyperiot.base.api.HyperIoTContext;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.exception.HyperIoTRuntimeException;
 import it.acsoftware.hyperiot.base.exception.HyperIoTValidationException;
 import it.acsoftware.hyperiot.base.model.HyperIoTAbstractEntity;
@@ -64,15 +65,11 @@ import java.util.regex.Pattern;
  */
 @SwaggerDefinition(basePath = "/hprojects", info = @Info(description = "HyperIoT HProject API", version = "2.0.0", title = "HyperIoT HProject", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
         @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
-@Api(value = "/hprojects", produces = "application/json")
+@Api(tags = "HProject", value = "/hprojects", produces = "application/json")
 @Produces(MediaType.APPLICATION_JSON)
-@Component(service = HProjectRestApi.class, property = {
-        "service.exported.interfaces=it.acsoftware.hyperiot.hproject.service.rest.HProjectRestApi",
-        "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/hprojects",
-        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-        "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"}, immediate = true)
-@Path("")
-public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> {
+@Component(service = HyperIoTRestService.class, immediate = true)
+@Path("/hprojects")
+public class HProjectRestApi extends HyperIoTBaseEntityRestApi<HProject> implements HyperIoTRestService {
     private HProjectApi entityService;
     private HProjectHBaseApi hProjectHBaseApi;
     private HProjectHadoopApi hProjectHadoopApi;

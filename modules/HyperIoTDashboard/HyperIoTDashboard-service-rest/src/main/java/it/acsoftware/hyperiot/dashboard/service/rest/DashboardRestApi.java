@@ -20,6 +20,7 @@ package it.acsoftware.hyperiot.dashboard.service.rest;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.*;
 import io.swagger.annotations.ApiKeyAuthDefinition.ApiKeyLocation;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
 import it.acsoftware.hyperiot.base.security.rest.LoggedIn;
@@ -41,15 +42,11 @@ import java.util.HashMap;
  */
 @SwaggerDefinition(basePath = "/dashboards", info = @Info(description = "HyperIoT Dashboard API", version = "2.0.0", title = "HyperIoT Dashboard", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
         @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
-@Api(value = "/dashboards", produces = "application/json")
+@Api(tags = "Dashboards", value = "/dashboards", produces = "application/json")
 @Produces(MediaType.APPLICATION_JSON)
-@Component(service = DashboardRestApi.class, property = {
-        "service.exported.interfaces=it.acsoftware.hyperiot.dashboard.service.rest.DashboardRestApi",
-        "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/dashboards",
-        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-        "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"}, immediate = true)
-@Path("")
-public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
+@Component(service = HyperIoTRestService.class, immediate = true)
+@Path("/dashboards")
+public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> implements HyperIoTRestService {
     private DashboardApi entityService;
 
     /**
@@ -61,7 +58,7 @@ public class DashboardRestApi extends HyperIoTBaseEntityRestApi<Dashboard> {
     @Path("/module/status")
     @ApiOperation(value = "/module/status", notes = "Simple service for checking module status", httpMethod = "GET")
     public Response checkModuleWorking() {
-        getLog().debug("In Rest Service GET /hyperiot/dashboard/module/status");
+        getLog().debug("In Rest Service GET /hyperiot/dashboards/module/status");
         return Response.ok("Dashboard Module works!").build();
     }
 

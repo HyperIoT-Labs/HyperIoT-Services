@@ -9,7 +9,7 @@ dependencies {
 	implementation group: "org.apache.cxf" ,name: "cxf-rt-rs-service-description-swagger",version: project.cxfVersion
 	//Hibernate
     implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
-	implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+	implementation group: 'org.javassist', name: 'javassist', version: project.javassistVersion
 	implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
 	//Validation
 	implementation group: "javax.validation", name: "validation-api",version:project.javaxValidationVersion

@@ -24,6 +24,7 @@ import io.swagger.annotations.ApiKeyAuthDefinition.ApiKeyLocation;
 import it.acsoftware.hyperiot.algorithm.api.AlgorithmApi;
 import it.acsoftware.hyperiot.algorithm.api.AlgorithmUtil;
 import it.acsoftware.hyperiot.algorithm.model.*;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
 import it.acsoftware.hyperiot.base.exception.HyperIoTRuntimeException;
 import it.acsoftware.hyperiot.base.exception.HyperIoTValidationException;
@@ -46,16 +47,11 @@ import java.util.HashMap;
  */
 @SwaggerDefinition(basePath = "/algorithms", info = @Info(description = "HyperIoT Algorithm API", version = "2.0.0", title = "hyperiot Algorithm", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
         @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
-@Api(value = "/algorithms", produces = "application/json")
+@Api(tags = "Algorithm", value = "/algorithms", produces = "application/json")
 @Produces(MediaType.APPLICATION_JSON)
-@Component(service = AlgorithmRestApi.class, property = {
-        "service.exported.interfaces=it.acsoftware.hyperiot.algorithm.service.rest.AlgorithmRestApi",
-        "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/algorithms",
-        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-        "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"
-}, immediate = true)
-@Path("")
-public class AlgorithmRestApi extends HyperIoTBaseEntityRestApi<Algorithm> {
+@Component(service = HyperIoTRestService.class, immediate = true)
+@Path("/algorithms")
+public class AlgorithmRestApi extends HyperIoTBaseEntityRestApi<Algorithm> implements HyperIoTRestService {
     private AlgorithmApi entityService;
 
     private AlgorithmUtil algorithmUtil;

@@ -12,7 +12,7 @@ dependencies {
 	implementation group: "org.osgi", name:  "osgi.cmpn", version: project.osgiCompendiumVersion
 	//JPA Dependenc ies
 	implementation group: 'org.hibernate', name: 'hibernate-core', version: project.hibernateVersion
-	implementation group: 'org.javassist', name: 'javassist', version: project.hibernateJavassistVersion
+	implementation group: 'org.javassist', name: 'javassist', version: project.javassistVersion
 	implementation group: "javax.transaction", name: "javax.transaction-api",version: project.javaxTransactionVersion
 	implementation group: "org.apache.aries.jpa", name: "org.apache.aries.jpa.api", version: project.apacheAriesJpaVersion
 	implementation group: "org.hibernate.javax.persistence", name: "hibernate-jpa-2.1-api",version: project.hibernateJpaApiVersion
@@ -28,6 +28,11 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:project.jacksonVersion
 	// Avro
 	implementation group: "org.apache.avro", name: "avro", version: project.apacheAvroVersion
+	//EvalEX for big math expression
+	implementation group: "com.ezylang", name:"EvalEx", version:"3.5.0"
+	implementation group: "com.ezylang", name:"EvalEx-big-math", version:"1.0.1"
+	includeInJar group: "com.ezylang", name:"EvalEx", version:"3.5.0"
+	includeInJar group: "com.ezylang", name:"EvalEx-big-math", version:"1.0.1"
 
 	//HyperIoTBase Dependencies
 	implementation group: "it.acsoftware.hyperiot.base", name: "HyperIoTBase-api", version:project.hyperIoTVersion

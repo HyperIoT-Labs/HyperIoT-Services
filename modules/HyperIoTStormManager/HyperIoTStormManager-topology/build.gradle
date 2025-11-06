@@ -89,16 +89,6 @@ jar {
 }
 
 publishing {
-    repositories {
-        maven {
-            credentials {
-                username project.publishRepoUsername
-                password project.publishRepoPassword
-            }
-            name = 'ACSoftwareRepository'
-            url = project.publishRepoUrl
-        }
-    }
     publications {
         hyperiot(MavenPublication) {
             from components.java

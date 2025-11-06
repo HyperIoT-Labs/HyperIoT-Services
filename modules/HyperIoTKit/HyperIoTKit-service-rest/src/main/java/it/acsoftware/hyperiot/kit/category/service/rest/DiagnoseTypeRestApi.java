@@ -19,6 +19,7 @@ package it.acsoftware.hyperiot.kit.category.service.rest;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.*;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
 import it.acsoftware.hyperiot.base.security.rest.LoggedIn;
@@ -34,18 +35,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
-@SwaggerDefinition(basePath = "/diagnosetypes", info = @Info(description = "HyperIoT DiagnoseType API", version = "2.0.0", title = "HyperIoT DiagnoseType", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")),securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
+@SwaggerDefinition(basePath = "/diagnose/type", info = @Info(description = "HyperIoT DiagnoseType API", version = "2.0.0", title = "HyperIoT DiagnoseType", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")),securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
         @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyAuthDefinition.ApiKeyLocation.HEADER)}))
-@Api(value = "/diagnosetypes", produces = "application/json")
+@Api(tags = "Diagnose Type", value = "/diagnose/type", produces = "application/json")
 @Produces(MediaType.APPLICATION_JSON)
-@Component(service = DiagnoseTypeRestApi.class, property = {
-        "service.exported.interfaces=it.acsoftware.hyperiot.kit.category.service.rest.DiagnoseTypeRestApi",
-        "service.exported.configs=org.apache.cxf.rs","org.apache.cxf.rs.address=/diagnosetypes",
-        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-        "service.exported.intents=swagger","service.exported.intents=exceptionmapper"
-}, immediate = true)
+@Component(service = HyperIoTRestService.class, immediate = true)
 @Path("")
-public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType> {
+public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType> implements HyperIoTRestService {
 
     private DiagnoseTypeApi entityService ;
 
@@ -93,13 +89,13 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/diagnosetypes/{id}", notes = "Service for finding DiagnoseType", httpMethod = "GET", produces = "application/json",authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/diagnose/type/{id}", notes = "Service for finding DiagnoseType", httpMethod = "GET", produces = "application/json",authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Entity not found") })
     @JsonView(HyperIoTJSONView.Public.class)
     public Response findDiagnoseType(@PathParam("id") long id) {
-        getLog().debug("In Rest Service GET /hyperiot/diagnosetypes/{}" , id);
+        getLog().debug("In Rest Service GET /hyperiot/diagnose/type/{}" , id);
         return this.find(id);
     }
 
@@ -113,7 +109,7 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/diagnosetypes", notes = "Service for adding a new DiagnoseType entity", httpMethod = "POST", produces = "application/json", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/diagnose/type", notes = "Service for adding a new DiagnoseType entity", httpMethod = "POST", produces = "application/json", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 422, message = "Not validated"),
@@ -121,7 +117,7 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     @JsonView(HyperIoTJSONView.Public.class)
     public Response saveDiagnoseType(
             @ApiParam(value = "DiagnoseType entity which must be saved ", required = true) DiagnoseType entity) {
-        getLog().debug("In Rest Service POST /hyperiot/diagnosetypes \n Body: {}" , entity);
+        getLog().debug("In Rest Service POST /hyperiot/diagnose/type \n Body: {}" , entity);
         return this.save(entity);
     }
 
@@ -135,14 +131,14 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/diagnosetypes/{id}", notes = "Service for deleting an DiagnoseType entity", httpMethod = "DELETE", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/diagnose/type/{id}", notes = "Service for deleting an DiagnoseType entity", httpMethod = "DELETE", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 500, message = "Entity not found") })
     @JsonView(HyperIoTJSONView.Public.class)
     public Response deleteDiagnoseType(
             @ApiParam(value = "The DiagnoseType id which must be deleted", required = true) @PathParam("id") long id) {
-        getLog().debug("In Rest Service DELETE /hyperiot/diagnosetypes/{}" , id);
+        getLog().debug("In Rest Service DELETE /hyperiot/diagnose/type/{}" , id);
         return this.remove(id);
     }
 
@@ -158,7 +154,7 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/diagnosetypes/{diagnoseTypeId}/kits/{kitId}", notes = "Service for adding a kit on DiagnoseType's category", httpMethod = "POST", produces = "application/json", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/diagnose/type/{diagnoseTypeId}/kits/{kitId}", notes = "Service for adding a kit on DiagnoseType's category", httpMethod = "POST", produces = "application/json", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 422, message = "Not validated"),
@@ -167,7 +163,7 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     public Response addKitToDiagnoseTypeCategory(
             @PathParam("diagnoseTypeId") long diagnoseTypeId ,
             @PathParam("kitId") long kitId) {
-        getLog().debug("In Rest Service POST /hyperiot/diagnosetypes/{}/kits/{} " , diagnoseTypeId,kitId);
+        getLog().debug("In Rest Service POST /hyperiot/diagnose/type/{}/kits/{} " , diagnoseTypeId,kitId);
         try {
             DiagnoseType diagnoseType = entityService.addKitToDiagnoseTypeCategory(getHyperIoTContext(),diagnoseTypeId,kitId);
             return Response.ok(diagnoseType).build();
@@ -188,7 +184,7 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/diagnosetypes/{diagnoseTypeId}/kits/{kitId}", notes = "Service for deleting a building from ALE's category", httpMethod = "DELETE", produces = "application/json", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/diagnose/type/{diagnoseTypeId}/kits/{kitId}", notes = "Service for deleting a building from ALE's category", httpMethod = "DELETE", produces = "application/json", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 422, message = "Not validated"),
@@ -197,7 +193,7 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     public Response deleteKitFromDiagnoseTypeCategory(
             @PathParam("diagnoseTypeId") long diagnoseTypeId ,
             @PathParam("kitId") long kitId) {
-        getLog().debug("In Rest Service DELETE /hyperiot/diagnosetypes/{}/kits/{} " , diagnoseTypeId,kitId);
+        getLog().debug("In Rest Service DELETE /hyperiot/diagnose/type/{}/kits/{} " , diagnoseTypeId,kitId);
         try {
             entityService.removeKitFromDiagnoseTypeCategory(getHyperIoTContext(),diagnoseTypeId,kitId);
             return Response.ok().build();
@@ -217,7 +213,7 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/diagnosetypes/{id}/kits", notes = "Service for find Kits relative to a DiagnoseType ", httpMethod = "GET", produces = "application/json", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/diagnose/types/{id}/kits", notes = "Service for find Kits relative to a DiagnoseType ", httpMethod = "GET", produces = "application/json", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 422, message = "Not validated"),
@@ -225,7 +221,7 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     @JsonView(HyperIoTJSONView.Public.class)
     public Response getKitsFromDiagnoseType(
             @PathParam("id") long id ) {
-        getLog().debug("In Rest Service GET /hyperiot/diagnosetypes/{}/kits " , id);
+        getLog().debug("In Rest Service GET /hyperiot/diagnose/type/{}/kits " , id);
         try {
             Collection<Kit> diagnoseTypeKits = entityService.getKitByDiagnoseTypeCategory(getHyperIoTContext(),id);
             return Response.ok(diagnoseTypeKits).build();
@@ -245,7 +241,7 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @LoggedIn
-    @ApiOperation(value = "/hyperiot/diagnosetypes/kits/{kitId}/all", notes = "Service find DiagnoseType associated to a Kit", httpMethod = "GET", produces = "application/json", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
+    @ApiOperation(value = "/hyperiot/diagnose/type/kits/{kitId}/all", notes = "Service find DiagnoseType associated to a Kit", httpMethod = "GET", produces = "application/json", consumes = "application/json",authorizations = @Authorization("jwt-auth"))
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful operation"),
             @ApiResponse(code = 403, message = "Not authorized"),
             @ApiResponse(code = 422, message = "Not validated"),
@@ -253,7 +249,7 @@ public class DiagnoseTypeRestApi extends HyperIoTBaseEntityRestApi<DiagnoseType>
     @JsonView(HyperIoTJSONView.Public.class)
     public Response getDiagnoseTypeFromKit(
             @PathParam("kitId") long kitId ) {
-        getLog().debug("In Rest Service GET /hyperiot/diagnosetypes/kits/{}/all " , kitId);
+        getLog().debug("In Rest Service GET /hyperiot/diagnose/type/kits/{}/all " , kitId);
         try {
             Collection<DiagnoseType> kitDiagnoseTypes = entityService.getDiagnoseTypeByKit(getHyperIoTContext(),kitId);
             return Response.ok(kitDiagnoseTypes).build();

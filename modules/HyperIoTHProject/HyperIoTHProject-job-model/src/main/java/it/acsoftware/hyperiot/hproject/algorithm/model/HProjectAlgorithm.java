@@ -17,51 +17,48 @@
 
 package it.acsoftware.hyperiot.hproject.algorithm.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.acsoftware.hyperiot.algorithm.api.AlgorithmUtil;
+import it.acsoftware.hyperiot.algorithm.model.Algorithm;
 import it.acsoftware.hyperiot.base.api.HyperIoTOwnedChildResource;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntity;
+import it.acsoftware.hyperiot.base.api.entity.HyperIoTProtectedEntity;
 import it.acsoftware.hyperiot.base.exception.HyperIoTRuntimeException;
+import it.acsoftware.hyperiot.base.model.HyperIoTAbstractEntity;
 import it.acsoftware.hyperiot.base.model.HyperIoTInnerEntityJSONSerializer;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
 import it.acsoftware.hyperiot.base.util.HyperIoTUtil;
-import it.acsoftware.hyperiot.base.validation.Pattern;
-import it.acsoftware.hyperiot.hproject.model.HProjectJSONView;
-import it.acsoftware.hyperiot.jobscheduler.api.HyperIoTJob;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import it.acsoftware.hyperiot.algorithm.model.Algorithm;
-import it.acsoftware.hyperiot.base.api.entity.HyperIoTProtectedEntity;
-import it.acsoftware.hyperiot.base.model.HyperIoTAbstractEntity;
 import it.acsoftware.hyperiot.base.validation.NoMalitiusCode;
 import it.acsoftware.hyperiot.base.validation.NotNullOnPersist;
+import it.acsoftware.hyperiot.base.validation.Pattern;
 import it.acsoftware.hyperiot.hproject.model.HProject;
-
+import it.acsoftware.hyperiot.hproject.model.HProjectJSONView;
+import it.acsoftware.hyperiot.jobscheduler.api.HyperIoTJob;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
-
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 
 import static org.quartz.JobBuilder.newJob;
 
 /**
  * This class maps relationship between HProject and Algorithm. It is a particular instance of an Algorithm, which
  * is scheduled for a HProject.
- * @author Aristide Cittadino Model class for HProjectAlgorithm of HyperIoT platform. This
- *         class is used to map HProjectAlgorithm with the database.
  *
+ * @author Aristide Cittadino Model class for HProjectAlgorithm of HyperIoT platform. This
+ * class is used to map HProjectAlgorithm with the database.
  */
 
 @Entity
@@ -75,7 +72,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
     private static final String PROJECT_KEY = "projectId";
     private static final String NAME_KEY = "name";
     private static final String VALID_NAME_REGEX = "[A-Za-z0-9][ .A-Za-z0-9_-]*";
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Public.class})
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Public.class})
     private String name;
 
     /**
@@ -92,20 +89,26 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
     /**
      * Configuration of Algorithm
      */
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Public.class})
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Public.class})
     private String config;
 
     /**
      * Implementation of org.quartz.Job interface
      */
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Public.class})
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Public.class})
     String className;
 
     /**
      * Job cron expression
      */
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Public.class})
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Public.class})
     private String cronExpression;
+
+    /**
+     * Timezone
+     */
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Public.class})
+    private String timezoneId;
 
     /**
      * This object contains detail of job, i.e. id, parameters and org.quartz.Job implementation
@@ -115,7 +118,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
     /**
      * Job parameters
      */
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Public.class})
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Public.class})
     private Map<String, Object> jobParams;
 
     /**
@@ -126,7 +129,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
     /**
      * If algorithm must be scheduled or not
      */
-    @JsonView({HProjectJSONView.Export.class,HyperIoTJSONView.Public.class})
+    @JsonView({HProjectJSONView.Export.class, HyperIoTJSONView.Public.class})
     private boolean active;
 
     public HProjectAlgorithm() {
@@ -139,7 +142,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
     @NotEmpty
     @NoMalitiusCode
     @Pattern(regexp = VALID_NAME_REGEX)
-    @Size( max = 255)
+    @Size(max = 255)
     public String getName() {
         return name;
     }
@@ -169,6 +172,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
 
     /**
      * Get Algorithm
+     *
      * @return algorithm
      */
     @ManyToOne(targetEntity = Algorithm.class)
@@ -180,6 +184,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
 
     /**
      * Set algorithm
+     *
      * @param algorithm algorithm
      */
     public void setAlgorithm(Algorithm algorithm) {
@@ -194,6 +199,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
 
     /**
      * Get configuration of algorithm for this hProject
+     *
      * @return configuration of algorithm
      */
     @NoMalitiusCode
@@ -206,6 +212,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
 
     /**
      * Set configuration of algorithm
+     *
      * @param config configuration of algorithm
      */
     public void setConfig(String config) {
@@ -215,6 +222,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
 
     /**
      * Get implementation class name of org.quartz.Job interface
+     *
      * @return className
      */
     @NoMalitiusCode
@@ -233,23 +241,38 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
 
     /**
      * Get cron expression
+     *
      * @return cron expression
      */
     @NoMalitiusCode
     @NotNullOnPersist
     @NotEmpty
-    @Size( max = 255)
+    @Size(max = 255)
     public String getCronExpression() {
         return cronExpression;
     }
 
     /**
      * Set cron expression
+     *
      * @param cronExpression cron expression
      */
     public void setCronExpression(String cronExpression) {
         this.cronExpression = cronExpression;
         jobParams.put(CRON_EXPRESSION_KEY, cronExpression);
+    }
+
+    @NoMalitiusCode
+    @NotNullOnPersist
+    @NotEmpty
+    @Size(max = 255)
+    @Override
+    public String getTimezoneId() {
+        return timezoneId;
+    }
+
+    public void setTimezoneId(String timezoneId) {
+        this.timezoneId = timezoneId;
     }
 
     @Override
@@ -261,6 +284,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
 
     /**
      * It returns job key
+     *
      * @return job key
      */
     @Override
@@ -272,6 +296,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
 
     /**
      * Get job parameters
+     *
      * @return job parameters
      */
     @Override
@@ -292,6 +317,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
 
     /**
      * Set job parameters
+     *
      * @param jobParams job parameters
      */
     public void setJobParams(Map<String, Object> jobParams) {
@@ -328,7 +354,7 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
         try {
             jobClass = (Class<? extends Job>) Class.forName(className);
         } catch (ClassNotFoundException e) {
-            LOGGER.error( "Could not load job configuration: {}", e);
+            LOGGER.error("Could not load job configuration: {}", e);
             return;
         }
         jobDetail = newJob(jobClass)
@@ -395,10 +421,10 @@ public class HProjectAlgorithm extends HyperIoTAbstractEntity implements HyperIo
 
     @Transient
     @JsonIgnore
-    private AlgorithmUtil getAlgorithmUtilFromOsgi(){
+    private AlgorithmUtil getAlgorithmUtilFromOsgi() {
         BundleContext ctx = HyperIoTUtil.getBundleContext(this.getClass());
         ServiceReference<AlgorithmUtil> ref = ctx.getServiceReference(AlgorithmUtil.class);
-        if(ref != null)
+        if (ref != null)
             return ctx.getService(ref);
         throw new HyperIoTRuntimeException("Impossibile to retrieve AlgorithmUtil check installed bundles!");
     }

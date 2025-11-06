@@ -20,6 +20,7 @@ package it.acsoftware.hyperiot.rule.service.rest;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.*;
 import io.swagger.annotations.ApiKeyAuthDefinition.ApiKeyLocation;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.api.entity.HyperIoTBaseEntityApi;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
 import it.acsoftware.hyperiot.base.security.rest.LoggedIn;
@@ -39,15 +40,11 @@ import javax.ws.rs.core.Response;
  */
 @SwaggerDefinition(basePath = "/rules", info = @Info(description = "HyperIoT Rule API", version = "2.0.0", title = "HyperIoT Rule", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
         @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
-@Api(value = "/rules", produces = "application/json")
+@Api(tags = "Rule Engine", value = "/rules", produces = "application/json")
 @Produces(MediaType.APPLICATION_JSON)
-@Component(service = RuleEngineRestApi.class, property = {
-        "service.exported.interfaces=it.acsoftware.hyperiot.rule.service.rest.RuleEngineRestApi",
-        "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/rules",
-        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-        "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"}, immediate = true)
-@Path("")
-public class RuleEngineRestApi extends HyperIoTBaseEntityRestApi<Rule> {
+@Component(service = HyperIoTRestService.class, immediate = true)
+@Path("/rules")
+public class RuleEngineRestApi extends HyperIoTBaseEntityRestApi<Rule> implements HyperIoTRestService {
     private RuleEngineApi entityService;
 
     /**

@@ -25,6 +25,7 @@ import it.acsoftware.hyperiot.area.api.AreaApi;
 import it.acsoftware.hyperiot.area.model.Area;
 import it.acsoftware.hyperiot.area.model.AreaDevice;
 import it.acsoftware.hyperiot.area.model.AreaViewType;
+import it.acsoftware.hyperiot.base.api.HyperIoTRestService;
 import it.acsoftware.hyperiot.base.exception.HyperIoTRuntimeException;
 import it.acsoftware.hyperiot.base.model.HyperIoTBaseError;
 import it.acsoftware.hyperiot.base.model.HyperIoTJSONView;
@@ -51,15 +52,11 @@ import java.util.Arrays;
  */
 @SwaggerDefinition(basePath = "/areas", info = @Info(description = "HyperIoT Area API", version = "2.0.0", title = "HyperIoT Area", contact = @Contact(name = "ACSoftware.it", email = "users@acsoftware.it")), securityDefinition = @SecurityDefinition(apiKeyAuthDefinitions = {
         @ApiKeyAuthDefinition(key = "jwt-auth", name = "AUTHORIZATION", in = ApiKeyLocation.HEADER)}))
-@Api(value = "/areas", produces = "application/json")
+@Api(tags = "Area ", value = "/areas", produces = "application/json")
 @Produces(MediaType.APPLICATION_JSON)
-@Component(service = AreaRestApi.class, property = {
-        "service.exported.interfaces=it.acsoftware.hyperiot.area.service.rest.AreaRestApi",
-        "service.exported.configs=org.apache.cxf.rs", "org.apache.cxf.rs.address=/areas",
-        "service.exported.intents=jackson", "service.exported.intents=jwtAuthFilter",
-        "service.exported.intents=swagger", "service.exported.intents=exceptionmapper"}, immediate = true)
-@Path("")
-public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> {
+@Component(service = HyperIoTRestService.class, immediate = true)
+@Path("/areas")
+public class AreaRestApi extends HyperIoTBaseEntityRestApi<Area> implements HyperIoTRestService {
     private static Logger log = LoggerFactory.getLogger(AreaRestApi.class);
     private AreaApi entityService;
 

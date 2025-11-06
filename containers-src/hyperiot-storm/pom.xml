@@ -422,6 +422,17 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- for expression evaluation -->
+        <dependency>
+            <groupId>com.ezylang</groupId>
+            <artifactId>EvalEx</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ezylang</groupId>
+            <artifactId>EvalEx-big-math</artifactId>
+            <version>1.0.1</version>
+        </dependency>
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>

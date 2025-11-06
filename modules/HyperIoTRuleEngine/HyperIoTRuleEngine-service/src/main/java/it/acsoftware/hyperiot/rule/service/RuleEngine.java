@@ -73,7 +73,7 @@ public class RuleEngine {
             resources.add(ruleResource);
         }
         this.session = getKieSession(resources);
-        logger.info("Current kie session instance is {} and hashcode : {} ", this.session, this.session.hashCode());
+        logger.debug("Current kie session instance is {} and hashcode : {} ", this.session, this.session.hashCode());
         this.session.setGlobal("actions", new ArrayList<String>());
         packetsFacts = new HashMap<>();
         lastReceivedPacketsFacts = new HashMap<>();
@@ -99,14 +99,14 @@ public class RuleEngine {
                 //force re-evaluation of rules after 5 seconds in order to support
                 //timed rules for example data must be sent in x seconds
                 if (System.currentTimeMillis() - lastRun >= FORCE_RULE_REFRESH_INTERVAL_SECONDS * 1000) {
-                    logger.info("Forcing rules evaluation after {} seconds of inactivity", FORCE_RULE_REFRESH_INTERVAL_SECONDS);
+                    logger.debug("Forcing rules evaluation after {} seconds of inactivity", FORCE_RULE_REFRESH_INTERVAL_SECONDS);
                     //just re-inserting last sent packets in order to re-evaluate rules where last sent packet is important
                     try {
                         lastReceivedPacketsFacts.keySet().stream().forEach(packetId -> {
                             LastReceivedPacket lastReceivedPacket = (LastReceivedPacket) this.session.getObject(lastReceivedPacketsFacts.get(packetId));
                             this.session.delete(lastReceivedPacketsFacts.get(packetId));
                             this.lastReceivedPacketsFacts.put(packetId, this.session.insert(lastReceivedPacket));
-                            logger.info("Updated last sent packets...");
+                            logger.debug("Updated last sent packets...");
                             //laoding last sent packet
                             HPacket packet = (HPacket) this.session.getObject(packetsFacts.get(packetId));
                             //checking with the arrival timestamp
@@ -154,7 +154,7 @@ public class RuleEngine {
             LastReceivedPacket previuosReceivedPacket = (LastReceivedPacket) this.session.getObject(lastReceivedPacketsFacts.get(packet.getId()));
             //if for some reason we are processing an old packet, we just exit
             if (lastReceivedPacket.getLastReceivedDateMillis() < previuosReceivedPacket.getLastReceivedDateMillis()) {
-                logger.info("Skipping packet rule evaluation since there's one newer");
+                logger.debug("Skipping packet rule evaluation since there's one newer");
                 return;
             }
             session.update(lastReceivedPacketsFacts.get(packet.getId()), lastReceivedPacket);

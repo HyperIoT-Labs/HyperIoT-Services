@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" name="HyperIoTAlgorithm-features">
-  <feature name="hyperiot-algorithm" version="2.5.0" description="All  HyperIoT HyperIoTAlgorithm modules">
+  <feature name="hyperiot-algorithm" version="2.6.0" description="All  HyperIoT HyperIoTAlgorithm modules">
     <feature>hyperiot-base</feature>
-    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-api/2.5.0</bundle>
-    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-model/2.5.0</bundle>
-    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-actions/2.5.0</bundle>
-    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-service/2.5.0</bundle>
-    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-repository/2.5.0</bundle>
-    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-util/2.5.0</bundle>
-    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-service-rest/2.5.0</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-api/2.6.0</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-model/2.6.0</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-actions/2.6.0</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-service/2.6.0</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-repository/2.6.0</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-util/2.6.0</bundle>
+    <bundle start-level="81">mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-service-rest/2.6.0</bundle>
   </feature>
-  <feature name="hyperiot-algorithm-basic" version="2.5.0" description="All  HyperIoT HyperIoTAlgorithm modules with NO rest services">
+  <feature name="hyperiot-algorithm-basic" version="2.6.0" description="All  HyperIoT HyperIoTAlgorithm modules with NO rest services">
     <feature>hyperiot-base-basic</feature>
-    <bundle>mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-api/2.5.0</bundle>
-    <bundle>mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-model/2.5.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-api/2.6.0</bundle>
+    <bundle>mvn:it.acsoftware.hyperiot.algorithm/HyperIoTAlgorithm-model/2.6.0</bundle>
   </feature>
 </features>
