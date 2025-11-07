@@ -1,4 +1,0 @@
-  zookeeper:
-    extends:
-      file: docker-compose-svil-basic.yml
-      service: zookeeper

@@ -1,6 +1,0 @@
-  kafka:
-    extends:
-      file: docker-compose-svil-basic.yml
-      service: kafka
-    depends_on:
-      - zookeeper
